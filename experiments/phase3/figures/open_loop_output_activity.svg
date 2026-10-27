@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="540" viewBox="0 0 1000 540">
+<rect width="100%" height="100%" fill="white"/>
+<text x="500" y="30" text-anchor="middle" font-family="sans-serif" font-size="20">Descending-population spikes by visual condition</text>
+<line x1="75" y1="440" x2="925" y2="440" stroke="black"/>
+<line x1="75" y1="60" x2="75" y2="440" stroke="black"/>
+<polyline fill="none" stroke="#6a3d9a" stroke-width="2" points="75.0,440.0 125.0,440.0 175.0,440.0 225.0,440.0 275.0,440.0 325.0,440.0 375.0,440.0 425.0,440.0 475.0,440.0 525.0,440.0 575.0,440.0 625.0,440.0 675.0,440.0 725.0,440.0 775.0,440.0 825.0,440.0 875.0,440.0 925.0,440.0"/>
+<polyline fill="none" stroke="#1f78b4" stroke-width="2" points="75.0,440.0 125.0,440.0 175.0,440.0 225.0,440.0 275.0,440.0 325.0,440.0 375.0,440.0 425.0,440.0 475.0,440.0 525.0,440.0 575.0,440.0 625.0,440.0 675.0,440.0 725.0,440.0 775.0,440.0 825.0,440.0 875.0,440.0 925.0,440.0"/>
+<polyline fill="none" stroke="#33a02c" stroke-width="2" points="75.0,440.0 125.0,440.0 175.0,440.0 225.0,440.0 275.0,440.0 325.0,440.0 375.0,440.0 425.0,440.0 475.0,440.0 525.0,440.0 575.0,440.0 625.0,440.0 675.0,440.0 725.0,440.0 775.0,440.0 825.0,440.0 875.0,440.0 925.0,440.0"/>
+<polyline fill="none" stroke="#ff7f00" stroke-width="2" points="75.0,440.0 125.0,440.0 175.0,440.0 225.0,440.0 275.0,440.0 325.0,440.0 375.0,440.0 425.0,440.0 475.0,440.0 525.0,440.0 575.0,440.0 625.0,440.0 675.0,440.0 725.0,440.0 775.0,440.0 825.0,440.0 875.0,440.0 925.0,440.0"/>
+<polyline fill="none" stroke="#e31a1c" stroke-width="2" points="75.0,440.0 125.0,440.0 175.0,440.0 225.0,440.0 275.0,440.0 325.0,440.0 375.0,440.0 425.0,440.0 475.0,440.0 525.0,440.0 575.0,440.0 625.0,440.0 675.0,440.0 725.0,440.0 775.0,440.0 825.0,440.0 875.0,440.0 925.0,440.0"/>
+<polyline fill="none" stroke="#666666" stroke-width="2" points="75.0,440.0 125.0,440.0 175.0,440.0 225.0,440.0 275.0,440.0 325.0,440.0 375.0,440.0 425.0,440.0 475.0,440.0 525.0,440.0 575.0,440.0 625.0,440.0 675.0,440.0 725.0,440.0 775.0,440.0 825.0,440.0 875.0,440.0 925.0,440.0"/>
+<line x1="95" y1="495" x2="120" y2="495" stroke="#6a3d9a" stroke-width="3"/>
+<text x="125" y="500" font-family="sans-serif" font-size="13">far_left</text>
+<line x1="240" y1="495" x2="265" y2="495" stroke="#1f78b4" stroke-width="3"/>
+<text x="270" y="500" font-family="sans-serif" font-size="13">left</text>
+<line x1="385" y1="495" x2="410" y2="495" stroke="#33a02c" stroke-width="3"/>
+<text x="415" y="500" font-family="sans-serif" font-size="13">center</text>
+<line x1="530" y1="495" x2="555" y2="495" stroke="#ff7f00" stroke-width="3"/>
+<text x="560" y="500" font-family="sans-serif" font-size="13">right</text>
+<line x1="675" y1="495" x2="700" y2="495" stroke="#e31a1c" stroke-width="3"/>
+<text x="705" y="500" font-family="sans-serif" font-size="13">far_right</text>
+<line x1="820" y1="495" x2="845" y2="495" stroke="#666666" stroke-width="3"/>
+<text x="850" y="500" font-family="sans-serif" font-size="13">not_visible</text>
+<text x="500" y="465" text-anchor="middle" font-family="sans-serif" font-size="14">Neural timestep</text>
+<text x="18" y="250" transform="rotate(-90 18 250)" text-anchor="middle" font-family="sans-serif" font-size="14">Active descending neurons</text>
+</svg>

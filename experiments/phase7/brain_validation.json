@@ -1,0 +1,157 @@
+{
+  "neuron_count": 139255,
+  "raw_edges": 19773733,
+  "retained_edges": 3732460,
+  "graph_sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d",
+  "graph_unchanged": true,
+  "all_cache_matches_exact": true,
+  "full_state_repeats_exact": true,
+  "workers": 3,
+  "elapsed_seconds": 5.388714099972276,
+  "windows": [
+    {
+      "sector": "center",
+      "features": [
+        1.0,
+        0.39466560728731565,
+        0.3729771838634042,
+        0.7676427911507199
+      ],
+      "exact_cache_match": true,
+      "peak_active": 947,
+      "integrated_digest": "b8137f6fbe31195f8d7968c944ea179e037ddee45c36afcf33e82dfa7ce18222"
+    },
+    {
+      "sector": "far_left",
+      "features": [
+        1.0,
+        0.688491660739528,
+        0.049685012031259246,
+        0.7381766727707872
+      ],
+      "exact_cache_match": true,
+      "peak_active": 971,
+      "integrated_digest": "3f4feae3d0778bb17880de8549cfb61d1a81c5f6b874f3fab3f26f43c867b93a"
+    },
+    {
+      "sector": "far_right",
+      "features": [
+        1.0,
+        0.040813406175511775,
+        0.7995838174357778,
+        0.8403972236112895
+      ],
+      "exact_cache_match": true,
+      "peak_active": 1182,
+      "integrated_digest": "07cb71b0a7613a7a5630eb95ae9a5f4cc33a8b067bf94291f1b031567d7ae982"
+    },
+    {
+      "sector": "left",
+      "features": [
+        1.0,
+        0.7443819379317574,
+        0.04171278750611236,
+        0.7860947254378697
+      ],
+      "exact_cache_match": true,
+      "peak_active": 825,
+      "integrated_digest": "dcb84fe457d5f1176806033c2d0adb41c2517085cbc46a59f8f0850430af5e5d"
+    },
+    {
+      "sector": "not_visible",
+      "features": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_cache_match": true,
+      "peak_active": 0,
+      "integrated_digest": "8faf9eca36498d36d5c3cfe46b87b5589833c321491d26375e17285276e64cc4"
+    },
+    {
+      "sector": "right",
+      "features": [
+        1.0,
+        0.04439628884676495,
+        0.8916391191765434,
+        0.9360354080233083
+      ],
+      "exact_cache_match": true,
+      "peak_active": 1207,
+      "integrated_digest": "92f20b37031210d99c60bb7e3e3b23aaec65a7db68019a96c2fc6de20fea3809"
+    },
+    {
+      "sector": "center",
+      "features": [
+        1.0,
+        0.39466560728731565,
+        0.3729771838634042,
+        0.7676427911507199
+      ],
+      "exact_cache_match": true,
+      "peak_active": 947,
+      "integrated_digest": "b8137f6fbe31195f8d7968c944ea179e037ddee45c36afcf33e82dfa7ce18222"
+    },
+    {
+      "sector": "far_left",
+      "features": [
+        1.0,
+        0.688491660739528,
+        0.049685012031259246,
+        0.7381766727707872
+      ],
+      "exact_cache_match": true,
+      "peak_active": 971,
+      "integrated_digest": "3f4feae3d0778bb17880de8549cfb61d1a81c5f6b874f3fab3f26f43c867b93a"
+    },
+    {
+      "sector": "far_right",
+      "features": [
+        1.0,
+        0.040813406175511775,
+        0.7995838174357778,
+        0.8403972236112895
+      ],
+      "exact_cache_match": true,
+      "peak_active": 1182,
+      "integrated_digest": "07cb71b0a7613a7a5630eb95ae9a5f4cc33a8b067bf94291f1b031567d7ae982"
+    },
+    {
+      "sector": "left",
+      "features": [
+        1.0,
+        0.7443819379317574,
+        0.04171278750611236,
+        0.7860947254378697
+      ],
+      "exact_cache_match": true,
+      "peak_active": 825,
+      "integrated_digest": "dcb84fe457d5f1176806033c2d0adb41c2517085cbc46a59f8f0850430af5e5d"
+    },
+    {
+      "sector": "not_visible",
+      "features": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_cache_match": true,
+      "peak_active": 0,
+      "integrated_digest": "8faf9eca36498d36d5c3cfe46b87b5589833c321491d26375e17285276e64cc4"
+    },
+    {
+      "sector": "right",
+      "features": [
+        1.0,
+        0.04439628884676495,
+        0.8916391191765434,
+        0.9360354080233083
+      ],
+      "exact_cache_match": true,
+      "peak_active": 1207,
+      "integrated_digest": "92f20b37031210d99c60bb7e3e3b23aaec65a7db68019a96c2fc6de20fea3809"
+    }
+  ]
+}

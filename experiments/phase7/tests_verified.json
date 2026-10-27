@@ -1,0 +1,12 @@
+{
+  "tests_run": 45,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "passed": true,
+  "elapsed_seconds": 14.972652399999788,
+  "baseline_tests_before_phase7": 23,
+  "baseline_passed": true,
+  "baseline_elapsed_seconds": 4.738,
+  "log": "experiments\\phase7\\tests_verified.log"
+}

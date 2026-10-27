@@ -1,0 +1,2565 @@
+{
+  "architecture": "world -> five-sector sensor -> 50-neuron deterministic encoder -> full connectome -> 1,305-neuron descending decoder -> action -> world",
+  "engineering_decoder": "left/right spike-count difference; balanced=FORWARD; no spikes=NO_OP",
+  "neural_config": {
+    "weight_transform": "log1p",
+    "scale": 0.08,
+    "decay": 0.8,
+    "threshold": 1.0,
+    "reset": 0.0,
+    "stimulus_duration": 3,
+    "transmitter_model": "unsigned"
+  },
+  "world_steps": 20,
+  "neural_steps_per_world_step": 6,
+  "episodes": [
+    {
+      "name": "target_left",
+      "target": [
+        2.0,
+        8.0
+      ],
+      "trajectory": [
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.9634954084936207
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.1780972450961724
+        ],
+        [
+          5.0,
+          2.0,
+          0.7853981633974483
+        ],
+        [
+          5.0,
+          2.0,
+          0.39269908169872414
+        ],
+        [
+          5.0,
+          2.0,
+          0.0
+        ],
+        [
+          5.0,
+          2.0,
+          5.890486225480862
+        ],
+        [
+          5.0,
+          2.0,
+          5.497787143782137
+        ],
+        [
+          5.0,
+          2.0,
+          5.1050880620834125
+        ],
+        [
+          5.0,
+          2.0,
+          4.712388980384688
+        ],
+        [
+          5.0,
+          2.0,
+          4.319689898685963
+        ],
+        [
+          5.0,
+          2.0,
+          3.926990816987239
+        ],
+        [
+          5.0,
+          2.0,
+          3.534291735288515
+        ],
+        [
+          5.0,
+          2.0,
+          3.141592653589791
+        ],
+        [
+          5.0,
+          2.0,
+          2.7488935718910668
+        ],
+        [
+          5.0,
+          2.0,
+          2.3561944901923426
+        ],
+        [
+          5.0,
+          2.0,
+          1.9634954084936185
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948943
+        ]
+      ],
+      "steps": [
+        {
+          "world_step": 0,
+          "sensor_visible": true,
+          "sensor_sector": "left",
+          "relative_angle": 0.46364760900080615,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 54,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 1,
+          "sensor_visible": true,
+          "sensor_sector": "left",
+          "relative_angle": 0.46364760900080615,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 398,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 2,
+          "sensor_visible": true,
+          "sensor_sector": "left",
+          "relative_angle": 0.46364760900080615,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 2767,
+          "descending_spikes_right": 2744,
+          "descending_spikes_other": 35,
+          "descending_spikes_total": 5546,
+          "global_active_peak": 129015,
+          "action": "TURN_LEFT",
+          "state": [
+            5.0,
+            2.0,
+            1.9634954084936207
+          ]
+        },
+        {
+          "world_step": 3,
+          "sensor_visible": true,
+          "sensor_sector": "center",
+          "relative_angle": 0.07094852730208201,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7786,
+          "global_active_peak": 129998,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 4,
+          "sensor_visible": true,
+          "sensor_sector": "left",
+          "relative_angle": 0.46364760900080615,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 130189,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.1780972450961724
+          ]
+        },
+        {
+          "world_step": 5,
+          "sensor_visible": true,
+          "sensor_sector": "left",
+          "relative_angle": 0.8563466906995303,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129899,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.7853981633974483
+          ]
+        },
+        {
+          "world_step": 6,
+          "sensor_visible": true,
+          "sensor_sector": "far_left",
+          "relative_angle": 1.2490457723982544,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 130290,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.39269908169872414
+          ]
+        },
+        {
+          "world_step": 7,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 1.641744854096979,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129958,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.0
+          ]
+        },
+        {
+          "world_step": 8,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 2.0344439357957027,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 130350,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            5.890486225480862
+          ]
+        },
+        {
+          "world_step": 9,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 2.4271430174944273,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129936,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            5.497787143782137
+          ]
+        },
+        {
+          "world_step": 10,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 2.819842099193152,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 130195,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            5.1050880620834125
+          ]
+        },
+        {
+          "world_step": 11,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.0706441262877098,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129933,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            4.712388980384688
+          ]
+        },
+        {
+          "world_step": 12,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -2.677945044588985,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 130364,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            4.319689898685963
+          ]
+        },
+        {
+          "world_step": 13,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -2.2852459628902606,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129970,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            3.926990816987239
+          ]
+        },
+        {
+          "world_step": 14,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -1.8925468811915365,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 130218,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            3.534291735288515
+          ]
+        },
+        {
+          "world_step": 15,
+          "sensor_visible": true,
+          "sensor_sector": "far_right",
+          "relative_angle": -1.4998477994928123,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129891,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            3.141592653589791
+          ]
+        },
+        {
+          "world_step": 16,
+          "sensor_visible": true,
+          "sensor_sector": "far_right",
+          "relative_angle": -1.1071487177940882,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 130318,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            2.7488935718910668
+          ]
+        },
+        {
+          "world_step": 17,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.714449636095364,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 130092,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            2.3561944901923426
+          ]
+        },
+        {
+          "world_step": 18,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.3217505543966399,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 130365,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.9634954084936185
+          ]
+        },
+        {
+          "world_step": 19,
+          "sensor_visible": true,
+          "sensor_sector": "center",
+          "relative_angle": 0.07094852730208423,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7786,
+          "global_active_peak": 129884,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948943
+          ]
+        }
+      ],
+      "actions": {
+        "TURN_LEFT": 1,
+        "TURN_RIGHT": 17,
+        "FORWARD": 0,
+        "NO_OP": 2
+      },
+      "elapsed_seconds": 3.1666601999895647,
+      "closed_loop_steps_per_second": 6.315802371238287,
+      "neural_steps_per_second": 38.43140429892271,
+      "sensory_encoding_seconds": 0.013693700078874826,
+      "output_decoding_seconds": 0.028433600207790732,
+      "neural_simulation_seconds": 3.1224463999969885,
+      "peak_rss_bytes": 574443520
+    },
+    {
+      "name": "target_center",
+      "target": [
+        5.0,
+        8.0
+      ],
+      "trajectory": [
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.9634954084936207
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.1780972450961724
+        ],
+        [
+          5.0,
+          2.0,
+          0.7853981633974483
+        ],
+        [
+          5.0,
+          2.0,
+          0.39269908169872414
+        ],
+        [
+          5.0,
+          2.0,
+          0.0
+        ],
+        [
+          5.0,
+          2.0,
+          5.890486225480862
+        ],
+        [
+          5.0,
+          2.0,
+          5.497787143782137
+        ],
+        [
+          5.0,
+          2.0,
+          5.1050880620834125
+        ],
+        [
+          5.0,
+          2.0,
+          4.712388980384688
+        ],
+        [
+          5.0,
+          2.0,
+          4.319689898685963
+        ],
+        [
+          5.0,
+          2.0,
+          3.926990816987239
+        ],
+        [
+          5.0,
+          2.0,
+          3.534291735288515
+        ],
+        [
+          5.0,
+          2.0,
+          3.141592653589791
+        ],
+        [
+          5.0,
+          2.0,
+          2.7488935718910668
+        ],
+        [
+          5.0,
+          2.0,
+          2.3561944901923426
+        ],
+        [
+          5.0,
+          2.0,
+          1.9634954084936185
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948943
+        ]
+      ],
+      "steps": [
+        {
+          "world_step": 0,
+          "sensor_visible": true,
+          "sensor_sector": "center",
+          "relative_angle": 0.0,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 55,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 1,
+          "sensor_visible": true,
+          "sensor_sector": "center",
+          "relative_angle": 0.0,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 58,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 2,
+          "sensor_visible": true,
+          "sensor_sector": "center",
+          "relative_angle": 0.0,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 581,
+          "descending_spikes_right": 527,
+          "descending_spikes_other": 10,
+          "descending_spikes_total": 1118,
+          "global_active_peak": 81271,
+          "action": "TURN_LEFT",
+          "state": [
+            5.0,
+            2.0,
+            1.9634954084936207
+          ]
+        },
+        {
+          "world_step": 3,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.39269908169872414,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3853,
+          "descending_spikes_right": 3871,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7772,
+          "global_active_peak": 129388,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 4,
+          "sensor_visible": true,
+          "sensor_sector": "center",
+          "relative_angle": 0.0,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129728,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.1780972450961724
+          ]
+        },
+        {
+          "world_step": 5,
+          "sensor_visible": true,
+          "sensor_sector": "left",
+          "relative_angle": 0.39269908169872414,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129996,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.7853981633974483
+          ]
+        },
+        {
+          "world_step": 6,
+          "sensor_visible": true,
+          "sensor_sector": "left",
+          "relative_angle": 0.7853981633974483,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129787,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.39269908169872414
+          ]
+        },
+        {
+          "world_step": 7,
+          "sensor_visible": true,
+          "sensor_sector": "far_left",
+          "relative_angle": 1.178097245096172,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129974,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.0
+          ]
+        },
+        {
+          "world_step": 8,
+          "sensor_visible": true,
+          "sensor_sector": "far_left",
+          "relative_angle": 1.5707963267948966,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129812,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            5.890486225480862
+          ]
+        },
+        {
+          "world_step": 9,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 1.9634954084936211,
+          "distance": 6.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129943,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            5.497787143782137
+          ]
+        },
+        {
+          "world_step": 10,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 2.3561944901923457,
+          "distance": 6.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129794,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            5.1050880620834125
+          ]
+        },
+        {
+          "world_step": 11,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 2.7488935718910703,
+          "distance": 6.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129908,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            4.712388980384688
+          ]
+        },
+        {
+          "world_step": 12,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.1415926535897913,
+          "distance": 6.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129778,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            4.319689898685963
+          ]
+        },
+        {
+          "world_step": 13,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -2.7488935718910668,
+          "distance": 6.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 130060,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            3.926990816987239
+          ]
+        },
+        {
+          "world_step": 14,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -2.3561944901923426,
+          "distance": 6.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129681,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            3.534291735288515
+          ]
+        },
+        {
+          "world_step": 15,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -1.9634954084936185,
+          "distance": 6.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129965,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            3.141592653589791
+          ]
+        },
+        {
+          "world_step": 16,
+          "sensor_visible": true,
+          "sensor_sector": "far_right",
+          "relative_angle": -1.5707963267948943,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129727,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            2.7488935718910668
+          ]
+        },
+        {
+          "world_step": 17,
+          "sensor_visible": true,
+          "sensor_sector": "far_right",
+          "relative_angle": -1.1780972450961702,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 130025,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            2.3561944901923426
+          ]
+        },
+        {
+          "world_step": 18,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.7853981633974461,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129854,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.9634954084936185
+          ]
+        },
+        {
+          "world_step": 19,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.3926990816987219,
+          "distance": 6.0,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 130005,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948943
+          ]
+        }
+      ],
+      "actions": {
+        "TURN_LEFT": 1,
+        "TURN_RIGHT": 17,
+        "FORWARD": 0,
+        "NO_OP": 2
+      },
+      "elapsed_seconds": 3.44749910000246,
+      "closed_loop_steps_per_second": 5.801306808168776,
+      "neural_steps_per_second": 35.30861598317927,
+      "sensory_encoding_seconds": 0.016459199832752347,
+      "output_decoding_seconds": 0.03048890014179051,
+      "neural_simulation_seconds": 3.3986039004521444,
+      "peak_rss_bytes": 574504960
+    },
+    {
+      "name": "target_right",
+      "target": [
+        8.0,
+        8.0
+      ],
+      "trajectory": [
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.1780972450961724
+        ],
+        [
+          5.0,
+          2.0,
+          0.7853981633974483
+        ],
+        [
+          5.0,
+          2.0,
+          0.39269908169872414
+        ],
+        [
+          5.0,
+          2.0,
+          0.0
+        ],
+        [
+          5.0,
+          2.0,
+          5.890486225480862
+        ],
+        [
+          5.0,
+          2.0,
+          5.497787143782137
+        ],
+        [
+          5.0,
+          2.0,
+          5.1050880620834125
+        ],
+        [
+          5.0,
+          2.0,
+          4.712388980384688
+        ],
+        [
+          5.0,
+          2.0,
+          4.319689898685963
+        ],
+        [
+          5.0,
+          2.0,
+          3.926990816987239
+        ],
+        [
+          5.0,
+          2.0,
+          3.534291735288515
+        ],
+        [
+          5.0,
+          2.0,
+          3.141592653589791
+        ],
+        [
+          5.0,
+          2.0,
+          2.7488935718910668
+        ],
+        [
+          5.0,
+          2.0,
+          2.3561944901923426
+        ],
+        [
+          5.0,
+          2.0,
+          1.9634954084936185
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948943
+        ],
+        [
+          5.0,
+          2.0,
+          1.1780972450961702
+        ],
+        [
+          5.0,
+          2.0,
+          0.7853981633974461
+        ]
+      ],
+      "steps": [
+        {
+          "world_step": 0,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.46364760900080615,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 51,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 1,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.46364760900080615,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 176,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 2,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.46364760900080615,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 1841,
+          "descending_spikes_right": 1955,
+          "descending_spikes_other": 28,
+          "descending_spikes_total": 3824,
+          "global_active_peak": 128314,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.1780972450961724
+          ]
+        },
+        {
+          "world_step": 3,
+          "sensor_visible": true,
+          "sensor_sector": "center",
+          "relative_angle": -0.07094852730208201,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7786,
+          "global_active_peak": 129514,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.7853981633974483
+          ]
+        },
+        {
+          "world_step": 4,
+          "sensor_visible": true,
+          "sensor_sector": "left",
+          "relative_angle": 0.32175055439664213,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129695,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.39269908169872414
+          ]
+        },
+        {
+          "world_step": 5,
+          "sensor_visible": true,
+          "sensor_sector": "left",
+          "relative_angle": 0.7144496360953663,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129586,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.0
+          ]
+        },
+        {
+          "world_step": 6,
+          "sensor_visible": true,
+          "sensor_sector": "far_left",
+          "relative_angle": 1.1071487177940904,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129647,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            5.890486225480862
+          ]
+        },
+        {
+          "world_step": 7,
+          "sensor_visible": true,
+          "sensor_sector": "far_left",
+          "relative_angle": 1.499847799492815,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129576,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            5.497787143782137
+          ]
+        },
+        {
+          "world_step": 8,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 1.8925468811915396,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129652,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            5.1050880620834125
+          ]
+        },
+        {
+          "world_step": 9,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 2.285245962890264,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129556,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            4.712388980384688
+          ]
+        },
+        {
+          "world_step": 10,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 2.6779450445889887,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3861,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7785,
+          "global_active_peak": 129610,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            4.319689898685963
+          ]
+        },
+        {
+          "world_step": 11,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": 3.0706441262877133,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129491,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            3.926990816987239
+          ]
+        },
+        {
+          "world_step": 12,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -2.8198420991931488,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3861,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7786,
+          "global_active_peak": 129579,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            3.534291735288515
+          ]
+        },
+        {
+          "world_step": 13,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -2.4271430174944246,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129574,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            3.141592653589791
+          ]
+        },
+        {
+          "world_step": 14,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -2.0344439357957005,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3862,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129640,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            2.7488935718910668
+          ]
+        },
+        {
+          "world_step": 15,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -1.6417448540969763,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7788,
+          "global_active_peak": 129502,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            2.3561944901923426
+          ]
+        },
+        {
+          "world_step": 16,
+          "sensor_visible": true,
+          "sensor_sector": "far_right",
+          "relative_angle": -1.2490457723982522,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3861,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7786,
+          "global_active_peak": 129596,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.9634954084936185
+          ]
+        },
+        {
+          "world_step": 17,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.8563466906995281,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129566,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948943
+          ]
+        },
+        {
+          "world_step": 18,
+          "sensor_visible": true,
+          "sensor_sector": "right",
+          "relative_angle": -0.46364760900080393,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3861,
+          "descending_spikes_right": 3877,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7786,
+          "global_active_peak": 129582,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            1.1780972450961702
+          ]
+        },
+        {
+          "world_step": 19,
+          "sensor_visible": true,
+          "sensor_sector": "center",
+          "relative_angle": -0.07094852730207979,
+          "distance": 6.708203932499369,
+          "stimulated_neurons": 50,
+          "descending_spikes_left": 3863,
+          "descending_spikes_right": 3876,
+          "descending_spikes_other": 48,
+          "descending_spikes_total": 7787,
+          "global_active_peak": 129590,
+          "action": "TURN_RIGHT",
+          "state": [
+            5.0,
+            2.0,
+            0.7853981633974461
+          ]
+        }
+      ],
+      "actions": {
+        "TURN_LEFT": 0,
+        "TURN_RIGHT": 18,
+        "FORWARD": 0,
+        "NO_OP": 2
+      },
+      "elapsed_seconds": 3.002089099958539,
+      "closed_loop_steps_per_second": 6.662027452908115,
+      "neural_steps_per_second": 40.49628329813008,
+      "sensory_encoding_seconds": 0.011375199537724257,
+      "output_decoding_seconds": 0.02569540007971227,
+      "neural_simulation_seconds": 2.9632349002640694,
+      "peak_rss_bytes": 576237568
+    },
+    {
+      "name": "target_not_visible",
+      "target": [
+        5.0,
+        0.0
+      ],
+      "trajectory": [
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ],
+        [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ]
+      ],
+      "steps": [
+        {
+          "world_step": 0,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 1,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 2,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 3,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 4,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 5,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 6,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 7,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 8,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 9,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 10,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 11,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 12,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 13,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 14,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 15,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 16,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 17,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 18,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        },
+        {
+          "world_step": 19,
+          "sensor_visible": false,
+          "sensor_sector": null,
+          "relative_angle": -3.141592653589793,
+          "distance": 2.0,
+          "stimulated_neurons": 0,
+          "descending_spikes_left": 0,
+          "descending_spikes_right": 0,
+          "descending_spikes_other": 0,
+          "descending_spikes_total": 0,
+          "global_active_peak": 0,
+          "action": "NO_OP",
+          "state": [
+            5.0,
+            2.0,
+            1.5707963267948966
+          ]
+        }
+      ],
+      "actions": {
+        "TURN_LEFT": 0,
+        "TURN_RIGHT": 0,
+        "FORWARD": 0,
+        "NO_OP": 20
+      },
+      "elapsed_seconds": 3.269402999954764,
+      "closed_loop_steps_per_second": 6.117324783844857,
+      "neural_steps_per_second": 36.88821585801929,
+      "sensory_encoding_seconds": 0.00975420034956187,
+      "output_decoding_seconds": 0.004642000130843371,
+      "neural_simulation_seconds": 3.25307139987126,
+      "peak_rss_bytes": 576208896
+    }
+  ],
+  "repeated_left_episode_reproducible": true,
+  "repeat_left": {
+    "name": "target_left_repeat",
+    "target": [
+      2.0,
+      8.0
+    ],
+    "trajectory": [
+      [
+        5.0,
+        2.0,
+        1.5707963267948966
+      ],
+      [
+        5.0,
+        2.0,
+        1.5707963267948966
+      ],
+      [
+        5.0,
+        2.0,
+        1.5707963267948966
+      ],
+      [
+        5.0,
+        2.0,
+        1.9634954084936207
+      ],
+      [
+        5.0,
+        2.0,
+        1.5707963267948966
+      ],
+      [
+        5.0,
+        2.0,
+        1.1780972450961724
+      ],
+      [
+        5.0,
+        2.0,
+        0.7853981633974483
+      ],
+      [
+        5.0,
+        2.0,
+        0.39269908169872414
+      ],
+      [
+        5.0,
+        2.0,
+        0.0
+      ],
+      [
+        5.0,
+        2.0,
+        5.890486225480862
+      ],
+      [
+        5.0,
+        2.0,
+        5.497787143782137
+      ],
+      [
+        5.0,
+        2.0,
+        5.1050880620834125
+      ],
+      [
+        5.0,
+        2.0,
+        4.712388980384688
+      ],
+      [
+        5.0,
+        2.0,
+        4.319689898685963
+      ],
+      [
+        5.0,
+        2.0,
+        3.926990816987239
+      ],
+      [
+        5.0,
+        2.0,
+        3.534291735288515
+      ],
+      [
+        5.0,
+        2.0,
+        3.141592653589791
+      ],
+      [
+        5.0,
+        2.0,
+        2.7488935718910668
+      ],
+      [
+        5.0,
+        2.0,
+        2.3561944901923426
+      ],
+      [
+        5.0,
+        2.0,
+        1.9634954084936185
+      ],
+      [
+        5.0,
+        2.0,
+        1.5707963267948943
+      ]
+    ],
+    "steps": [
+      {
+        "world_step": 0,
+        "sensor_visible": true,
+        "sensor_sector": "left",
+        "relative_angle": 0.46364760900080615,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 0,
+        "descending_spikes_right": 0,
+        "descending_spikes_other": 0,
+        "descending_spikes_total": 0,
+        "global_active_peak": 54,
+        "action": "NO_OP",
+        "state": [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ]
+      },
+      {
+        "world_step": 1,
+        "sensor_visible": true,
+        "sensor_sector": "left",
+        "relative_angle": 0.46364760900080615,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 0,
+        "descending_spikes_right": 0,
+        "descending_spikes_other": 0,
+        "descending_spikes_total": 0,
+        "global_active_peak": 398,
+        "action": "NO_OP",
+        "state": [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ]
+      },
+      {
+        "world_step": 2,
+        "sensor_visible": true,
+        "sensor_sector": "left",
+        "relative_angle": 0.46364760900080615,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 2767,
+        "descending_spikes_right": 2744,
+        "descending_spikes_other": 35,
+        "descending_spikes_total": 5546,
+        "global_active_peak": 129015,
+        "action": "TURN_LEFT",
+        "state": [
+          5.0,
+          2.0,
+          1.9634954084936207
+        ]
+      },
+      {
+        "world_step": 3,
+        "sensor_visible": true,
+        "sensor_sector": "center",
+        "relative_angle": 0.07094852730208201,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 3862,
+        "descending_spikes_right": 3876,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7786,
+        "global_active_peak": 129998,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          1.5707963267948966
+        ]
+      },
+      {
+        "world_step": 4,
+        "sensor_visible": true,
+        "sensor_sector": "left",
+        "relative_angle": 0.46364760900080615,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 3863,
+        "descending_spikes_right": 3876,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7787,
+        "global_active_peak": 130189,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          1.1780972450961724
+        ]
+      },
+      {
+        "world_step": 5,
+        "sensor_visible": true,
+        "sensor_sector": "left",
+        "relative_angle": 0.8563466906995303,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 3862,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7787,
+        "global_active_peak": 129899,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          0.7853981633974483
+        ]
+      },
+      {
+        "world_step": 6,
+        "sensor_visible": true,
+        "sensor_sector": "far_left",
+        "relative_angle": 1.2490457723982544,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 3863,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7788,
+        "global_active_peak": 130290,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          0.39269908169872414
+        ]
+      },
+      {
+        "world_step": 7,
+        "sensor_visible": false,
+        "sensor_sector": null,
+        "relative_angle": 1.641744854096979,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 0,
+        "descending_spikes_left": 3862,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7787,
+        "global_active_peak": 129958,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          0.0
+        ]
+      },
+      {
+        "world_step": 8,
+        "sensor_visible": false,
+        "sensor_sector": null,
+        "relative_angle": 2.0344439357957027,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 0,
+        "descending_spikes_left": 3863,
+        "descending_spikes_right": 3876,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7787,
+        "global_active_peak": 130350,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          5.890486225480862
+        ]
+      },
+      {
+        "world_step": 9,
+        "sensor_visible": false,
+        "sensor_sector": null,
+        "relative_angle": 2.4271430174944273,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 0,
+        "descending_spikes_left": 3862,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7787,
+        "global_active_peak": 129936,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          5.497787143782137
+        ]
+      },
+      {
+        "world_step": 10,
+        "sensor_visible": false,
+        "sensor_sector": null,
+        "relative_angle": 2.819842099193152,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 0,
+        "descending_spikes_left": 3863,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7788,
+        "global_active_peak": 130195,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          5.1050880620834125
+        ]
+      },
+      {
+        "world_step": 11,
+        "sensor_visible": false,
+        "sensor_sector": null,
+        "relative_angle": -3.0706441262877098,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 0,
+        "descending_spikes_left": 3862,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7787,
+        "global_active_peak": 129933,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          4.712388980384688
+        ]
+      },
+      {
+        "world_step": 12,
+        "sensor_visible": false,
+        "sensor_sector": null,
+        "relative_angle": -2.677945044588985,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 0,
+        "descending_spikes_left": 3863,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7788,
+        "global_active_peak": 130364,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          4.319689898685963
+        ]
+      },
+      {
+        "world_step": 13,
+        "sensor_visible": false,
+        "sensor_sector": null,
+        "relative_angle": -2.2852459628902606,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 0,
+        "descending_spikes_left": 3862,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7787,
+        "global_active_peak": 129970,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          3.926990816987239
+        ]
+      },
+      {
+        "world_step": 14,
+        "sensor_visible": false,
+        "sensor_sector": null,
+        "relative_angle": -1.8925468811915365,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 0,
+        "descending_spikes_left": 3863,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7788,
+        "global_active_peak": 130218,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          3.534291735288515
+        ]
+      },
+      {
+        "world_step": 15,
+        "sensor_visible": true,
+        "sensor_sector": "far_right",
+        "relative_angle": -1.4998477994928123,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 3862,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7787,
+        "global_active_peak": 129891,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          3.141592653589791
+        ]
+      },
+      {
+        "world_step": 16,
+        "sensor_visible": true,
+        "sensor_sector": "far_right",
+        "relative_angle": -1.1071487177940882,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 3863,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7788,
+        "global_active_peak": 130318,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          2.7488935718910668
+        ]
+      },
+      {
+        "world_step": 17,
+        "sensor_visible": true,
+        "sensor_sector": "right",
+        "relative_angle": -0.714449636095364,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 3862,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7787,
+        "global_active_peak": 130092,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          2.3561944901923426
+        ]
+      },
+      {
+        "world_step": 18,
+        "sensor_visible": true,
+        "sensor_sector": "right",
+        "relative_angle": -0.3217505543966399,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 3863,
+        "descending_spikes_right": 3877,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7788,
+        "global_active_peak": 130365,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          1.9634954084936185
+        ]
+      },
+      {
+        "world_step": 19,
+        "sensor_visible": true,
+        "sensor_sector": "center",
+        "relative_angle": 0.07094852730208423,
+        "distance": 6.708203932499369,
+        "stimulated_neurons": 50,
+        "descending_spikes_left": 3862,
+        "descending_spikes_right": 3876,
+        "descending_spikes_other": 48,
+        "descending_spikes_total": 7786,
+        "global_active_peak": 129884,
+        "action": "TURN_RIGHT",
+        "state": [
+          5.0,
+          2.0,
+          1.5707963267948943
+        ]
+      }
+    ],
+    "actions": {
+      "TURN_LEFT": 1,
+      "TURN_RIGHT": 17,
+      "FORWARD": 0,
+      "NO_OP": 2
+    },
+    "elapsed_seconds": 3.4926958000287414,
+    "closed_loop_steps_per_second": 5.726235877695223,
+    "neural_steps_per_second": 34.78560227496656,
+    "sensory_encoding_seconds": 0.00925490033114329,
+    "output_decoding_seconds": 0.03158520004944876,
+    "neural_simulation_seconds": 3.449703099904582,
+    "peak_rss_bytes": 576335872
+  },
+  "python": "3.14.7",
+  "platform": "Windows-11-10.0.26200-SP0"
+}

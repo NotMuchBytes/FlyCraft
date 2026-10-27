@@ -1,0 +1,31 @@
+{
+  "checkpoint": "C:\\Users\\anass\\OneDrive\\Desktop\\FlyCraft\\experiments\\phase5\\smoke\\fresh_oct02_resumed_to_15.npz",
+  "checkpoint_training_seed": 7,
+  "checkpoint_episodes": 15,
+  "evaluation_seed": 700,
+  "max_steps": 12,
+  "baseline": {
+    "episodes": 20,
+    "successes": 0,
+    "success_rate": 0.0,
+    "mean_reward": 0.5973920487253742,
+    "median_reward": 0.5792834295846088,
+    "mean_final_distance": 4.9229576816723135,
+    "mean_episode_length": 12.0,
+    "mean_steps_to_success": null
+  },
+  "trained": {
+    "episodes": 20,
+    "successes": 0,
+    "success_rate": 0.0,
+    "mean_reward": 0.7521239076556293,
+    "median_reward": 0.5792834295846088,
+    "mean_final_distance": 4.769681694353884,
+    "mean_episode_length": 12.0,
+    "mean_steps_to_success": null
+  },
+  "raw_logs": {
+    "baseline": "C:\\Users\\anass\\OneDrive\\Desktop\\FlyCraft\\experiments\\phase5\\smoke\\evaluation_oct02_fixed_baseline.jsonl",
+    "trained": "C:\\Users\\anass\\OneDrive\\Desktop\\FlyCraft\\experiments\\phase5\\smoke\\evaluation_oct02_fixed_trained.jsonl"
+  }
+}

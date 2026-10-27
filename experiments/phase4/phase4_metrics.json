@@ -1,0 +1,213 @@
+{
+  "source_logs": [
+    "raw/run2_server.log",
+    "raw/run2_client.log"
+  ],
+  "architecture": "Minecraft raycast -> five-sector observation -> TCP newline JSON -> fixed 139255-neuron bounded-rate simulation -> visual_projection side decoder -> tick-matched Minecraft action",
+  "all_action_count": 86,
+  "stale_action_count": 0,
+  "bridge_error_count": 0,
+  "latency_ms": {
+    "minimum": 78.89629999408498,
+    "median": 95.75939999194816,
+    "maximum": 404.38079996965826
+  },
+  "first_two_cycles_match_phase35_predictions": true,
+  "trials": [
+    {
+      "cycle": 1,
+      "condition": "left",
+      "server_tick": 1095,
+      "target": "BlockPos{x=-1, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 120,
+        "sector": "left"
+      },
+      "first_action": {
+        "sector": "left",
+        "action": "TURN_LEFT",
+        "latency_ms": 404.38079996965826
+      }
+    },
+    {
+      "cycle": 1,
+      "condition": "center",
+      "server_tick": 1235,
+      "target": "BlockPos{x=-3, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 260,
+        "sector": "center"
+      },
+      "first_action": {
+        "sector": "center",
+        "action": "TURN_LEFT",
+        "latency_ms": 137.6332999789156
+      }
+    },
+    {
+      "cycle": 1,
+      "condition": "right",
+      "server_tick": 1375,
+      "target": "BlockPos{x=-5, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 400,
+        "sector": "right"
+      },
+      "first_action": {
+        "sector": "right",
+        "action": "TURN_RIGHT",
+        "latency_ms": 84.20939999632537
+      }
+    },
+    {
+      "cycle": 1,
+      "condition": "not_visible",
+      "server_tick": 1515,
+      "target": "null",
+      "first_observation": {
+        "tick_id": 540,
+        "sector": "not_visible"
+      },
+      "first_action": {
+        "sector": "not_visible",
+        "action": "NO_OP",
+        "latency_ms": 83.39169999817386
+      }
+    },
+    {
+      "cycle": 2,
+      "condition": "left",
+      "server_tick": 1655,
+      "target": "BlockPos{x=-1, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 680,
+        "sector": "left"
+      },
+      "first_action": {
+        "sector": "left",
+        "action": "TURN_LEFT",
+        "latency_ms": 122.79200000921264
+      }
+    },
+    {
+      "cycle": 2,
+      "condition": "center",
+      "server_tick": 1795,
+      "target": "BlockPos{x=-3, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 820,
+        "sector": "center"
+      },
+      "first_action": {
+        "sector": "center",
+        "action": "TURN_LEFT",
+        "latency_ms": 84.17479996569455
+      }
+    },
+    {
+      "cycle": 2,
+      "condition": "right",
+      "server_tick": 1935,
+      "target": "BlockPos{x=-5, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 960,
+        "sector": "right"
+      },
+      "first_action": {
+        "sector": "right",
+        "action": "TURN_RIGHT",
+        "latency_ms": 90.45239997794852
+      }
+    },
+    {
+      "cycle": 2,
+      "condition": "not_visible",
+      "server_tick": 2075,
+      "target": "null",
+      "first_observation": {
+        "tick_id": 1100,
+        "sector": "not_visible"
+      },
+      "first_action": {
+        "sector": "not_visible",
+        "action": "NO_OP",
+        "latency_ms": 117.49609996331856
+      }
+    },
+    {
+      "cycle": 3,
+      "condition": "left",
+      "server_tick": 2215,
+      "target": "BlockPos{x=-1, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 1240,
+        "sector": "left"
+      },
+      "first_action": {
+        "sector": "left",
+        "action": "TURN_LEFT",
+        "latency_ms": 96.9452999997884
+      }
+    },
+    {
+      "cycle": 3,
+      "condition": "center",
+      "server_tick": 2355,
+      "target": "BlockPos{x=-3, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 1380,
+        "sector": "center"
+      },
+      "first_action": {
+        "sector": "center",
+        "action": "TURN_LEFT",
+        "latency_ms": 116.2563000107184
+      }
+    },
+    {
+      "cycle": 3,
+      "condition": "right",
+      "server_tick": 2495,
+      "target": "BlockPos{x=-5, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 1520,
+        "sector": "right"
+      },
+      "first_action": {
+        "sector": "right",
+        "action": "TURN_RIGHT",
+        "latency_ms": 99.18880002805963
+      }
+    },
+    {
+      "cycle": 3,
+      "condition": "not_visible",
+      "server_tick": 2635,
+      "target": "null",
+      "first_observation": {
+        "tick_id": 1660,
+        "sector": "not_visible"
+      },
+      "first_action": {
+        "sector": "not_visible",
+        "action": "NO_OP",
+        "latency_ms": 79.82440001796931
+      }
+    },
+    {
+      "cycle": 4,
+      "condition": "left",
+      "server_tick": 2775,
+      "target": "BlockPos{x=-1, y=-59, z=-2}",
+      "first_observation": {
+        "tick_id": 1800,
+        "sector": "left"
+      },
+      "first_action": {
+        "sector": "left",
+        "action": "TURN_LEFT",
+        "latency_ms": 109.39060000237077
+      }
+    }
+  ]
+}

@@ -1,0 +1,2281 @@
+{
+  "created_at": "2026-09-21T07:19:46+0300",
+  "random_seed": 783,
+  "steps": 30,
+  "stimulated_count": 50,
+  "stimulus_strength": 1.05,
+  "stimulation_rule": "first 50 ascending Photo Receptor root IDs with at least one graph edge",
+  "stimulated_root_ids": [
+    720575940599736492,
+    720575940599744172,
+    720575940600010668,
+    720575940601049097,
+    720575940602289198,
+    720575940603114869,
+    720575940603406258,
+    720575940603449010,
+    720575940604559811,
+    720575940604621251,
+    720575940604722244,
+    720575940604931908,
+    720575940604934980,
+    720575940604984800,
+    720575940605160550,
+    720575940605179360,
+    720575940605265120,
+    720575940605391328,
+    720575940605417696,
+    720575940605444576,
+    720575940605515744,
+    720575940605519328,
+    720575940605547488,
+    720575940605551584,
+    720575940605560288,
+    720575940605561824,
+    720575940605571040,
+    720575940605590444,
+    720575940605604576,
+    720575940605616096,
+    720575940605623776,
+    720575940605642412,
+    720575940605645228,
+    720575940605645536,
+    720575940605662688,
+    720575940605663148,
+    720575940605675744,
+    720575940605677484,
+    720575940605680300,
+    720575940605690796,
+    720575940605698732,
+    720575940605718188,
+    720575940605740460,
+    720575940605746348,
+    720575940605748960,
+    720575940605749472,
+    720575940605756332,
+    720575940605757356,
+    720575940605757408,
+    720575940605758688
+  ],
+  "build": {
+    "created_at": "2026-09-21T07:15:08+0300",
+    "python": "3.14.7",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "source_files": {
+      "connections_princeton_no_threshold.csv.gz": {
+        "bytes": 275679780,
+        "sha256": "62c2e562a7470bfd32cbb98e36af3daa607ba0822b37223b34f2aa45250a920e"
+      },
+      "neurons.csv.gz": {
+        "bytes": 1679884,
+        "sha256": "6a6b3759e635f0f35a677d169052362131ec61d95f55919298b55c43fce4e719"
+      }
+    },
+    "index_rule": "all metadata root_ids sorted ascending",
+    "matrix_orientation": "CSR row=postsynaptic dense index, column=presynaptic dense index",
+    "aggregation": "sum syn_count across all neuropils for each directed pre/post pair",
+    "neuron_count": 139255,
+    "connection_records": 22285323,
+    "unique_directed_pairs": 19773733,
+    "aggregate_syn_count": 76944499,
+    "disconnected_neurons": 139,
+    "csr": {
+      "shape": [
+        139255,
+        139255
+      ],
+      "data_dtype": "uint32",
+      "index_dtype": "int32",
+      "memory_bytes": 158746888,
+      "saved_bytes": 64401598
+    },
+    "index_saved_bytes": 327500,
+    "edge_nt_vs_presynaptic_metadata": {
+      "matches_when_metadata_nonblank": 20837661,
+      "mismatches_when_metadata_nonblank": 0,
+      "records_with_blank_presynaptic_metadata_nt": 1447662
+    },
+    "build_seconds": 101.69593889999669,
+    "peak_process_rss_bytes": 541474816
+  },
+  "versions": {
+    "python": "3.14.7",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "psutil": "7.2.2"
+  },
+  "results": [
+    {
+      "weight": {
+        "name": "log1p",
+        "scale": 0.01,
+        "cap": 32.0
+      },
+      "neuron": {
+        "decay": 0.9,
+        "threshold": 1.0,
+        "reset_value": 0.0,
+        "refractory_steps": 0
+      },
+      "transmitter_mode": "unsigned",
+      "unknown_transmitter_policy": "positive",
+      "initialization_seconds": 0.11060209997231141,
+      "adjacency_memory_bytes": 158746888,
+      "state_memory_bytes": 1531805,
+      "baseline": [
+        {
+          "timestep": 0,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        }
+      ],
+      "timesteps": [
+        {
+          "timestep": 0,
+          "active_neurons": 50,
+          "newly_active_neurons": 50,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0858110636472702,
+          "total_absolute_potential": 9.872483015060425,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.07722995430231094,
+          "total_absolute_potential": 8.885234469547868,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.06950695812702179,
+          "total_absolute_potential": 7.996710850857198,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.06255625933408737,
+          "total_absolute_potential": 7.1970395958051085,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 5,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.056300632655620575,
+          "total_absolute_potential": 6.477335447445512,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 6,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0506705678999424,
+          "total_absolute_potential": 5.829601731151342,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 7,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.04560350999236107,
+          "total_absolute_potential": 5.24664140958339,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 8,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.04104315862059593,
+          "total_absolute_potential": 4.721977156586945,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 9,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.03693884238600731,
+          "total_absolute_potential": 4.249779326841235,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 10,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.03324495628476143,
+          "total_absolute_potential": 3.8248012685216963,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 11,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.029920460656285286,
+          "total_absolute_potential": 3.442321069072932,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 12,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.026928413659334183,
+          "total_absolute_potential": 3.0980888744816184,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 13,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.024235570803284645,
+          "total_absolute_potential": 2.788279903586954,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 14,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.021812012419104576,
+          "total_absolute_potential": 2.50945185450837,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 15,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.019630810245871544,
+          "total_absolute_potential": 2.25850663240999,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 16,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.017667729407548904,
+          "total_absolute_potential": 2.0326559306122363,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 17,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.015900956466794014,
+          "total_absolute_potential": 1.8293902887962759,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 18,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.014310860075056553,
+          "total_absolute_potential": 1.6464512140955776,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 19,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.01287977397441864,
+          "total_absolute_potential": 1.481806053314358,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 20,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.011591795831918716,
+          "total_absolute_potential": 1.3336254167370498,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 21,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.010432615876197815,
+          "total_absolute_potential": 1.2002628361806273,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 22,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.009389353916049004,
+          "total_absolute_potential": 1.0802365173585713,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 23,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.008450418710708618,
+          "total_absolute_potential": 0.9722128421999514,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 24,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.007605376653373241,
+          "total_absolute_potential": 0.8749915417283773,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 25,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0068448386155068874,
+          "total_absolute_potential": 0.7874923683702946,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 26,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.00616035470739007,
+          "total_absolute_potential": 0.7087431137915701,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 27,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.005544319283217192,
+          "total_absolute_potential": 0.637868789024651,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 28,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.004989887122064829,
+          "total_absolute_potential": 0.5740818915655836,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 29,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.004490898456424475,
+          "total_absolute_potential": 0.5166736887767911,
+          "cumulative_unique_active": 50
+        }
+      ],
+      "wall_seconds": 0.5335916000185534,
+      "cpu_seconds": 0.515625,
+      "steps_per_second": 56.222774119676686,
+      "mean_step_milliseconds": 17.786386667285115,
+      "process_cpu_percent_one_core_basis": 96.63289301819431,
+      "process_cpu_percent_total_machine_basis": 8.052741084849526,
+      "peak_process_rss_bytes": 391528448,
+      "peak_active_neurons": 50,
+      "cumulative_unique_active": 50,
+      "last_nonzero_timestep": 0,
+      "died_after_stimulus": true,
+      "runaway_25_percent_peak": false,
+      "saturated_last_five_steps": false
+    },
+    {
+      "weight": {
+        "name": "log1p",
+        "scale": 0.03,
+        "cap": 32.0
+      },
+      "neuron": {
+        "decay": 0.9,
+        "threshold": 1.0,
+        "reset_value": 0.0,
+        "refractory_steps": 0
+      },
+      "transmitter_mode": "unsigned",
+      "unknown_transmitter_policy": "positive",
+      "initialization_seconds": 0.10969579999800771,
+      "adjacency_memory_bytes": 158746888,
+      "state_memory_bytes": 1531805,
+      "baseline": [
+        {
+          "timestep": 0,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        }
+      ],
+      "timesteps": [
+        {
+          "timestep": 0,
+          "active_neurons": 50,
+          "newly_active_neurons": 50,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.2574331760406494,
+          "total_absolute_potential": 29.617449268698692,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.23168985545635223,
+          "total_absolute_potential": 26.65570366382599,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.20852085947990417,
+          "total_absolute_potential": 23.990132577717304,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.18766877055168152,
+          "total_absolute_potential": 21.591118592768908,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 5,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.16890189051628113,
+          "total_absolute_potential": 19.432006418704987,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 6,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.1520116925239563,
+          "total_absolute_potential": 17.48880533874035,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 7,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.1368105262517929,
+          "total_absolute_potential": 15.739924509078264,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 8,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.1231294721364975,
+          "total_absolute_potential": 14.165931601077318,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 9,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.11081652343273163,
+          "total_absolute_potential": 12.749338183552027,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 10,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.09973486512899399,
+          "total_absolute_potential": 11.47440411709249,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 11,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.08976137638092041,
+          "total_absolute_potential": 10.326963448897004,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 12,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.08078523725271225,
+          "total_absolute_potential": 9.294266914948821,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 13,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.07270671427249908,
+          "total_absolute_potential": 8.364840066060424,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 14,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.06543604284524918,
+          "total_absolute_potential": 7.528355817310512,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 15,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.05889243632555008,
+          "total_absolute_potential": 6.775520061142743,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 16,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.05300319194793701,
+          "total_absolute_potential": 6.097967933863401,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 17,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.04770287126302719,
+          "total_absolute_potential": 5.488171002827585,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 18,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.04293258115649223,
+          "total_absolute_potential": 4.939353779889643,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 19,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.03863932192325592,
+          "total_absolute_potential": 4.445418301969767,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 20,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.03477538749575615,
+          "total_absolute_potential": 4.000876392237842,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 21,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.031297847628593445,
+          "total_absolute_potential": 3.6007886277511716,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 22,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.02816806174814701,
+          "total_absolute_potential": 3.240709675475955,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 23,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.025351254269480705,
+          "total_absolute_potential": 2.9166386178694665,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 24,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.02281612902879715,
+          "total_absolute_potential": 2.6249746829271317,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 25,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.020534515380859375,
+          "total_absolute_potential": 2.362477163784206,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 26,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.018481062725186348,
+          "total_absolute_potential": 2.126229386078194,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 27,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.01663295552134514,
+          "total_absolute_potential": 1.9136064015328884,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 28,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.014969659969210625,
+          "total_absolute_potential": 1.7222457316238433,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 29,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.013472693972289562,
+          "total_absolute_potential": 1.5500211077742279,
+          "cumulative_unique_active": 50
+        }
+      ],
+      "wall_seconds": 0.4906545999983791,
+      "cpu_seconds": 0.484375,
+      "steps_per_second": 61.14280799588775,
+      "mean_step_milliseconds": 16.355153333279304,
+      "process_cpu_percent_one_core_basis": 98.72015874336043,
+      "process_cpu_percent_total_machine_basis": 8.226679895280036,
+      "peak_process_rss_bytes": 391593984,
+      "peak_active_neurons": 50,
+      "cumulative_unique_active": 50,
+      "last_nonzero_timestep": 0,
+      "died_after_stimulus": true,
+      "runaway_25_percent_peak": false,
+      "saturated_last_five_steps": false
+    },
+    {
+      "weight": {
+        "name": "log1p",
+        "scale": 0.1,
+        "cap": 32.0
+      },
+      "neuron": {
+        "decay": 0.9,
+        "threshold": 1.0,
+        "reset_value": 0.0,
+        "refractory_steps": 0
+      },
+      "transmitter_mode": "unsigned",
+      "unknown_transmitter_policy": "positive",
+      "initialization_seconds": 0.1089374000148382,
+      "adjacency_memory_bytes": 158746888,
+      "state_memory_bytes": 1531805,
+      "baseline": [
+        {
+          "timestep": 0,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        }
+      ],
+      "timesteps": [
+        {
+          "timestep": 0,
+          "active_neurons": 50,
+          "newly_active_neurons": 50,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.8581106662750244,
+          "total_absolute_potential": 98.724833548069,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.772299587726593,
+          "total_absolute_potential": 88.85234771668911,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.6950696110725403,
+          "total_absolute_potential": 79.96711051464081,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.6255626082420349,
+          "total_absolute_potential": 71.9703978151083,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 5,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.5630063414573669,
+          "total_absolute_potential": 64.77335698902607,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 6,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.5067057013511658,
+          "total_absolute_potential": 58.29602010548115,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 7,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.4560351073741913,
+          "total_absolute_potential": 52.46641667187214,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 8,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.4104315936565399,
+          "total_absolute_potential": 47.21977370977402,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 9,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.3693884313106537,
+          "total_absolute_potential": 42.49779500067234,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 10,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.3324495851993561,
+          "total_absolute_potential": 38.248014599084854,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 11,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.29920461773872375,
+          "total_absolute_potential": 34.423212345689535,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 12,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.2692841589450836,
+          "total_absolute_potential": 30.980890445411205,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 13,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.24235573410987854,
+          "total_absolute_potential": 27.882800728082657,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 14,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.21812015771865845,
+          "total_absolute_potential": 25.094519920647144,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 15,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.19630813598632812,
+          "total_absolute_potential": 22.58506727963686,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 16,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.17667731642723083,
+          "total_absolute_potential": 20.32655991986394,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 17,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.15900957584381104,
+          "total_absolute_potential": 18.293903470039368,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 18,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.14310862123966217,
+          "total_absolute_potential": 16.464512640610337,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 19,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.1287977546453476,
+          "total_absolute_potential": 14.818060921505094,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 20,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.11591797322034836,
+          "total_absolute_potential": 13.336254384368658,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 21,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.10432617366313934,
+          "total_absolute_potential": 12.002628726884723,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 22,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.09389355033636093,
+          "total_absolute_potential": 10.802365578711033,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 23,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.08450419455766678,
+          "total_absolute_potential": 9.722128722816706,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 24,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.07605377584695816,
+          "total_absolute_potential": 8.749915610998869,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 25,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.06844839453697205,
+          "total_absolute_potential": 7.874923801980913,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 26,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.06160355359315872,
+          "total_absolute_potential": 7.08743123523891,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 27,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.05544319748878479,
+          "total_absolute_potential": 6.378687893971801,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 28,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.04989887773990631,
+          "total_absolute_potential": 5.740818968042731,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 29,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.04490898922085762,
+          "total_absolute_potential": 5.1667369194328785,
+          "cumulative_unique_active": 50
+        }
+      ],
+      "wall_seconds": 0.48255869999411516,
+      "cpu_seconds": 0.484375,
+      "steps_per_second": 62.16860249409212,
+      "mean_step_milliseconds": 16.085289999803837,
+      "process_cpu_percent_one_core_basis": 100.37638944358623,
+      "process_cpu_percent_total_machine_basis": 8.364699120298853,
+      "peak_process_rss_bytes": 391598080,
+      "peak_active_neurons": 50,
+      "cumulative_unique_active": 50,
+      "last_nonzero_timestep": 0,
+      "died_after_stimulus": true,
+      "runaway_25_percent_peak": false,
+      "saturated_last_five_steps": false
+    },
+    {
+      "weight": {
+        "name": "log1p",
+        "scale": 0.12,
+        "cap": 32.0
+      },
+      "neuron": {
+        "decay": 0.0,
+        "threshold": 1.0,
+        "reset_value": 0.0,
+        "refractory_steps": 0
+      },
+      "transmitter_mode": "unsigned",
+      "unknown_transmitter_policy": "positive",
+      "initialization_seconds": 0.10872150000068359,
+      "adjacency_memory_bytes": 158746888,
+      "state_memory_bytes": 1531805,
+      "baseline": [
+        {
+          "timestep": 0,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        }
+      ],
+      "timesteps": [
+        {
+          "timestep": 0,
+          "active_neurons": 50,
+          "newly_active_neurons": 50,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 1,
+          "newly_active_neurons": 1,
+          "peak_membrane_potential": 0.9679449200630188,
+          "total_absolute_potential": 117.44006437063217,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.6493974924087524,
+          "total_absolute_potential": 14.03355260193348,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 5,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 6,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 7,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 8,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 9,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 10,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 11,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 12,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 13,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 14,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 15,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 16,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 17,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 18,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 19,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 20,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 21,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 22,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 23,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 24,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 25,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 26,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 27,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 28,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 29,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 51
+        }
+      ],
+      "wall_seconds": 0.49215529998764396,
+      "cpu_seconds": 0.484375,
+      "steps_per_second": 60.956368855020315,
+      "mean_step_milliseconds": 16.4051766662548,
+      "process_cpu_percent_one_core_basis": 98.41913721383489,
+      "process_cpu_percent_total_machine_basis": 8.201594767819573,
+      "peak_process_rss_bytes": 391598080,
+      "peak_active_neurons": 50,
+      "cumulative_unique_active": 51,
+      "last_nonzero_timestep": 1,
+      "died_after_stimulus": false,
+      "runaway_25_percent_peak": false,
+      "saturated_last_five_steps": false
+    },
+    {
+      "weight": {
+        "name": "log1p",
+        "scale": 0.12,
+        "cap": 32.0
+      },
+      "neuron": {
+        "decay": 0.9,
+        "threshold": 1.0,
+        "reset_value": 0.0,
+        "refractory_steps": 0
+      },
+      "transmitter_mode": "unsigned",
+      "unknown_transmitter_policy": "positive",
+      "initialization_seconds": 0.10738729999866337,
+      "adjacency_memory_bytes": 158746888,
+      "state_memory_bytes": 1531805,
+      "baseline": [
+        {
+          "timestep": 0,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        }
+      ],
+      "timesteps": [
+        {
+          "timestep": 0,
+          "active_neurons": 50,
+          "newly_active_neurons": 50,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 1,
+          "newly_active_neurons": 1,
+          "peak_membrane_potential": 0.9679449200630188,
+          "total_absolute_potential": 117.44006437063217,
+          "cumulative_unique_active": 51
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 2,
+          "newly_active_neurons": 2,
+          "peak_membrane_potential": 0.9093256592750549,
+          "total_absolute_potential": 117.6130113825202,
+          "cumulative_unique_active": 53
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 3,
+          "newly_active_neurons": 3,
+          "peak_membrane_potential": 0.8481247425079346,
+          "total_absolute_potential": 110.8938810378313,
+          "cumulative_unique_active": 56
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 5,
+          "newly_active_neurons": 5,
+          "peak_membrane_potential": 0.9177653789520264,
+          "total_absolute_potential": 123.62040976062417,
+          "cumulative_unique_active": 60
+        },
+        {
+          "timestep": 5,
+          "active_neurons": 10,
+          "newly_active_neurons": 10,
+          "peak_membrane_potential": 0.9884974956512451,
+          "total_absolute_potential": 161.0744239911437,
+          "cumulative_unique_active": 67
+        },
+        {
+          "timestep": 6,
+          "active_neurons": 53,
+          "newly_active_neurons": 48,
+          "peak_membrane_potential": 0.9954193830490112,
+          "total_absolute_potential": 225.23682598769665,
+          "cumulative_unique_active": 109
+        },
+        {
+          "timestep": 7,
+          "active_neurons": 310,
+          "newly_active_neurons": 261,
+          "peak_membrane_potential": 0.9975284934043884,
+          "total_absolute_potential": 1075.0652064196765,
+          "cumulative_unique_active": 365
+        },
+        {
+          "timestep": 8,
+          "active_neurons": 4239,
+          "newly_active_neurons": 3931,
+          "peak_membrane_potential": 0.999530017375946,
+          "total_absolute_potential": 11549.175946861506,
+          "cumulative_unique_active": 4289
+        },
+        {
+          "timestep": 9,
+          "active_neurons": 39073,
+          "newly_active_neurons": 34837,
+          "peak_membrane_potential": 0.9999924898147583,
+          "total_absolute_potential": 14949.802059035748,
+          "cumulative_unique_active": 39124
+        },
+        {
+          "timestep": 10,
+          "active_neurons": 93716,
+          "newly_active_neurons": 54647,
+          "peak_membrane_potential": 0.9999924898147583,
+          "total_absolute_potential": 9838.720731567591,
+          "cumulative_unique_active": 93767
+        },
+        {
+          "timestep": 11,
+          "active_neurons": 125191,
+          "newly_active_neurons": 31603,
+          "peak_membrane_potential": 0.9999924898147583,
+          "total_absolute_potential": 5052.625874530524,
+          "cumulative_unique_active": 125357
+        },
+        {
+          "timestep": 12,
+          "active_neurons": 130769,
+          "newly_active_neurons": 6366,
+          "peak_membrane_potential": 0.9999558925628662,
+          "total_absolute_potential": 3883.9992498904467,
+          "cumulative_unique_active": 131580
+        },
+        {
+          "timestep": 13,
+          "active_neurons": 132222,
+          "newly_active_neurons": 3554,
+          "peak_membrane_potential": 0.9997954964637756,
+          "total_absolute_potential": 3286.0373908709735,
+          "cumulative_unique_active": 134357
+        },
+        {
+          "timestep": 14,
+          "active_neurons": 131884,
+          "newly_active_neurons": 3049,
+          "peak_membrane_potential": 0.9999924898147583,
+          "total_absolute_potential": 3511.879425799474,
+          "cumulative_unique_active": 135492
+        },
+        {
+          "timestep": 15,
+          "active_neurons": 132272,
+          "newly_active_neurons": 3463,
+          "peak_membrane_potential": 0.9991422891616821,
+          "total_absolute_potential": 3247.3906350657344,
+          "cumulative_unique_active": 135997
+        },
+        {
+          "timestep": 16,
+          "active_neurons": 131778,
+          "newly_active_neurons": 2969,
+          "peak_membrane_potential": 0.9994795322418213,
+          "total_absolute_potential": 3683.698811903596,
+          "cumulative_unique_active": 136269
+        },
+        {
+          "timestep": 17,
+          "active_neurons": 132385,
+          "newly_active_neurons": 3583,
+          "peak_membrane_potential": 0.9991021156311035,
+          "total_absolute_potential": 3244.162426811643,
+          "cumulative_unique_active": 136454
+        },
+        {
+          "timestep": 18,
+          "active_neurons": 131727,
+          "newly_active_neurons": 2918,
+          "peak_membrane_potential": 0.9999924302101135,
+          "total_absolute_potential": 3725.076847875491,
+          "cumulative_unique_active": 136559
+        },
+        {
+          "timestep": 19,
+          "active_neurons": 132396,
+          "newly_active_neurons": 3609,
+          "peak_membrane_potential": 0.9991422891616821,
+          "total_absolute_potential": 3269.605454365723,
+          "cumulative_unique_active": 136661
+        },
+        {
+          "timestep": 20,
+          "active_neurons": 131825,
+          "newly_active_neurons": 3041,
+          "peak_membrane_potential": 0.9991021156311035,
+          "total_absolute_potential": 3614.143898298964,
+          "cumulative_unique_active": 136725
+        },
+        {
+          "timestep": 21,
+          "active_neurons": 132184,
+          "newly_active_neurons": 3389,
+          "peak_membrane_potential": 0.9999624490737915,
+          "total_absolute_potential": 3430.7538860384375,
+          "cumulative_unique_active": 136765
+        },
+        {
+          "timestep": 22,
+          "active_neurons": 131884,
+          "newly_active_neurons": 3083,
+          "peak_membrane_potential": 0.9998368620872498,
+          "total_absolute_potential": 3712.0054682968184,
+          "cumulative_unique_active": 136795
+        },
+        {
+          "timestep": 23,
+          "active_neurons": 132489,
+          "newly_active_neurons": 3703,
+          "peak_membrane_potential": 0.9991021156311035,
+          "total_absolute_potential": 3193.3091802326962,
+          "cumulative_unique_active": 136820
+        },
+        {
+          "timestep": 24,
+          "active_neurons": 131526,
+          "newly_active_neurons": 2736,
+          "peak_membrane_potential": 0.9999924302101135,
+          "total_absolute_potential": 3904.208804736845,
+          "cumulative_unique_active": 136846
+        },
+        {
+          "timestep": 25,
+          "active_neurons": 132314,
+          "newly_active_neurons": 3542,
+          "peak_membrane_potential": 0.9991021156311035,
+          "total_absolute_potential": 3484.6089225574397,
+          "cumulative_unique_active": 136868
+        },
+        {
+          "timestep": 26,
+          "active_neurons": 132024,
+          "newly_active_neurons": 3246,
+          "peak_membrane_potential": 0.9998368620872498,
+          "total_absolute_potential": 3565.411236423999,
+          "cumulative_unique_active": 136891
+        },
+        {
+          "timestep": 27,
+          "active_neurons": 132233,
+          "newly_active_neurons": 3423,
+          "peak_membrane_potential": 0.9995962977409363,
+          "total_absolute_potential": 3374.2959050107747,
+          "cumulative_unique_active": 136911
+        },
+        {
+          "timestep": 28,
+          "active_neurons": 131805,
+          "newly_active_neurons": 3014,
+          "peak_membrane_potential": 0.9991021156311035,
+          "total_absolute_potential": 3777.6443397398107,
+          "cumulative_unique_active": 136933
+        },
+        {
+          "timestep": 29,
+          "active_neurons": 132411,
+          "newly_active_neurons": 3623,
+          "peak_membrane_potential": 0.9991021156311035,
+          "total_absolute_potential": 3319.5578716699965,
+          "cumulative_unique_active": 136948
+        }
+      ],
+      "wall_seconds": 0.49143299998831935,
+      "cpu_seconds": 0.5,
+      "steps_per_second": 61.04596150586765,
+      "mean_step_milliseconds": 16.381099999610644,
+      "process_cpu_percent_one_core_basis": 101.74326917644608,
+      "process_cpu_percent_total_machine_basis": 8.47860576470384,
+      "peak_process_rss_bytes": 391598080,
+      "peak_active_neurons": 132489,
+      "cumulative_unique_active": 136948,
+      "last_nonzero_timestep": 29,
+      "died_after_stimulus": false,
+      "runaway_25_percent_peak": true,
+      "saturated_last_five_steps": true
+    },
+    {
+      "weight": {
+        "name": "log1p",
+        "scale": 0.3,
+        "cap": 32.0
+      },
+      "neuron": {
+        "decay": 0.9,
+        "threshold": 1.0,
+        "reset_value": 0.0,
+        "refractory_steps": 0
+      },
+      "transmitter_mode": "unsigned",
+      "unknown_transmitter_policy": "positive",
+      "initialization_seconds": 0.11522649999824353,
+      "adjacency_memory_bytes": 158746888,
+      "state_memory_bytes": 1531805,
+      "baseline": [
+        {
+          "timestep": 0,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        }
+      ],
+      "timesteps": [
+        {
+          "timestep": 0,
+          "active_neurons": 50,
+          "newly_active_neurons": 50,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 131,
+          "newly_active_neurons": 131,
+          "peak_membrane_potential": 0.999661386013031,
+          "total_absolute_potential": 134.43571668863297,
+          "cumulative_unique_active": 181
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 793,
+          "newly_active_neurons": 756,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 1638.4124634116888,
+          "cumulative_unique_active": 924
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 22936,
+          "newly_active_neurons": 22173,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 13526.321474835277,
+          "cumulative_unique_active": 23002
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 99436,
+          "newly_active_neurons": 76505,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 8886.142791301012,
+          "cumulative_unique_active": 99457
+        },
+        {
+          "timestep": 5,
+          "active_neurons": 132245,
+          "newly_active_neurons": 32827,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 2242.7023755759,
+          "cumulative_unique_active": 132276
+        },
+        {
+          "timestep": 6,
+          "active_neurons": 135955,
+          "newly_active_neurons": 4068,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 857.5145725756884,
+          "cumulative_unique_active": 136324
+        },
+        {
+          "timestep": 7,
+          "active_neurons": 136165,
+          "newly_active_neurons": 872,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 820.6141584515572,
+          "cumulative_unique_active": 136837
+        },
+        {
+          "timestep": 8,
+          "active_neurons": 136302,
+          "newly_active_neurons": 873,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 787.0248735621572,
+          "cumulative_unique_active": 137066
+        },
+        {
+          "timestep": 9,
+          "active_neurons": 136271,
+          "newly_active_neurons": 798,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 882.719530262053,
+          "cumulative_unique_active": 137189
+        },
+        {
+          "timestep": 10,
+          "active_neurons": 136450,
+          "newly_active_neurons": 928,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 806.355668336153,
+          "cumulative_unique_active": 137297
+        },
+        {
+          "timestep": 11,
+          "active_neurons": 136428,
+          "newly_active_neurons": 862,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 845.7410720288754,
+          "cumulative_unique_active": 137428
+        },
+        {
+          "timestep": 12,
+          "active_neurons": 136493,
+          "newly_active_neurons": 912,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 849.5675254017115,
+          "cumulative_unique_active": 137497
+        },
+        {
+          "timestep": 13,
+          "active_neurons": 136477,
+          "newly_active_neurons": 879,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 887.4449132606387,
+          "cumulative_unique_active": 137546
+        },
+        {
+          "timestep": 14,
+          "active_neurons": 136532,
+          "newly_active_neurons": 920,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 858.3167902007699,
+          "cumulative_unique_active": 137592
+        },
+        {
+          "timestep": 15,
+          "active_neurons": 136473,
+          "newly_active_neurons": 853,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 966.8112983033061,
+          "cumulative_unique_active": 137650
+        },
+        {
+          "timestep": 16,
+          "active_neurons": 136613,
+          "newly_active_neurons": 977,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 898.7904354445636,
+          "cumulative_unique_active": 137689
+        },
+        {
+          "timestep": 17,
+          "active_neurons": 136533,
+          "newly_active_neurons": 889,
+          "peak_membrane_potential": 0.999936044216156,
+          "total_absolute_potential": 950.325415879488,
+          "cumulative_unique_active": 137720
+        },
+        {
+          "timestep": 18,
+          "active_neurons": 136596,
+          "newly_active_neurons": 959,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 932.7644833624363,
+          "cumulative_unique_active": 137748
+        },
+        {
+          "timestep": 19,
+          "active_neurons": 136602,
+          "newly_active_neurons": 958,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 921.6392657123506,
+          "cumulative_unique_active": 137788
+        },
+        {
+          "timestep": 20,
+          "active_neurons": 136644,
+          "newly_active_neurons": 969,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 892.186197899282,
+          "cumulative_unique_active": 137802
+        },
+        {
+          "timestep": 21,
+          "active_neurons": 136562,
+          "newly_active_neurons": 887,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 976.264536395669,
+          "cumulative_unique_active": 137828
+        },
+        {
+          "timestep": 22,
+          "active_neurons": 136650,
+          "newly_active_neurons": 977,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 950.5923144798726,
+          "cumulative_unique_active": 137843
+        },
+        {
+          "timestep": 23,
+          "active_neurons": 136577,
+          "newly_active_neurons": 898,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 1015.1619042679667,
+          "cumulative_unique_active": 137863
+        },
+        {
+          "timestep": 24,
+          "active_neurons": 136645,
+          "newly_active_neurons": 971,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 998.979472193867,
+          "cumulative_unique_active": 137874
+        },
+        {
+          "timestep": 25,
+          "active_neurons": 136654,
+          "newly_active_neurons": 981,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 957.0622486900538,
+          "cumulative_unique_active": 137882
+        },
+        {
+          "timestep": 26,
+          "active_neurons": 136663,
+          "newly_active_neurons": 974,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 931.0103101991117,
+          "cumulative_unique_active": 137889
+        },
+        {
+          "timestep": 27,
+          "active_neurons": 136578,
+          "newly_active_neurons": 884,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 1015.4517763135955,
+          "cumulative_unique_active": 137895
+        },
+        {
+          "timestep": 28,
+          "active_neurons": 136694,
+          "newly_active_neurons": 1007,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 950.3430370735005,
+          "cumulative_unique_active": 137906
+        },
+        {
+          "timestep": 29,
+          "active_neurons": 136603,
+          "newly_active_neurons": 925,
+          "peak_membrane_potential": 0.9996614456176758,
+          "total_absolute_potential": 996.0149033945054,
+          "cumulative_unique_active": 137919
+        }
+      ],
+      "wall_seconds": 0.5279117999889422,
+      "cpu_seconds": 0.53125,
+      "steps_per_second": 56.827674624110294,
+      "mean_step_milliseconds": 17.59705999963141,
+      "process_cpu_percent_one_core_basis": 100.63234048019531,
+      "process_cpu_percent_total_machine_basis": 8.386028373349609,
+      "peak_process_rss_bytes": 391598080,
+      "peak_active_neurons": 136694,
+      "cumulative_unique_active": 137919,
+      "last_nonzero_timestep": 29,
+      "died_after_stimulus": false,
+      "runaway_25_percent_peak": true,
+      "saturated_last_five_steps": true
+    },
+    {
+      "weight": {
+        "name": "log1p",
+        "scale": 1.0,
+        "cap": 32.0
+      },
+      "neuron": {
+        "decay": 0.9,
+        "threshold": 1.0,
+        "reset_value": 0.0,
+        "refractory_steps": 0
+      },
+      "transmitter_mode": "unsigned",
+      "unknown_transmitter_policy": "positive",
+      "initialization_seconds": 0.13115500001003966,
+      "adjacency_memory_bytes": 158746888,
+      "state_memory_bytes": 1531805,
+      "baseline": [
+        {
+          "timestep": 0,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 0,
+          "newly_active_neurons": 0,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0
+        }
+      ],
+      "timesteps": [
+        {
+          "timestep": 0,
+          "active_neurons": 50,
+          "newly_active_neurons": 50,
+          "peak_membrane_potential": 0.0,
+          "total_absolute_potential": 0.0,
+          "cumulative_unique_active": 50
+        },
+        {
+          "timestep": 1,
+          "active_neurons": 316,
+          "newly_active_neurons": 316,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 92.88172245025635,
+          "cumulative_unique_active": 366
+        },
+        {
+          "timestep": 2,
+          "active_neurons": 8975,
+          "newly_active_neurons": 8670,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 3196.309602499008,
+          "cumulative_unique_active": 8994
+        },
+        {
+          "timestep": 3,
+          "active_neurons": 114287,
+          "newly_active_neurons": 105320,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 4173.723375976086,
+          "cumulative_unique_active": 114295
+        },
+        {
+          "timestep": 4,
+          "active_neurons": 136808,
+          "newly_active_neurons": 22527,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 259.93019342422485,
+          "cumulative_unique_active": 136814
+        },
+        {
+          "timestep": 5,
+          "active_neurons": 137424,
+          "newly_active_neurons": 633,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 116.1714677810669,
+          "cumulative_unique_active": 137441
+        },
+        {
+          "timestep": 6,
+          "active_neurons": 137692,
+          "newly_active_neurons": 332,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 143.6894109249115,
+          "cumulative_unique_active": 137756
+        },
+        {
+          "timestep": 7,
+          "active_neurons": 137967,
+          "newly_active_neurons": 343,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 117.62707686424255,
+          "cumulative_unique_active": 138035
+        },
+        {
+          "timestep": 8,
+          "active_neurons": 138191,
+          "newly_active_neurons": 322,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 157.62166929244995,
+          "cumulative_unique_active": 138289
+        },
+        {
+          "timestep": 9,
+          "active_neurons": 138414,
+          "newly_active_neurons": 313,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 110.90354919433594,
+          "cumulative_unique_active": 138504
+        },
+        {
+          "timestep": 10,
+          "active_neurons": 138500,
+          "newly_active_neurons": 219,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 116.1714677810669,
+          "cumulative_unique_active": 138633
+        },
+        {
+          "timestep": 11,
+          "active_neurons": 138563,
+          "newly_active_neurons": 201,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 108.33890461921692,
+          "cumulative_unique_active": 138703
+        },
+        {
+          "timestep": 12,
+          "active_neurons": 138586,
+          "newly_active_neurons": 169,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 112.92753899097443,
+          "cumulative_unique_active": 138738
+        },
+        {
+          "timestep": 13,
+          "active_neurons": 138600,
+          "newly_active_neurons": 166,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 107.13837367296219,
+          "cumulative_unique_active": 138759
+        },
+        {
+          "timestep": 14,
+          "active_neurons": 138611,
+          "newly_active_neurons": 167,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 108.22730791568756,
+          "cumulative_unique_active": 138771
+        },
+        {
+          "timestep": 15,
+          "active_neurons": 138615,
+          "newly_active_neurons": 158,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 105.52403390407562,
+          "cumulative_unique_active": 138777
+        },
+        {
+          "timestep": 16,
+          "active_neurons": 138616,
+          "newly_active_neurons": 155,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 110.92365044355392,
+          "cumulative_unique_active": 138780
+        },
+        {
+          "timestep": 17,
+          "active_neurons": 138628,
+          "newly_active_neurons": 164,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 100.85291504859924,
+          "cumulative_unique_active": 138789
+        },
+        {
+          "timestep": 18,
+          "active_neurons": 138623,
+          "newly_active_neurons": 152,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 108.41515082120895,
+          "cumulative_unique_active": 138790
+        },
+        {
+          "timestep": 19,
+          "active_neurons": 138623,
+          "newly_active_neurons": 152,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 105.25370651483536,
+          "cumulative_unique_active": 138790
+        },
+        {
+          "timestep": 20,
+          "active_neurons": 138622,
+          "newly_active_neurons": 149,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 112.99969553947449,
+          "cumulative_unique_active": 138790
+        },
+        {
+          "timestep": 21,
+          "active_neurons": 138631,
+          "newly_active_neurons": 158,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 101.50411987304688,
+          "cumulative_unique_active": 138791
+        },
+        {
+          "timestep": 22,
+          "active_neurons": 138627,
+          "newly_active_neurons": 151,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 107.09085217118263,
+          "cumulative_unique_active": 138791
+        },
+        {
+          "timestep": 23,
+          "active_neurons": 138626,
+          "newly_active_neurons": 152,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 103.08297529816628,
+          "cumulative_unique_active": 138792
+        },
+        {
+          "timestep": 24,
+          "active_neurons": 138623,
+          "newly_active_neurons": 150,
+          "peak_membrane_potential": 0.9915242791175842,
+          "total_absolute_potential": 110.52888035774231,
+          "cumulative_unique_active": 138792
+        },
+        {
+          "timestep": 25,
+          "active_neurons": 138629,
+          "newly_active_neurons": 156,
+          "peak_membrane_potential": 0.8923718333244324,
+          "total_absolute_potential": 101.74528688192368,
+          "cumulative_unique_active": 138792
+        },
+        {
+          "timestep": 26,
+          "active_neurons": 138626,
+          "newly_active_neurons": 151,
+          "peak_membrane_potential": 0.8031346201896667,
+          "total_absolute_potential": 106.44569671154022,
+          "cumulative_unique_active": 138792
+        },
+        {
+          "timestep": 27,
+          "active_neurons": 138623,
+          "newly_active_neurons": 149,
+          "peak_membrane_potential": 0.7228211164474487,
+          "total_absolute_potential": 106.17754030227661,
+          "cumulative_unique_active": 138792
+        },
+        {
+          "timestep": 28,
+          "active_neurons": 138624,
+          "newly_active_neurons": 151,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 111.3038620352745,
+          "cumulative_unique_active": 138792
+        },
+        {
+          "timestep": 29,
+          "active_neurons": 138629,
+          "newly_active_neurons": 155,
+          "peak_membrane_potential": 0.6931471824645996,
+          "total_absolute_potential": 103.06660282611847,
+          "cumulative_unique_active": 138792
+        }
+      ],
+      "wall_seconds": 0.48766909999540076,
+      "cpu_seconds": 0.484375,
+      "steps_per_second": 61.51712298417704,
+      "mean_step_milliseconds": 16.255636666513357,
+      "process_cpu_percent_one_core_basis": 99.32452148486918,
+      "process_cpu_percent_total_machine_basis": 8.277043457072432,
+      "peak_process_rss_bytes": 391593984,
+      "peak_active_neurons": 138631,
+      "cumulative_unique_active": 138792,
+      "last_nonzero_timestep": 29,
+      "died_after_stimulus": false,
+      "runaway_25_percent_peak": true,
+      "saturated_last_five_steps": true
+    }
+  ]
+}

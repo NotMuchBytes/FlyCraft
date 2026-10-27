@@ -1,0 +1,212 @@
+{
+  "prespecified": {
+    "training_seeds": [
+      11,
+      29,
+      47
+    ],
+    "training_episodes_per_seed": 400,
+    "evaluation_episodes_per_seed": 200,
+    "training_config": {
+      "max_steps": 24,
+      "success_distance": 1.0,
+      "learning_rate": 0.025,
+      "gamma": 0.97,
+      "baseline_retention": 0.95,
+      "gradient_clip": 5.0
+    },
+    "success_criteria": {
+      "minimum_mean_final_distance_reduction": 0.2,
+      "minimum_success_rate_gain": 0.25
+    }
+  },
+  "learning_boundary": "only the 4x4 linear action readout changes; connectome topology, normalized graph weights, dynamics, sensory encoder, and visual_projection population stay fixed",
+  "per_seed": [
+    {
+      "seed": 11,
+      "training_elapsed_seconds": 0.37311529996804893,
+      "training_success_last_50": 0.1,
+      "nonzero_update_episodes": 400,
+      "same_seed_reproducible": true,
+      "checkpoint_exact": true,
+      "checkpoint_episodes": 400,
+      "checkpoint_seed": 11,
+      "baseline": {
+        "episodes": 200,
+        "successes": 2,
+        "success_rate": 0.01,
+        "mean_reward": 0.36713986079352273,
+        "median_reward": 0.625879443541817,
+        "mean_final_distance": 4.995639747576095,
+        "mean_steps": 23.925,
+        "mean_steps_to_success": 16.5
+      },
+      "trained": {
+        "episodes": 200,
+        "successes": 24,
+        "success_rate": 0.12,
+        "mean_reward": 2.192425014651166,
+        "median_reward": 2.4104470099327218,
+        "mean_final_distance": 3.6615551922079264,
+        "mean_steps": 23.335,
+        "mean_steps_to_success": 18.458333333333332
+      },
+      "shuffled": {
+        "episodes": 200,
+        "successes": 26,
+        "success_rate": 0.13,
+        "mean_reward": 1.9851483673357295,
+        "median_reward": 2.1838389717740965,
+        "mean_final_distance": 3.8113864434000235,
+        "mean_steps": 23.185,
+        "mean_steps_to_success": 17.73076923076923
+      },
+      "hidden_control": {
+        "steps": 1200,
+        "action_counts": {
+          "NO_OP": 315,
+          "TURN_LEFT": 246,
+          "TURN_RIGHT": 242,
+          "FORWARD": 397
+        },
+        "no_op_fraction": 0.2625
+      }
+    },
+    {
+      "seed": 29,
+      "training_elapsed_seconds": 0.29413229995407164,
+      "training_success_last_50": 0.12,
+      "nonzero_update_episodes": 400,
+      "same_seed_reproducible": true,
+      "checkpoint_exact": true,
+      "checkpoint_episodes": 400,
+      "checkpoint_seed": 29,
+      "baseline": {
+        "episodes": 200,
+        "successes": 2,
+        "success_rate": 0.01,
+        "mean_reward": 0.36462172226478823,
+        "median_reward": 0.4600603409418139,
+        "mean_final_distance": 5.077618172084343,
+        "mean_steps": 23.985,
+        "mean_steps_to_success": 22.5
+      },
+      "trained": {
+        "episodes": 200,
+        "successes": 23,
+        "success_rate": 0.115,
+        "mean_reward": 2.009316951081982,
+        "median_reward": 1.9798656102273942,
+        "mean_final_distance": 3.743936519503064,
+        "mean_steps": 23.41,
+        "mean_steps_to_success": 18.869565217391305
+      },
+      "shuffled": {
+        "episodes": 200,
+        "successes": 18,
+        "success_rate": 0.09,
+        "mean_reward": 1.496525410757623,
+        "median_reward": 1.2866292656708862,
+        "mean_final_distance": 4.16171002029335,
+        "mean_steps": 23.305,
+        "mean_steps_to_success": 16.27777777777778
+      },
+      "hidden_control": {
+        "steps": 1200,
+        "action_counts": {
+          "NO_OP": 248,
+          "TURN_LEFT": 265,
+          "TURN_RIGHT": 275,
+          "FORWARD": 412
+        },
+        "no_op_fraction": 0.20666666666666667
+      }
+    },
+    {
+      "seed": 47,
+      "training_elapsed_seconds": 0.2942939999047667,
+      "training_success_last_50": 0.16,
+      "nonzero_update_episodes": 400,
+      "same_seed_reproducible": true,
+      "checkpoint_exact": true,
+      "checkpoint_episodes": 400,
+      "checkpoint_seed": 47,
+      "baseline": {
+        "episodes": 200,
+        "successes": 3,
+        "success_rate": 0.015,
+        "mean_reward": 0.5883882752191193,
+        "median_reward": 0.6638525004296938,
+        "mean_final_distance": 4.837894218749273,
+        "mean_steps": 23.96,
+        "mean_steps_to_success": 21.333333333333332
+      },
+      "trained": {
+        "episodes": 200,
+        "successes": 28,
+        "success_rate": 0.14,
+        "mean_reward": 2.141880075687133,
+        "median_reward": 2.062789455902742,
+        "mean_final_distance": 3.7968291822595677,
+        "mean_steps": 23.285,
+        "mean_steps_to_success": 18.892857142857142
+      },
+      "shuffled": {
+        "episodes": 200,
+        "successes": 24,
+        "success_rate": 0.12,
+        "mean_reward": 1.4102999004949266,
+        "median_reward": 0.7160860117497451,
+        "mean_final_distance": 4.2839044169782685,
+        "mean_steps": 23.255,
+        "mean_steps_to_success": 17.791666666666668
+      },
+      "hidden_control": {
+        "steps": 1200,
+        "action_counts": {
+          "NO_OP": 264,
+          "TURN_LEFT": 286,
+          "TURN_RIGHT": 225,
+          "FORWARD": 425
+        },
+        "no_op_fraction": 0.22
+      }
+    }
+  ],
+  "aggregate": {
+    "baseline": {
+      "episodes": 200.0,
+      "successes": 2.3333333333333335,
+      "success_rate": 0.011666666666666667,
+      "mean_reward": 0.44004995275914344,
+      "median_reward": 0.5832640949711082,
+      "mean_final_distance": 4.97038404613657,
+      "mean_steps": 23.956666666666667,
+      "mean_steps_to_success": 20.11111111111111
+    },
+    "trained": {
+      "episodes": 200.0,
+      "successes": 25.0,
+      "success_rate": 0.125,
+      "mean_reward": 2.1145406804734272,
+      "median_reward": 2.1510340253542863,
+      "mean_final_distance": 3.7341069646568528,
+      "mean_steps": 23.343333333333334,
+      "mean_steps_to_success": 18.740251897860592
+    },
+    "shuffled": {
+      "episodes": 200.0,
+      "successes": 22.666666666666668,
+      "success_rate": 0.11333333333333333,
+      "mean_reward": 1.6306578928627598,
+      "median_reward": 1.3955180830649094,
+      "mean_final_distance": 4.085666960223881,
+      "mean_steps": 23.248333333333335,
+      "mean_steps_to_success": 17.266737891737893
+    }
+  },
+  "observed_mean_final_distance_reduction": 0.24872868374037682,
+  "observed_success_rate_gain": 0.11333333333333333,
+  "phase5_passed": false,
+  "elapsed_seconds": 2.7329248001333326
+}

@@ -1,0 +1,50 @@
+{
+  "environment": "real Minecraft 26.2 / Fabric 0.19.5, fresh local flat world",
+  "server_outcomes": [
+    {
+      "success": true,
+      "distance": 1.4367205074002116,
+      "ticks": 100
+    }
+  ],
+  "goal_result": {
+    "goal": "navigate_object",
+    "world_seed": 0,
+    "world_id": "minecraft:a87d2476-ff88-3799-a681-9605d7180f4f:1803729378",
+    "train": false,
+    "actions": 8,
+    "total_reward": 10.983560977689429,
+    "done": true,
+    "success": true,
+    "termination": "success",
+    "completed": [
+      "001:navigate:",
+      "root"
+    ],
+    "failed_actions": 0,
+    "replans": 0,
+    "subgoals": 2,
+    "subgoals_complete": 2,
+    "elapsed_seconds": 4.168714599974919,
+    "update": {
+      "weight_delta_norm": 0.0,
+      "gradient_norm": 0.0
+    },
+    "recovery_attempts": 0,
+    "recovery_successes": 0,
+    "recovery_events": []
+  },
+  "requests": 9,
+  "response_errors": 0,
+  "client_request_failures": 0,
+  "stale_actions": 0,
+  "actions_applied": 9,
+  "neural_windows": 8,
+  "action_distribution": {
+    "TURN_LEFT": 3,
+    "TURN_RIGHT": 2,
+    "FORWARD": 3,
+    "NO_OP": 1
+  },
+  "passed": true
+}

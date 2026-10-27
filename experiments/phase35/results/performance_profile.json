@@ -1,0 +1,73 @@
+{
+  "hardware": {
+    "cpu_name": "AMD64 Family 25 Model 124 Stepping 0, AuthenticAMD",
+    "physical_cores": 6,
+    "logical_cores": 12,
+    "total_ram_bytes": 16357146624,
+    "available_ram_bytes_at_start": 2506432512,
+    "openblas_max_threads_from_numpy_build": 24,
+    "thread_environment": {
+      "OMP_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null
+    },
+    "gpu_compute_packages": {
+      "cupy": false,
+      "torch": false,
+      "pyopencl": false,
+      "onnxruntime": false
+    },
+    "nvidia_smi_available": false,
+    "integrated_gpu_reported_in_cpu_name": "Radeon 740M Graphics"
+  },
+  "component_profile": {
+    "copy_seconds": 0.00021749990992248058,
+    "decay_seconds": 0.00032819987973198295,
+    "prepare_presynaptic_seconds": 0.002763899974524975,
+    "sparse_matvec_seconds": 0.5194958001957275,
+    "external_add_seconds": 0.0005523001891560853,
+    "threshold_reset_seconds": 0.0008403999381698668,
+    "metrics_seconds": 0.0017533002537675202,
+    "total_seconds": 0.5259514003410004,
+    "sparse_fraction": 0.9877258618551307
+  },
+  "execution_benchmark": {
+    "sequential": {
+      "wall_seconds": 2.376854100031778,
+      "process_cpu_seconds": 2.3125,
+      "steps_per_second": 40.38952159441191,
+      "cpu_one_core_basis_percent": 97.29246738237245
+    },
+    "threads": {
+      "2": {
+        "wall_seconds": 1.3182682999758981,
+        "process_cpu_seconds": 2.546875,
+        "speedup_vs_sequential": 1.8030124065603597,
+        "equivalent": true
+      },
+      "4": {
+        "wall_seconds": 0.9831067000050098,
+        "process_cpu_seconds": 3.5,
+        "speedup_vs_sequential": 2.417696980418978,
+        "equivalent": true
+      }
+    },
+    "batched": {
+      "wall_seconds": 2.4959301999770105,
+      "process_cpu_seconds": 2.453125,
+      "steps_per_second": 38.462614059032674,
+      "speedup_vs_sequential": 0.9522918950432472,
+      "equivalent": true,
+      "state_memory_bytes": 3899140
+    }
+  },
+  "peak_rss_bytes": 574922752,
+  "matrix_bytes": 158746888,
+  "steps_per_condition": 24,
+  "conditions": [
+    "far_left",
+    "left",
+    "center",
+    "right"
+  ]
+}

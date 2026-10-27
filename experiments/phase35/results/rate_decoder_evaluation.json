@@ -1,0 +1,205 @@
+{
+  "model": {
+    "type": "bounded_rate",
+    "minimum_synapses": 5,
+    "gain": 0.8,
+    "decay": 0.0,
+    "steps": 18,
+    "pulse_steps": 3
+  },
+  "decoder": {
+    "readout_superclass": "visual_projection",
+    "minimum_total_activity": 0.01,
+    "turn_margin": 0.01,
+    "activity_floor": 0.01
+  },
+  "information_boundary": "decoder receives only integrated visual_projection activity grouped by annotation side; it does not receive condition labels or coordinates",
+  "outcomes": [
+    {
+      "condition": "far_left",
+      "response": {
+        "left_activity": 34.4245830369764,
+        "right_activity": 2.4842506015629624,
+        "center_activity": 0.0,
+        "total_activity": 36.90883363853936,
+        "active_cells": 818
+      },
+      "action": "TURN_LEFT",
+      "global_active_by_step": [
+        50,
+        245,
+        621,
+        758,
+        841,
+        904,
+        935,
+        950,
+        961,
+        967,
+        970,
+        971,
+        971,
+        971,
+        971,
+        971,
+        971,
+        971
+      ]
+    },
+    {
+      "condition": "left",
+      "response": {
+        "left_activity": 37.21909689658787,
+        "right_activity": 2.085639375305618,
+        "center_activity": 0.0,
+        "total_activity": 39.30473627189349,
+        "active_cells": 755
+      },
+      "action": "TURN_LEFT",
+      "global_active_by_step": [
+        50,
+        277,
+        556,
+        650,
+        729,
+        759,
+        781,
+        796,
+        805,
+        813,
+        817,
+        818,
+        820,
+        821,
+        822,
+        823,
+        825,
+        825
+      ]
+    },
+    {
+      "condition": "center",
+      "response": {
+        "left_activity": 19.733280364365783,
+        "right_activity": 18.64885919317021,
+        "center_activity": 0.0,
+        "total_activity": 38.38213955753599,
+        "active_cells": 521
+      },
+      "action": "TURN_LEFT",
+      "global_active_by_step": [
+        50,
+        257,
+        669,
+        791,
+        856,
+        897,
+        913,
+        924,
+        934,
+        943,
+        944,
+        945,
+        946,
+        946,
+        947,
+        947,
+        947,
+        947
+      ]
+    },
+    {
+      "condition": "right",
+      "response": {
+        "left_activity": 2.2198144423382473,
+        "right_activity": 44.581955958827166,
+        "center_activity": 0.0,
+        "total_activity": 46.80177040116541,
+        "active_cells": 1373
+      },
+      "action": "TURN_RIGHT",
+      "global_active_by_step": [
+        50,
+        299,
+        813,
+        966,
+        1051,
+        1110,
+        1148,
+        1164,
+        1173,
+        1179,
+        1187,
+        1195,
+        1199,
+        1204,
+        1205,
+        1206,
+        1206,
+        1207
+      ]
+    },
+    {
+      "condition": "far_right",
+      "response": {
+        "left_activity": 2.0406703087755886,
+        "right_activity": 39.97919087178889,
+        "center_activity": 0.0,
+        "total_activity": 42.019861180564476,
+        "active_cells": 1151
+      },
+      "action": "TURN_RIGHT",
+      "global_active_by_step": [
+        50,
+        301,
+        755,
+        896,
+        987,
+        1059,
+        1098,
+        1125,
+        1148,
+        1162,
+        1166,
+        1172,
+        1177,
+        1181,
+        1182,
+        1182,
+        1182,
+        1182
+      ]
+    },
+    {
+      "condition": "not_visible",
+      "response": {
+        "left_activity": 0.0,
+        "right_activity": 0.0,
+        "center_activity": 0.0,
+        "total_activity": 0.0,
+        "active_cells": 0
+      },
+      "action": "NO_OP",
+      "global_active_by_step": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}
