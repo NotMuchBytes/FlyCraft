@@ -32,6 +32,8 @@ public final class Phase8Harness {
     private static int groundY;
     private static int maxSeconds;
     private static boolean initialized;
+    private static JsonObject terminal;
+    private static int terminalWait;
     private static final Map<ServerPlayer, BlockPos> placements = new HashMap<>();
 
     public static void initialize() {
@@ -63,6 +65,7 @@ public final class Phase8Harness {
         control.addProperty("goal", trial.goal); control.addProperty("condition", trial.condition);
         control.addProperty("train", trial.train); control.addProperty("policy_seed", 9001);
         control.addProperty("active", enabled); control.addProperty("suite_complete", done);
+        if (terminal != null) control.add("terminal", terminal.deepCopy());
         // No fixture coordinates, world/layout seeds, future states or success labels.
         try {
             Path temporary = controlFile.resolveSibling(controlFile.getFileName() + ".tmp");
@@ -75,6 +78,22 @@ public final class Phase8Harness {
         if (complete) return;
         if ((System.nanoTime() - programStarted) / 1_000_000_000L > maxSeconds) { finishSuite(server, "wall_budget"); return; }
         if (startGate != null && !Files.exists(startGate)) return;
+        if (terminal != null) {
+            boolean acknowledged=false;
+            Path acknowledgment=Path.of(controlFile.toString()+".ack");
+            try {
+                if(Files.exists(acknowledgment)) acknowledged=JsonParser.parseString(Files.readString(acknowledgment))
+                    .getAsJsonObject().get("episode_id").getAsString().equals(String.format("trial_%04d",index));
+            } catch(Exception ignored) { }
+            if(!acknowledged && ++terminalWait<100) return;
+            JsonObject delivery=new JsonObject();
+            delivery.addProperty("episode_id",String.format("trial_%04d",index));
+            delivery.addProperty("acknowledged",acknowledged); delivery.addProperty("wait_ticks",terminalWait);
+            try { Files.writeString(Path.of(resultsFile.toString()+".delivery.jsonl"),delivery+"\n",StandardOpenOption.CREATE,StandardOpenOption.APPEND); }
+            catch(IOException error) { throw new IllegalStateException(error); }
+            FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 terminal_delivery {}",delivery);
+            terminal=null;
+        }
         if (server.getPlayerList().getPlayers().isEmpty()) return;
         ServerPlayer player = server.getPlayerList().getPlayers().getFirst();
         if (!initialized) {
@@ -121,6 +140,15 @@ public final class Phase8Harness {
             catch (IOException error) { throw new IllegalStateException(error); }
             FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 episode_end {}", result);
             active = false; between = 40;
+            if(!trial.goal.equals("camera_probe")) {
+                // Final own-player state, captured at exactly the scoring boundary.
+                // It contains no goal-success label, map or fixture seed.
+                terminal=new JsonObject(); terminalWait=0;
+                terminal.addProperty("server_tick",server.getTickCount());
+                terminal.add("inventory",new Gson().toJsonTree(counts));
+                terminal.add("position",new Gson().toJsonTree(new double[]{player.getX(),player.getZ(),Math.toRadians(player.getYRot())}));
+                instruction(false,false);
+            }
         }
     }
 
@@ -154,6 +182,7 @@ public final class Phase8Harness {
             level.setBlockAndUpdate(BlockPos.containing(originX, groundY, originZ + 2), Blocks.CRAFTING_TABLE.defaultBlockState());
             player.inventoryMenu.sendAllDataToRemote();
             FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 transaction_fixture id={} goal=pickaxe_transaction prepared_ingredients=true", index);
+            initialState(player,trial);
             return;
         }
         Random rng = new Random(trial.seed);
@@ -163,6 +192,28 @@ public final class Phase8Harness {
         for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++)
             level.setBlockAndUpdate(new BlockPos(x + dx, groundY + 3, z + dz), Blocks.OAK_LEAVES.defaultBlockState());
         FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 episode_start id={} condition={} goal={} layout_seed={}", index, trial.condition, trial.goal, trial.seed);
+        initialState(player,trial);
+    }
+
+    private static void initialState(ServerPlayer player,Trial trial) {
+        JsonObject state=new JsonObject();
+        state.addProperty("episode_id",String.format("trial_%04d",index));
+        state.addProperty("world_seed",player.level().getSeed()); state.addProperty("layout_seed",trial.seed);
+        state.addProperty("goal",trial.goal); state.addProperty("server_tick",player.level().getServer().getTickCount());
+        state.addProperty("game_mode",player.gameMode().name());
+        state.add("position_xyz_yaw_pitch",new Gson().toJsonTree(new double[]{player.getX(),player.getY(),player.getZ(),player.getYRot(),player.getXRot()}));
+        state.add("inventory",new Gson().toJsonTree(inventory(player)));
+        JsonArray blocks=new JsonArray();
+        for(int x=-7;x<=7;x++) for(int z=-7;z<=7;z++) for(int y=0;y<=5;y++) {
+            BlockPos position=BlockPos.containing(originX+x,groundY+y,originZ+z);
+            var block=player.level().getBlockState(position);
+            if(!block.isAir()) blocks.add(new Gson().toJsonTree(Map.of("position",List.of(position.getX(),position.getY(),position.getZ()),"state",block.toString())));
+        }
+        state.add("fixture_blocks",blocks);
+        state.addProperty("replay_fidelity","Initial fixture snapshot; complete world/entity RNG replay is unverified");
+        // Operator evidence only: this file is never part of agent observations.
+        try { Files.writeString(Path.of(resultsFile.toString()+".initial.jsonl"),state+"\n",StandardOpenOption.CREATE,StandardOpenOption.APPEND); }
+        catch(IOException error) { throw new IllegalStateException(error); }
     }
 
     private static void finishSuite(MinecraftServer server, String reason) {

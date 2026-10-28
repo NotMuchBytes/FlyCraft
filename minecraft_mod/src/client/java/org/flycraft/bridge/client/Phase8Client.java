@@ -39,6 +39,7 @@ public final class Phase8Client {
     private ItemStack[] serverInventory;
     private long inventoryRevision, blockRevision, tick, readyAt, actionStarted, actionId, initialBlockVersion, initialInventoryVersion;
     private String episode = "", stoppedEpisode = "", action = "", stage = "";
+    private String terminalHandledEpisode="";
     private JsonObject control, lastAck;
     private BlockHitResult targetHit, groundHit, stationHit, visibleStationHit, miningHit, placementHit;
     private Target sensed;
@@ -52,6 +53,7 @@ public final class Phase8Client {
     private CameraProbe cameraProbe;
     private boolean strictInteractions;
     private double turnDegrees=15;
+    private String captureWindowTitle;
     private final CameraDriver.View cameraView=new CameraDriver.View() {
         public double yaw() { return client.player.getYRot(); }
         public double pitch() { return client.player.getXRot(); }
@@ -64,6 +66,7 @@ public final class Phase8Client {
         try (Reader reader = Files.newBufferedReader(Path.of("flycraft-phase8-client.properties"))) { properties.load(reader); }
         catch (IOException e) { throw new IllegalStateException("Phase 8 client needs its control-file configuration", e); }
         taskPath = Path.of(properties.getProperty("controlFile"));
+        captureWindowTitle=properties.getProperty("capture.windowTitle","");
         String cameraMode=properties.getProperty("camera.mode","legacy");
         strictInteractions=!cameraMode.equals("legacy");
         if(strictInteractions) {
@@ -146,6 +149,7 @@ public final class Phase8Client {
 
     private void onTick() {
         tick++;
+        if(!captureWindowTitle.isEmpty()) client.getWindow().setTitle(captureWindowTitle);
         // The server can close before our final poll. Read the lifecycle signal
         // even on the disconnected screen so an owned test client exits normally.
         if (tick % 5 == 0) {
@@ -165,11 +169,16 @@ public final class Phase8Client {
                 if(camera!=null) camera.reset(cameraView,episode);
             }
         }
-        if (control == null || !control.get("active").getAsBoolean()) return;
+        if (control == null) return;
+        boolean terminal=control.has("terminal");
+        if(terminal) {
+            cancel("episode_boundary");
+            if(terminalHandledEpisode.equals(episode)) return;
+        } else if(!control.get("active").getAsBoolean()) return;
         if(cameraProbe!=null) { cameraProbe.beforeTick(cameraView,tick); cameraProbe.tick(cameraView,tick); return; }
-        if (!action.isEmpty()) { advanceAction(); return; }
-        if(camera!=null && camera.busy()) return;
-        if (tick < readyAt || tick % 5 != 0 || stoppedEpisode.equals(episode) || !pending.compareAndSet(false, true)) return;
+        if (!terminal && !action.isEmpty()) { advanceAction(); return; }
+        if(!terminal && camera!=null && camera.busy()) return;
+        if (tick % 5 != 0 || !terminal && (tick < readyAt || stoppedEpisode.equals(episode)) || !pending.compareAndSet(false, true)) return;
         JsonObject request = observe();
         String expectedEpisode = episode;
         long observationTick = tick;
@@ -186,11 +195,24 @@ public final class Phase8Client {
                 if (!response.get("status").getAsString().equals("ok")) throw new IOException(response.toString());
                 client.execute(() -> {
                     if (client.player == null || !episode.equals(expectedEpisode) || tick - observationTick > 40) { cancel("stale_response"); return; }
+                    if(response.has("terminal_acknowledged") && response.get("terminal_acknowledged").getAsBoolean())
+                        terminalHandledEpisode=episode;
                     if (response.has("autonomy_status") && !response.get("autonomy_status").getAsString().equals("running")) {
                         cancel(""); stoppedEpisode = episode;
                         FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 controller_done episode={} status={}", episode, response.get("autonomy_status")); return;
                     }
                     if (response.get("observe_only").getAsBoolean()) { readyAt = tick + 5; return; }
+                    try { control=JsonParser.parseString(Files.readString(taskPath)).getAsJsonObject(); }
+                    catch(Exception error) { cancel("control_unavailable_before_execution"); return; }
+                    if(control.has("terminal")) {
+                        lastAck=new JsonObject();
+                        lastAck.addProperty("command_id",response.get("command_id").getAsLong());
+                        lastAck.addProperty("action",response.get("action").getAsString());
+                        lastAck.addProperty("status","not_executed");
+                        lastAck.addProperty("error","episode_ended_before_execution");
+                        lastAck.addProperty("block_changed",false);
+                        return;
+                    }
                     startAction(response.get("action").getAsString(), response.get("command_id").getAsLong(),observationTick,observationNanos);
                 });
             } catch (Exception error) {

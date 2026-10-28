@@ -30,6 +30,11 @@ public final class FlyCraftMod implements ModInitializer {
 		LOGGER.info("FlyCraft bridge initialized");
 		Phase8ServerObservations.initialize();
 		if (Files.exists(Path.of("flycraft-phase8.properties"))) {
+			if(Files.exists(Path.of("flycraft-headless.properties"))) {
+				var headless=new HeadlessAgent();
+				ServerTickEvents.END_SERVER_TICK.register(headless::tick);
+				net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING.register(server -> headless.close());
+			}
 			Phase8Harness.initialize();
 			ServerTickEvents.END_SERVER_TICK.register(Phase8Harness::tick);
 		} else if (Files.exists(Path.of("flycraft-phase7.enabled"))) {

@@ -1,0 +1,43 @@
+{
+  "run_id": "headless_recorded_redo_02",
+  "milestone": 1,
+  "stage": "development",
+  "status": "rejected_wrong_capture",
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 336,
+    "duration_seconds": 11.2,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "336"
+    },
+    "bytes": 242603,
+    "sha256": "8aeefdb9802e03a7cfb4d6a2246ea80cdbb3b428d8e63a038ad71b2c7cd4fd5a",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-28 19-28-33.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FAILED_CAPTURE_FlyCraft_Development_Milestone_00001_headless_recorded_redo_02.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": false,
+    "visual_content_verified": false
+  },
+  "error": "Manual frame review found non-Minecraft content. Container decoding alone was insufficient; prior coverage claim is invalid.",
+  "episode_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\headless_recorded_redo_02\\server.jsonl",
+  "action_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\headless_recorded_redo_02\\headless.jsonl",
+  "observation_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\headless_recorded_redo_02\\bridge.jsonl",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\live_train01\\trial_0005.npz",
+  "checkpoint_sha256": "51f9593274dbbd87c4c9ab2877a0fc2ebd1573ae31831b8957b3b01601e427ca",
+  "checkpoint_timing": "before_episode_update",
+  "camera_role": "recording_only",
+  "recording_kind": "synchronized_spectator_capture",
+  "redo_of": "headless_smoke_01",
+  "replay": false,
+  "actions_altered_for_video": false
+}

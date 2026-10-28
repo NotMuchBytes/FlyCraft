@@ -31,6 +31,11 @@ def _read_gzip_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
+def _iter_gzip_csv(path: Path):
+    with gzip.open(path, "rt", encoding="utf-8-sig", newline="") as handle:
+        yield from csv.DictReader(handle)
+
+
 def _dense_index(root_ids: np.ndarray, root_id: int) -> int:
     position = int(np.searchsorted(root_ids, np.uint64(root_id)))
     if position >= root_ids.size or int(root_ids[position]) != root_id:
@@ -49,9 +54,18 @@ def select_phase3_populations(data_dir: Path) -> tuple[list[PopulationRecord], l
     with np.load(data_dir / "processed" / "neuron_index.npz", allow_pickle=False) as mapping:
         root_ids = mapping["root_ids"].astype(np.uint64, copy=False)
 
-    classifications = {int(row["root_id"]): row for row in _read_gzip_csv(data_dir / "classification.csv.gz")}
-    cell_types = {int(row["root_id"]): row for row in _read_gzip_csv(data_dir / "consolidated_cell_types.csv.gz")}
-    visuals = {int(row["root_id"]): row for row in _read_gzip_csv(data_dir / "visual_neuron_types.csv.gz")}
+    # Retain only potentially selected rows. This preserves the original
+    # last-row-wins dictionary semantics without materializing all metadata.
+    classifications = {}
+    for row in _iter_gzip_csv(data_dir / "classification.csv.gz"):
+        key=int(row["root_id"])
+        if row["super_class"] == "descending" or row["sub_class"] == "photo_receptor":
+            classifications[key]=row
+        else:
+            classifications.pop(key,None)
+    wanted=set(classifications)
+    cell_types = {int(row["root_id"]): row for row in _iter_gzip_csv(data_dir / "consolidated_cell_types.csv.gz") if int(row["root_id"]) in wanted}
+    visuals = {int(row["root_id"]): row for row in _iter_gzip_csv(data_dir / "visual_neuron_types.csv.gz") if int(row["root_id"]) in wanted}
 
     inputs: list[PopulationRecord] = []
     for root_id, visual in visuals.items():
@@ -112,9 +126,10 @@ def select_superclass_population(data_dir: Path, superclass: str) -> list[Popula
     with np.load(data_dir / "processed" / "neuron_index.npz", allow_pickle=False) as mapping:
         root_ids = mapping["root_ids"].astype(np.uint64, copy=False)
 
-    classifications = _read_gzip_csv(data_dir / "classification.csv.gz")
-    cell_types = {int(row["root_id"]): row for row in _read_gzip_csv(data_dir / "consolidated_cell_types.csv.gz")}
-    visuals = {int(row["root_id"]): row for row in _read_gzip_csv(data_dir / "visual_neuron_types.csv.gz")}
+    classifications = [row for row in _iter_gzip_csv(data_dir / "classification.csv.gz") if row["super_class"] == superclass]
+    wanted={int(row["root_id"]) for row in classifications}
+    cell_types = {int(row["root_id"]): row for row in _iter_gzip_csv(data_dir / "consolidated_cell_types.csv.gz") if int(row["root_id"]) in wanted}
+    visuals = {int(row["root_id"]): row for row in _iter_gzip_csv(data_dir / "visual_neuron_types.csv.gz") if int(row["root_id"]) in wanted}
     records: list[PopulationRecord] = []
     for classification in classifications:
         if classification["super_class"] != superclass:

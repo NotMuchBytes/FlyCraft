@@ -32,12 +32,21 @@ class ObsLuaTests(unittest.TestCase):
                 output = json.dumps((Path(directory) / "state.txt").as_posix())
                 stub = """
 clock, active, starts, stops = 100000, false, 0, 0
+capture_settings={}
 os.time = function() return clock end
 obslua = {
  obs_frontend_recording_active=function() return active end,
  obs_frontend_recording_start=function() starts=starts+1 end,
  obs_frontend_recording_stop=function() stops=stops+1; active=false end,
  obs_get_source_by_name=function() return {} end,
+ obs_source_get_id=function() return 'window_capture' end,
+ obs_source_get_settings=function() return capture_settings end,
+ obs_source_update=function(source,settings) capture_settings=settings end,
+ obs_data_get_int=function(settings,key) return settings[key] or 0 end,
+ obs_data_set_int=function(settings,key,value) settings[key]=value end,
+ obs_data_set_string=function(settings,key,value) settings[key]=value end,
+ obs_data_set_bool=function(settings,key,value) settings[key]=value end,
+ obs_data_release=function() end,
  obs_source_get_width=function() return 854 end,
  obs_source_get_height=function() return 480 end,
  obs_source_release=function() end,
@@ -76,6 +85,11 @@ write_command('A','stop',true); poller(); assert(stops==1,'old token cannot stop
 write_command('B','start',true); poller(); clock=clock+61; poller()
 assert(stops==2 and not active,'owned recording stops when heartbeat expires')
 active=true; script_unload(); assert(stops==2,'unload must preserve external recording')
+active=false; write_command('C','start',true); poller(); active=true; poller()
+assert(capture_settings.method==2 and capture_settings.priority==0,'require WGC with exact title')
+assert(capture_settings.window=='FlyCraft Recording C:GLFW30:java.exe','capture only this run')
+write_command('C','start_verified',true); poller(); assert(active,'capture proof preserves recording')
+capture_settings.method=1; poller(); assert(not active and stops==3,'unsafe capture change stops owned recording')
 """
                 code = stub + (ROOT / "tools/obs_recording.lua").read_text(encoding="utf-8") + cases
                 error = library.luaL_loadstring(state, code.encode())

@@ -194,6 +194,81 @@ class Phase8Tests(unittest.TestCase):
             records = [json.loads(line) for line in (folder / "fresh.jsonl").read_text().splitlines()]
             self.assertEqual([row["episode_id"] for row in records], ["fresh"])
 
+    def boundary(self, folder, controller, *, logs):
+        request=self.request(20)
+        control=request["control"] | {"active":False,"terminal":{
+            "server_tick":400,"inventory":self.telemetry()["inventory"] | {"log":logs},"position":[0.,0.,0.]}}
+        path=folder/"control.json"
+        path.write_text(json.dumps(control))
+        controller.control_file=path
+        return path
+
+    def test_boundary_snapshot_rejects_late_pickup_and_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory); controller=self.controller(folder)
+            try:
+                first=controller.evaluate_request(self.request(10))
+                path=self.boundary(folder,controller,logs=0)
+                late=self.telemetry(inventory_revision=2)
+                late["inventory"]["log"]=1
+                result=controller.evaluate_request(self.request(20,telemetry=late,ack=self.ack(first)))
+                self.assertEqual(result["autonomy_status"],"episode_boundary")
+                self.assertTrue(result["terminal_acknowledged"])
+                self.assertFalse(controller.agent.session["success"])
+                self.assertEqual(controller.ledger.previous["log"],0)
+                self.assertEqual(controller.agent.session["terminal_server_tick"],400)
+                self.assertEqual(controller.command_id,first["command_id"])
+                controller.evaluate_request(self.request(30,telemetry=late))
+                self.assertEqual(len((folder/"results.jsonl").read_text().splitlines()),1)
+                self.assertEqual(json.loads(Path(str(path)+".ack").read_text())["episode_id"],"unit")
+                with self.assertRaises(ObservationError):
+                    controller.ledger.observe(late,None)
+            finally:
+                controller.close()
+
+    def test_boundary_can_confirm_inventory_before_client_packet_arrives(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory); controller=self.controller(folder)
+            try:
+                first=controller.evaluate_request(self.request(10))
+                self.boundary(folder,controller,logs=1)
+                result=controller.evaluate_request(self.request(20,ack=self.ack(first)))
+                self.assertEqual(result["autonomy_status"],"success")
+                self.assertEqual(controller.agent.session["terminal_inventory"]["log"],1)
+                self.assertEqual(controller.agent.session["actions"],1)
+            finally:
+                controller.close()
+
+    def test_unexecuted_terminal_command_cannot_train_or_count_as_action(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory); controller=self.controller(folder)
+            try:
+                first=controller.evaluate_request(self.request(10,train=True))
+                weights=controller.agent.policy.weights.copy()
+                self.boundary(folder,controller,logs=0)
+                result=controller.evaluate_request(self.request(20,ack=self.ack(first,status="not_executed",changed=False)))
+                self.assertTrue(result["terminal_acknowledged"])
+                self.assertEqual(controller.agent.session["actions"],0)
+                self.assertEqual(controller.agent.session["training_suppressed"],"unexecuted_terminal_command")
+                np.testing.assert_array_equal(controller.agent.policy.weights,weights)
+            finally:
+                controller.close()
+
+    def test_missing_terminal_ack_is_bounded_and_suppresses_learning(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory); controller=self.controller(folder)
+            try:
+                controller.evaluate_request(self.request(10,train=True))
+                self.boundary(folder,controller,logs=0)
+                for tick in range(20,70,10):
+                    result=controller.evaluate_request(self.request(tick))
+                    self.assertEqual(result["command_id"],0)
+                self.assertEqual(result["autonomy_status"],"terminal_ack_missing")
+                self.assertFalse(controller.agent.session["train"])
+                self.assertEqual(controller.agent.session["actions"],0)
+            finally:
+                controller.close()
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,19 @@
+{
+  "run_id": "headless_recorded_redo_03",
+  "milestone": 1,
+  "stage": "development",
+  "status": "missing",
+  "video": null,
+  "error": "No confirmed recording source exists",
+  "episode_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\headless_recorded_redo_03\\server.jsonl",
+  "action_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\headless_recorded_redo_03\\headless.jsonl",
+  "observation_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\headless_recorded_redo_03\\bridge.jsonl",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\live_train01\\trial_0005.npz",
+  "checkpoint_sha256": "51f9593274dbbd87c4c9ab2877a0fc2ebd1573ae31831b8957b3b01601e427ca",
+  "checkpoint_timing": "before_episode_update",
+  "camera_role": "recording_only",
+  "recording_kind": "synchronized_spectator_capture",
+  "redo_of": "headless_smoke_01",
+  "replay": false,
+  "actions_altered_for_video": false
+}

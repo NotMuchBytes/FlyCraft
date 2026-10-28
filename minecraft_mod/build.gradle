@@ -32,8 +32,15 @@ loom {
 				programArguments.add("--graphicsBackend")
 				programArguments.add(project.property("flycraftGraphicsBackend").toString())
 			}
-			jvmArguments.add("-Xmx1536m")
+			jvmArguments.add("-Xmx" + (project.findProperty("flycraftClientHeapMiB") ?: "1536") + "m")
+			if(project.hasProperty("flycraftCaptureWidth")) {
+				programArguments.addAll(["--width",project.property("flycraftCaptureWidth").toString(),
+					"--height",project.property("flycraftCaptureHeight").toString()])
+			}
 		}
+	}
+	if(project.hasProperty("flycraftServerHeapMiB")) {
+		runs.server { jvmArguments.add("-Xmx" + project.property("flycraftServerHeapMiB") + "m") }
 	}
 
 	mods {
@@ -64,6 +71,41 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 25
+}
+
+// Prepare Loom's exact launch arguments, then exit Gradle before running a
+// server/client. This avoids retaining a Gradle JVM for each live environment.
+if (project.hasProperty("flycraftExportLaunchDir")) {
+	tasks.withType(JavaExec).configureEach { runTask ->
+		if (runTask.name in ["runServer", "runClient"]) {
+			if(runTask.name == "runServer") runTask.mustRunAfter("downloadAssets")
+			runTask.doFirst {
+				def destination = new File(project.property("flycraftExportLaunchDir").toString(), runTask.name + ".json")
+				if (destination.exists()) throw new GradleException("Refusing to overwrite exported launch: " + destination)
+				destination.parentFile.mkdirs()
+				def arguments = new ArrayList()
+				runTask.getAllJvmArgs().each { argument ->
+					if(argument.startsWith("@")) {
+						def contents = file(argument.substring(1)).getText("UTF-8")
+						def lines = contents.readLines()
+						if(lines.size() != 2 || !(lines[0] in ["-classpath", "-cp"]))
+							throw new GradleException("Unsupported nested JVM argument file")
+						// Its full classpath is added below. Java does not expand
+						// nested @files in our outer launch argument file.
+					} else arguments.add(argument)
+				}
+				if (!runTask.classpath.empty) arguments.addAll(["-cp", runTask.classpath.asPath])
+				arguments.add(runTask.mainClass.get())
+				arguments.addAll(runTask.args)
+				runTask.argumentProviders.each { arguments.addAll(it.asArguments()) }
+				def value = [schema: 1, task: runTask.name,
+					executable: runTask.javaLauncher.get().executablePath.asFile.absolutePath,
+					arguments: arguments, workingDirectory: runTask.workingDir.absolutePath]
+				destination.setText(groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(value)), "UTF-8")
+				throw new org.gradle.api.tasks.StopExecutionException("Launch exported; no game process started")
+			}
+		}
+	}
 }
 
 java {

@@ -234,6 +234,12 @@ telemetry.
 
 ## 7. Phase 9 recommendations
 
+An additional bounded Phase 9 development increment now includes a headless
+survival actor, terminal inventory acknowledgment, memory reductions and a
+verified recorded one-log redo. This does not satisfy Phase 8's remaining
+longer-goal or unseen-environment targets. See `PHASE_9_REPORT.md`; all historical
+Phase 8 results and their assistance definitions remain preserved below.
+
 Complete matched live evaluations before expanding scope. Improve recovery
 from resource-consuming off-goal crafts, then test rehearsal and goal-specific
 reward baselines across multiple training seeds. Separate transaction

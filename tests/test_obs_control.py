@@ -51,7 +51,7 @@ class ObsControlTests(unittest.TestCase):
             (folder / "initial.npz").write_bytes(b"test checkpoint placeholder; no model is loaded by mocked subprocesses")
             arguments = ["run_phase8_live.py", "--run-id", "cleanup_test", "--work-dir", str(folder / "runtime"),
                          "--build-dir", str(folder / "build"), "--checkpoint", str(folder / "initial.npz"),
-                         "--obs-control-dir", str(folder)]
+                         "--obs-control-dir", str(folder), "--launcher", "gradle"]
             recorder = mock.Mock(started=True)
             recorder.pulse.side_effect = RuntimeError("OBS recording confirmation was lost")
             recorder.stop.side_effect = PermissionError("sharing violation during stop")
@@ -109,7 +109,7 @@ class ObsControlTests(unittest.TestCase):
             folder=Path(directory)
             (folder/"initial.npz").write_bytes(b"mocked model")
             args=["run_phase8_live.py", "--run-id", "ram_guard", "--work-dir", str(folder/"runtime"),
-                  "--build-dir", str(folder/"build"), "--checkpoint", str(folder/"initial.npz"), "--obs-control-dir", str(folder)]
+                  "--build-dir", str(folder/"build"), "--checkpoint", str(folder/"initial.npz"), "--obs-control-dir", str(folder), "--launcher", "gradle"]
             recorder=mock.Mock(started=False)
             recorder.pulse.return_value=False
             recorder.stop.return_value=None

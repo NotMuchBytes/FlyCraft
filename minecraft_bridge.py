@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import gc
 import json
 import socketserver
 import sys
@@ -28,11 +29,16 @@ class NeuralController:
     def __init__(self, *, checkpoint: Path | None = None, untrained_policy: bool = False, policy_mode: str = "stochastic", seed: int = 42) -> None:
         data_dir = ROOT / "data"
         graph = ConnectomeGraph.load(data_dir / "processed")
+        self.neuron_count = graph.neuron_count
+        self.adjacency = normalize_incoming(graph.adjacency_raw, minimum=5, gain=0.8)
+        # Inference uses the unchanged normalized matrix. Release its raw source
+        # copy; diagnostics can still explicitly obtain the original full graph.
+        self._graph_for_inspection = None
+        del graph
+        gc.collect()
         inputs, _ = select_phase3_populations(data_dir)
         readout = select_superclass_population(data_dir, "visual_projection")
-        self.graph = graph
-        self.encoder = SensoryEncoder.from_population(inputs, graph.neuron_count, 50, 1.05, 3)
-        self.adjacency = normalize_incoming(graph.adjacency_raw, minimum=5, gain=0.8)
+        self.encoder = SensoryEncoder.from_population(inputs, self.neuron_count, 50, 1.05, 3)
         self.decoder = RateActionDecoder(readout, minimum_total_activity=0.01, turn_margin=0.01, activity_floor=0.01)
         self.policy = None
         self.policy_source = "phase4_engineering_decoder"
@@ -47,6 +53,13 @@ class NeuralController:
         self.policy_mode = policy_mode
         self.rng = np.random.default_rng(seed)
         self.lock = threading.Lock()
+
+    @property
+    def graph(self):
+        """Compatibility access to the preserved raw graph, loaded on demand."""
+        if self._graph_for_inspection is None:
+            self._graph_for_inspection = ConnectomeGraph.load(ROOT / "data/processed")
+        return self._graph_for_inspection
 
     def evaluate(self, sector: str | None) -> dict[str, object]:
         started = time.perf_counter()
@@ -78,7 +91,7 @@ class NeuralController:
         if sector is not None and sector not in self.encoder.sector_indices:
             raise ValueError(f"invalid sector: {sector}")
         simulator = BoundedRateSimulator(self.adjacency, RateConfig(decay=0.0, activity_floor=1e-7))
-        integrated = np.zeros(self.graph.neuron_count, dtype=np.float32)
+        integrated = np.zeros(self.neuron_count, dtype=np.float32)
         peak_active = 0
         for step in range(18):
             activity = simulator.step(self.encoder.encode(sector, 0 if step < 3 else 1))
@@ -141,6 +154,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--phase8-frozen-checkpoint", type=Path)
     parser.add_argument("--phase8-results", type=Path)
     parser.add_argument("--phase8-save-dir", type=Path)
+    parser.add_argument("--phase8-control", type=Path, help="Current lifecycle and final own-inventory snapshot")
     parser.add_argument("--goal", choices=("navigate_object",), default="navigate_object")
     parser.add_argument("--save-autonomy-state", type=Path, help="New checkpoint written when bounded live goal ends")
     parser.add_argument("--untrained-policy", action="store_true")
@@ -168,7 +182,8 @@ def main() -> None:
         from learning import NeuralFeatureTable
         table = NeuralFeatureTable.from_phase35(ROOT / "experiments/phase35/results/rate_decoder_evaluation.json")
         controller = LiveResourceController(NeuralController(), table, args.phase8_checkpoint,
-            frozen_checkpoint=args.phase8_frozen_checkpoint, result_log=args.phase8_results, checkpoint_dir=args.phase8_save_dir)
+            frozen_checkpoint=args.phase8_frozen_checkpoint, result_log=args.phase8_results, checkpoint_dir=args.phase8_save_dir,
+            control_file=args.phase8_control)
     elif args.autonomy_checkpoint:
         from autonomy.bridge import LiveNavigationController
         controller = LiveNavigationController(NeuralController(), args.autonomy_checkpoint, args.goal, args.save_autonomy_state)

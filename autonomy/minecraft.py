@@ -1,6 +1,7 @@
 """Acknowledged resource/crafting controller over the existing Phase 7 agent."""
 
 import copy
+import json
 import math
 import threading
 import time
@@ -31,8 +32,11 @@ class TransactionLedger:
         self.produced = {key: 0 for key in ITEMS}
         self.mined_blocks = 0
         self.inventory_revision = -1
+        self.terminal_tick = None
 
-    def observe(self, telemetry: dict, ack: dict | None) -> dict:
+    def observe(self, telemetry: dict, ack: dict | None, *, terminal_tick=None) -> dict:
+        if self.terminal_tick is not None:
+            raise ObservationError("inventory_episode_already_sealed")
         if any(key in telemetry for key in ("world_seed", "layout_seed", "hidden_blocks", "oracle_target")):
             raise ObservationError("privileged_observation_field")
         if telemetry.get("game_mode") != "SURVIVAL":
@@ -40,7 +44,9 @@ class TransactionLedger:
         if not telemetry.get("inventory_consistent", False):
             raise ObservationError("inventory_inconsistent")
         revision = int(telemetry["inventory_revision"])
-        if revision < self.inventory_revision:
+        if terminal_tick is not None and (not isinstance(terminal_tick, int) or terminal_tick < 0):
+            raise ObservationError("invalid_terminal_tick")
+        if terminal_tick is None and revision < self.inventory_revision:
             raise ObservationError("inventory_revision_regressed")
         inventory = {key: int(telemetry["inventory"].get(key, 0)) for key in ITEMS}
         if any(value < 0 or value > 2304 for value in inventory.values()):
@@ -48,17 +54,20 @@ class TransactionLedger:
         inventory["table_placed"] = int(bool(telemetry.get("station_visible", False)))
         if self.previous is not None:
             changed = inventory != self.previous
-            if changed and revision == self.inventory_revision and inventory | {"table_placed": 0} != self.previous | {"table_placed": 0}:
+            if terminal_tick is None and changed and revision == self.inventory_revision and inventory | {"table_placed": 0} != self.previous | {"table_placed": 0}:
                 raise ObservationError("inventory_changed_without_server_packet")
             for key in ITEMS:
                 self.produced[key] += max(0, inventory[key] - self.previous[key])
         if ack and ack.get("action") == "COLLECT_LOG" and ack.get("block_changed", False):
             self.mined_blocks += 1
-        self.previous, self.inventory_revision = inventory, revision
+        self.previous = inventory
+        if terminal_tick is None:
+            self.inventory_revision = revision
+        self.terminal_tick = terminal_tick
         return inventory
 
     def to_dict(self):
-        return {"previous": self.previous, "produced": self.produced, "mined_blocks": self.mined_blocks,
+        return {"previous": self.previous, "produced": self.produced, "mined_blocks": self.mined_blocks, "terminal_tick": self.terminal_tick,
                 "inventory_revision": self.inventory_revision}
 
     @classmethod
@@ -76,7 +85,7 @@ class LiveResourceController:
     condition and learning enablement. World/layout seeds never enter this API.
     """
     def __init__(self, neural, table, checkpoint: Path, *, frozen_checkpoint: Path | None = None,
-                 result_log: Path, checkpoint_dir: Path | None = None):
+                 result_log: Path, checkpoint_dir: Path | None = None, control_file: Path | None = None):
         self.neural, self.table = neural, table
         self.agent, _ = AutonomousAgent.load(checkpoint, table)
         self.trained = self.agent.policy
@@ -88,6 +97,8 @@ class LiveResourceController:
         result_log.parent.mkdir(parents=True, exist_ok=True)
         self.results = result_log.open("x", encoding="utf-8")
         self.checkpoint_dir = checkpoint_dir
+        self.control_file = control_file
+        self.terminal_ack_episode = None
         self.episode_id = None
         self.condition = "trained"
         self.pending_id = None
@@ -148,10 +159,21 @@ class LiveResourceController:
                 self._record()
                 return self._reply("NO_OP", 0, started)
             control, telemetry = request["control"], request["telemetry"]
+            # Read the operator's current lifecycle state before using a delayed
+            # client packet. No scoring label or fixture seed is consumed here.
+            if self.control_file is not None:
+                latest = json.loads(self.control_file.read_text(encoding="utf-8"))
+                if latest["episode_id"] != control["episode_id"] or not latest.get("active", False) and not latest.get("terminal"):
+                    return self._reply("NO_OP", 0, started, observe_only=True)
+                control = latest
+            terminal = control.get("terminal")
             episode = str(control["episode_id"])
             if not episode or any(char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for char in episode):
                 raise ValueError("invalid episode identity")
             tick = int(request["tick_id"])
+            if terminal and episode == self.episode_id and self.recorded:
+                self._ack_terminal(episode)
+                return self._reply("NO_OP", 0, started)
             if tick <= self.last_tick and episode == self.episode_id:
                 raise ValueError("stale or duplicate observation")
             new_episode = episode != self.episode_id
@@ -159,6 +181,7 @@ class LiveResourceController:
                 self._abort("minecraft_episode_interrupted")
                 self._record()
                 self.episode_id, self.last_tick = episode, -1
+                self.terminal_ack_episode = None
                 self.condition = control.get("condition", "trained")
                 if self.condition not in CONDITIONS or control["goal"] not in OBJECTIVES:
                     raise ValueError("unsupported condition or objective")
@@ -170,6 +193,21 @@ class LiveResourceController:
                 self.needs_start = True
             ack = request.get("ack")
             if self.pending_id is not None and (not ack or int(ack["command_id"]) != self.pending_id):
+                if terminal:
+                    # The client may still be canceling an in-flight command.
+                    # Never invent its execution or learn from an unacknowledged
+                    # outcome. The bounded client/server handshake can retry.
+                    self.ack_waits += 1
+                    if self.ack_waits >= 5:
+                        self.agent.session["requested_train"] = self.agent.session["train"]
+                        self.agent.session["train"] = False
+                        self.agent.session["training_suppressed"] = "terminal_ack_missing"
+                        self.agent.pending = None
+                        self._abort("terminal_ack_missing")
+                        self._record()
+                        self._ack_terminal(episode)
+                        return self._reply("NO_OP", 0, started)
+                    return self._reply("NO_OP", 0, started, observe_only=True)
                 self.ack_waits += 1
                 if self.ack_waits >= 5:
                     self._abort("acknowledgment_timeout")
@@ -177,8 +215,20 @@ class LiveResourceController:
                     return self._reply("NO_OP", 0, started)
                 return self._reply("NO_OP", 0, started, observe_only=True)
             self.ack_waits = 0
+            if terminal and ack and ack.get("status") == "not_executed" and self.pending_id is not None:
+                self.agent.session["requested_train"] = self.agent.session["train"]
+                self.agent.session["train"] = False
+                self.agent.session["training_suppressed"] = "unexecuted_terminal_command"
+                self.agent.session["unexecuted_command_id"] = self.pending_id
+                self.agent.pending = None
+                self.pending_id = None
+            if terminal:
+                telemetry = dict(telemetry, inventory=dict(terminal["inventory"]),
+                    position=list(terminal["position"]), inventory_consistent=True,
+                    visible=False, near=False, station_visible=False, allowed_actions=["NO_OP"])
             try:
-                inventory = self.ledger.observe(telemetry, ack if self.pending_id is not None else None)
+                inventory = self.ledger.observe(telemetry, ack if self.pending_id is not None else None,
+                                                terminal_tick=int(terminal["server_tick"]) if terminal else None)
                 self.inventory_waits = 0
             except ObservationError as error:
                 self.inventory_waits += 1
@@ -213,6 +263,16 @@ class LiveResourceController:
                     self.agent.observe(observation)
                 self.pending_id = None
             self.last_tick = tick
+            if terminal:
+                self.agent.session["terminal_server_tick"] = int(terminal["server_tick"])
+                self.agent.session["terminal_inventory"] = inventory.copy()
+                if not self.agent.session["done"]:
+                    self.agent.manager.update(observation)
+                    success = self.agent.manager.success
+                    self.agent._finish(success, "success" if success else "episode_boundary")
+                self._record()
+                self._ack_terminal(episode)
+                return self._reply("NO_OP", 0, started)
             if self.agent.session["done"]:
                 self._record()
                 return self._reply("NO_OP", 0, started)
@@ -230,9 +290,18 @@ class LiveResourceController:
             self.pending_id = self.command_id
             return self._reply(action, self.command_id, started, peak=peak)
 
+    def _ack_terminal(self, episode):
+        if self.control_file is not None:
+            path = self.control_file.with_suffix(self.control_file.suffix + ".ack")
+            temporary = path.with_suffix(path.suffix + ".tmp")
+            temporary.write_text(json.dumps({"episode_id": episode}), encoding="utf-8")
+            temporary.replace(path)
+        self.terminal_ack_episode = episode
+
     def _reply(self, action, command, started, *, observe_only=False, peak=0):
         done = self.agent.session is not None and self.agent.session["done"] and self.episode_id is not None
         return {"action": action, "command_id": command, "observe_only": observe_only,
+                "terminal_acknowledged": self.terminal_ack_episode == self.episode_id and self.episode_id is not None,
                 "autonomy_status": self.agent.session["termination"] if done else "running", "episode_id": self.episode_id,
                 "policy_source": self.policy_source + ":" + self.condition, "peak_global_active": peak,
                 "neural_steps": 18 if command else 0, "latency_ms": (time.perf_counter() - started) * 1000}

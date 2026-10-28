@@ -9,6 +9,7 @@ class ObsRecorder:
         self.command_file, self.state_file = directory / "obs-command.txt", directory / "obs-state.txt"
         self.started = False
         self.last_path = None
+        self.capture_verified = False
         state = self.state()
         if state is None or state[1] != "stopped":
             raise RuntimeError("OBS background recorder is unavailable or already busy")
@@ -36,7 +37,7 @@ class ObsRecorder:
                 time.sleep(0.01)
 
     def pulse(self):
-        self.command("start")
+        self.command("start_verified" if self.capture_verified else "start")
         state = self.state()
         # Retry an incomplete status frame or brief UI-thread stall, while
         # still requiring positive active confirmation.
@@ -53,6 +54,11 @@ class ObsRecorder:
             raise RuntimeError(f"OBS recording confirmation was lost: {detail!r}")
         self.started = self.started or active
         return active
+
+    def mark_capture_verified(self):
+        if not self.started:
+            raise RuntimeError("Cannot approve capture before recording starts")
+        self.capture_verified = True
 
     def stop(self):
         self.command("stop")

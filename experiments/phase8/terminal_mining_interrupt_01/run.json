@@ -1,0 +1,39 @@
+{
+  "run_id": "terminal_mining_interrupt_01",
+  "world_seed": 44556777,
+  "layout_start": 44556777,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 0,
+  "stop_reason": "available_ram_guard",
+  "elapsed_seconds": 47.614237700006925,
+  "maximum_sampled_gpu_c": 50,
+  "train": false,
+  "recording": null,
+  "recording_confirmed": false,
+  "trial_tick_limit": 50,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "experiment_kind": "policy_goal",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "minimum_sampled_available_ram_mib": 575.26953125,
+  "available_ram_guard_mib": 768,
+  "exit_codes_before_cleanup": {
+    "bridge": null,
+    "server": null,
+    "client": null
+  },
+  "client_exited_cleanly": false,
+  "actual_graphics": [],
+  "policy_label": "six_live_log_episodes",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\live_train01\\trial_0005.npz",
+  "checkpoint_sha256": "51f9593274dbbd87c4c9ab2877a0fc2ebd1573ae31831b8957b3b01601e427ca"
+}
