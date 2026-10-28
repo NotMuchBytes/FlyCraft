@@ -1,9 +1,9 @@
 # FlyCraft — Phase 8 progress report
 
 Updated: 2026-10-28 (Asia/Amman). **Phase 8 is not complete.**
-Matched live evaluation is still underway; no 30-trial completion target has
-yet been demonstrated. This report preserves the current evidence and will be
-updated when the bounded evaluation batches finish.
+The one-log target has been demonstrated in controlled real Minecraft fixtures:
+29/30 inventory-confirmed successes. Longer-goal evaluation remains underway.
+This report will be updated as those bounded evaluation batches finish.
 
 ## 1. Implemented features
 
@@ -29,6 +29,11 @@ goals. The planner supplies dependencies, memory and bounded recovery; the
 learned policy samples actions. Recipe slot clicks, aiming at an observed hit,
 affordance masks and dependency planning are engineered assistance. They are
 not learned motor control or evidence of unscripted natural-world reasoning.
+That description of aiming applies to the historical `legacy` interface.
+New runs default to bounded camera movement and crosshair-only interactions,
+without target aiming or tracking. The original ten actions contain no pitch
+action, so strict interaction capability is narrower. Results from the two
+interfaces are kept separate.
 
 ## 2. Real Minecraft evidence so far
 
@@ -86,24 +91,46 @@ The live protocol compares the six-episode-trained candidate, frozen Phase 7
 transfer, uniform action sampling using the same affordances, and neural
 features removed. Conditions see matched layouts. The analyzer uses actual
 server inventory, reports action counts and 95% Wilson intervals, and flags
-incomplete batches. Final comparisons remain pending.
+incomplete batches. Longer-goal comparisons remain pending.
 
-The first complete held-out batch (`eval_log_03`, world 83002, ten matched
-layouts 83200–83209, 15 game seconds per trial) produced:
+The primary held-out comparison uses `eval_log_03`, `eval_log_05` and
+`eval_log_06`: 30 reset layouts per condition across world seeds 83002,
+8675310 and 17000000, with 15 game seconds per trial. Every success requires
+an actual log in the server inventory:
 
 | Condition | Inventory-confirmed success | 95% Wilson interval | Mean successful actions |
 |---|---:|---:|---:|
-| Trained candidate | 10/10 | 72.2–100% | 3.80 |
-| Frozen Phase 7 transfer | 9/10 | 59.6–98.2% | 4.33 |
-| Uniform actions, same affordances | 5/10 | 23.7–76.3% | 4.20 |
-| Neural features removed | 7/10 | 39.7–89.2% | 3.00 |
+| Trained candidate | **29/30 (96.7%)** | 83.3–99.4% | 3.38 |
+| Frozen Phase 7 transfer | 27/30 (90.0%) | 74.4–96.5% | 3.78 |
+| Uniform actions, same affordances | 19/30 (63.3%) | 45.5–78.1% | 4.79 |
+| Neural features removed | 25/30 (83.3%) | 66.4–92.7% | 3.40 |
 
-This is one of three planned seed batches, not the 30-trial result. Paired
-exact McNemar p-values versus trained are 1.0 (frozen), 0.0625 (uniform) and
-0.25 (no-neural), uncorrected exploratory comparisons. This sample does not
-establish a causal neural benefit. Three controller success reports arrived
-after the server's 15-second cutoff; they correctly remain failures in this
-table. Controller/server disagreements are recorded explicitly in the summary.
+Mean successful game time was 6.90 seconds (trained), 6.61 (frozen), 7.79
+(uniform) and 5.94 (no-neural). These are conditional on success, not an
+unconditional speed comparison. Exact paired McNemar p-values versus trained
+are 0.625 (frozen), 0.00195 (uniform) and 0.21875 (no-neural), uncorrected
+exploratory comparisons. The learned readout performs better than uniform in
+these fixtures; these data do not establish that six live updates improved
+the frozen transfer or that neural features provide a reliable causal benefit.
+
+Layout dependence is substantial: uniform succeeded 5/10, 10/10 and 4/10
+across the batches. These are 30 reset episodes, not 30 natural-world seeds;
+each world uses ten nearby procedural layouts and the policy RNG seed is held
+fixed for matching. Wilson intervals are descriptive and do not account for
+world/layout clustering or establish natural-world generalization. Five
+controller success reports arrived after the server deadline and remain
+failures here. Every disagreement is recorded in the summary. Full results:
+`experiments/phase8/primary_one_log.json`.
+
+A six-trial longer-goal development comparison at a 40-second deadline tested
+the simulator rehearsal/goal-baseline candidate against the six-live-log
+candidate. Three-log collection was 1/1 versus 0/1, planks 1/1 versus 1/1,
+and full wooden-pickaxe goals 0/1 versus 0/1. These labels are different policy
+candidates from the primary frozen Phase 7 comparison; they are not pooled.
+Three subsequent prepared-inventory `pickaxe_transaction` diagnostics all
+failed after wasteful extra stick crafting. A placement guard now rejects
+positions intersecting the player's body. These pilots neither meet a
+30-trial gate nor validate a complete pickaxe crafting loop.
 
 ## 4. Comparison with Phase 7 and neural contribution
 
@@ -112,16 +139,17 @@ real acknowledged log pickup and plank crafting in development pilots. Phase
 7's held-out simulated pickaxe result remains 160/300 (53.33%); that result is
 not comparable to a live controlled pilot.
 
-No positive causal neural-contribution claim is established yet. The full
+No positive causal neural-contribution claim is established by the 30-trial
+comparison (paired no-neural p=0.21875). The full
 live controller computes the existing 18-step neural sensory window. The
 `no_neural` condition retains the bias and goal/inventory/context features
 while removing the three neural readout values. This does not remove the
-engineered planner or semantic observations. The matched comparison is needed
-before attributing success to the sparse neural model.
+engineered planner or semantic observations. Successful learned action
+selection must not be attributed wholesale to the sparse neural model.
 
 ## 5. Reliability checks
 
-The full 60-test suite passed in 9.719 seconds. Phase 8 tests cover server
+The latest full 65-test suite passed in 12.083 seconds. Phase 8 tests cover server
 inventory consistency, block acknowledgment versus pickup, failed mining and
 recovery, missing acknowledgment timeout, episode/connection interruption,
 crafting failure, pending-transaction checkpoint restoration without replay,
@@ -159,15 +187,47 @@ using OBS's existing runtime and injects partial/missing commands, asynchronous
 startup, watchdog expiry, old tokens and external recordings. Exact future
 confirmation-loss snapshots and recording state transitions are logged.
 
+The shared camera now has configurable speed/acceleration/deceleration limits,
+bounded per-tick movement, relative versus continuous semantics, stale/duplicate
+rejection, safe replacement/cancellation, pitch limits, robust yaw wrap and
+requested/body/rendered movement instrumentation. The Java core passes over
+300 kinematic cases. Matched live scripted probes passed 11/11 applicable
+instant-reference cases and 12/12 bounded cases. The largest measured static
+yaw rate fell from 4385.55 to 115.73 degrees/second, while mean settling over
+nine static cases increased from 0.097 to 0.675 seconds. Recorded endpoint
+overshoot was zero in both conditions; these probes do not demonstrate that
+smoothing alone solves policy corrections.
+
+An initial matched strict policy comparison on three layouts scored instant
+3/3 versus bounded 2/3 within a 20-second deadline. Both acknowledged all three
+issued mining commands, but bounded collected one item after the deadline.
+The successful-only mean game times were 10.983 versus 5.175 seconds and cannot
+be interpreted as an overall speed improvement. These are development pilots,
+not a new 30-trial strict-mode evaluation. Details and limitations are in
+`docs/camera_controller.md`.
+
+The Java application crash was traced through Windows Event 1000 to AMD's
+`atio6axx.dll`, even during two NVIDIA Vulkan-rendered shutdowns. Setting a
+per-application Windows high-performance preference for FlyCraft's dedicated
+Java runtime, then using NVIDIA OpenGL, produced two clean client/server exits
+across the six policy trials, with maximum sampled GPU temperature 48 C.
+This is bounded verification, not proof of universal driver reliability.
+No drivers or global GPU preferences were changed. The runner verifies the
+actual NVIDIA device before trials, reserves available RAM, and tolerates
+inaccessible Windows crash reporters during owned-process cleanup.
+A separate disconnected-client lifecycle polling bug was fixed. See
+`docs/windows_gpu.md` and the retained event/run evidence.
+
 ## 6. Limitations and completion gates
 
-The 30-trial targets remain unestablished: one-log 80%, three-log 70%, planks
-70%, pickaxe 50%. Earlier pilots reuse layouts and cannot count toward those
-targets. Broader held-out evidence and confidence intervals remain pending.
+The one-log target is met at 29/30 (96.7%) in the documented assisted fixtures.
+The three-log 70%, planks 70% and pickaxe 50% targets remain unestablished.
+Development pilots reuse layouts and cannot count toward those targets.
+Broader held-out evidence remains pending.
 The fixtures begin near small trees, use semantic rays and recipe macros, and
 do not test exploration, arbitrary terrain, hostile environments or pixel-only
 control. Longer-goal policy errors and curriculum transfer remain substantial.
-GPU samples during completed pilots stayed at or below 52 C; CPU temperature
+GPU samples during completed pilots stayed at or below 53 C; CPU temperature
 was unavailable. Runs are bounded and supervised; no overnight training is
 performed. Weekly and five-hour usage are checked through actual account
 telemetry.

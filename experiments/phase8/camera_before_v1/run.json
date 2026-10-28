@@ -1,0 +1,17 @@
+{
+  "run_id": "camera_before_v1",
+  "retrospective_metadata": true,
+  "experiment_kind": "scripted_camera_probe_not_policy",
+  "completed": 1,
+  "stop_reason": "native_client_crash_then_cleanup_access_denied",
+  "client_exited_cleanly": false,
+  "native_client_crash": true,
+  "fault_module": "atio6axx.dll",
+  "exception_code": "0xc0000005",
+  "actual_graphics": [
+    "OpenGL on AMD Radeon 740M; see client_launcher.log"
+  ],
+  "maximum_sampled_gpu_c": null,
+  "elapsed_seconds": null,
+  "note": "Original supervisor failed before saving run metadata. Windows Event 1000 at 2026-10-28T15:45:00+03:00 identifies the native fault. Unknown original supervisor measurements remain null. Motor success is not autonomous policy evidence."
+}

@@ -311,3 +311,27 @@ Detailed evidence and Phase 8 recommendations: `PHASE_7_REPORT.md`.
 - Bounded matched live comparisons are underway. Full Phase 8 results remain
   pending; see `PHASE_8_REPORT.md`. The user queued Phase 7.5 stabilization
   after this Phase 8 iteration, preserving all successful real interactions.
+
+## Camera and NVIDIA reliability — 2026-10-28
+
+- Completed the primary assisted one-log comparison: trained 29/30, frozen
+  Phase 7 27/30, uniform 19/30, no-neural 25/30. This establishes no reliable
+  causal neural-feature benefit. Longer goals and shuffled-feature live
+  evaluation remain incomplete.
+- Implemented the generic bounded camera, strict interactions without target
+  aiming, command freshness/identity guards, yaw-wrap correction and actual
+  player/render telemetry. Kept legacy behavior explicitly reproducible.
+- Pure Java kinematics cover over 300 cases; live scripted probes passed all
+  12 bounded cases. Three matched strict one-log layouts scored instant 3/3
+  versus bounded 2/3; a late pickup is independently scored as failure.
+  Smoothing has not demonstrated a task-completion improvement.
+- Diagnosed native shutdown crashes in AMD's atio6axx.dll. NVIDIA Vulkan
+  rendering still reproduced the crash. Applied a Windows per-application
+  high-performance preference only to the dedicated Java executable, then
+  verified NVIDIA OpenGL and two clean client/server exits. GPU samples
+  stayed at or below 48 C in those two runs. No desktop input was used.
+- Fixed suite-complete polling after disconnection and cleanup around Windows
+  crash reporters. Added actual-device launch gating and a RAM reserve;
+  reduced Gradle heap limits. The full 65-test suite passes.
+- Phase 8, Phase 7.5 and Phase 9 are not declared complete. No 10,000-world
+  experiment or overnight job was started. Earlier models/results are retained.

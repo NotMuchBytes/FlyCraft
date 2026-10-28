@@ -25,8 +25,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import org.flycraft.bridge.FlyCraftMod;
+import org.flycraft.bridge.control.CameraDriver;
 
 public final class FlyCraftClient implements ClientModInitializer {
+    public static FlyCraftClient INSTANCE;
 	private static final String BRIDGE_HOST = "127.0.0.1";
 	private static final int BRIDGE_PORT = 8765;
 	private static final int OBSERVATION_INTERVAL_TICKS = 10;
@@ -44,6 +46,9 @@ public final class FlyCraftClient implements ClientModInitializer {
 	private long lastAppliedTick = -1;
 	private long releaseForwardAt = -1;
 	private String stoppedSession = "";
+    private CameraDriver camera;
+    private String cameraSession="";
+    private double turnDegrees=15;
 
 	@Override
 	public void onInitializeClient() {
@@ -51,12 +56,29 @@ public final class FlyCraftClient implements ClientModInitializer {
 			new Phase8Client().initialize();
 			return;
 		}
+        INSTANCE=this;
+        java.util.Properties cameraProperties=new java.util.Properties();
+        cameraProperties.putAll(System.getProperties());
+        java.nio.file.Path cameraFile=java.nio.file.Path.of("flycraft-camera.properties");
+        if(java.nio.file.Files.exists(cameraFile)) try(var reader=java.nio.file.Files.newBufferedReader(cameraFile)) { cameraProperties.load(reader); }
+        catch(java.io.IOException error) { throw new IllegalStateException(error); }
+        camera=new CameraDriver(cameraProperties);
+        turnDegrees=Double.parseDouble(cameraProperties.getProperty("camera.turnDegrees","15"));
+        if(!Double.isFinite(turnDegrees) || turnDegrees<=0 || turnDegrees>45) throw new IllegalArgumentException("invalid turn step");
+        Runtime.getRuntime().addShutdownHook(new Thread(camera::close,"flycraft-navigation-camera-close"));
 		ClientTickEvents.END_CLIENT_TICK.register(this::onEndTick);
 		FlyCraftMod.LOGGER.info("FlyCraft client bridge ready at {}:{}", BRIDGE_HOST, BRIDGE_PORT);
 	}
 
 	private void onEndTick(Minecraft client) {
 		clientTick++;
+        if(client.player==null || client.level==null) {
+            client.options.keyUp.setDown(false); releaseForwardAt=-1;
+            if(camera.busy()) camera.cancel("world_unavailable",true); return;
+        }
+        String nextCameraSession=client.player.getUUID().toString()+":"+System.identityHashCode(client.level);
+        if(!nextCameraSession.equals(cameraSession)) { cameraSession=nextCameraSession; camera.reset(view(client),cameraSession); }
+        camera.tick(view(client),clientTick);
 		if (releaseForwardAt >= 0 && clientTick >= releaseForwardAt) {
 			client.options.keyUp.setDown(false);
 			releaseForwardAt = -1;
@@ -64,6 +86,7 @@ public final class FlyCraftClient implements ClientModInitializer {
 		if (client.player == null || client.level == null || clientTick % OBSERVATION_INTERVAL_TICKS != 0) {
 			return;
 		}
+        if(camera.busy()) return;
 		String currentSession = client.player.getUUID().toString() + ":" + System.identityHashCode(client.level);
 		if (currentSession.equals(stoppedSession)) return;
 		if (!requestPending.compareAndSet(false, true)) {
@@ -106,6 +129,7 @@ public final class FlyCraftClient implements ClientModInitializer {
 	}
 
 	private void exchangeWithBridge(Minecraft client, long observationTick, String sector, JsonObject request) {
+        long observationNanos=System.nanoTime();
 		try (Socket socket = new Socket()) {
 			socket.connect(new InetSocketAddress(BRIDGE_HOST, BRIDGE_PORT), 1500);
 			socket.setSoTimeout(15_000);
@@ -125,7 +149,7 @@ public final class FlyCraftClient implements ClientModInitializer {
 				client.execute(() -> {
 					String currentSession = client.player == null || client.level == null ? "" : client.player.getUUID().toString() + ":" + System.identityHashCode(client.level);
 					if (sessionId.equals(currentSession)) {
-						applyAction(client, observationTick, responseTick, sector, action, latency);
+						applyAction(client, observationTick, responseTick, sector, action, latency,observationNanos);
 						if (response.has("autonomy_status") && !"running".equals(response.get("autonomy_status").getAsString())) {
 							stoppedSession = sessionId;
 						}
@@ -139,7 +163,7 @@ public final class FlyCraftClient implements ClientModInitializer {
 		}
 	}
 
-	private void applyAction(Minecraft client, long observationTick, long responseTick, String sector, String action, double latency) {
+	private void applyAction(Minecraft client, long observationTick, long responseTick, String sector, String action, double latency,long observationNanos) {
 		if (client.player == null || responseTick != observationTick || responseTick <= lastAppliedTick || clientTick - observationTick > 40) {
 			FlyCraftMod.LOGGER.warn("FLYCRAFT stale action ignored observation_tick={} response_tick={} last_applied={}", observationTick, responseTick, lastAppliedTick);
 			return;
@@ -148,8 +172,11 @@ public final class FlyCraftClient implements ClientModInitializer {
 		client.options.keyUp.setDown(false);
 		releaseForwardAt = -1;
 		switch (action) {
-			case "TURN_LEFT" -> client.player.setYRot(client.player.getYRot() - 15.0F);
-			case "TURN_RIGHT" -> client.player.setYRot(client.player.getYRot() + 15.0F);
+			case "TURN_LEFT", "TURN_RIGHT" -> {
+                var accepted=camera.relative(view(client),responseTick,action.equals("TURN_LEFT") ? -turnDegrees : turnDegrees,0,
+                    observationTick,clientTick,observationNanos);
+                if(!accepted.accepted()) FlyCraftMod.LOGGER.warn("FLYCRAFT camera command rejected tick={} reason={}",responseTick,accepted.reason());
+            }
 			case "FORWARD" -> {
 				client.options.keyUp.setDown(true);
 				releaseForwardAt = clientTick + 5;
@@ -159,4 +186,12 @@ public final class FlyCraftClient implements ClientModInitializer {
 		}
 		FlyCraftMod.LOGGER.info("FLYCRAFT action_applied tick={} sector={} action={} latency_ms={}", responseTick, sector, action, latency);
 	}
+    private CameraDriver.View view(Minecraft client) {
+        return new CameraDriver.View() {
+            public double yaw() { return client.player.getYRot(); }
+            public double pitch() { return client.player.getXRot(); }
+            public void set(double yaw,double pitch) { client.player.setYRot((float)yaw); client.player.setXRot((float)pitch); }
+        };
+    }
+    public void renderedCamera(double yaw,double pitch) { if(camera!=null) camera.rendered(yaw,pitch); }
 }

@@ -1,0 +1,40 @@
+{
+  "run_id": "camera_after_v2_vulkan",
+  "world_seed": 44556677,
+  "layout_start": 44556677,
+  "goals": [
+    "camera_probe"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 1,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 127.1546484999999,
+  "maximum_sampled_gpu_c": 48,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-28 16-50-03.mp4",
+  "recording_confirmed": true,
+  "trial_tick_limit": 1600,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "experiment_kind": "scripted_camera_probe_not_policy",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "vulkan",
+  "exit_codes_before_cleanup": {
+    "bridge": null,
+    "server": 0,
+    "client": null
+  },
+  "client_exited_cleanly": false,
+  "actual_graphics": [
+    "Using graphics backend Vulkan, using drivers: 1.4.351 NVIDIA 617.42",
+    "Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU (NVIDIA)"
+  ],
+  "policy_label": "unused_scripted_motor_test",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\live_train01\\trial_0005.npz",
+  "checkpoint_sha256": "51f9593274dbbd87c4c9ab2877a0fc2ebd1573ae31831b8957b3b01601e427ca"
+}

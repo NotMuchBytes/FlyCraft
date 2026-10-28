@@ -15,7 +15,8 @@ from .world import ACTIONS, ITEMS
 
 
 OBJECTIVES = {"one_log": "find_collect", "three_logs": "collect_multiple", "planks": "craft_simple",
-              "sticks": "craft_sticks", "crafting_table": "craft_table", "wooden_pickaxe": "wooden_pickaxe"}
+              "sticks": "craft_sticks", "crafting_table": "craft_table", "wooden_pickaxe": "wooden_pickaxe",
+              "pickaxe_transaction": "wooden_pickaxe", "camera_probe": "navigate_object"}
 CONDITIONS = ("trained", "frozen", "uniform", "no_neural", "shuffled")
 
 

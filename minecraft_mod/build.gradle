@@ -28,6 +28,10 @@ loom {
 		runs.client {
 			programArguments.add("--quickPlayMultiplayer")
 			programArguments.add(project.findProperty("flycraftServer") ?: "localhost:25565")
+			if (project.hasProperty("flycraftGraphicsBackend")) {
+				programArguments.add("--graphicsBackend")
+				programArguments.add(project.property("flycraftGraphicsBackend").toString())
+			}
 			jvmArguments.add("-Xmx1536m")
 		}
 	}

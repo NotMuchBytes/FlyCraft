@@ -49,6 +49,30 @@ Evaluation conditions never update policy weights. The `frozen` condition uses
 the explicit Phase 7 checkpoint, and uniform sampling uses the same affordance
 mask and engineered planner as the trained agent.
 
+## Camera and NVIDIA graphics
+
+New runs use the bounded camera and crosshair-only interactions. Use explicit
+`--camera-mode legacy` to reproduce the historical assisted Phase 8 interface;
+those results must remain separate. `--camera-mode instant` is the strict
+single-write actuator reference for matched camera comparisons. Controller
+limits, command semantics and initial live evidence are in
+[camera_controller.md](camera_controller.md).
+
+On the current hybrid AMD/NVIDIA laptop, FlyCraft's dedicated Java executable
+has a per-application Windows **High performance** GPU preference. The runner
+defaults to OpenGL and waits for the actual device log to identify NVIDIA
+before starting any trials. A preferred-device message alone is insufficient.
+An AMD selection aborts the suite. `--graphics-backend vulkan` remains available,
+but Vulkan on NVIDIA still reproduced an AMD driver fault during shutdown on
+this machine. The subsequent NVIDIA OpenGL run closed normally; see
+[windows_gpu.md](windows_gpu.md) for the evidence and scope of the setting.
+
+The supervisor reserves 768 MiB of available system RAM by default and aborts
+after three consecutive low-memory samples. Gradle launch heaps are capped at
+512 MiB each. GPU temperature and the minimum sampled available RAM are saved
+in `run.json`. These are sampled system measurements, not CPU temperature or
+proof of thermal safety between samples.
+
 ```powershell
 .\.venv\Scripts\python.exe tools/analyze_phase8.py --runs unique_run --output experiments/phase8/unique_summary.json
 .\.venv\Scripts\python.exe -m unittest discover -s tests -q

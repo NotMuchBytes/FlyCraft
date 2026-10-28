@@ -16,10 +16,10 @@ assistance, shared by trained, frozen, uniform and neural-ablation conditions.
 | Dropped log items | Client-rendered entities within 12 blocks, yaw +/-50 and pitch +/-45 degrees, with unobstructed line of sight; visible drops take target priority |
 | Resource identity | Block/item semantic class and identity of the observed hit; this is a semantic sensor, not a learned pixel classifier |
 | Distance and angle | Geometry of the visible ray hit/item; distance is used for reward/completion, while the policy receives neural features and near-state |
-| Pose | Player's own client position and heading; never an undiscovered resource position |
+| Pose | Player's own client position, yaw and pitch; never an undiscovered resource position. Pitch telemetry is not a new learned feature in the preserved 63-feature readout. |
 | Inventory | Counts reconstructed from vanilla server container-content, container-slot and player-inventory packets; predicted client inventory is separately checked for consistency |
-| Crafting station | A crafting table found by the same visible rays within four blocks |
-| Placement affordance | One downward placement ray in front of the player; collision-tested and within four blocks |
+| Crafting station | A crafting table found by the same visible rays within four blocks; strict modes require the actual crosshair to interact |
+| Placement affordance | Strict modes require the actual crosshair hit on a valid upward face; legacy mode uses a downward ray in front of the player. Both are collision-tested and within four blocks. |
 | Action outcome | Command identity, primitive action, server-confirmed block change, timeout/interruption and inventory revision |
 | Goal instruction | Externally supplied objective and episode identity; experiment condition and policy RNG seed are control parameters |
 
@@ -31,13 +31,26 @@ does not reproduce the exact pixels of the main Minecraft camera.
 
 ## Action transactions
 
-- Turns rotate 15 degrees. Forward holds the normal movement key for five
-  ticks. Each is followed by an observed outcome, not an assumed position.
-- `COLLECT_LOG` aims at one already-visible, reachable log and sends normal
+- The new runner defaults to `camera.mode=bounded`: explicit relative turns
+  use a bounded tick controller, with a configurable 15-degree policy action
+  step. Forward holds the normal movement key for five ticks and never resets
+  pitch. Each action is followed by an observed outcome. The `instant`
+  reference applies the same relative requests in a single write.
+- In both strict modes (`bounded` and `instant`), `COLLECT_LOG` requires the
+  actual crosshair to hit the selected visible log within three blocks.
+  It never aims at a block or tracks a target. Losing the hit interrupts mining.
+  Crafting-table opening and placement similarly require real crosshair hits.
+  The retained ten-action policy has yaw turns but no pitch action: exposing a
+  generic pitch/velocity actuator for tests does not add learned pitch control.
+- Explicit `camera.mode=legacy` preserves the earlier Phase 8 evaluation
+  interface. `COLLECT_LOG` aims at one already-visible, reachable log and sends normal
   survival mining interactions for at most 120 ticks. The server echoes the
   actual post-break block state after the ordinary block-break event. The
   client waits for this update. It does not teleport, give items, alter the
-  server block directly or automatically walk to collect drops.
+  server block directly or automatically walk to collect drops. Legacy turns
+  are instantaneous and forward resets pitch. Earlier properties with no
+  `camera.mode` retain this behavior for reproducibility. The primary 29/30
+  result used this assisted interface and cannot be pooled with strict runs.
 - Collection completes only when the observed server inventory contains the
   required logs. Mining a block and obtaining its dropped item are separate.
 - Planks, sticks, crafting tables and pickaxes use normal container clicks:
@@ -78,3 +91,16 @@ not evidence of forest search, survival, arbitrary terrain navigation or
 robust natural-world generalization. World seeds and layout seeds are logged
 separately. A gate used for the OBS repeat delays the scene until recording
 starts; it does not choose any policy action.
+
+`pickaxe_transaction` is a separate integration fixture with three planks,
+two sticks and a nearby placed table supplied initially. It tests the
+ordinary pickaxe crafting transaction, not resource acquisition. The initial
+three diagnostic attempts all failed; the macro is not yet validated. Its scores
+must never be pooled with from-empty-inventory `wooden_pickaxe` trials. The
+agent sees only its actual own inventory and normally visible table; the
+fixture supplies no policy actions or hidden coordinates.
+
+`camera_probe` is a separate scripted motor diagnostic. It supplies explicit
+angle commands and controlled starting poses, without querying the AI policy.
+Its server success flag means motor checks passed, never autonomous collection
+or learning. It receives no block target for aiming. See `camera_controller.md`.

@@ -1,0 +1,25 @@
+{
+  "run_id": "pickaxe_transaction_01",
+  "world_seed": 33445566,
+  "layout_start": 33445566,
+  "goals": [
+    "pickaxe_transaction"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 3,
+  "requested": 3,
+  "completed": 3,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 157.9978257000039,
+  "maximum_sampled_gpu_c": 54,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-28 14-12-40.mp4",
+  "recording_confirmed": true,
+  "trial_tick_limit": 400,
+  "policy_rng_seed": 9001,
+  "policy_label": "simulation_rehearsal_goal_baseline",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\rehearsal_goal_baseline.npz",
+  "checkpoint_sha256": "11a60bdce0fb081a9d313874fab44a2236862bf119284d9757378c7382e38816"
+}

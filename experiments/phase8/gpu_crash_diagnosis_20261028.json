@@ -1,0 +1,69 @@
+{
+  "nvidiaRenderingDoesNotProveCleanShutdown": true,
+  "collectedAt": "2026-10-28T16:59:40.0471603+03:00",
+  "events": [
+    {
+      "fields": {
+        "AppPath": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\jdk-25\\bin\\java.exe",
+        "ExceptionCode": "c0000005",
+        "ProcessId": "0x361c",
+        "PackageFullName": null,
+        "FaultingOffset": "0000000000139563",
+        "AppVersion": "25.0.1.0",
+        "ModulePath": "C:\\WINDOWS\\System32\\DriverStore\\FileRepository\\amdogl.inf_amd64_2cd20d403c743889\\atio6axx.dll",
+        "ModuleName": "atio6axx.dll",
+        "ModuleVersion": "32.0.22042.8003",
+        "AppName": "java.exe",
+        "AppTimeStamp": "ee2537ce",
+        "ModuleTimeStamp": "69708126",
+        "ProcessCreationTime": "0x1dd66e3e3b3687c",
+        "PackageRelativeAppId": null,
+        "IntegratorReportId": "1103ab44-f2f6-488b-be1e-5ca2ada2d86f"
+      },
+      "time": "2026-10-28T16:55:38.0554211+03:00",
+      "source": "Windows Application Event 1000"
+    },
+    {
+      "fields": {
+        "AppPath": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\jdk-25\\bin\\java.exe",
+        "ExceptionCode": "c0000005",
+        "ProcessId": "0x5054",
+        "PackageFullName": null,
+        "FaultingOffset": "0000000000139563",
+        "AppVersion": "25.0.1.0",
+        "ModulePath": "C:\\WINDOWS\\System32\\DriverStore\\FileRepository\\amdogl.inf_amd64_2cd20d403c743889\\atio6axx.dll",
+        "ModuleName": "atio6axx.dll",
+        "ModuleVersion": "32.0.22042.8003",
+        "AppName": "java.exe",
+        "AppTimeStamp": "ee2537ce",
+        "ModuleTimeStamp": "69708126",
+        "ProcessCreationTime": "0x1dd66e15c02a8c5",
+        "PackageRelativeAppId": null,
+        "IntegratorReportId": "3602db37-100c-4317-9607-6a0014ef2cdf"
+      },
+      "time": "2026-10-28T16:37:30.0083185+03:00",
+      "source": "Windows Application Event 1000"
+    },
+    {
+      "fields": {
+        "AppPath": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\jdk-25\\bin\\java.exe",
+        "ExceptionCode": "c0000005",
+        "ProcessId": "0x183c",
+        "PackageFullName": null,
+        "FaultingOffset": "0000000000139563",
+        "AppVersion": "25.0.1.0",
+        "ModulePath": "C:\\WINDOWS\\System32\\DriverStore\\FileRepository\\amdogl.inf_amd64_2cd20d403c743889\\atio6axx.dll",
+        "ModuleName": "atio6axx.dll",
+        "ModuleVersion": "32.0.22042.8003",
+        "AppName": "java.exe",
+        "AppTimeStamp": "ee2537ce",
+        "ModuleTimeStamp": "69708126",
+        "ProcessCreationTime": "0x1dd66da0a081e15",
+        "PackageRelativeAppId": null,
+        "IntegratorReportId": "e507794f-981b-4533-94ab-2c0b3e5820e4"
+      },
+      "time": "2026-10-28T15:45:00.2777370+03:00",
+      "source": "Windows Application Event 1000"
+    }
+  ]
+}

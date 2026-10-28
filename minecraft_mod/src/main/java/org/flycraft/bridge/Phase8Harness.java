@@ -24,6 +24,7 @@ public final class Phase8Harness {
     private static List<Trial> trials;
     private static Path controlFile, resultsFile;
     private static Path startGate;
+    private static Path cameraProbeResult;
     private static int index = -1, warmup, between, maxTicks;
     private static boolean active, complete;
     private static long started, programStarted;
@@ -40,6 +41,7 @@ public final class Phase8Harness {
             controlFile = Path.of(config.getProperty("controlFile"));
             resultsFile = Path.of(config.getProperty("resultsFile"));
             if (config.containsKey("startGate")) startGate = Path.of(config.getProperty("startGate"));
+            if (config.containsKey("cameraProbeResult")) cameraProbeResult=Path.of(config.getProperty("cameraProbeResult"));
             if (Files.exists(resultsFile)) throw new IllegalStateException("refusing to overwrite Phase 8 results");
             maxTicks = Integer.parseInt(config.getProperty("maxTrialTicks", "1200"));
             maxSeconds = Integer.parseInt(config.getProperty("maxSeconds", "600"));
@@ -97,11 +99,18 @@ public final class Phase8Harness {
             case "planks" -> counts.get("planks") >= 4;
             case "sticks" -> counts.get("sticks") >= 4;
             case "crafting_table" -> counts.get("crafting_table") >= 1;
-            case "wooden_pickaxe" -> counts.get("wooden_pickaxe") >= 1;
+            case "wooden_pickaxe", "pickaxe_transaction" -> counts.get("wooden_pickaxe") >= 1;
             default -> false;
         };
         long elapsed = server.getTickCount() - started;
-        if (success || elapsed >= maxTicks) {
+        boolean probeComplete=false;
+        if(trial.goal.equals("camera_probe") && cameraProbeResult!=null && Files.exists(cameraProbeResult)) {
+            try {
+                JsonObject probe=JsonParser.parseString(Files.readString(cameraProbeResult)).getAsJsonObject();
+                probeComplete=true; success=probe.get("success").getAsBoolean();
+            } catch(Exception ignored) { }
+        }
+        if (success || probeComplete || elapsed >= maxTicks) {
             JsonObject result = new JsonObject();
             result.addProperty("episode_id", String.format("trial_%04d", index));
             result.addProperty("condition", trial.condition); result.addProperty("goal", trial.goal);
@@ -137,6 +146,16 @@ public final class Phase8Harness {
         player.teleportTo(level, originX, groundY, originZ, Set.of(), 0, 0, true);
         player.setDeltaMovement(0, 0, 0); player.setHealth(20); player.getFoodData().setFoodLevel(20);
         player.inventoryMenu.sendAllDataToRemote();
+        if (trial.goal.equals("pickaxe_transaction")) {
+            // Isolated transaction test ONLY. Never include this fixture in
+            // from-empty-inventory wooden-pickaxe autonomy success rates.
+            player.getInventory().add(new ItemStack(Items.OAK_PLANKS, 3));
+            player.getInventory().add(new ItemStack(Items.STICK, 2));
+            level.setBlockAndUpdate(BlockPos.containing(originX, groundY, originZ + 2), Blocks.CRAFTING_TABLE.defaultBlockState());
+            player.inventoryMenu.sendAllDataToRemote();
+            FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 transaction_fixture id={} goal=pickaxe_transaction prepared_ingredients=true", index);
+            return;
+        }
         Random rng = new Random(trial.seed);
         double bearing = Math.toRadians(-40 + rng.nextDouble() * 80), distance = 2.0 + rng.nextDouble() * 1.5;
         int x = (int)Math.floor(originX - Math.sin(bearing) * distance), z = (int)Math.floor(originZ + Math.cos(bearing) * distance);

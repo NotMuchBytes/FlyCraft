@@ -58,14 +58,77 @@ class ObsControlTests(unittest.TestCase):
             with mock.patch.object(runner, "ROOT", folder), mock.patch("sys.argv", arguments), \
                  mock.patch.object(runner, "ObsRecorder", return_value=recorder), \
                  mock.patch.object(runner, "listening", return_value=False), \
-                 mock.patch.object(runner.subprocess, "Popen"), \
+                 mock.patch.object(runner.subprocess, "Popen") as process_factory, \
                  mock.patch.object(runner.socket, "create_connection", side_effect=OSError("closed")), \
                  mock.patch.object(runner, "stop") as cleanup, mock.patch("sys.stdout", new=io.StringIO()):
+                process_factory.return_value.poll.return_value=None
                 runner.main()
             self.assertEqual(cleanup.call_count, 2)
             import json
             metadata = json.loads((folder / "experiments/phase8/cleanup_test/run.json").read_text())
             self.assertEqual(metadata["stop_reason"], "recording_confirmation_lost")
+
+    def test_cleanup_tolerates_native_crash_and_leaves_windows_reporter_alone(self):
+        import psutil
+        from tools import run_phase8_live as runner
+        process=mock.Mock(pid=101)
+        process.poll.return_value=None
+        process.terminate.side_effect=PermissionError("already exiting")
+        parent,child,reporter=mock.Mock(),mock.Mock(),mock.Mock()
+        parent.children.return_value=[child,reporter]
+        child.name.return_value="java.exe"
+        child.terminate.side_effect=psutil.AccessDenied(102)
+        child.kill.side_effect=psutil.AccessDenied(102)
+        reporter.name.return_value="WerFault.exe"
+        with mock.patch.object(runner.psutil,"Process",return_value=parent), \
+             mock.patch.object(runner.psutil,"wait_procs",return_value=([],[child,parent])) as wait:
+            runner.stop(process)
+        reporter.terminate.assert_not_called(); reporter.kill.assert_not_called()
+        self.assertNotIn(reporter,wait.call_args.args[0])
+
+    def test_nvidia_gate_checks_actual_device_and_rejects_opengl_fallback(self):
+        from tools.run_phase8_live import graphics_readiness
+        preference = "Preferring discrete GPU: NVIDIA GeForce RTX 4050 Laptop GPU\n"
+        vulkan = "Using graphics backend Vulkan, using drivers: NVIDIA\n"
+        self.assertEqual(graphics_readiness(preference, "vulkan"), (False, None))
+        self.assertEqual(graphics_readiness(preference+vulkan+"Using graphics device: AMD Radeon 740M", "vulkan"),
+                         (False, "requested_nvidia_device_not_selected"))
+        self.assertEqual(graphics_readiness(preference+"Using graphics backend OpenGL", "vulkan"),
+                         (False, "vulkan_unavailable_opengl_fallback_rejected"))
+        self.assertEqual(graphics_readiness(vulkan+"Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU (NVIDIA)", "vulkan"),
+                         (True, None))
+        self.assertEqual(graphics_readiness("Using graphics backend OpenGL\nUsing graphics device: NVIDIA Corporation RTX 4050", "opengl"),
+                         (True, None))
+        self.assertEqual(graphics_readiness("Using graphics backend OpenGL\nUsing graphics device: AMD Radeon 740M", "opengl"),
+                         (False, "requested_nvidia_device_not_selected"))
+
+    def test_low_ram_aborts_and_cleans_owned_processes(self):
+        from tools import run_phase8_live as runner
+        import json
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory)
+            (folder/"initial.npz").write_bytes(b"mocked model")
+            args=["run_phase8_live.py", "--run-id", "ram_guard", "--work-dir", str(folder/"runtime"),
+                  "--build-dir", str(folder/"build"), "--checkpoint", str(folder/"initial.npz"), "--obs-control-dir", str(folder)]
+            recorder=mock.Mock(started=False)
+            recorder.pulse.return_value=False
+            recorder.stop.return_value=None
+            with mock.patch.object(runner,"ROOT",folder),mock.patch("sys.argv",args), \
+                 mock.patch.object(runner,"ObsRecorder",return_value=recorder), \
+                 mock.patch.object(runner,"listening",return_value=False), \
+                 mock.patch.object(runner.psutil,"virtual_memory",return_value=mock.Mock(available=128*1024**2)), \
+                 mock.patch.object(runner.subprocess,"Popen") as factory, \
+                 mock.patch.object(runner.subprocess,"run",return_value=mock.Mock(stdout="45\n")), \
+                 mock.patch.object(runner.time,"sleep"), \
+                 mock.patch.object(runner.socket,"create_connection",side_effect=OSError("closed")), \
+                 mock.patch.object(runner,"stop") as cleanup,mock.patch("sys.stdout",new=io.StringIO()):
+                factory.return_value.poll.return_value=None
+                runner.main()
+            self.assertEqual(cleanup.call_count,2)
+            metadata=json.loads((folder/"experiments/phase8/ram_guard/run.json").read_text())
+            self.assertEqual(metadata["stop_reason"],"available_ram_guard")
+            self.assertEqual(metadata["minimum_sampled_available_ram_mib"],128)
+            self.assertFalse((folder/"runtime/ram_guard/start.enabled").exists())
 
 
 if __name__ == "__main__":

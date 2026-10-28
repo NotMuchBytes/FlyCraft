@@ -1,0 +1,98 @@
+{
+  "runs": [
+    "nvidia_opengl_log_after_01"
+  ],
+  "incomplete_runs": [],
+  "conditions": {
+    "trained": {
+      "one_log": {
+        "trials": 3,
+        "successes": 2,
+        "success_rate": 0.6666666666666666,
+        "wilson_95": [
+          0.2076596008020477,
+          0.9385080552796037
+        ],
+        "world_seeds": [
+          44556777
+        ],
+        "mean_success_actions": 3.0,
+        "mean_success_game_seconds": 5.175000000000001,
+        "controller_server_disagreements": 1,
+        "controller_terminations": {
+          "success": 3
+        }
+      }
+    }
+  },
+  "raw_episodes": [
+    {
+      "episode_id": "trial_0000",
+      "condition": "trained",
+      "goal": "one_log",
+      "layout_seed": 44556777,
+      "success": true,
+      "ticks": 89,
+      "train": false,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run": "nvidia_opengl_log_after_01",
+      "world_seed": 44556777,
+      "actions": 2,
+      "controller_termination": "success",
+      "controller_success": true,
+      "confirmed_block_changes": 1
+    },
+    {
+      "episode_id": "trial_0001",
+      "condition": "trained",
+      "goal": "one_log",
+      "layout_seed": 44556778,
+      "success": false,
+      "ticks": 400,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run": "nvidia_opengl_log_after_01",
+      "world_seed": 44556777,
+      "actions": 21,
+      "controller_termination": "success",
+      "controller_success": true,
+      "confirmed_block_changes": 1
+    },
+    {
+      "episode_id": "trial_0002",
+      "condition": "trained",
+      "goal": "one_log",
+      "layout_seed": 44556779,
+      "success": true,
+      "ticks": 118,
+      "train": false,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run": "nvidia_opengl_log_after_01",
+      "world_seed": 44556777,
+      "actions": 4,
+      "controller_termination": "success",
+      "controller_success": true,
+      "confirmed_block_changes": 1
+    }
+  ],
+  "interval": "95% Wilson score interval, descriptive over controlled fixture trials",
+  "paired_vs_trained": {}
+}

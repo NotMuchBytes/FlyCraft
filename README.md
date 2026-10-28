@@ -16,11 +16,19 @@ learning. The original 139,255-neuron graph is preserved. See
 Phase 8 adds acknowledged survival mining, inventory observations, normal
 crafting transactions and a live resource-goal controller using the same learned
 readout. Real one-log collection and plank crafting have passed development
-pilots; matched held-out evaluation is in progress. These controlled tree
+pilots; the historical assisted one-log comparison scored 29/30 on held-out
+reset layouts. Longer goals and the new strict camera interface remain under
+evaluation. These controlled tree
 fixtures do not establish natural-world autonomy. See the
 [observation contract](docs/phase8_observation_contract.md) and
 [recorded live-run commands](docs/phase8_usage.md). Phase 7's original results
 and checkpoints remain preserved.
+
+The current runner uses bounded camera movement and crosshair-only block
+interactions. Read [camera validation](docs/camera_controller.md) before
+comparing it with earlier assisted runs. On this Windows laptop, FlyCraft's
+dedicated Java runtime uses the NVIDIA RTX 4050, verified by the selected
+renderer rather than a preference message; see [GPU evidence](docs/windows_gpu.md).
 
 A connectome supplies structural connectivity and annotations. It does not by
 itself supply exact neuron or synapse dynamics, learning rules, consciousness,
