@@ -32,7 +32,7 @@ renderer rather than a preference message; see [GPU evidence](docs/windows_gpu.m
 
 Phase 9 is an ongoing development pilot. A dedicated-server survival actor
 collected a real log with the frozen policy, accompanied by verified
-Minecraft-only MP4 footage and a separate observer wearing no policy role.
+Minecraft-only MP4 footage and a separate observer with no policy role.
 The supplied local actor skin is installed. The 10,000-world training campaign
 has not started, and broader reliability targets remain pending. See the
 [current report](PHASE_9_REPORT.md) and [architecture](docs/phase9_architecture.md).

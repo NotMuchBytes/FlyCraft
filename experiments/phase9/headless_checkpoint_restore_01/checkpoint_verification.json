@@ -1,0 +1,7 @@
+{
+  "checkpoint_sha256_after_evaluation": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f",
+  "checkpoint_unchanged": true,
+  "learning_disabled": true,
+  "development_seed": 44556779,
+  "untouched_final_benchmark": false
+}

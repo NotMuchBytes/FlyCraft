@@ -1,0 +1,19 @@
+{
+  "before_sha256": "51f9593274dbbd87c4c9ab2877a0fc2ebd1573ae31831b8957b3b01601e427ca",
+  "after_sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f",
+  "weight_delta_norm_measured": 0.03615312445772404,
+  "checkpoint_load_verified": true,
+  "restored_session_done": true,
+  "restored_success": true,
+  "restored_actions": 4,
+  "reported_update": {
+    "baseline": 7.709066293765782,
+    "gradient_norm": 0.7230624891544812,
+    "return_variance": 0.25221887752121874,
+    "weight_delta_norm": 0.03615312445772404
+  },
+  "architecture_neurons": 139255,
+  "training_world_instances": 1,
+  "training_episodes": 1,
+  "generalization_improvement_established": false
+}

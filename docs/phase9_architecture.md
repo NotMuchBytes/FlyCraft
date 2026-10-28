@@ -64,5 +64,8 @@ There is no completed serial/multi-worker training orchestrator, official seed
 catalog, isolated 100-world development and final evaluation sets, dashboard,
 transactional world counter, or complete resume/crash recovery protocol yet.
 The existing worker can request learning, but the development headless trials
-reported here keep the policy frozen. No Phase 9 training updates are claimed.
+used for initial validation kept the policy frozen. A subsequent one-episode
+development training trial updated the existing readout from real feedback;
+its saved checkpoint loaded successfully. This does not establish improved
+generalization. See `PHASE_9_REPORT.md` for the bounded results.
 An official 10,000-world launch needs explicit authorization after pilot review.

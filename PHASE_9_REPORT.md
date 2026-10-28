@@ -33,7 +33,9 @@ also remain unmet. Earlier reports, checkpoints and experimental data are kept.
 
 These are small flat survival fixtures near prepared trees. They do not test
 natural forest exploration or 30 independent unseen environments. All completed
-headless trials used a frozen Phase 8 policy; **Phase 9 training updates: zero**.
+initial headless trials used a frozen Phase 8 policy. A subsequent development
+trial enabled learning: **one real training world/episode and one readout update**.
+This is not an official experiment counter or a demonstrated learning curve.
 
 | Attempt | Completed episodes | Actual result | Recording status |
 | --- | ---: | --- | --- |
@@ -42,8 +44,10 @@ headless trials used a frozen Phase 8 policy; **Phase 9 training updates: zero**
 | `headless_recorded_redo_02` | 1 | 1/1 log; block and inventory confirmed | Rejected: MP4 showed wallpaper |
 | `headless_recorded_redo_03` | 0 | Client compilation failed before world launch | No MP4; launcher evidence retained |
 | `headless_recorded_redo_04` | 1 | 1/1 log; block and inventory confirmed | Accepted: real Minecraft MP4, full decode and visual inspection |
+| `headless_learning_pilot_01` | 1 | 1/1 log; real readout training update | Accepted: real Minecraft MP4, full decode and visual inspection |
+| `headless_checkpoint_restore_01` | 1 | 1/1 log after loading the new checkpoint; learning disabled | Accepted: real Minecraft MP4, full decode and visual inspection |
 
-Attempts reuse development seed/layout 44556777 and differ in implementation
+The initial attempts reuse development seed/layout 44556777 and differ in implementation
 while debugging. Do not pool their outcomes into a generalization success rate.
 Each successful worker generated one world instance and ran one episode;
 these are not distinct unseen seeds. No official cumulative counter is started.
@@ -99,13 +103,39 @@ Unit tests alone are not evidence of autonomous Minecraft success.
 
 ## Learning and neural contribution
 
-There is no new Phase 9 training comparison or causal neural-contribution
+There is no new Phase 9 matched learning comparison or causal neural-contribution
 result. A frozen checkpoint's successful two-action development episode does
 not establish learning. Phase 8's assisted 29/30 one-log result and tiny strict
 camera comparison remain separate in `PHASE_8_REPORT.md`; assistance differs.
 The architecture still uses semantic rays, engineered goals/recovery, prepared
 fixtures and bounded action transactions. These are not learned components.
 The recording camera follows the actor, but never aims or moves the actor.
+
+The subsequent real-feedback check `headless_learning_pilot_01` trained on
+development world/layout seed 44556778: one log, 98 ticks, four actions, reward
+9.388307792 and no failed actions. Readout gradient norm was 0.723062489 and
+measured weight-change norm 0.036153124, exactly matching the saved session.
+Only the readout updates; the fixed connectome is not trained. The new immutable
+checkpoint loaded through `AutonomousAgent.load`, with SHA256
+`06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f`.
+Its metadata is at `headless_learning_pilot_01/checkpoint_verification.json`.
+This seed is now training data and must not enter any held-out benchmark.
+The corresponding 19.633-second MP4 passed full decode, actual-image preflight
+and visual frame inspection; GPU maximum was 47 C. The complete job lasted
+77.971 seconds. A nonzero policy update is not evidence of better generalization.
+
+`headless_checkpoint_restore_01` loaded that exact saved checkpoint in a new
+process and world (development seed 44556779), with learning disabled. Actual
+inventory confirmed one log after 106 ticks; four actions were acknowledged.
+The checkpoint SHA256 remained unchanged after evaluation. Client/server exited
+0; maximum sampled GPU temperature was 49 C. Its 21.733-second MP4 decoded 652
+frames, passed actual-image preflight and was visually inspected. This is a
+restoration smoke test, not an untouched final benchmark or a matched learning
+comparison. A policy response arrived after the scoring boundary and was
+correctly rejected as unexecuted. The conservative controller suppressed any
+learning and still confirmed success from terminal inventory. Its reward and
+subgoal-completion counters omit that passive terminal pickup; this bookkeeping
+limitation must be resolved before interpreting training learning curves.
 
 ## Remaining work and recommendations
 

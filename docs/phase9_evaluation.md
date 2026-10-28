@@ -29,6 +29,23 @@ inspection. Maximum sampled GPU temperature was 47 C and minimum available
 RAM was 2355.906 MiB. This is a new execution of the frozen policy, not a replay
 of the original failed episode. It is still one reused development layout.
 
+`headless_learning_pilot_01` used a separate development seed 44556778 and
+enabled learning: 1/1 log, 98 ticks, four actions and reward 9.3883. The measured
+readout weight delta was 0.0361531, exactly matching the reported update. The
+new checkpoint loaded successfully; the original checkpoint was preserved.
+Its 19.633-second MP4 passed decode, image preflight and frame inspection.
+This establishes that a real feedback update occurred, not that performance
+improved. This seed is now training data and cannot be used as held-out data.
+
+`headless_checkpoint_restore_01` restored that checkpoint into a fresh process
+and development seed 44556779. With learning disabled, it collected one log in
+106 ticks and four acknowledged actions. The checkpoint hash remained unchanged
+after evaluation. The video was fully decoded and visually inspected. This
+tests restoration, not generalization improvement. A late unexecuted policy
+response was rejected at the boundary; terminal inventory still correctly
+confirmed success. Passive terminal-pickup reward/subgoal counters are incomplete
+in this case and need correction before training curves are interpreted.
+
 Phase 8's historical 29/30 trained one-log result used visible-target aiming
 assistance. The strict camera comparison used only three matched layouts:
 instant 3/3 and bounded 2/3 before the deadline. These results and their
