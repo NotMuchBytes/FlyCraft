@@ -289,3 +289,25 @@ Stop at the Phase 2 boundary and await explicit approval. Do not start Minecraft
   were stopped. No existing checkpoint was overwritten and nothing was pushed.
 
 Detailed evidence and Phase 8 recommendations: `PHASE_7_REPORT.md`.
+
+## Phase 8 implementation and evaluation in progress — 2026-10-28
+
+- Created private `NotMuchBytes/FlyCraft` on GitHub and published the preserved
+  Phase 7 baseline followed by the Phase 8 implementation on main and
+  `phase8-real-minecraft`.
+- Added acknowledged survival mining, separate dropped-log pickup, actual
+  own-inventory observations, normal crafting/placement transactions, bounded
+  failures and live learned-policy goal sessions. No graph or prior checkpoint
+  was overwritten. Details: `docs/phase8_observation_contract.md`.
+- One-log and plank development pilots passed. Three-log and pickaxe pilots
+  still failed; the 30-trial completion gates are not yet established.
+- Added Minecraft-only OBS file control, recording-confirmed trial gates,
+  unfocused client startup and bounded recording supervision. Preserved setup
+  errors and partial batches; fixed stale crafting inventory, frame cropping,
+  Windows sharing races and cleanup after recorder failure.
+- 60 tests pass. A rerun of 1,800 Phase 7 simulation episodes exactly reproduces
+  baseline deterministic metrics across three preserved checkpoints. The
+  original graph SHA-256 is unchanged.
+- Bounded matched live comparisons are underway. Full Phase 8 results remain
+  pending; see `PHASE_8_REPORT.md`. The user queued Phase 7.5 stabilization
+  after this Phase 8 iteration, preserving all successful real interactions.

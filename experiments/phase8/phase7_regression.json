@@ -1,0 +1,102 @@
+{
+  "environment": "Phase 7 World2D simulator, not Minecraft",
+  "matches_baseline": true,
+  "policies": {
+    "11": {
+      "navigate_object": {
+        "episodes": 100,
+        "successes": 98,
+        "differences": {}
+      },
+      "collect_nearby": {
+        "episodes": 100,
+        "successes": 100,
+        "differences": {}
+      },
+      "find_collect": {
+        "episodes": 100,
+        "successes": 99,
+        "differences": {}
+      },
+      "collect_multiple": {
+        "episodes": 100,
+        "successes": 57,
+        "differences": {}
+      },
+      "craft_simple": {
+        "episodes": 100,
+        "successes": 98,
+        "differences": {}
+      },
+      "wooden_pickaxe": {
+        "episodes": 100,
+        "successes": 47,
+        "differences": {}
+      }
+    },
+    "29": {
+      "navigate_object": {
+        "episodes": 100,
+        "successes": 100,
+        "differences": {}
+      },
+      "collect_nearby": {
+        "episodes": 100,
+        "successes": 100,
+        "differences": {}
+      },
+      "find_collect": {
+        "episodes": 100,
+        "successes": 100,
+        "differences": {}
+      },
+      "collect_multiple": {
+        "episodes": 100,
+        "successes": 68,
+        "differences": {}
+      },
+      "craft_simple": {
+        "episodes": 100,
+        "successes": 100,
+        "differences": {}
+      },
+      "wooden_pickaxe": {
+        "episodes": 100,
+        "successes": 67,
+        "differences": {}
+      }
+    },
+    "47": {
+      "navigate_object": {
+        "episodes": 100,
+        "successes": 99,
+        "differences": {}
+      },
+      "collect_nearby": {
+        "episodes": 100,
+        "successes": 100,
+        "differences": {}
+      },
+      "find_collect": {
+        "episodes": 100,
+        "successes": 99,
+        "differences": {}
+      },
+      "collect_multiple": {
+        "episodes": 100,
+        "successes": 61,
+        "differences": {}
+      },
+      "craft_simple": {
+        "episodes": 100,
+        "successes": 99,
+        "differences": {}
+      },
+      "wooden_pickaxe": {
+        "episodes": 100,
+        "successes": 46,
+        "differences": {}
+      }
+    }
+  }
+}

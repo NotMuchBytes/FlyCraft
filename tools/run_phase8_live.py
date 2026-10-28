@@ -15,7 +15,7 @@ import psutil
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from autonomy.minecraft import CONDITIONS, OBJECTIVES
-from obs_control import ObsRecorder
+from tools.obs_control import ObsRecorder
 
 
 def listening(port):
@@ -157,11 +157,17 @@ def main():
                 except (OSError, ValueError, IndexError, subprocess.TimeoutExpired):
                     pass
             time.sleep(1)
-    except RuntimeError as error:
-        stop_reason = "recording_confirmation_lost" if "OBS" in str(error) else "supervisor_error"
+    except (RuntimeError, OSError) as error:
+        stop_reason = "recording_control_error" if isinstance(error, OSError) else "recording_confirmation_lost" if "OBS" in str(error) else "supervisor_error"
         print(json.dumps({"error": str(error), "stop_reason": stop_reason}), flush=True)
     finally:
-        recording = recorder.stop()
+        recording = None
+        try:
+            recording = recorder.stop()
+        except Exception as error:
+            # Recording errors must never prevent cleanup of owned game/bridge
+            # processes. The OBS heartbeat remains a second bounded fallback.
+            print(json.dumps({"recording_stop_error": str(error)}), flush=True)
         try:
             with socket.create_connection(("127.0.0.1", 8765), timeout=2) as connection:
                 connection.sendall(b'{"tick_id":9223372036854775807,"event":"end_suite"}\n')

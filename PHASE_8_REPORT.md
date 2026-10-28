@@ -104,13 +104,28 @@ before attributing success to the sparse neural model.
 
 ## 5. Reliability checks
 
-The 55-test suite passed after the initial Phase 8 implementation. An added
-completed-checkpoint regression also passes. Phase 8 tests cover server
+The full 60-test suite passed in 9.719 seconds. Phase 8 tests cover server
 inventory consistency, block acknowledgment versus pickup, failed mining and
 recovery, missing acknowledgment timeout, episode/connection interruption,
 crafting failure, pending-transaction checkpoint restoration without replay,
 neural-feature removal and completed-checkpoint result isolation. The Fabric
 main/client sources compile successfully.
+
+A direct regression reran 1,800 simulated episodes: the same 100 worlds for
+each of six goals and each of three preserved Phase 7 checkpoints. Successes,
+action counts, failed-action counts and recovery counts exactly matched the
+earlier baselines. `experiments/phase8/phase7_regression.json` records this.
+The source graph SHA-256 remains
+`37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d`.
+
+Recording setup also exposed a source-resize crop, a Lua alignment-constant
+compatibility issue and a Windows command-file sharing violation. Native OBS
+bounding-box fitting now preserves the whole frame. Command replacement
+retries transient Windows sharing violations for at most one second, and a
+failed recorder stop cannot skip owned-process cleanup. Four added tests cover
+these control failure paths, and 1,000 actual background command writes
+succeeded against the running Lua reader. Setup failures started no trials;
+partial development batches remain separate from the primary evaluation.
 
 Unit protocol tests do not replace live mining-interruption, network-loss or
 natural-world reliability evaluations. Those live stress tests remain work.

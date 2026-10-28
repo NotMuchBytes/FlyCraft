@@ -18,6 +18,11 @@ local files; a websocket server and global hotkeys are unnecessary. OBS's
 [frontend API](https://docs.obsproject.com/reference-frontend-api) supplies the
 recording start, stop and active status operations.
 
+Set the capture's bounding-box type to **Scale to inner bounds**, with bounds
+1920 by 1080 and no crop. This fits both small and maximized Minecraft windows
+without changing the desktop window. The script saves an output screenshot
+after recording starts so framing can be verified independently of its source.
+
 The current machine has a separate `FlyCraft Background` collection/profile
 already configured. OBS may remain in the tray. Minecraft remains a rendered,
 unfocused window; minimizing its window can break window capture. The runner

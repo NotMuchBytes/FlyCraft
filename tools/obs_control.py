@@ -26,7 +26,17 @@ class ObsRecorder:
     def command(self, name):
         temporary = self.command_file.with_suffix(".tmp")
         temporary.write_text(f"{self.token}\n{name}\n{int(time.time())}\n", encoding="utf-8")
-        os.replace(temporary, self.command_file)
+        deadline = time.monotonic() + 1
+        while True:
+            try:
+                os.replace(temporary, self.command_file)
+                return
+            except PermissionError:
+                # Windows disallows replacement while Lua briefly has the
+                # command open. Retry only this sharing violation, boundedly.
+                if time.monotonic() >= deadline:
+                    raise
+                time.sleep(0.01)
 
     def pulse(self):
         self.command("start")

@@ -35,11 +35,7 @@ local function poll()
     end
     active = obs.obs_frontend_recording_active()
     if active and owned and not screenshot_taken and os.time() - record_started >= 3 then
-        local captured = obs.obs_get_source_by_name("Minecraft only")
-        if captured then
-            obs.obs_frontend_take_source_screenshot(captured)
-            obs.obs_source_release(captured)
-        end
+        obs.obs_frontend_take_screenshot()
         screenshot_taken = true
     end
     local state = active and (owned and "recording" or "busy") or (requested and "starting" or "stopped")

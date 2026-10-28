@@ -1,0 +1,23 @@
+{
+  "run_id": "eval_log_01",
+  "world_seed": 83000,
+  "layout_start": 83000,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained",
+    "frozen",
+    "uniform",
+    "no_neural"
+  ],
+  "trials_per_goal_condition": 10,
+  "requested": 40,
+  "completed": 0,
+  "stop_reason": "recording_setup_error_no_trials_started",
+  "elapsed_seconds": 196.57323409998207,
+  "maximum_sampled_gpu_c": 49,
+  "train": false,
+  "recording": null,
+  "recording_confirmed": false
+}
