@@ -32,7 +32,6 @@ class ObsControlTests(unittest.TestCase):
     def test_stale_or_busy_recorder_cannot_open_a_trial(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
-            (folder / "initial.npz").write_bytes(b"test checkpoint placeholder; no model is loaded by mocked subprocesses")
             for status, timestamp in (("recording", int(time.time())), ("stopped", 1)):
                 (folder / "obs-state.txt").write_text(f"other\n{status}\n\n854\n480\n{timestamp}\n\nEND\n")
                 with self.assertRaises(RuntimeError):
@@ -49,6 +48,7 @@ class ObsControlTests(unittest.TestCase):
         from tools import run_phase8_live as runner
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
+            (folder / "initial.npz").write_bytes(b"test checkpoint placeholder; no model is loaded by mocked subprocesses")
             arguments = ["run_phase8_live.py", "--run-id", "cleanup_test", "--work-dir", str(folder / "runtime"),
                          "--build-dir", str(folder / "build"), "--checkpoint", str(folder / "initial.npz"),
                          "--obs-control-dir", str(folder)]
