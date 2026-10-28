@@ -1,5 +1,4 @@
 """File-based control of the companion OBS Lua script; never generates desktop input."""
-import os
 import time
 from pathlib import Path
 
@@ -17,23 +16,21 @@ class ObsRecorder:
     def state(self):
         try:
             values = self.state_file.read_text(encoding="utf-8").splitlines()
-            if len(values) < 6 or abs(time.time() - int(values[5])) > 5:
+            if len(values) < 8 or values[-1] != "END" or abs(time.time() - int(values[5])) > 5:
                 return None
             return values
         except (OSError, ValueError):
             return None
 
     def command(self, name):
-        temporary = self.command_file.with_suffix(".tmp")
-        temporary.write_text(f"{self.token}\n{name}\n{int(time.time())}\n", encoding="utf-8")
+        payload = f"{self.token}\n{name}\n{int(time.time())}\nEND\n"
         deadline = time.monotonic() + 1
         while True:
             try:
-                os.replace(temporary, self.command_file)
+                self.command_file.write_text(payload, encoding="utf-8")
                 return
             except PermissionError:
-                # Windows disallows replacement while Lua briefly has the
-                # command open. Retry only this sharing violation, boundedly.
+                # Lua ignores partial command frames; retry transient locks.
                 if time.monotonic() >= deadline:
                     raise
                 time.sleep(0.01)
@@ -41,15 +38,19 @@ class ObsRecorder:
     def pulse(self):
         self.command("start")
         state = self.state()
-        # OBS replaces its local status file. Retry a transient rename gap or
-        # UI-thread stall, while still requiring positive active confirmation.
+        # Retry an incomplete status frame or brief UI-thread stall, while
+        # still requiring positive active confirmation.
         deadline = time.monotonic() + 2
         while state is None and time.monotonic() < deadline:
             time.sleep(0.05)
             state = self.state()
         active = state is not None and state[0] == self.token and state[1] == "recording"
         if self.started and not active:
-            raise RuntimeError("OBS recording confirmation was lost")
+            try:
+                detail = self.state_file.read_text(encoding="utf-8").splitlines()
+            except OSError as error:
+                detail = [str(error)]
+            raise RuntimeError(f"OBS recording confirmation was lost: {detail!r}")
         self.started = self.started or active
         return active
 

@@ -11,21 +11,20 @@ from tools.obs_control import ObsRecorder
 class ObsControlTests(unittest.TestCase):
     def recorder(self, directory):
         folder = Path(directory)
-        (folder / "obs-state.txt").write_text(f"initial\nstopped\n\n0\n0\n{int(time.time())}\n")
+        (folder / "obs-state.txt").write_text(f"initial\nstopped\n\n0\n0\n{int(time.time())}\n\nEND\n")
         return ObsRecorder(folder, "unit")
 
     def test_windows_sharing_violation_is_retried_before_command_commit(self):
-        import os
-        original = os.replace
+        original = Path.write_text
         with tempfile.TemporaryDirectory() as directory:
             recorder = self.recorder(directory)
             calls = []
-            def replace(source, destination):
-                calls.append(destination)
+            def write(path, payload, **kwargs):
+                calls.append(path)
                 if len(calls) < 3:
                     raise PermissionError("reader still open")
-                return original(source, destination)
-            with mock.patch("tools.obs_control.os.replace", side_effect=replace):
+                return original(path, payload, **kwargs)
+            with mock.patch.object(Path, "write_text", new=write):
                 recorder.command("start")
             self.assertEqual(len(calls), 3)
             self.assertEqual(recorder.command_file.read_text().splitlines()[:2], ["unit", "start"])
@@ -33,8 +32,9 @@ class ObsControlTests(unittest.TestCase):
     def test_stale_or_busy_recorder_cannot_open_a_trial(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
+            (folder / "initial.npz").write_bytes(b"test checkpoint placeholder; no model is loaded by mocked subprocesses")
             for status, timestamp in (("recording", int(time.time())), ("stopped", 1)):
-                (folder / "obs-state.txt").write_text(f"other\n{status}\n\n854\n480\n{timestamp}\n")
+                (folder / "obs-state.txt").write_text(f"other\n{status}\n\n854\n480\n{timestamp}\n\nEND\n")
                 with self.assertRaises(RuntimeError):
                     ObsRecorder(folder, "unit")
 

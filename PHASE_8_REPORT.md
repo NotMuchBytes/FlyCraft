@@ -88,6 +88,23 @@ features removed. Conditions see matched layouts. The analyzer uses actual
 server inventory, reports action counts and 95% Wilson intervals, and flags
 incomplete batches. Final comparisons remain pending.
 
+The first complete held-out batch (`eval_log_03`, world 83002, ten matched
+layouts 83200–83209, 15 game seconds per trial) produced:
+
+| Condition | Inventory-confirmed success | 95% Wilson interval | Mean successful actions |
+|---|---:|---:|---:|
+| Trained candidate | 10/10 | 72.2–100% | 3.80 |
+| Frozen Phase 7 transfer | 9/10 | 59.6–98.2% | 4.33 |
+| Uniform actions, same affordances | 5/10 | 23.7–76.3% | 4.20 |
+| Neural features removed | 7/10 | 39.7–89.2% | 3.00 |
+
+This is one of three planned seed batches, not the 30-trial result. Paired
+exact McNemar p-values versus trained are 1.0 (frozen), 0.0625 (uniform) and
+0.25 (no-neural), uncorrected exploratory comparisons. This sample does not
+establish a causal neural benefit. Three controller success reports arrived
+after the server's 15-second cutoff; they correctly remain failures in this
+table. Controller/server disagreements are recorded explicitly in the summary.
+
 ## 4. Comparison with Phase 7 and neural contribution
 
 Phase 7's real bridge supported navigation only. Phase 8 has demonstrated
@@ -132,6 +149,15 @@ natural-world reliability evaluations. Those live stress tests remain work.
 The recording interruption exposed a real fail-closed path. Its metadata's
 original `wall_budget` label predates the supervisor error-label fix; the
 launcher traceback identifies recording-confirmation loss as the cause.
+
+The recorder also previously treated a temporarily unreadable command file as
+an expired heartbeat, and retained ownership after its recording stopped.
+The updated handshake retains the last complete command through transient
+read failures, validates complete frames without rename/delete races, and
+releases ownership after stop. A headless test executes the actual Lua script
+using OBS's existing runtime and injects partial/missing commands, asynchronous
+startup, watchdog expiry, old tokens and external recordings. Exact future
+confirmation-loss snapshots and recording state transitions are logged.
 
 ## 6. Limitations and completion gates
 

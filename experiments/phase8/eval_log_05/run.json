@@ -1,0 +1,23 @@
+{
+  "run_id": "eval_log_05",
+  "world_seed": 8675310,
+  "layout_start": 8675400,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained",
+    "frozen",
+    "uniform",
+    "no_neural"
+  ],
+  "trials_per_goal_condition": 10,
+  "requested": 40,
+  "completed": 40,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 489.22968699998455,
+  "maximum_sampled_gpu_c": 46,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-28 13-03-14.mp4",
+  "recording_confirmed": true
+}

@@ -39,7 +39,9 @@ def main():
         for score in scores:
             controller = controllers.get(score["episode_id"])
             row = score | {"run": run, "world_seed": metadata["world_seed"], "actions": controller["actions"] if controller else None,
-                           "controller_termination": controller["termination"] if controller else "missing_controller_result"}
+                           "controller_termination": controller["termination"] if controller else "missing_controller_result",
+                           "controller_success": controller["success"] if controller else None,
+                           "confirmed_block_changes": controller["confirmed_block_changes"] if controller else None}
             rows.append(row)
             grouped[score["condition"], score["goal"]].append(row)
         if len(scores) != metadata["requested"]:
@@ -54,7 +56,25 @@ def main():
             "wilson_95": wilson(len(successes), len(group)), "world_seeds": sorted({row["world_seed"] for row in group}),
             "mean_success_actions": statistics.fmean(action_rows) if action_rows else None,
             "mean_success_game_seconds": statistics.fmean(row["ticks"] / 20 for row in successes) if successes else None,
+            "controller_server_disagreements": sum(row["controller_success"] is not None and row["controller_success"] != row["success"] for row in group),
             "controller_terminations": dict(collections.Counter(row["controller_termination"] for row in group))}
+    paired = {}
+    indexed = collections.defaultdict(dict)
+    for row in rows:
+        indexed[row["condition"]][row["world_seed"], row["layout_seed"], row["goal"]] = row
+    for condition in indexed:
+        if condition == "trained":
+            continue
+        shared = indexed["trained"].keys() & indexed[condition].keys()
+        for goal in sorted({key[2] for key in shared}):
+            keys = [key for key in shared if key[2] == goal]
+            trained_only = sum(indexed["trained"][key]["success"] and not indexed[condition][key]["success"] for key in keys)
+            control_only = sum(indexed[condition][key]["success"] and not indexed["trained"][key]["success"] for key in keys)
+            discordant = trained_only + control_only
+            p = min(1., 2 * sum(math.comb(discordant, i) for i in range(min(trained_only, control_only) + 1)) / 2**discordant)
+            paired.setdefault(goal, {})[condition] = {"matched_trials": len(keys), "trained_only_success": trained_only,
+                "control_only_success": control_only, "mcnemar_exact_two_sided_p": p}
+    summary["paired_vs_trained"] = paired
     with args.output.open("x", encoding="utf-8") as handle:
         json.dump(summary, handle, indent=2)
     print(json.dumps({key: value for key, value in summary.items() if key != "raw_episodes"}, indent=2))

@@ -2,6 +2,7 @@
 """Supervise bounded, disposable live Minecraft trials and preserve all evidence."""
 
 import argparse
+import hashlib
 import json
 import os
 import socket
@@ -60,6 +61,8 @@ def main():
     parser.add_argument("--build-dir", type=Path, required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--frozen-checkpoint", type=Path)
+    parser.add_argument("--policy-label", default="six_live_log_episodes")
+    parser.add_argument("--frozen-label", default="phase7_frozen_transfer")
     parser.add_argument("--goals", default="one_log")
     parser.add_argument("--conditions", default="trained")
     parser.add_argument("--trials", type=int, default=1)
@@ -78,6 +81,8 @@ def main():
         parser.error("unknown goal or condition")
     if not 0 < args.trials <= 30 or not 0 < args.seconds <= 900 or args.trial_ticks <= 0:
         parser.error("use 1-30 trials and a bounded wall limit up to 900 seconds")
+    if not args.checkpoint.is_file() or args.frozen_checkpoint and not args.frozen_checkpoint.is_file():
+        parser.error("checkpoint files must exist")
     if listening(25567) or listening(8765):
         parser.error("live test ports already occupied; no existing process will be stopped")
     recorder = ObsRecorder(args.obs_control_dir.resolve(), args.run_id)
@@ -189,6 +194,15 @@ def main():
                    "maximum_sampled_gpu_c": max(temperatures) if temperatures else None, "train": args.train}
         summary["recording"] = str(recording) if recording else None
         summary["recording_confirmed"] = recorder.started
+        summary["trial_tick_limit"] = args.trial_ticks
+        summary["policy_rng_seed"] = 9001
+        summary["policy_label"] = args.policy_label
+        summary["checkpoint"] = str(args.checkpoint.resolve())
+        summary["checkpoint_sha256"] = hashlib.sha256(args.checkpoint.read_bytes()).hexdigest()
+        if args.frozen_checkpoint:
+            summary["frozen_label"] = args.frozen_label
+            summary["frozen_checkpoint"] = str(args.frozen_checkpoint.resolve())
+            summary["frozen_checkpoint_sha256"] = hashlib.sha256(args.frozen_checkpoint.read_bytes()).hexdigest()
         (results / "run.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
         print(json.dumps(summary, indent=2), flush=True)
 

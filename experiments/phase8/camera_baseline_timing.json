@@ -1,0 +1,13 @@
+{
+  "runs": [
+    "eval_log_03"
+  ],
+  "environment": "Real Minecraft bridge logs; original instantaneous camera",
+  "turns_with_ack": 92,
+  "median_turn_primitive_ticks": 8.0,
+  "median_ticks_to_next_observation": 20.0,
+  "median_bridge_ms": 146.05899999151006,
+  "maximum_bridge_ms": 1461.7061000026297,
+  "angular_overshoot_and_settling": "Not measured by these logs; require pose instrumentation",
+  "interpretation": "Timing evidence does not by itself distinguish policy quantization, target tracking and physical camera overshoot."
+}
