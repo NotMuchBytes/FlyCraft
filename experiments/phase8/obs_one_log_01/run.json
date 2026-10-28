@@ -1,0 +1,18 @@
+{
+  "run_id": "obs_one_log_01",
+  "world_seed": 81001,
+  "layout_start": 81001,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 1,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 414.114936900005,
+  "maximum_sampled_gpu_c": 51,
+  "train": false
+}

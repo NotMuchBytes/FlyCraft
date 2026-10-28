@@ -1,0 +1,22 @@
+{
+  "run_id": "recorded_craft02",
+  "world_seed": 81900,
+  "layout_start": 81900,
+  "goals": [
+    "planks",
+    "three_logs",
+    "wooden_pickaxe"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 3,
+  "completed": 3,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 173.21486510001705,
+  "maximum_sampled_gpu_c": 52,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-27 20-20-21.mp4",
+  "recording_confirmed": true
+}

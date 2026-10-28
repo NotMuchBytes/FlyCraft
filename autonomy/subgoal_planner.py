@@ -19,7 +19,7 @@ RECIPES = {
 
 class SubgoalPlanner:
     def plan(self, objective: str, observation: dict) -> GoalManager:
-        if objective not in GOALS:
+        if objective not in GOALS + ("craft_sticks", "craft_table"):
             raise ValueError(f"unsupported goal: {objective}")
         nodes = []
         previous: tuple[str, ...] = ()
@@ -38,7 +38,8 @@ class SubgoalPlanner:
 
         item, amount = {"collect_nearby": ("log", 1), "find_collect": ("log", 1),
                         "collect_multiple": ("log", 3), "craft_simple": ("planks", 4),
-                        "wooden_pickaxe": ("wooden_pickaxe", 1)}[objective]
+                        "wooden_pickaxe": ("wooden_pickaxe", 1), "craft_sticks": ("sticks", 4),
+                        "craft_table": ("crafting_table", 1)}[objective]
         available = defaultdict(int, observation["inventory"])
         production = defaultdict(int, observation["produced"])
 

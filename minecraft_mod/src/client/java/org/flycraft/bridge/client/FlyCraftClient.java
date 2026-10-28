@@ -47,6 +47,10 @@ public final class FlyCraftClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		if (java.nio.file.Files.exists(java.nio.file.Path.of("flycraft-phase8-client.properties"))) {
+			new Phase8Client().initialize();
+			return;
+		}
 		ClientTickEvents.END_CLIENT_TICK.register(this::onEndTick);
 		FlyCraftMod.LOGGER.info("FlyCraft client bridge ready at {}:{}", BRIDGE_HOST, BRIDGE_PORT);
 	}

@@ -1,0 +1,18 @@
+{
+  "run_id": "live_train01",
+  "world_seed": 81800,
+  "layout_start": 81800,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 6,
+  "requested": 6,
+  "completed": 6,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 146.19601049998892,
+  "maximum_sampled_gpu_c": 51,
+  "train": true
+}

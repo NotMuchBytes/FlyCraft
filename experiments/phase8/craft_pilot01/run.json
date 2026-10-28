@@ -1,0 +1,20 @@
+{
+  "run_id": "craft_pilot01",
+  "world_seed": 81900,
+  "layout_start": 81900,
+  "goals": [
+    "three_logs",
+    "planks",
+    "wooden_pickaxe"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 3,
+  "completed": 3,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 219.26047420001123,
+  "maximum_sampled_gpu_c": 52,
+  "train": false
+}

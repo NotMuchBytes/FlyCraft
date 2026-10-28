@@ -137,6 +137,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--checkpoint", type=Path)
     parser.add_argument("--autonomy-checkpoint", type=Path, help="Phase 7 navigation checkpoint; requires telemetry-enabled Fabric client")
+    parser.add_argument("--phase8-checkpoint", type=Path, help="Phase 8 acknowledged survival interactions")
+    parser.add_argument("--phase8-frozen-checkpoint", type=Path)
+    parser.add_argument("--phase8-results", type=Path)
+    parser.add_argument("--phase8-save-dir", type=Path)
     parser.add_argument("--goal", choices=("navigate_object",), default="navigate_object")
     parser.add_argument("--save-autonomy-state", type=Path, help="New checkpoint written when bounded live goal ends")
     parser.add_argument("--untrained-policy", action="store_true")
@@ -144,7 +148,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--log", type=Path, help="JSONL request/response log (default: experiments/phase4/bridge_service.jsonl)")
     args = parser.parse_args()
-    if sum((args.checkpoint is not None, args.autonomy_checkpoint is not None, args.untrained_policy)) > 1:
+    if sum((args.checkpoint is not None, args.autonomy_checkpoint is not None, args.phase8_checkpoint is not None, args.untrained_policy)) > 1:
         parser.error("checkpoint, autonomy-checkpoint, and untrained-policy are mutually exclusive")
     if args.save_autonomy_state and (not args.autonomy_checkpoint or args.save_autonomy_state.exists()):
         parser.error("save-autonomy-state requires autonomy mode and a new output path")
@@ -157,7 +161,15 @@ def main() -> None:
     if not log_path.is_absolute():
         log_path = ROOT / log_path
     log_path.parent.mkdir(parents=True, exist_ok=True)
-    if args.autonomy_checkpoint:
+    if args.phase8_checkpoint:
+        if not args.phase8_results:
+            raise SystemExit("--phase8-results is required")
+        from autonomy.minecraft import LiveResourceController
+        from learning import NeuralFeatureTable
+        table = NeuralFeatureTable.from_phase35(ROOT / "experiments/phase35/results/rate_decoder_evaluation.json")
+        controller = LiveResourceController(NeuralController(), table, args.phase8_checkpoint,
+            frozen_checkpoint=args.phase8_frozen_checkpoint, result_log=args.phase8_results, checkpoint_dir=args.phase8_save_dir)
+    elif args.autonomy_checkpoint:
         from autonomy.bridge import LiveNavigationController
         controller = LiveNavigationController(NeuralController(), args.autonomy_checkpoint, args.goal, args.save_autonomy_state)
     else:

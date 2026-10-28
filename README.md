@@ -13,9 +13,14 @@ recovery, performance-gated curriculum training and longer-horizon readout
 learning. The original 139,255-neuron graph is preserved. See
 [`PHASE_7_REPORT.md`](PHASE_7_REPORT.md), the
 [design](docs/phase7_design.md) and [commands](docs/phase7_usage.md).
-Resource collection and crafting results are from the extended 2D simulator;
-live Fabric autonomy currently supports navigation only. Wooden-pickaxe
-completion remains below the declared reliability threshold on final tests.
+Phase 8 adds acknowledged survival mining, inventory observations, normal
+crafting transactions and a live resource-goal controller using the same learned
+readout. Real one-log collection and plank crafting have passed development
+pilots; matched held-out evaluation is in progress. These controlled tree
+fixtures do not establish natural-world autonomy. See the
+[observation contract](docs/phase8_observation_contract.md) and
+[recorded live-run commands](docs/phase8_usage.md). Phase 7's original results
+and checkpoints remain preserved.
 
 A connectome supplies structural connectivity and annotations. It does not by
 itself supply exact neuron or synapse dynamics, learning rules, consciousness,

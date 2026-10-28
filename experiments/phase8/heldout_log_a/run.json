@@ -1,0 +1,23 @@
+{
+  "run_id": "heldout_log_a",
+  "world_seed": 82000,
+  "layout_start": 82000,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained",
+    "frozen",
+    "uniform",
+    "no_neural"
+  ],
+  "trials_per_goal_condition": 10,
+  "requested": 40,
+  "completed": 3,
+  "stop_reason": "wall_budget",
+  "elapsed_seconds": 166.1266974999744,
+  "maximum_sampled_gpu_c": 52,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-27 20-23-44.mp4",
+  "recording_confirmed": true
+}

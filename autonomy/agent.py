@@ -28,6 +28,7 @@ class AutonomyConfig:
     stagnation_limit: int = 24
     repeat_limit: int = 4
     max_recoveries: int = 4
+    goal_baselines: bool = False
 
     def __post_init__(self) -> None:
         if self.max_steps < 1 or self.stagnation_limit < 1 or self.repeat_limit < 1 or self.max_recoveries < 0:
@@ -183,10 +184,15 @@ class AutonomousAgent:
             self.manager.fail(self.manager.active().id)
         self.memory.progress = self.manager.to_dict()
         if self.session["train"] and self.trajectory:
+            goal_stats = self.memory.attempts.setdefault(self.session["goal"], {"successes": 0, "failures": 0, "best_steps": None})
+            if self.config.goal_baselines:
+                self.policy.baseline = goal_stats.get("return_baseline", 0.0)
             self.session["update"] = self.policy.apply_reinforce(
                 self.trajectory, learning_rate=self.config.learning_rate, gamma=self.config.gamma,
                 baseline_retention=self.config.baseline_retention, gradient_clip=self.config.gradient_clip,
                 entropy_coefficient=self.config.entropy_coefficient)
+            if self.config.goal_baselines:
+                goal_stats["return_baseline"] = self.policy.baseline
         self.memory.finish(self.session["goal"], success, self.session["actions"])
 
     def result(self) -> dict:
@@ -205,13 +211,13 @@ class AutonomousAgent:
         self.session["elapsed_seconds"] = time.perf_counter() - started
         return self.result()
 
-    def save(self, path: Path, *, world: ResourceWorld | None = None) -> None:
+    def save(self, path: Path, *, world: ResourceWorld | None = None, extension: dict | None = None) -> None:
         state = {"schema": SCHEMA, "table_digest": table_digest(self.table), "config": asdict(self.config),
                  "memory": self.memory.to_dict(), "curriculum": self.curriculum.to_dict(), "session": self.session,
                  "manager": self.manager.to_dict() if self.manager else None, "recovery": self.recovery.to_dict(),
                  "trajectory": [[f.tolist(), i, p.tolist(), r] for f, i, p, r in self.trajectory],
                  "pending": None if self.pending is None else [self.pending[0].tolist(), self.pending[1], self.pending[2].tolist(), self.pending[3]],
-                 "world": world.to_dict() if world else None}
+                 "world": world.to_dict() if world else None, "extension": extension or {}}
         self.policy.save_atomic(path, training_seed=self.seed, rng_state=self.rng.bit_generator.state,
                                 extra_metadata=state, overwrite=False)
 

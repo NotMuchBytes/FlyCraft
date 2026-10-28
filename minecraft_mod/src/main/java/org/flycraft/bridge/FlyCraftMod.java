@@ -28,7 +28,11 @@ public final class FlyCraftMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("FlyCraft bridge initialized");
-		if (Files.exists(Path.of("flycraft-phase7.enabled"))) {
+		Phase8ServerObservations.initialize();
+		if (Files.exists(Path.of("flycraft-phase8.properties"))) {
+			Phase8Harness.initialize();
+			ServerTickEvents.END_SERVER_TICK.register(Phase8Harness::tick);
+		} else if (Files.exists(Path.of("flycraft-phase7.enabled"))) {
 			LOGGER.info("FLYCRAFT_PHASE7 enabled");
 			ServerTickEvents.END_SERVER_TICK.register(Phase7Harness::tick);
 		} else if (Files.exists(Path.of("flycraft-phase6.enabled"))) {

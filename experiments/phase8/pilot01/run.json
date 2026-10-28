@@ -1,0 +1,18 @@
+{
+  "run_id": "pilot01",
+  "world_seed": 81001,
+  "layout_start": 81001,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 0,
+  "stop_reason": "process_exit",
+  "elapsed_seconds": 74.18176209999365,
+  "maximum_sampled_gpu_c": 52,
+  "train": false
+}

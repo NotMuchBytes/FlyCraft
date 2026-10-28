@@ -100,6 +100,7 @@ class LinearSoftmaxPolicy:
             "gradient_norm": norm,
             "baseline": self.baseline,
             "weight_delta_norm": float(np.linalg.norm(self.weights - old_weights)),
+            "return_variance": float(np.var(returns)),
         }
 
     def save_atomic(self, path: Path, *, training_seed: int, rng_state: dict[str, Any], extra_metadata: dict[str, Any] | None = None, overwrite: bool = True) -> None:

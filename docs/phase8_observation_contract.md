@@ -1,0 +1,80 @@
+# Phase 8 observation and action contract
+
+The policy and planner receive client-observable state through the existing
+local Fabric/Python TCP bridge. The sparse 139,255-neuron graph is unchanged.
+All live action decisions use its existing 18-step full-network observation
+window and the existing 63-by-10 learned readout. Recipe structure, semantic
+perception, legal-action masking and transaction execution are engineered
+assistance, shared by trained, frozen, uniform and neural-ablation conditions.
+
+## Observations
+
+| Observation | Source and limits |
+|---|---|
+| Five-sector neural input | Closest observed resource, classified by relative yaw; no hidden target coordinates |
+| Visible logs | Fifteen first-hit rays: yaw offsets -40,-20,0,20,40 and pitch offsets -30,0,30 degrees, maximum 12 blocks; blocking geometry occludes farther blocks |
+| Dropped log items | Client-rendered entities within 12 blocks, yaw +/-50 and pitch +/-45 degrees, with unobstructed line of sight; visible drops take target priority |
+| Resource identity | Block/item semantic class and identity of the observed hit; this is a semantic sensor, not a learned pixel classifier |
+| Distance and angle | Geometry of the visible ray hit/item; distance is used for reward/completion, while the policy receives neural features and near-state |
+| Pose | Player's own client position and heading; never an undiscovered resource position |
+| Inventory | Counts reconstructed from vanilla server container-content, container-slot and player-inventory packets; predicted client inventory is separately checked for consistency |
+| Crafting station | A crafting table found by the same visible rays within four blocks |
+| Placement affordance | One downward placement ray in front of the player; collision-tested and within four blocks |
+| Action outcome | Command identity, primitive action, server-confirmed block change, timeout/interruption and inventory revision |
+| Goal instruction | Externally supplied objective and episode identity; experiment condition and policy RNG seed are control parameters |
+
+World seeds, fixture layout seeds, hidden block maps, future observations and
+server success labels are not sent to the agent. The operator's fixture
+configuration and independent scoring logs remain outside the observation
+channel. The semantic sensor's field of view is an explicit abstraction and
+does not reproduce the exact pixels of the main Minecraft camera.
+
+## Action transactions
+
+- Turns rotate 15 degrees. Forward holds the normal movement key for five
+  ticks. Each is followed by an observed outcome, not an assumed position.
+- `COLLECT_LOG` aims at one already-visible, reachable log and sends normal
+  survival mining interactions for at most 120 ticks. The server echoes the
+  actual post-break block state after the ordinary block-break event. The
+  client waits for this update. It does not teleport, give items, alter the
+  server block directly or automatically walk to collect drops.
+- Collection completes only when the observed server inventory contains the
+  required logs. Mining a block and obtaining its dropped item are separate.
+- Planks, sticks, crafting tables and pickaxes use normal container clicks:
+  place exact ingredients, wait for the recipe result, transfer the output,
+  and wait for server inventory confirmation. A pickaxe transaction can open
+  an already-observed reachable table. Recipe slot placement is an explicit
+  primitive abstraction, not learned mouse control.
+- Table placement selects an owned item and a visible ground hit, sends the
+  normal use-item interaction, then waits for the echoed server block state
+  and inventory update. No crafting or placement is performed without the
+  corresponding sampled policy action.
+- Interrupted/failed crafting returns partial ingredients through normal
+  inventory clicks. Actions have deadlines. Commands are not replayed after
+  missing acknowledgments or checkpoint restoration.
+
+## Evaluation boundary
+
+The server mod explicitly echoes a full vanilla inventory-menu packet whenever
+the player's own inventory changes. Vanilla prediction can otherwise suppress
+matching slot updates, leaving an independent acknowledgment ledger stale.
+This echo contains the player's own inventory only. The same server component
+echoes blocks directly mined or placed; it supplies no hidden world map.
+
+New live runs require the companion OBS Lua recorder. A separate collection
+captures only the exact Minecraft window, with microphone and desktop audio
+sources absent. A local file handshake opens the trial gate only after OBS
+reports active recording. Lost confirmation aborts the run; a 60-second
+heartbeat watchdog stops recordings if the supervisor disappears. The client
+sets GLFW focus hints to false and continues rendering on lost focus. No
+desktop input, window activation, global hotkeys or remote-control server is
+used. This records game trials; source editing and console work remain in
+their ordinary logs.
+
+The disposable harness resets inventory, player pose and small survival tree
+fixtures and independently scores actual server inventory. It supplies no
+actions. These are real game transactions in controlled flat-world scenes,
+not evidence of forest search, survival, arbitrary terrain navigation or
+robust natural-world generalization. World seeds and layout seeds are logged
+separately. A gate used for the OBS repeat delays the scene until recording
+starts; it does not choose any policy action.
