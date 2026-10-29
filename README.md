@@ -25,7 +25,9 @@ fixtures do not establish natural-world autonomy. See the
 and checkpoints remain preserved.
 
 The current runner uses bounded camera movement and crosshair-only block
-interactions. Read [camera validation](docs/camera_controller.md) before
+interactions. Own-pose feedback now reports stalled forward pulses; a small
+paired pilot established no collection gain. See [movement validation](docs/movement_validation.md).
+Read [camera validation](docs/camera_controller.md) before
 comparing it with earlier assisted runs. On this Windows laptop, FlyCraft's
 dedicated Java runtime uses the NVIDIA RTX 4050, verified by the selected
 renderer rather than a preference message; see [GPU evidence](docs/windows_gpu.md).

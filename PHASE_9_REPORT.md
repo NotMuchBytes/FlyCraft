@@ -498,6 +498,12 @@ inventories were separately checked empty in a supplementary audit.
 
 ## Remaining work and recommendations
 
+A subsequent Phase 7.5 increment added own-pose blocked-movement feedback in
+both adapters. Its six-episode matched development pilot scored 1/3 in both
+modes, with two correctly reported blocked moves but no demonstrated success
+gain. All 100 automated tests pass. These are separate from the earlier 30-trial
+results and do not establish new learning. See `PHASE_7_5_REPORT.md`.
+
 Broaden strict collection/crafting to natural terrain and powered matched
 policy controls before expanding claims. Validate interrupted mining,
 connection-loss recovery and checkpoint restoration in repeated real sessions.

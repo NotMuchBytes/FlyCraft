@@ -132,6 +132,8 @@ def run():
     parser.add_argument("--turn-degrees", type=float, default=15)
     parser.add_argument("--forward-ticks", type=int, default=5,
                         help="Fixed forward input duration, 1-10 ticks; never target-dependent")
+    parser.add_argument("--movement-feedback",choices=("input_only","displacement"),default="displacement",
+                        help="Require at least 0.02 blocks of own-pose movement for forward success")
     parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
     parser.add_argument("--graphics-backend", choices=("default","opengl","vulkan"),default="opengl")
     parser.add_argument("--minimum-available-ram-mib", type=int, default=768)
@@ -215,6 +217,7 @@ def run():
     camera_probe=results / "camera_probe.jsonl"
     with (client_dir / "flycraft-phase8-client.properties").open("a",encoding="utf-8") as handle:
         handle.write(f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\nmotor.forwardTicks={args.forward_ticks}\n")
+        handle.write(f"motor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n")
         if args.camera_mode!="legacy": handle.write(f"camera.traceFile={java_path(camera_trace)}\n")
         if args.camera_probe: handle.write(f"camera.probe=true\ncamera.probeFile={java_path(camera_probe)}\n")
     if args.camera_probe:
@@ -224,7 +227,7 @@ def run():
         (server_dir/"flycraft-headless.properties").write_text(
             f"controlFile={java_path(control)}\ntraceFile={java_path(results/'headless.jsonl')}\n"
             f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\ncamera.traceFile={java_path(camera_trace)}\n"
-            f"motor.forwardTicks={args.forward_ticks}\n",encoding="utf-8")
+            f"motor.forwardTicks={args.forward_ticks}\nmotor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n",encoding="utf-8")
     if args.spectator:
         (client_dir/"flycraft-spectator.properties").write_text(
             f"controlFile={java_path(control)}\nreadyFile={java_path(runtime/'spectator.ready')}\nview={args.spectator_view}\n"
@@ -450,6 +453,7 @@ def run():
         summary["camera_mode"] = args.camera_mode
         summary["turn_degrees"] = args.turn_degrees
         summary["forward_ticks"] = args.forward_ticks
+        summary["movement_feedback"] = args.movement_feedback
         summary["experiment_kind"] = "scripted_camera_probe_not_policy" if args.camera_probe else "policy_goal"
         summary["interaction_assistance"] = "visible_target_aim_macro" if args.camera_mode=="legacy" else "crosshair_only_no_automatic_aim"
         summary["requested_graphics_backend"] = args.graphics_backend

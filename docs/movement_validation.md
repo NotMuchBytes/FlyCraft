@@ -42,3 +42,18 @@ relative fixture snapshots across 30 world seeds. There was no learning, policy
 change or natural-terrain test. One result-validator amendment is fully archived;
 actor/controller/runner and the trial plan stayed fixed. See the Phase 9 report
 for the three failures and the remaining blocked-movement feedback limitation.
+
+## Movement acknowledgments
+
+Both adapters now measure horizontal own-pose displacement during FORWARD.
+`--movement-feedback displacement` (default) reports `movement_blocked` when
+an otherwise completed pulse moved less than 0.02 blocks. Interrupted commands
+retain their interruption status. Distance, confirmation and enablement are
+logged; this does not identify a particular obstacle or steer toward a target.
+Headless pose is server-side; graphical pose is the client's own observation.
+
+Use `--movement-feedback input_only` for the earlier timer-only acknowledgment
+semantics. The earlier 27/30 and 21/30 evaluations used that behavior. A later
+three-layout paired pilot scored 1/3 in both modes, with two correctly detected
+stalled moves but no demonstrated recovery/success improvement. See
+`PHASE_7_5_REPORT.md` for actual results and the remaining validation gaps.

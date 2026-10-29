@@ -58,6 +58,30 @@ class Phase8Tests(unittest.TestCase):
         self.assertEqual(ledger.produced["log"], 0)
         self.assertEqual(ledger.mined_blocks, 1)
 
+    def test_blocked_movement_feedback_replans_but_policy_selects_recovery_action(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller=self.controller(Path(directory),forced="FORWARD")
+            telemetry=self.telemetry(visible=False,near=False,target_distance=-1,
+                allowed_actions=["FORWARD","TURN_LEFT","TURN_RIGHT","NO_OP"])
+            def request(tick,ack=None):
+                row=self.request(tick,telemetry=telemetry,ack=ack)
+                row["sector"]="not_visible"
+                return row
+            try:
+                response=controller.evaluate_request(request(10))
+                self.assertEqual(response["action"],"FORWARD")
+                for tick in (20,30):
+                    ack=self.ack(response,action="FORWARD",status="failed",error="movement_blocked",changed=False)
+                    ack.update(movement_distance=0.,movement_confirmed=False)
+                    response=controller.evaluate_request(request(tick,ack))
+                self.assertEqual(controller.agent.session["failed_actions"],2)
+                self.assertEqual(controller.agent.recovery.events[0]["reason"],"repeated_failure")
+                self.assertNotEqual(response["action"],"FORWARD")
+                self.assertFalse(controller.agent.session["success"])
+                self.assertEqual(controller.ledger.previous["log"],0)
+            finally:
+                controller.close()
+
     def test_inventory_requires_server_revision_and_consistency(self):
         ledger = TransactionLedger()
         before = self.telemetry()

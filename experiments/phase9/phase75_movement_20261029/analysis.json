@@ -1,0 +1,241 @@
+{
+  "stage": "adaptive development, reused failure layouts",
+  "plan": {
+    "stage": "adaptive development, previously failed fixtures, not final benchmark",
+    "created_unix": 1793273410.309309,
+    "implementation_sha256": "1f159b7aec5c9e069555e4717967dd6f6e62c06ea7cbee29a2cb1e7c08f6ee8e",
+    "checkpoint": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+      "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+    },
+    "goal": "one_log",
+    "forward_ticks": 2,
+    "trial_ticks": 400,
+    "conditions": [
+      "input_only",
+      "displacement"
+    ],
+    "recorded_case_numbers": [
+      1
+    ],
+    "cases": [
+      {
+        "case": 1,
+        "world_seed": 5958216540176087900,
+        "policy_seed": 9009,
+        "historical_run_id": "dev_log30_milestones_20261029_eval_a_trained_00009_a0009"
+      },
+      {
+        "case": 2,
+        "world_seed": 4796838087226090128,
+        "policy_seed": 9016,
+        "historical_run_id": "dev_log30_milestones_20261029_eval_a_trained_00016_a0016"
+      },
+      {
+        "case": 3,
+        "world_seed": 6130483435437592395,
+        "policy_seed": 9017,
+        "historical_run_id": "dev_log30_milestones_20261029_eval_a_trained_00017_a0017"
+      }
+    ],
+    "learning": false,
+    "full_world_entity_rng_matched": false,
+    "stopping_rule": "All three cases per condition, no success-based early stopping; stop on infrastructure, recording, resource or usage failures. No retries or unattended queue."
+  },
+  "summary": {
+    "input_only": {
+      "successes": 1,
+      "episodes": 3,
+      "wilson_95": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "mean_actions": 21.666666666666668,
+      "mean_game_seconds": 15.366666666666667,
+      "stalled_reported_success": 0,
+      "blocked_errors": 0
+    },
+    "displacement": {
+      "successes": 1,
+      "episodes": 3,
+      "wilson_95": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "mean_actions": 21.666666666666668,
+      "mean_game_seconds": 15.283333333333333,
+      "stalled_reported_success": 0,
+      "blocked_errors": 2
+    }
+  },
+  "trials": [
+    {
+      "run_id": "p75_move_i_01",
+      "condition": "input_only",
+      "case": 1,
+      "success": false,
+      "actions": 26,
+      "ticks": 400,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "table_placed": 0,
+        "wooden_pickaxe": 0
+      },
+      "terminal_inventory_source": "controller_result",
+      "stalled_forward_actions": 0,
+      "stalled_reported_success": 0,
+      "blocked_errors": 0,
+      "recovery_events": [],
+      "failed_actions": 0,
+      "milestone_recorded": true,
+      "worker_wall_seconds": 91.71703369996976,
+      "gpu_max_c": 41,
+      "minimum_available_ram_mib": 3315.14453125
+    },
+    {
+      "run_id": "p75_move_i_02",
+      "condition": "input_only",
+      "case": 2,
+      "success": false,
+      "actions": 33,
+      "ticks": 400,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "table_placed": 0,
+        "wooden_pickaxe": 0
+      },
+      "terminal_inventory_source": "controller_result",
+      "stalled_forward_actions": 0,
+      "stalled_reported_success": 0,
+      "blocked_errors": 0,
+      "recovery_events": [
+        {
+          "reason": "interrupted",
+          "step": 33
+        }
+      ],
+      "failed_actions": 1,
+      "milestone_recorded": false,
+      "worker_wall_seconds": 54.145717400009744,
+      "gpu_max_c": 41,
+      "minimum_available_ram_mib": 4350.1953125
+    },
+    {
+      "run_id": "p75_move_i_03",
+      "condition": "input_only",
+      "case": 3,
+      "success": true,
+      "actions": 6,
+      "ticks": 122,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "table_placed": 0,
+        "wooden_pickaxe": 0
+      },
+      "terminal_inventory_source": "controller_result",
+      "stalled_forward_actions": 0,
+      "stalled_reported_success": 0,
+      "blocked_errors": 0,
+      "recovery_events": [],
+      "failed_actions": 0,
+      "milestone_recorded": false,
+      "worker_wall_seconds": 40.79540860000998,
+      "gpu_max_c": 41,
+      "minimum_available_ram_mib": 4339.10546875
+    },
+    {
+      "run_id": "p75_move_d_01",
+      "condition": "displacement",
+      "case": 1,
+      "success": false,
+      "actions": 25,
+      "ticks": 400,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "table_placed": 0,
+        "wooden_pickaxe": 0
+      },
+      "terminal_inventory_source": "controller_result",
+      "stalled_forward_actions": 2,
+      "stalled_reported_success": 0,
+      "blocked_errors": 2,
+      "recovery_events": [],
+      "failed_actions": 2,
+      "milestone_recorded": true,
+      "worker_wall_seconds": 89.53378170001088,
+      "gpu_max_c": 42,
+      "minimum_available_ram_mib": 3474.91796875
+    },
+    {
+      "run_id": "p75_move_d_02",
+      "condition": "displacement",
+      "case": 2,
+      "success": false,
+      "actions": 34,
+      "ticks": 400,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "table_placed": 0,
+        "wooden_pickaxe": 0
+      },
+      "terminal_inventory_source": "controller_result",
+      "stalled_forward_actions": 0,
+      "stalled_reported_success": 0,
+      "blocked_errors": 0,
+      "recovery_events": [],
+      "failed_actions": 0,
+      "milestone_recorded": false,
+      "worker_wall_seconds": 55.16723409999395,
+      "gpu_max_c": 41,
+      "minimum_available_ram_mib": 4583.8359375
+    },
+    {
+      "run_id": "p75_move_d_03",
+      "condition": "displacement",
+      "case": 3,
+      "success": true,
+      "actions": 6,
+      "ticks": 117,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "table_placed": 0,
+        "wooden_pickaxe": 0
+      },
+      "terminal_inventory_source": "controller_result",
+      "stalled_forward_actions": 0,
+      "stalled_reported_success": 0,
+      "blocked_errors": 0,
+      "recovery_events": [],
+      "failed_actions": 0,
+      "milestone_recorded": false,
+      "worker_wall_seconds": 41.332744600018486,
+      "gpu_max_c": 41,
+      "minimum_available_ram_mib": 4588.43359375
+    }
+  ],
+  "paired_relative_fixtures_match": true,
+  "full_rng_matched": false,
+  "policy_updated": false,
+  "neural_learning_gain_established": false,
+  "causal_generalization_gain_established": false,
+  "required_milestone_mp4s": 2,
+  "missing_required_milestone_mp4s": 0
+}

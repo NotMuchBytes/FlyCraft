@@ -1,0 +1,42 @@
+{
+  "stage": "adaptive development, previously failed fixtures, not final benchmark",
+  "created_unix": 1793273410.309309,
+  "implementation_sha256": "1f159b7aec5c9e069555e4717967dd6f6e62c06ea7cbee29a2cb1e7c08f6ee8e",
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+    "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+  },
+  "goal": "one_log",
+  "forward_ticks": 2,
+  "trial_ticks": 400,
+  "conditions": [
+    "input_only",
+    "displacement"
+  ],
+  "recorded_case_numbers": [
+    1
+  ],
+  "cases": [
+    {
+      "case": 1,
+      "world_seed": 5958216540176087900,
+      "policy_seed": 9009,
+      "historical_run_id": "dev_log30_milestones_20261029_eval_a_trained_00009_a0009"
+    },
+    {
+      "case": 2,
+      "world_seed": 4796838087226090128,
+      "policy_seed": 9016,
+      "historical_run_id": "dev_log30_milestones_20261029_eval_a_trained_00016_a0016"
+    },
+    {
+      "case": 3,
+      "world_seed": 6130483435437592395,
+      "policy_seed": 9017,
+      "historical_run_id": "dev_log30_milestones_20261029_eval_a_trained_00017_a0017"
+    }
+  ],
+  "learning": false,
+  "full_world_entity_rng_matched": false,
+  "stopping_rule": "All three cases per condition, no success-based early stopping; stop on infrastructure, recording, resource or usage failures. No retries or unattended queue."
+}

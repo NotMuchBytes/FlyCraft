@@ -144,3 +144,69 @@ are now met in controlled fixtures. This does not establish natural-world
 autonomy, causal neural benefit or new learning. Repeated live fault recovery,
 blocked-movement feedback, policy pitch control and longer goals still need
 work. Phase 7.5 is not declared wholly complete. See `PHASE_9_REPORT.md`.
+
+## Blocked movement feedback increment — October 29
+
+Root cause: both Fabric adapters previously marked FORWARD successful when its
+input timer expired, even if the player had not moved. Recovery uses action
+errors to recognize repeated failure, so stationary input could remain invisible
+to that path until the much longer stagnation threshold. Historical live traces
+contained successful-input acknowledgments with near-zero displacement.
+
+Both adapters now measure horizontal own-player displacement from actual action
+execution to completion. A completed forward pulse below 0.02 blocks reports
+`movement_blocked`; acknowledgments also include distance, confirmation and
+whether verification was enabled. Interrupted commands keep their original
+interruption reason. This detects lack of movement, not a unique collision
+cause. The graphical adapter uses its own client pose; headless uses server pose.
+No hidden map, target position, automatic steering or aim is introduced.
+
+`--movement-feedback displacement` is the new default. The explicit
+`input_only` mode preserves the older acknowledgment semantics for comparisons.
+Existing recovery and policy selection are unchanged: repeated failures can
+temporarily mask the ineffective action, but the learned readout selects the
+next action. The brain remains 139,255 neurons with the same checkpoints.
+
+The pre-change suite passed 98 tests in 15.252 seconds. The updated full suite
+passed **100 tests in 15.699 seconds**. New tests compile and execute the actual
+Java displacement threshold, zero/diagonal movement and invalid-pose cases,
+and verify that blocked acknowledgments trigger bounded recovery without
+inventing collected resources or scripting a recovery action. Fabric compilation
+and both live server/client launches passed in the milestone trials.
+
+Six real Minecraft episodes compared both feedback modes across three reused
+development layouts that had failed historically, using the same checkpoint,
+source, policy RNG seeds, relative initial fixtures, two-tick forward pulses,
+camera settings and 400-tick budgets. Complete world/entity RNG is not matched;
+all executions are fresh, not replays. Learning was disabled.
+
+| Mode | Success | Actions per case | Ticks per case | New blocked errors |
+| --- | --- | --- | --- | --- |
+| Input-only | 1/3 | 26,33,6 | 400,400,122 | 0 |
+| Displacement | 1/3 | 25,34,6 | 400,400,117 | 2 |
+
+Both success-rate Wilson 95% intervals are 6.1%-79.2%. Mean game times including
+failures were 15.367 and 15.283 seconds; these tiny differences establish no
+performance improvement. The enabled mode correctly reported two stalled
+movements. They did not trigger repeated-failure recovery in the live trial;
+the unit test verifies that path for consecutive failures. Broader recovery
+and collection improvement remain unproven. One historically failed case
+succeeded in both new modes, illustrating uncontrolled execution variability.
+
+All six outcomes have actual inventory and acknowledged terminal-boundary
+evidence, clean game exits and unchanged checkpoint hashes. The first case of
+each mode was the predefined recording milestone: both complete MP4s passed
+decode/content/checksum validation, despite both goals failing. Four routine
+episodes intentionally have logs only. No required milestone MP4 is missing.
+Peak sampled GPU was 42 C; minimum available RAM 3,315.145 MiB. CPU temperature
+was unavailable. Data and the fixed plan are in
+`experiments/phase9/phase75_movement_20261029/`.
+
+The prior 27/30 log and 21/30 plank evaluations remain historical input-only
+results; they have not been repeated under the new feedback semantics. Do not
+pool this failure-selected pilot with them or claim a new learning/neural gain.
+Next: larger matched feedback evaluations, blocked/drop pickup recovery, and
+live mining/connection-loss stress tests. Phase 7.5 remains incomplete.
+
+Actual weekly usage reached 55% after this bounded task. No new development
+tasks or experiments were started afterward; results were packaged for review.

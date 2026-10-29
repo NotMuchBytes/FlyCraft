@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.*;
 import org.flycraft.bridge.FlyCraftMod;
 import org.flycraft.bridge.control.CameraDriver;
+import org.flycraft.bridge.control.MovementFeedback;
 
 /** Visible sensing and bounded vanilla interaction transactions, never a planner. */
 public final class Phase8Client {
@@ -54,6 +55,8 @@ public final class Phase8Client {
     private boolean strictInteractions;
     private double turnDegrees=15;
     private int forwardTicks=5;
+    private boolean verifyMovement;
+    private Vec3 movementStart=Vec3.ZERO;
     private String captureWindowTitle;
     private final CameraDriver.View cameraView=new CameraDriver.View() {
         public double yaw() { return client.player.getYRot(); }
@@ -71,6 +74,7 @@ public final class Phase8Client {
         String cameraMode=properties.getProperty("camera.mode","legacy");
         strictInteractions=!cameraMode.equals("legacy");
         forwardTicks=Integer.parseInt(properties.getProperty("motor.forwardTicks","5"));
+        verifyMovement=Boolean.parseBoolean(properties.getProperty("motor.verifyMovement","true"));
         if(forwardTicks<1 || forwardTicks>10) throw new IllegalArgumentException("Invalid forward duration");
         if(strictInteractions) {
             camera=new CameraDriver(properties);
@@ -356,7 +360,7 @@ public final class Phase8Client {
                     readyAt=tick+camera.motion().config().relativeTimeoutTicks();
                 }
             }
-            case "FORWARD" -> { if(!strictInteractions) client.player.setXRot(0); client.options.keyUp.setDown(true); readyAt = tick + forwardTicks; }
+            case "FORWARD" -> { movementStart=client.player.position(); if(!strictInteractions) client.player.setXRot(0); client.options.keyUp.setDown(true); readyAt = tick + forwardTicks; }
             case "COLLECT_LOG" -> {
                 if (targetHit == null || sensed == null || !sensed.kind.equals("block") || sensed.distance > 3) { finish("failed", "invalid_block", false); return; }
                 if(strictInteractions && !aimedAt(targetHit,3)) { finish("failed","not_aimed_at_log",false); return; }
@@ -481,6 +485,11 @@ public final class Phase8Client {
     }
 
     private void finish(String status, String error, boolean changed) {
+        MovementFeedback.Result motion=null;
+        if(action.equals("FORWARD")) {
+            motion=MovementFeedback.measure(movementStart.x,movementStart.z,client.player.getX(),client.player.getZ());
+            if(verifyMovement && status.equals("success") && !motion.moved()) { status="failed"; error="movement_blocked"; }
+        }
         client.options.keyUp.setDown(false); client.options.keyAttack.setDown(false); client.gameMode.stopDestroyBlock();
         if (!status.equals("success") && action.startsWith("CRAFT_")) {
             // Return partially placed ingredients through normal inventory clicks.
@@ -494,6 +503,10 @@ public final class Phase8Client {
         lastAck = new JsonObject(); lastAck.addProperty("command_id", actionId); lastAck.addProperty("action", action);
         lastAck.addProperty("status", status); lastAck.addProperty("error", error); lastAck.addProperty("block_changed", changed);
         lastAck.addProperty("inventory_revision", inventoryRevision); lastAck.addProperty("ticks", tick - actionStarted);
+        if(motion!=null) {
+            lastAck.addProperty("movement_distance",motion.distance()); lastAck.addProperty("movement_confirmed",motion.moved());
+            lastAck.addProperty("movement_feedback_enabled",verifyMovement);
+        }
         FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 action_end episode={} ack={}", episode, lastAck);
         boolean cameraTurn=camera!=null && (action.equals("TURN_LEFT") || action.equals("TURN_RIGHT"));
         action = ""; readyAt = tick + (cameraTurn ? 1 : 8);
