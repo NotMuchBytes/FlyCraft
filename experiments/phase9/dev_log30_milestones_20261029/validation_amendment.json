@@ -1,0 +1,10 @@
+{
+  "created_unix": 1793269178.1512213,
+  "reason": "Evaluation success was written before its terminal_inventory field. Validate the unchanged raw acknowledged boundary instead; no actor, controller, runner, seeds, policy, affordances or limits changed. Preserve original files and rejection, and continue the same 30-seed plan without replay or replacement.",
+  "changed_files": [
+    "autonomy/experiment.py"
+  ],
+  "previous_source_sha256": "7571e8a09ccb19720bc9b405184df7617b3489938f2a6c3abf850a3d826ee064",
+  "source_sha256": "45a984406bf494979d52cb1ee88d52ded1be3b2d7851fde9ba580d8593f02f87",
+  "archive": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\dev_log30_milestones_20261029\\validation_revisions\\revision_0001"
+}

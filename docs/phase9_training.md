@@ -44,10 +44,13 @@ Run or resume with explicit workspace and recording paths:
 .\.venv\Scripts\python.exe tools\run_phase9.py run --campaign experiments\phase9\my_dev_pilot --max-episodes 1 --seconds 300 --work-dir C:\path\to\work\phase8-runs --build-dir C:\path\to\work\phase8-build --obs-control-dir C:\path\to\work --video-export-dir C:\path\to\outputs
 ```
 
-Every development episode receives a separate spectator and verified MP4. OBS
-must already run with the isolated FlyCraft collection and file control script.
-The server-only agent itself does not require a graphical client. No desktop
-input or focus automation is used.
+New campaigns record only scheduled milestones, as requested by the user.
+Use `init --recording-policy milestones` (the default), with optional
+`--recording-milestones 1,10,25,30` for a final 30-trial challenge. Only those
+episodes receive a spectator and verified MP4; routine episodes retain logs
+without a graphical client. OBS must run with the isolated FlyCraft collection
+and file control script for milestones. Legacy campaigns keep their all-episode
+requirement. No desktop input or focus automation is used.
 
 Open the campaign's `dashboard.html` for a refreshing view, or use `status
 --campaign ...` for JSON. Neural features and probabilities come from actual
@@ -61,7 +64,7 @@ attempt stops that invocation. Resume commits fully completed evidence once or
 preserves the interruption before using a fresh attempt identity and checkpoint.
 
 Only one-log training is enabled. A checkpoint advances after actual game
-outcomes, acknowledged inventory, model integrity and recording checks agree.
+outcomes, acknowledged inventory, model integrity and scheduled recording checks agree.
 Passive terminal rewards are logged separately and suppress learning when they
 cannot be assigned safely. This is a conservative accounting fix, not a new
 learning algorithm or evidence of improved generalization.
@@ -73,6 +76,9 @@ Set A is reused per selected checkpoint and remains development data. The
 only then can `--split eval_b` use final seeds. Each condition gets one pass.
 Do not choose policies or tune hyperparameters from final benchmark results.
 
-Config/code changes require a new campaign. Seed catalogs and checkpoints are
+Behavior/config changes require a new campaign. One idle evaluation received
+an archived result-validation-only amendment after a missing terminal field;
+see the architecture and report for its strict scope and provenance. No policy,
+actor, runner, runtime limit or seed changed. Seed catalogs and checkpoints are
 hashed, and interrupted generated instances remain counted. Creating the reserved
 10,000 training seeds does not generate those worlds or authorize a full run.

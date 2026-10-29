@@ -1,0 +1,8 @@
+{
+  "reason": "User changed recording scope to milestones only during evaluation. Allowed in-progress episode to finish; source-freeze gate prevented subsequent launch.",
+  "completed_episodes": 2,
+  "successes": 1,
+  "data_preserved": true,
+  "replacement_campaign": "dev_log30_milestones_20261029",
+  "new_seeds_selected_before_replacement_trials": true
+}

@@ -28,8 +28,8 @@ framebuffer capture until the gate opens. The runner compares recent independent
 image copies, then freezes the verified proof bytes. The image-error threshold
 is unchanged; no actor action starts before a match.
 
-Every coordinator development episode is recorded, including policy failures
-and operator interruption tests. Interrupted mining has a playable partial MP4,
+Earlier coordinator development episodes were all recorded, including policy
+failures and operator interruption tests. Interrupted mining has a partial MP4,
 explicitly marked incomplete. Its later retry is a new execution with its own
 recording and attempt ID. An unscored startup recording is not a successful task
 video. Preserve original failures and report missing/partial milestones.
@@ -62,3 +62,25 @@ occurred. A later `dev_pilot_20261029_b` uniform-control attempt never passed
 preflight and is retained as partial evidence. Its correct OBS view was not used
 to bypass the failed internal screenshot. Changed configurations use new
 development campaigns and preserve their source manifests.
+
+## User-selected milestone-only recording (October 29)
+
+The user subsequently requested **only milestone recordings**. New CLI campaigns
+default to `--recording-policy milestones`; the Phase 9 schedule is episodes
+1, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 7500 and 10000. An explicit
+`--recording-milestones 1,10,25,30` can add the final 30-trial reliability
+challenge. This frozen selection is operator metadata, never a policy input.
+
+Routine episodes run the same survival actor/controller without any graphical
+client or OBS recording, retaining game, action, observation, reward, inventory,
+terminal acknowledgment and checkpoint evidence. Their absent MP4 is intentional
+and labeled event-only. Milestone episodes still require the independent
+spectator, verified capture gate, complete decode and unchanged video checksum.
+A failed required recording cannot be silently downgraded to an event-only run.
+Milestone outcomes are recorded whether the policy succeeds or fails.
+
+Legacy campaign configurations retain their original all-episode recording
+requirement. Two trials already launched under the previous 30-trial plan were
+allowed to finish and their recordings retained. The source-freeze guard then
+prevented additional launches. That superseded plan and its failure/success
+remain separate from the new fixed-plan evaluation after the user's change.

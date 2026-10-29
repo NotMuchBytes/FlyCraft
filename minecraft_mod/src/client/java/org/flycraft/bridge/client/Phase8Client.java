@@ -53,6 +53,7 @@ public final class Phase8Client {
     private CameraProbe cameraProbe;
     private boolean strictInteractions;
     private double turnDegrees=15;
+    private int forwardTicks=5;
     private String captureWindowTitle;
     private final CameraDriver.View cameraView=new CameraDriver.View() {
         public double yaw() { return client.player.getYRot(); }
@@ -69,6 +70,8 @@ public final class Phase8Client {
         captureWindowTitle=properties.getProperty("capture.windowTitle","");
         String cameraMode=properties.getProperty("camera.mode","legacy");
         strictInteractions=!cameraMode.equals("legacy");
+        forwardTicks=Integer.parseInt(properties.getProperty("motor.forwardTicks","5"));
+        if(forwardTicks<1 || forwardTicks>10) throw new IllegalArgumentException("Invalid forward duration");
         if(strictInteractions) {
             camera=new CameraDriver(properties);
             turnDegrees=Double.parseDouble(properties.getProperty("camera.turnDegrees","15"));
@@ -353,7 +356,7 @@ public final class Phase8Client {
                     readyAt=tick+camera.motion().config().relativeTimeoutTicks();
                 }
             }
-            case "FORWARD" -> { if(!strictInteractions) client.player.setXRot(0); client.options.keyUp.setDown(true); readyAt = tick + 5; }
+            case "FORWARD" -> { if(!strictInteractions) client.player.setXRot(0); client.options.keyUp.setDown(true); readyAt = tick + forwardTicks; }
             case "COLLECT_LOG" -> {
                 if (targetHit == null || sensed == null || !sensed.kind.equals("block") || sensed.distance > 3) { finish("failed", "invalid_block", false); return; }
                 if(strictInteractions && !aimedAt(targetHit,3)) { finish("failed","not_aimed_at_log",false); return; }

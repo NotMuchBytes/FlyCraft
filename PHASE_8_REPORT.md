@@ -265,5 +265,24 @@ an interrupted candidate was retained without promotion. All 90 automated tests
 pass. Full results, retention experiments and recording gaps are documented in
 `PHASE_9_REPORT.md`.
 
-Historical assisted 29/30 results remain separate. Strict one-log reliability
-and the three-log/plank/pickaxe 30-trial gates remain unmet. Phase 8 is not done.
+Historical assisted 29/30 results remain separate. At that point strict one-log
+reliability and the three-log/plank/pickaxe gates remained unmet.
+
+## Later October 29: strict one-log point target met
+
+A fixed evaluation on 30 new development seeds scored **27/30 (90%)**, meeting
+the one-log point target with two-tick forward presses and bounded 15-degree
+turns. The 95% Wilson interval is 74.4%-96.5%. These are prepared near-tree flat
+fixtures with seven distinct relative snapshots; natural tree search remains
+untested. All scores require actual inventory, boundary acknowledgment and clean
+server exits. The checkpoint did not change; no learning gain is established.
+
+One failure mined without collecting; two broke no block. Mean actions were
+11.83 across all trials and mean game time 9.845 seconds including failures.
+Milestones 1,10,25,30 have verified MP4s; 26 routine trials intentionally kept
+logs without video. A validator-only amendment recovered one early result's
+missing terminal field from its original acknowledged boundary, without replay
+or actor/controller changes. Its original rejection and provenance are kept.
+The final full suite passed 97 tests. See `PHASE_9_REPORT.md` for all results.
+
+Three-log, plank and pickaxe 30-trial gates remain unmet. Phase 8 is not done.

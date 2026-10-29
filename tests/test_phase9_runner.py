@@ -23,7 +23,7 @@ class RunnerTests(unittest.TestCase):
         checkpoint=folder/"initial.npz"
         AutonomousAgent(self.table).save(checkpoint)
         return Campaign.create(folder/"campaign",project_root=folder,name="runner_unit",checkpoint=checkpoint,
-                               worlds=2,table=self.table)
+                               worlds=2,table=self.table,forward_ticks=2)
 
     def test_manual_stop_blocks_worker_launch_and_clear_preserves_request(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -54,8 +54,9 @@ class RunnerTests(unittest.TestCase):
             self.assertIn("--train",train_command)
             self.assertNotIn("--train",eval_command)
             self.assertIn("--spectator",eval_command)
-            for flag in ("--camera-mode","--trial-ticks","--capture-width","--server-heap-mib"):
+            for flag in ("--camera-mode","--trial-ticks","--capture-width","--server-heap-mib","--forward-ticks"):
                 self.assertEqual(train_command[train_command.index(flag)+1],eval_command[eval_command.index(flag)+1])
+            self.assertEqual(eval_command[eval_command.index("--forward-ticks")+1],"2")
             self.assertEqual(eval_command[eval_command.index("--conditions")+1],"uniform")
 
     def test_dashboard_uses_actual_logged_features_and_marks_requested_action(self):
@@ -73,6 +74,20 @@ class RunnerTests(unittest.TestCase):
             self.assertIn("Requested action: FORWARD",page)
             self.assertIn("not neuron firing animations",page)
             self.assertEqual(data["summary"]["official_training_worlds"],0)
+
+    def test_routine_command_omits_spectator_and_milestone(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory); campaign=self.campaign(folder)
+            args=argparse.Namespace(work_dir=folder/"work",build_dir=folder/"build",obs_control_dir=folder/"obs",video_export_dir=None)
+            attempt=campaign.begin("eval_a")
+            milestone=runner.worker_command(campaign,attempt,args,240)
+            routine=runner.worker_command(campaign,dict(attempt,video_required=False),args,240)
+            self.assertIn("--spectator",milestone)
+            self.assertIn("--headless",routine)
+            self.assertNotIn("--spectator",routine)
+            self.assertNotIn("--milestone",routine)
+            for flag in ("--camera-mode","--forward-ticks","--trial-ticks","--policy-seed","--checkpoint"):
+                self.assertEqual(milestone[milestone.index(flag)+1],routine[routine.index(flag)+1])
 
 
 if __name__=="__main__":

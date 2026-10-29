@@ -11,6 +11,7 @@ import numpy as np
 
 from .agent import AutonomousAgent
 from learning import NeuralFeatureTable
+from tools.milestone_video import MILESTONES
 
 SPLITS = ("pilot", "training", "eval_a", "eval_b")
 CONDITIONS = ("trained", "frozen", "uniform", "no_neural", "shuffled")
@@ -79,6 +80,42 @@ def checkpoint_info(path, table):
     return {"path": str(path), "sha256": digest(path)}, agent
 
 
+def verified_terminal_inventory(results, score, outcome):
+    """Validate a terminal result or an acknowledged boundary in the raw log.
+
+    Older controllers can emit an early evaluation success before writing the
+    terminal field. Never synthesize it from the success flag or rerun actions.
+    Training still requires its checkpoint's ordinary terminal result.
+    """
+    if "terminal_inventory" in outcome:
+        return outcome["terminal_inventory"], "controller_result"
+    if score.get("train") or outcome.get("train"):
+        raise ValueError("training result lacks sealed terminal inventory")
+    proofs = []
+    for line in (Path(results) / "bridge.jsonl").read_text(encoding="utf-8").splitlines():
+        row = json.loads(line)
+        request = row["request"]
+        if isinstance(request, str):
+            request = json.loads(request)
+        control, response = request.get("control", {}), row.get("response", {})
+        terminal = control.get("terminal")
+        if not terminal or control.get("episode_id") != score["episode_id"]:
+            continue
+        tick = terminal.get("server_tick")
+        if control.get("active") is not False or type(tick) is not int or tick < 0 \
+                or request.get("tick_id", -1) < tick or response.get("status") != "ok" \
+                or response.get("episode_id") != score["episode_id"] \
+                or response.get("terminal_acknowledged") is not True:
+            continue
+        inventory = terminal["inventory"]
+        if any(inventory.get(key) != value for key, value in score["inventory"].items()):
+            raise ValueError("acknowledged boundary inventory differs from server score")
+        proofs.append((tick, inventory))
+    if not proofs or any(proof != proofs[0] for proof in proofs[1:]):
+        raise ValueError("missing or inconsistent acknowledged terminal inventory evidence")
+    return dict(proofs[0][1]), "acknowledged_bridge_boundary"
+
+
 class CampaignLock:
     """OS-backed exclusion; process death releases ownership automatically."""
     def __init__(self, folder):
@@ -129,11 +166,18 @@ class Campaign:
         self.check_current()
 
     @classmethod
-    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None):
+    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None, forward_ticks=5, recording_policy="all", recording_milestones=None):
         if not name or len(name) > 36 or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in name):
             raise ValueError("campaign name must be a simple identifier up to 36 characters")
         if not 1 <= worlds <= 100:
             raise ValueError("development campaigns permit 1-100 worlds; official launch is not enabled")
+        if not isinstance(forward_ticks, int) or isinstance(forward_ticks, bool) or not 1 <= forward_ticks <= 10:
+            raise ValueError("forward duration must be an integer from 1 to 10 ticks")
+        if recording_policy not in ("all", "milestones"):
+            raise ValueError("unknown recording policy")
+        milestones = tuple(MILESTONES if recording_milestones is None else recording_milestones)
+        if not milestones or any(type(n) is not int or not 1 <= n <= 10000 for n in milestones) or len(set(milestones)) != len(milestones):
+            raise ValueError("recording milestones must be unique episode numbers from 1 to 10000")
         folder, root = Path(folder).resolve(), Path(project_root).resolve()
         table = table or NeuralFeatureTable.from_phase35(root / "experiments/phase35/results/rate_decoder_evaluation.json")
         initial, _ = checkpoint_info(checkpoint, table)
@@ -147,8 +191,10 @@ class Campaign:
                   "frozen_checkpoint": frozen,
                   "catalog_sha256": digest(folder / "seeds.json"), "created_unix": time.time(),
                   "implementation_sha256": manifest["implementation_sha256"],
+                  "recording_policy": recording_policy, "recording_milestones": sorted(milestones),
                   "runtime_profile": {"server_heap_mib": 384 if compact else 512,
                                       "client_heap_mib": 512 if compact else 768,
+                                      "forward_ticks": forward_ticks,
                                       "width": 854 if compact else 1280, "height": 480 if compact else 720},
                   "final_policy": None, "official_experiment_authorized": False}
         atomic_json(folder / "config.json", config)
@@ -198,6 +244,8 @@ class Campaign:
                    "layout_seed": self.catalog[split][index], "policy_seed": 9001 + index,
                    "goal": self.config["goal"], "train": split == "pilot", "checkpoint": dict(checkpoint),
                    "status": "running", "started_unix": time.time(), "generated_world_instances": None}
+        attempt["video_required"] = (self.config.get("recording_policy", "all") == "all"
+                                     or index + 1 in self.config.get("recording_milestones", MILESTONES))
         attempt["runtime"] = str(Path(runtime_root).resolve() / attempt["run_id"]) if runtime_root else None
         self.state["attempts"].append(attempt)
         self.state["active_attempt"] = len(self.state["attempts"]) - 1
@@ -224,7 +272,8 @@ class Campaign:
             attempt["generated_world_instances"] = run.get("generated_world_instances", 0)
             if run["stop_reason"] != "suite_complete" or run["completed"] != 1:
                 raise ValueError("worker did not complete exactly one episode")
-            if not run.get("server_exited_cleanly") or not run.get("client_exited_cleanly"):
+            video_required = attempt.get("video_required", True)
+            if not run.get("server_exited_cleanly") or video_required and not run.get("client_exited_cleanly"):
                 raise ValueError("game process did not exit cleanly")
             if run["checkpoint_sha256"] != attempt["checkpoint"]["sha256"] or digest(attempt["checkpoint"]["path"]) != attempt["checkpoint"]["sha256"]:
                 raise ValueError("input checkpoint changed")
@@ -238,19 +287,28 @@ class Campaign:
             if len(scores) != 1 or len(outcomes) != 1 or len(delivery) != 1 or not delivery[0]["acknowledged"]:
                 raise ValueError("incomplete or duplicate episode evidence")
             score, outcome = scores[0], outcomes[0]
+            if delivery[0].get("episode_id") != score["episode_id"]:
+                raise ValueError("terminal delivery belongs to another episode")
             if score["success"] != outcome["success"] or score["episode_id"] != outcome["episode_id"]:
                 raise ValueError("controller and Minecraft scoring disagree")
             if score["success"] != (score["inventory"]["log"] >= 1) or score["layout_seed"] != attempt["layout_seed"]:
                 raise ValueError("score differs from inventory goal or planned layout")
-            if outcome["terminal_inventory"]["log"] != score["inventory"]["log"]:
+            terminal_inventory, terminal_source = verified_terminal_inventory(results, score, outcome)
+            if terminal_inventory["log"] != score["inventory"]["log"]:
                 raise ValueError("terminal inventory mismatch")
             if not attempt["train"] and (score["train"] or outcome["train"] or outcome["update"]["weight_delta_norm"] != 0):
                 raise ValueError("evaluation attempted learning")
-            video = run.get("milestone_video", {})
-            if run.get("milestone_video_status") != "verified" or not video.get("episode_coverage_complete") or not video.get("visual_content_preflight_verified"):
-                raise ValueError("verified episode MP4 is missing")
-            if digest(video["path"]) != video["sha256"]:
-                raise ValueError("episode MP4 integrity mismatch")
+            video = run.get("milestone_video")
+            if video_required:
+                video = video or {}
+                if run.get("milestone_video_status") != "verified" or not video.get("episode_coverage_complete") or not video.get("visual_content_preflight_verified"):
+                    raise ValueError("verified milestone MP4 is missing")
+                if digest(video["path"]) != video["sha256"]:
+                    raise ValueError("episode MP4 integrity mismatch")
+            elif run.get("headless") is not True or run.get("spectator") is not False \
+                    or run.get("recording_mode") != "structured_event_logs_no_video" \
+                    or run.get("milestone") is not None or run.get("recording") is not None:
+                raise ValueError("routine episode differs from planned headless event-only execution")
             next_checkpoint = self.state["current_checkpoint"]
             if attempt["train"] and outcome["train"]:
                 path = self.root / "checkpoints/phase9" / attempt["run_id"] / "trial_0000.npz"
@@ -268,6 +326,7 @@ class Campaign:
                            terminal_unattributed_reward=outcome.get("unattributed_terminal_reward", 0),
                            training_suppressed=outcome.get("training_suppressed"),
                            termination=outcome["termination"], results=str(results), video=video,
+                           terminal_inventory_source=terminal_source,
                            wall_seconds=run["elapsed_seconds"], checkpoint_after=next_checkpoint,
                            implementation_sha256=run["implementation_sha256"])
             self.state["current_checkpoint"] = next_checkpoint
@@ -285,6 +344,38 @@ class Campaign:
         self.check_current()
         self.state["final_policy"] = dict(self.state["current_checkpoint"])
         self.save()
+
+    def amend_validation_only(self, reason):
+        """Audited development repair, never a policy/runtime configuration thaw.
+
+        Only the result validator module may differ. Immutable snapshots retain
+        every previous configuration, source manifest and state. No active job,
+        training history or final benchmark is eligible for this narrow repair.
+        """
+        if not reason or self.state["active_attempt"] is not None or self.state["final_policy"] is not None \
+                or any(a["train"] or a["split"] == "eval_b" for a in self.state["attempts"]):
+            raise ValueError("validation amendment requires idle development evaluation only")
+        previous = json.loads((self.folder / "source_manifest.json").read_text())
+        current = source_manifest(self.root)
+        changed = sorted(key for key in previous["files"].keys() | current["files"].keys()
+                         if previous["files"].get(key) != current["files"].get(key))
+        if changed != ["autonomy/experiment.py"]:
+            raise ValueError("only the result validator may change; actor, controller, runner and policy must stay frozen")
+        archive = self.folder / "validation_revisions" / f"revision_{len(self.state.get('validation_revisions', []))+1:04d}"
+        archive.mkdir(parents=True, exist_ok=False)
+        for name, value in (("config.json", self.config), ("source_manifest.json", previous), ("state.json", self.state)):
+            atomic_json(archive / name, value)
+        revision = {"created_unix": time.time(), "reason": reason, "changed_files": changed,
+                    "previous_source_sha256": self.config["implementation_sha256"],
+                    "source_sha256": current["implementation_sha256"], "archive": str(archive)}
+        atomic_json(archive / "amendment.json", revision)
+        self.config["implementation_sha256"] = current["implementation_sha256"]
+        atomic_json(self.folder / "source_manifest.json", current)
+        atomic_json(self.folder / "config.json", self.config)
+        self.state["config_sha256"] = digest(self.folder / "config.json")
+        self.state.setdefault("validation_revisions", []).append(revision)
+        self.save()
+        return revision
 
     def summary(self):
         attempts = self.state["attempts"]
@@ -304,6 +395,9 @@ class Campaign:
                 "committed_episodes": len(committed), "training_episodes": len(training),
                 "training_updates": sum(a["training_applied"] for a in training),
                 "evaluation_episodes": len(committed)-len(training),
+                "recording_policy": self.config.get("recording_policy", "all"),
+                "recorded_episodes": sum(a.get("video_required", True) for a in committed),
+                "event_only_episodes": sum(not a.get("video_required", True) for a in committed),
                 "recent_training_success_rate": sum(a["success"] for a in recent)/len(recent) if recent else None,
                 "mean_training_reward": sum(a["total_reward"] for a in recent)/len(recent) if recent else None,
                 "measured_training_worlds_per_hour": rate*3600 if rate else None,

@@ -51,3 +51,29 @@ Do not replace actions, invent frames or present partial footage as full coverag
 Remaining milestones: strict 30-trial collection/crafting gates, longer goals,
 natural terrain, repeated interruption/reconnection, parallel throughput and
 long-run memory stability. Phase 7.5/8/9 are not declared complete.
+
+## Later October 29 collection milestone
+
+Fixed two-tick forward input was compared with the old five-tick input on two
+reused development seeds: 2/2 versus 1/2 success. All four original MP4s remain;
+this motor pilot is not a learning-gain claim.
+
+A later fixed 30-seed one-log evaluation scored 27/30 (90%; Wilson 95%
+74.4%-96.5%). It used seven relative prepared-tree fixture snapshots, semantic
+observations and crosshair-only interactions. Three failures remain in the
+data; do not edit them into apparent successes. No checkpoint was updated.
+
+The user changed the scope to **milestone recordings only**. Required clips
+are `dev_log30_milestones_20261029_eval_a_trained_00001_a0001`,
+`...00010_a0010`, `...00025_a0025` and `...00030_a0030`. All four have complete
+verified MP4s in `recordings/phase9/` and the chat outputs. The other 26 have
+intentional event-only logs. Their absence of video is not a capture failure.
+The superseded two-trial all-recorded plan remains separately preserved (1/2).
+
+One early success record lacked its terminal field. Original raw acknowledged
+boundary evidence verified that inventory; a validator-only repair and source
+revision are archived. There was no rerun or replacement of actions. Describe
+this openly if discussing validation reliability. Figures and per-trial CSV are
+under `figures/log30_validation_20261029/`; the graph is evaluation outcomes,
+not a training learning curve. Natural terrain and causal neural benefit remain
+unestablished.

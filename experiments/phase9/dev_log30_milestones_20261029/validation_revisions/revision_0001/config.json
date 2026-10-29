@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "name": "dev_log30_milestones_20261029",
+  "stage": "development",
+  "world_limit": 30,
+  "goal": "one_log",
+  "curriculum_level": 1,
+  "initial_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+    "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+  },
+  "frozen_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase7\\curriculum_v3_seed29.npz",
+    "sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6"
+  },
+  "catalog_sha256": "15c63bd4f8390bdc78836ed99f8995428c72528c2637393c7746711b9f1ac732",
+  "created_unix": 1793268118.008552,
+  "implementation_sha256": "7571e8a09ccb19720bc9b405184df7617b3489938f2a6c3abf850a3d826ee064",
+  "recording_policy": "milestones",
+  "recording_milestones": [
+    1,
+    10,
+    25,
+    30
+  ],
+  "runtime_profile": {
+    "server_heap_mib": 384,
+    "client_heap_mib": 512,
+    "forward_ticks": 2,
+    "width": 854,
+    "height": 480
+  },
+  "final_policy": null,
+  "official_experiment_authorized": false
+}

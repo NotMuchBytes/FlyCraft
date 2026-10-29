@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "config_sha256": "ce0657e1cae90a96caa7f2b2f2dd87f1ad36f5598fa105400c1154a993f7f0b7",
+  "current_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+    "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+  },
+  "active_attempt": null,
+  "attempts": [
+    {
+      "number": 1,
+      "episode_number": 1,
+      "run_id": "dev_log30_stride2_20261029_eval_a_trained_00001_a0001",
+      "split": "eval_a",
+      "condition": "trained",
+      "world_seed": 8092397403450866769,
+      "layout_seed": 8092397403450866769,
+      "policy_seed": 9001,
+      "goal": "one_log",
+      "train": false,
+      "checkpoint": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+        "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+      },
+      "status": "committed",
+      "started_unix": 1793267833.423237,
+      "generated_world_instances": 1,
+      "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\dev_log30_stride2_20261029_eval_a_trained_00001_a0001",
+      "worker_pid": 20964,
+      "worker_created": 1793267833.4331343,
+      "finished_unix": 1793267932.5327404,
+      "success": false,
+      "ticks": 400,
+      "actions": 27,
+      "total_reward": -0.19587116785725098,
+      "update": {
+        "weight_delta_norm": 0.0,
+        "gradient_norm": 0.0
+      },
+      "training_applied": false,
+      "terminal_unattributed_reward": 0.0,
+      "training_suppressed": "unexecuted_terminal_command",
+      "termination": "episode_boundary",
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\dev_log30_stride2_20261029_eval_a_trained_00001_a0001",
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 1054,
+        "duration_seconds": 35.133333,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "1054"
+        },
+        "bytes": 13873083,
+        "sha256": "c7b29134f52cfb975a57c7aacb950851a1000381bed247bdb0568037c55090fc",
+        "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-29 12-58-10.mp4",
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_dev_log30_stride2_20261029_eval_a_trained_00001_a0001.mp4",
+        "recovery": "none",
+        "verification_attempts": [
+          "verified_original"
+        ],
+        "episode_coverage_complete": true,
+        "visual_content_preflight_verified": true
+      },
+      "wall_seconds": 93.13796619995264,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+        "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+      },
+      "implementation_sha256": "216a6c6dcb058fde80dc3ceb1bcc029f301e785c98a6597663eda13e3e9c4a9f"
+    },
+    {
+      "number": 2,
+      "episode_number": 2,
+      "run_id": "dev_log30_stride2_20261029_eval_a_trained_00002_a0002",
+      "split": "eval_a",
+      "condition": "trained",
+      "world_seed": 4932771356483777157,
+      "layout_seed": 4932771356483777157,
+      "policy_seed": 9002,
+      "goal": "one_log",
+      "train": false,
+      "checkpoint": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+        "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+      },
+      "status": "committed",
+      "started_unix": 1793267932.6233358,
+      "generated_world_instances": 1,
+      "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\dev_log30_stride2_20261029_eval_a_trained_00002_a0002",
+      "worker_pid": 18184,
+      "worker_created": 1793267932.6310544,
+      "finished_unix": 1793268015.7001307,
+      "success": true,
+      "ticks": 103,
+      "actions": 4,
+      "total_reward": 8.456241930663467,
+      "update": {
+        "weight_delta_norm": 0.0,
+        "gradient_norm": 0.0
+      },
+      "training_applied": false,
+      "terminal_unattributed_reward": 0,
+      "training_suppressed": null,
+      "termination": "success",
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\dev_log30_stride2_20261029_eval_a_trained_00002_a0002",
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 624,
+        "duration_seconds": 20.8,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "624"
+        },
+        "bytes": 6671333,
+        "sha256": "cd5e919961f0176ac99c9209e4277cbd3c09a68769b817b1695da8e4d9cfd2ab",
+        "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-29 12-59-50.mp4",
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00002_dev_log30_stride2_20261029_eval_a_trained_00002_a0002.mp4",
+        "recovery": "none",
+        "verification_attempts": [
+          "verified_original"
+        ],
+        "episode_coverage_complete": true,
+        "visual_content_preflight_verified": true
+      },
+      "wall_seconds": 79.20129219995579,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+        "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+      },
+      "implementation_sha256": "216a6c6dcb058fde80dc3ceb1bcc029f301e785c98a6597663eda13e3e9c4a9f"
+    }
+  ],
+  "final_policy": null
+}

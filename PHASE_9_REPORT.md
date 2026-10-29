@@ -1,8 +1,9 @@
 # FlyCraft Phase 9 development report
 
 Updated: 2026-10-29. Status: **in progress; not a completed 10,000-world experiment**.
-Phase 8's longer-goal targets and Phase 7.5's strict 30-trial reliability gate
-also remain unmet. Earlier reports, checkpoints and experimental data are kept.
+The later strict one-log evaluation scored 27/30 in controlled fixtures. Phase
+8's longer-goal targets and broader Phase 7.5 recovery/integration validation
+remain incomplete. Earlier reports, checkpoints and experimental data are kept.
 
 ## October 28 development increment (preserved history)
 
@@ -296,6 +297,136 @@ temperature was unavailable. Compact heaps/source capture reduced requested
 limits but did not eliminate native client memory use. No overnight jobs or
 global graphics-driver changes were made. All live workers have finished.
 
+## October 29 continuation: movement precision and recording scope
+
+An audit of the retained failed strict trial found two forward choices taking
+the actor past a visible log, followed by repeated policy-selected turns while
+the resource was mostly unseen. Acknowledged turn endpoints matched the requested
+15 degrees; this trace does not show queued-turn overshoot. Five-tick forward
+input moved roughly one block between decision/ack observations. These distances
+include drift and observation delay, so they are not pure motor displacements.
+
+Both adapters now accept a fixed `motor.forwardTicks` duration, exposed as
+`--forward-ticks` (1-10, compatible default 5). It is frozen in the campaign
+profile and identical across conditions. It never varies with target position,
+angle or distance. The policy remains responsible for every action and aiming.
+The neural architecture, 63-by-10 readout schema and existing checkpoints remain.
+
+The new audit tool matches episode, command and action acknowledgments, rejects
+duplicate/unexecuted/cross-episode credit, and reports translation, visible-target
+loss, unseen-decision streaks and wrapped turn endpoint error. Endpoint measurements
+do not establish per-tick overshoot. See `docs/movement_validation.md`.
+
+Two reused development layouts were tested with the same frozen trained policy,
+source, initial relative tree geometry/inventory/orientation, policy RNG seeds,
+camera limits and 400-tick deadlines. Absolute spawn locations can translate;
+complete world/entity RNG is not matched. All four episodes have verified MP4s,
+clean game exits and zero updates. These are fresh executions, not replays.
+
+| Fixed forward input | Success | Actions per trial | Ticks per trial | Mean game seconds, failures included |
+| --- | ---: | --- | --- | ---: |
+| 5 ticks | 1/2 | 30, 4 | 400, 102 | 12.55 |
+| 2 ticks | 2/2 | 7, 7 | 136, 142 | 6.95 |
+
+The formerly failed layout collected a log with two-tick input; median observed
+forward displacement changed from about 1.039 to 0.423 blocks and forward target
+losses from two to zero in that pair. The other successful layout took longer
+with shorter presses (102 versus 142 ticks). Two seeds cannot establish general
+improvement or a causal neural benefit. Results and fixture checks are retained
+in `experiments/phase9/movement_comparison_20261029.json`.
+
+The full suite then passed **95 tests in 16.334 seconds**, including the new
+navigation audit and recording-scope safeguards. The user changed recording
+scope to **milestones only**. New CLI campaigns now default to the Phase 9
+milestone schedule; explicit milestones may include a final reliability trial.
+Routine trials keep real observations, actions, acknowledgments, rewards,
+inventory and checkpoint evidence without a spectator or video. Required
+milestones still cannot commit without verified complete footage; a recording
+failure cannot be relabeled as intentionally event-only. Legacy campaigns keep
+their previous all-episode requirement. Headless status no longer calls event-log
+readiness an active video recording.
+
+The first 30-trial plan (`dev_log30_stride2_20261029`) had two already-launched
+trials when recording scope changed: one failure (400 ticks, 27 actions) and
+one success (103 ticks, four actions). Both recordings and results remain.
+The source-freeze guard prevented the next launch after this configuration
+change. That superseded plan is not pooled into the replacement evaluation.
+The replacement (`dev_log30_milestones_20261029`) fixes 30 new seeds before
+execution, learning off, two-tick input, 400-tick deadlines, and recordings only
+at trials 1, 10, 25 and 30. No actor, policy or runtime-parameter tuning occurs
+during this run. One result-validator repair was needed, as described below.
+
+Trial 11 exposed an early-result ordering bug: the controller had observed a
+real inventory log and written success before the server's terminal snapshot
+was attached to its result row. The server independently scored success and
+the raw bridge log contained the exact terminal inventory and acknowledgment.
+The coordinator rejected the incomplete row and stopped before trial 12.
+
+The validator now accepts an otherwise incomplete **evaluation** result only
+when the retained bridge log has a matching inactive episode boundary, valid
+server tick, successful same-episode terminal acknowledgment, and inventory
+agreeing with the server score. Missing, mismatched or unacknowledged proof is
+rejected. Training still requires its ordinary sealed terminal result. No
+success flag is used to invent an inventory snapshot.
+
+Trial 11 was revalidated from its original files without rerunning Minecraft.
+Its original rejection and state remain archived. The development evaluation
+continued on the same 30 seeds after an explicit validation-only amendment;
+only `autonomy/experiment.py` differed in the source manifest. Previous config,
+source manifest, state and the amendment reason are retained. Actor, controller,
+runner, policy checkpoint, motor settings, deadlines and seed plan stayed fixed.
+This is an audited mixed-validation-version development run, not a claim of
+unchanged complete source or an untouched final benchmark. The full suite after
+this repair passed **97 tests in 20.020 seconds**.
+
+### Completed strict 30-seed one-log evaluation
+
+The fixed plan completed **27/30 (90%)**, meeting the 80% point target in this
+controlled setting. The 95% Wilson interval is **74.4%-96.5%**; the lower bound
+does not establish population success of at least 80% at 95% confidence.
+All 30 seeds were selected before this evaluation, distinct from previously
+generated development seeds. They produced only **seven distinct relative
+fixture snapshots** because block placement is quantized near prepared trees.
+This tests repeated collection near a tree, not natural forest exploration.
+
+| Measurement | Actual result |
+| --- | --- |
+| Inventory-confirmed one-log success | 27/30 |
+| Distinct seeds / generated world instances | 30 / 30 |
+| Mean acknowledged actions, all trials | 11.83 |
+| Mean acknowledged actions, successes | 9.89 |
+| Mean game time, failures included | 9.845 seconds |
+| Worker wall time, including startup/recording | 1,585.294 seconds |
+| Required recorded milestones | 1, 10, 25, 30; all verified |
+| Intentional event-only trials | 26 |
+| Maximum sampled GPU / minimum available RAM | 49 C / 2,107.070 MiB |
+| Policy/checkpoint updates | 0; checkpoint hash unchanged |
+
+Failures were trials 9, 16 and 17, all bounded at 400 ticks. Trial 9 broke a
+log without collecting it; its trace includes three successful-input forward
+acknowledgments with near-zero displacement, pointing to insufficient blocked-
+movement feedback/recovery. Trials 16 and 17 broke no confirmed block. A turn
+or successful mining acknowledgment alone never counted as goal completion.
+One successful trial reached its inventory goal at the deadline; scoring uses
+the frozen boundary inventory, not later item pickup.
+
+All terminal deliveries were acknowledged and game servers exited cleanly.
+Milestone clients exited cleanly and their complete MP4s passed decode and
+checksum checks. No milestone MP4 is missing in this evaluation. Routine trials
+were intentionally unrecorded under the user's revised preference. The original
+trial 11 JSON remains intact; its terminal inventory is independently verified
+from the acknowledged raw boundary, with the original rejection archived.
+Eleven trials used the original validator source and 19 the audited repaired
+validator; the actor/controller/runner and policy were unchanged throughout.
+
+Full per-trial outcomes, source provenance, intervals, failure categories and
+navigation audits are in `experiments/phase9/log30_validation_20261029.json`.
+CSV and an actual-outcome figure are under
+`recordings/phase9/youtube/figures/log30_validation_20261029/`. This new result
+is separate from assisted Phase 8 results and the tiny matched neural-control
+comparison. It is not evidence that the neural features caused success or that
+the three earlier real training updates improved generalization.
+
 ## Remaining work and recommendations
 
 Complete independent multi-seed strict one-log validation before expanding
@@ -313,7 +444,8 @@ authorization only after the development pilot and frozen configuration are
 reviewable. Continue to respect the 60% weekly limit and stop starting new
 development around 55%; report only actual usage telemetry.
 
-The strict one-log 30-trial gate and longer-goal Phase 8 gates remain unmet.
+The strict one-log point target is now met in controlled fixtures. Longer-goal
+Phase 8 gates and repeated integration/recovery stress tests remain incomplete.
 Do not declare Phase 7.5, Phase 8 or the Phase 9 experiment complete. Continue
 with powered strict evaluation and retention-controlled training before scaling.
 Later work should test policy-selected pitch/finer camera actions and natural

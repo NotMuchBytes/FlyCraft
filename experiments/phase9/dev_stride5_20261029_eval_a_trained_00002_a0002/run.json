@@ -1,0 +1,120 @@
+{
+  "run_id": "dev_stride5_20261029_eval_a_trained_00002_a0002",
+  "world_seed": 5267432988167438838,
+  "layout_start": 5267432988167438838,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 1,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 81.67339730000822,
+  "maximum_sampled_gpu_c": 47,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-29 12-51-38.mp4",
+  "recording_confirmed": true,
+  "milestone": 2,
+  "experiment_stage": "development",
+  "redo_of": null,
+  "execution_kind": "new_execution_not_replay",
+  "headless": true,
+  "spectator": true,
+  "spectator_view": "third_person",
+  "capture_requested_size": [
+    854,
+    480
+  ],
+  "client_fps_limit": 30,
+  "capture_content_proof": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.013827614379084967,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\dev_stride5_20261029_eval_a_trained_00002_a0002\\capture-proof-game.png",
+    "game_frame_sha256": "a696a2c3452491741231cf71d7c19deec797a7cf0b6eadc12fe36a283da8570f",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\dev_stride5_20261029_eval_a_trained_00002_a0002\\capture-proof-obs.png",
+    "obs_frame_sha256": "485503945c3242852dc1b047b0106d873d07d5c562b71df63d0a7107d58d6177",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "capture_content_proof_error": {
+    "matched": false,
+    "mean_absolute_rgb_error": 0.28510348583878,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\dev_stride5_20261029_eval_a_trained_00002_a0002\\capture-proof-game.png",
+    "game_frame_sha256": "a1fdb7e3c4e910b126fd2d0746537689390879fc42fc04fc57defdacaf85cc41",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\dev_stride5_20261029_eval_a_trained_00002_a0002\\capture-proof-obs.png",
+    "obs_frame_sha256": "cabf36191689d34cdf62e70350caaa1422e82a765af9bba81bbf5e6e3b9a77fb",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "recording_mode": "OBS_isolated_spectator",
+  "generated_world_instances": 1,
+  "episodes_in_generated_world": 1,
+  "environment_kind": "controlled_flat_survival_fixture",
+  "server_heap_mib": 384,
+  "client_heap_mib": 512,
+  "trial_tick_limit": 400,
+  "policy_rng_seed": 9002,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "forward_ticks": 5,
+  "experiment_kind": "policy_goal",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "launcher": "direct",
+  "minimum_sampled_available_ram_mib": 2635.80078125,
+  "available_ram_guard_mib": 768,
+  "peak_sampled_process_tree_rss_mib": {
+    "bridge": 115.26953125,
+    "server": 602.29296875,
+    "client": 1008.57421875
+  },
+  "exit_codes_before_cleanup": {
+    "prepare": 0,
+    "bridge": null,
+    "server": 0,
+    "client": 0
+  },
+  "client_exited_cleanly": true,
+  "server_exited_cleanly": true,
+  "actual_graphics": [
+    "Using graphics backend OpenGL, using drivers: 3.3.0 NVIDIA 617.42",
+    "Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU/PCIe/SSE2 (NVIDIA Corporation)"
+  ],
+  "policy_label": "six_live_log_episodes",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "implementation_sha256": "216a6c6dcb058fde80dc3ceb1bcc029f301e785c98a6597663eda13e3e9c4a9f",
+  "frozen_label": "phase7_frozen_transfer",
+  "frozen_checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase7\\curriculum_v3_seed29.npz",
+  "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+  "milestone_video_status": "verified",
+  "milestone_video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 624,
+    "duration_seconds": 20.8,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "624"
+    },
+    "bytes": 5192833,
+    "sha256": "5452a8b28d65f16788c083ab9f7edad97d7c21f79c24cd2b9532d02a8b67251f",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-29 12-51-38.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00002_dev_stride5_20261029_eval_a_trained_00002_a0002.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": true,
+    "visual_content_preflight_verified": true
+  },
+  "milestone_video_export": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\FlyCraft_Development_Milestone_00002_dev_stride5_20261029_eval_a_trained_00002_a0002.mp4"
+}

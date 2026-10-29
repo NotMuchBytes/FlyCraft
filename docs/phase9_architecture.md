@@ -80,9 +80,22 @@ before each attempt. Disjoint SHA256-derived partitions contain 100 pilot,
 seeds. Catalog creation does not generate worlds or authorize official training.
 Changing behavior code requires a new development campaign.
 
+The 30-seed October 29 evaluation includes one explicitly audited exception
+for result validation only. An early success row lacked its terminal field,
+although the raw log contained the acknowledged exact boundary. The validator
+now checks that raw evidence for evaluation only; it does not invent a snapshot
+or relax training checks. An idle evaluation may archive an amendment only
+when the validator module is the sole changed source file, with no training or
+final benchmark history. Actual diff review is still necessary: a file whitelist
+alone does not prove unchanged behavior. The old source/config/state and reason
+are archived, per-episode source hashes stay intact, and the report discloses the
+revision. Actor, policy, runner, runtime limits and the seed plan remain fixed.
+
 An attempt is durable before launch. Commitment requires server/controller
 agreement, terminal inventory/acknowledgment, clean game exits, checkpoint
-integrity, a measured readout change matching the report and a verified MP4.
+integrity, a measured readout change matching the report and, for a scheduled
+milestone, a verified MP4. Routine event-only episodes require no graphical
+client; their game-state and model checks remain the same.
 Interrupted attempts preserve evidence and leave the committed policy unchanged.
 Resume uses a fresh attempt identity; reused seeds and extra generated instances
 are counted separately. Pending commands are never replayed. A STOP file requests

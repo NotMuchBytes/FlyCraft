@@ -130,6 +130,8 @@ def run():
     parser.add_argument("--parent-created", type=float)
     parser.add_argument("--camera-mode", choices=("legacy","instant","bounded"), default="bounded")
     parser.add_argument("--turn-degrees", type=float, default=15)
+    parser.add_argument("--forward-ticks", type=int, default=5,
+                        help="Fixed forward input duration, 1-10 ticks; never target-dependent")
     parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
     parser.add_argument("--graphics-backend", choices=("default","opengl","vulkan"),default="opengl")
     parser.add_argument("--minimum-available-ram-mib", type=int, default=768)
@@ -179,6 +181,8 @@ def run():
         parser.error("checkpoint files must exist")
     if not math.isfinite(args.turn_degrees) or not 0<args.turn_degrees<=45:
         parser.error("turn-degrees must be finite and in (0,45]")
+    if not 1 <= args.forward_ticks <= 10:
+        parser.error("forward-ticks must be in [1,10]")
     if args.camera_probe and (args.camera_mode=="legacy" or goals!=["camera_probe"] or args.trials!=1):
         parser.error("camera-probe requires one camera_probe trial in instant or bounded mode")
     if listening(25567) or listening(8765):
@@ -210,7 +214,7 @@ def run():
     camera_trace=results / "camera.jsonl"
     camera_probe=results / "camera_probe.jsonl"
     with (client_dir / "flycraft-phase8-client.properties").open("a",encoding="utf-8") as handle:
-        handle.write(f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\n")
+        handle.write(f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\nmotor.forwardTicks={args.forward_ticks}\n")
         if args.camera_mode!="legacy": handle.write(f"camera.traceFile={java_path(camera_trace)}\n")
         if args.camera_probe: handle.write(f"camera.probe=true\ncamera.probeFile={java_path(camera_probe)}\n")
     if args.camera_probe:
@@ -219,7 +223,8 @@ def run():
     if args.headless:
         (server_dir/"flycraft-headless.properties").write_text(
             f"controlFile={java_path(control)}\ntraceFile={java_path(results/'headless.jsonl')}\n"
-            f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\ncamera.traceFile={java_path(camera_trace)}\n",encoding="utf-8")
+            f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\ncamera.traceFile={java_path(camera_trace)}\n"
+            f"motor.forwardTicks={args.forward_ticks}\n",encoding="utf-8")
     if args.spectator:
         (client_dir/"flycraft-spectator.properties").write_text(
             f"controlFile={java_path(control)}\nreadyFile={java_path(runtime/'spectator.ready')}\nview={args.spectator_view}\n"
@@ -319,7 +324,8 @@ def run():
             low_ram_samples = low_ram_samples + 1 if available_ram < args.minimum_available_ram_mib else 0
             if low_ram_samples >= 3:
                 stop_reason = "available_ram_guard"; break
-            recording_active=recorder.pulse()
+            evidence_ready=recorder.pulse()
+            recording_active=bool(graphical and evidence_ready)
             atomic_json(results/"status.json",{"timestamp_unix":time.time(),"available_ram_mib":available_ram,
                 "cpu_percent":psutil.cpu_percent(),"gpu_temperature_c":temperatures[-1] if temperatures else None,
                 "gpu_utilization_percent":gpu_utilization,"gpu_memory_mib":gpu_memory_mib,
@@ -356,7 +362,7 @@ def run():
                     except (ValueError,OSError,subprocess.SubprocessError) as error:
                         capture_proof_error=str(error)
             content_ready=not args.spectator or capture_proof is not None
-            if recording_active and graphics_ready and spectator_ready and content_ready and (not args.headless or listening(8765)) and not (runtime / "start.enabled").exists():
+            if evidence_ready and graphics_ready and spectator_ready and content_ready and (not args.headless or listening(8765)) and not (runtime / "start.enabled").exists():
                 (runtime / "start.enabled").write_text("OBS confirmed active\n" if graphical else "Event logging ready\n", encoding="utf-8")
             if graphical and client is None and listening(25567) and listening(8765):
                 client = launch(direct_commands["client"] if direct_commands else
@@ -443,6 +449,7 @@ def run():
         summary["policy_rng_seed"] = args.policy_seed
         summary["camera_mode"] = args.camera_mode
         summary["turn_degrees"] = args.turn_degrees
+        summary["forward_ticks"] = args.forward_ticks
         summary["experiment_kind"] = "scripted_camera_probe_not_policy" if args.camera_probe else "policy_goal"
         summary["interaction_assistance"] = "visible_target_aim_macro" if args.camera_mode=="legacy" else "crosshair_only_no_automatic_aim"
         summary["requested_graphics_backend"] = args.graphics_backend

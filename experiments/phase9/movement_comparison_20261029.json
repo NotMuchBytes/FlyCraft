@@ -1,0 +1,807 @@
+{
+  "stage": "adaptive development, real Minecraft controlled fixtures",
+  "policy_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "source_sha256": "216a6c6dcb058fde80dc3ceb1bcc029f301e785c98a6597663eda13e3e9c4a9f",
+  "conditions": {
+    "dev_stride5_20261029": {
+      "forward_ticks": 5,
+      "successes": 1,
+      "episodes": 2,
+      "wilson_95": [
+        0.09453120573423074,
+        0.9054687942657693
+      ],
+      "mean_actions": 17.0,
+      "mean_game_seconds": 12.55,
+      "episodes_data": [
+        {
+          "run_id": "dev_stride5_20261029_eval_a_trained_00001_a0001",
+          "seed": 810842654367122139,
+          "success": false,
+          "ticks": 400,
+          "actions": 30,
+          "terminal_inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "median_forward_displacement": 1.0390900994405352,
+          "target_losses": 2,
+          "longest_unseen_decisions": 20,
+          "video_sha256": "9017d185dfa798a08ecb85cc87b66ca74005acf7af06f0d6ad51f8cd56b53ddb",
+          "video_path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_dev_stride5_20261029_eval_a_trained_00001_a0001.mp4"
+        },
+        {
+          "run_id": "dev_stride5_20261029_eval_a_trained_00002_a0002",
+          "seed": 5267432988167438838,
+          "success": true,
+          "ticks": 102,
+          "actions": 4,
+          "terminal_inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "median_forward_displacement": 1.0056593616557832,
+          "target_losses": 0,
+          "longest_unseen_decisions": 0,
+          "video_sha256": "5452a8b28d65f16788c083ab9f7edad97d7c21f79c24cd2b9532d02a8b67251f",
+          "video_path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00002_dev_stride5_20261029_eval_a_trained_00002_a0002.mp4"
+        }
+      ]
+    },
+    "dev_stride2_20261029": {
+      "forward_ticks": 2,
+      "successes": 2,
+      "episodes": 2,
+      "wilson_95": [
+        0.34238022750665303,
+        1
+      ],
+      "mean_actions": 7.0,
+      "mean_game_seconds": 6.949999999999999,
+      "episodes_data": [
+        {
+          "run_id": "dev_stride2_20261029_eval_a_trained_00001_a0001",
+          "seed": 810842654367122139,
+          "success": true,
+          "ticks": 136,
+          "actions": 7,
+          "terminal_inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "median_forward_displacement": 0.42287643295698274,
+          "target_losses": 0,
+          "longest_unseen_decisions": 0,
+          "video_sha256": "94c20cdbb3bed0545b6715bc103f70bdb5e24851872d90bc5395a1742cb5e04f",
+          "video_path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_dev_stride2_20261029_eval_a_trained_00001_a0001.mp4"
+        },
+        {
+          "run_id": "dev_stride2_20261029_eval_a_trained_00002_a0002",
+          "seed": 5267432988167438838,
+          "success": true,
+          "ticks": 142,
+          "actions": 7,
+          "terminal_inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "median_forward_displacement": 0.4228764329569825,
+          "target_losses": 0,
+          "longest_unseen_decisions": 0,
+          "video_sha256": "b39b2dfdaf424881dca53f0301b33679b1b51e36228a26d8647ac890753ae936",
+          "video_path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00002_dev_stride2_20261029_eval_a_trained_00002_a0002.mp4"
+        }
+      ]
+    }
+  },
+  "paired_worlds": [
+    {
+      "seed": 810842654367122139,
+      "baseline_success": false,
+      "candidate_success": true,
+      "same_relative_fixture_inventory_orientation": true
+    },
+    {
+      "seed": 5267432988167438838,
+      "baseline_success": true,
+      "candidate_success": true,
+      "same_relative_fixture_inventory_orientation": true
+    }
+  ],
+  "navigation_audits": [
+    {
+      "run_id": "dev_stride5_20261029_eval_a_trained_00001_a0001",
+      "environment": "controlled_flat_survival_fixture",
+      "forward_ticks": 5,
+      "actions_acknowledged": {
+        "FORWARD": 11,
+        "TURN_LEFT": 15,
+        "NO_OP": 1,
+        "TURN_RIGHT": 3
+      },
+      "ack_statuses": {
+        "success": 30
+      },
+      "not_executed_commands": 0,
+      "unmatched_commands": 0,
+      "longest_unseen_decision_streak": 20,
+      "near_samples_without_mining_affordance": 1,
+      "forward_target_losses": 2,
+      "median_forward_displacement": 1.0390900994405352,
+      "max_absolute_turn_endpoint_error": 2.842170943040401e-14,
+      "measurement_scope": "Pose difference between decision and next matched acknowledgment observation; includes inertia and observation delay, not per-tick overshoot or causal action attribution.",
+      "motions": [
+        {
+          "command_id": 1,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0056593616557832,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true
+        },
+        {
+          "command_id": 2,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0791219548521376,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 3,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.06724969357031707,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 4,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.067283898995478,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 5,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.005441435970930496,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 6,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 7,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -14.999999999999982,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 2.842170943040401e-14
+        },
+        {
+          "command_id": 8,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 9,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -14.999999999999982,
+          "visible_before": false,
+          "visible_after": true,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 2.842170943040401e-14
+        },
+        {
+          "command_id": 10,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0056593616557832,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 11,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0791219548521376,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 12,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0792949337740962,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 13,
+          "episode_id": "trial_0000",
+          "action": "NO_OP",
+          "ack_status": "success",
+          "horizontal_displacement": 0.06725006555303459,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 14,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 15,
+          "episode_id": "trial_0000",
+          "action": "TURN_RIGHT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": 15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": 15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 16,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 17,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0056593735780122,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 18,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.06709171664974782,
+          "observed_yaw_delta_degrees": -14.999999999999982,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 2.842170943040401e-14
+        },
+        {
+          "command_id": 19,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 20,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 21,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0390900994405352,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 22,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.03366098566794678,
+          "observed_yaw_delta_degrees": -14.999999999999982,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 2.842170943040401e-14
+        },
+        {
+          "command_id": 23,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 24,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0390900920806256,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 25,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.03366098542952489,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 26,
+          "episode_id": "trial_0000",
+          "action": "TURN_RIGHT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": 15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": 15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 27,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0056593616557832,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 28,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0791219548521376,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 29,
+          "episode_id": "trial_0000",
+          "action": "TURN_RIGHT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.06724969357031707,
+          "observed_yaw_delta_degrees": 15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": 15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 30,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": false,
+          "visible_after": false,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        }
+      ]
+    },
+    {
+      "run_id": "dev_stride5_20261029_eval_a_trained_00002_a0002",
+      "environment": "controlled_flat_survival_fixture",
+      "forward_ticks": 5,
+      "actions_acknowledged": {
+        "COLLECT_LOG": 1,
+        "TURN_RIGHT": 1,
+        "TURN_LEFT": 1,
+        "FORWARD": 1
+      },
+      "ack_statuses": {
+        "success": 4
+      },
+      "not_executed_commands": 0,
+      "unmatched_commands": 0,
+      "longest_unseen_decision_streak": 0,
+      "near_samples_without_mining_affordance": 0,
+      "forward_target_losses": 0,
+      "median_forward_displacement": 1.0056593616557832,
+      "max_absolute_turn_endpoint_error": 0.0,
+      "measurement_scope": "Pose difference between decision and next matched acknowledgment observation; includes inertia and observation delay, not per-tick overshoot or causal action attribution.",
+      "motions": [
+        {
+          "command_id": 1,
+          "episode_id": "trial_0000",
+          "action": "COLLECT_LOG",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 2,
+          "episode_id": "trial_0000",
+          "action": "TURN_RIGHT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": 15.000000000000009,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true,
+          "requested_yaw_degrees": 15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 3,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 4,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 1.0056593616557832,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": false
+        }
+      ]
+    },
+    {
+      "run_id": "dev_stride2_20261029_eval_a_trained_00001_a0001",
+      "environment": "controlled_flat_survival_fixture",
+      "forward_ticks": 2,
+      "actions_acknowledged": {
+        "FORWARD": 3,
+        "TURN_LEFT": 3,
+        "COLLECT_LOG": 1
+      },
+      "ack_statuses": {
+        "success": 6,
+        "interrupted": 1
+      },
+      "not_executed_commands": 0,
+      "unmatched_commands": 0,
+      "longest_unseen_decision_streak": 0,
+      "near_samples_without_mining_affordance": 3,
+      "forward_target_losses": 0,
+      "median_forward_displacement": 0.42287643295698274,
+      "max_absolute_turn_endpoint_error": 0.0,
+      "measurement_scope": "Pose difference between decision and next matched acknowledgment observation; includes inertia and observation delay, not per-tick overshoot or causal action attribution.",
+      "motions": [
+        {
+          "command_id": 1,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 0.42287643295698274,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true
+        },
+        {
+          "command_id": 2,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 0.42689056594838215,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true
+        },
+        {
+          "command_id": 3,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.004014132991399855,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 4,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 0.4228662852952359,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true
+        },
+        {
+          "command_id": 5,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.00401403666523819,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 6,
+          "episode_id": "trial_0000",
+          "action": "COLLECT_LOG",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 7,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "interrupted",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -14.999393463134766,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": false,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.000606536865234375
+        }
+      ]
+    },
+    {
+      "run_id": "dev_stride2_20261029_eval_a_trained_00002_a0002",
+      "environment": "controlled_flat_survival_fixture",
+      "forward_ticks": 2,
+      "actions_acknowledged": {
+        "COLLECT_LOG": 1,
+        "TURN_RIGHT": 2,
+        "TURN_LEFT": 2,
+        "FORWARD": 2
+      },
+      "ack_statuses": {
+        "success": 7
+      },
+      "not_executed_commands": 0,
+      "unmatched_commands": 0,
+      "longest_unseen_decision_streak": 0,
+      "near_samples_without_mining_affordance": 0,
+      "forward_target_losses": 0,
+      "median_forward_displacement": 0.4228764329569825,
+      "max_absolute_turn_endpoint_error": 2.842170943040401e-14,
+      "measurement_scope": "Pose difference between decision and next matched acknowledgment observation; includes inertia and observation delay, not per-tick overshoot or causal action attribution.",
+      "motions": [
+        {
+          "command_id": 1,
+          "episode_id": "trial_0000",
+          "action": "COLLECT_LOG",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": false
+        },
+        {
+          "command_id": 2,
+          "episode_id": "trial_0000",
+          "action": "TURN_RIGHT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": 15.000000000000009,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true,
+          "requested_yaw_degrees": 15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 3,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -14.999999999999982,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 2.842170943040401e-14
+        },
+        {
+          "command_id": 4,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 0.4228764329569825,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true
+        },
+        {
+          "command_id": 5,
+          "episode_id": "trial_0000",
+          "action": "TURN_RIGHT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.00401413299139998,
+          "observed_yaw_delta_degrees": 14.999999999999982,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true,
+          "requested_yaw_degrees": 15,
+          "endpoint_error_degrees": -2.842170943040401e-14
+        },
+        {
+          "command_id": 6,
+          "episode_id": "trial_0000",
+          "action": "TURN_LEFT",
+          "ack_status": "success",
+          "horizontal_displacement": 0.0,
+          "observed_yaw_delta_degrees": -15.000000000000009,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": true,
+          "requested_yaw_degrees": -15,
+          "endpoint_error_degrees": 0.0
+        },
+        {
+          "command_id": 7,
+          "episode_id": "trial_0000",
+          "action": "FORWARD",
+          "ack_status": "success",
+          "horizontal_displacement": 0.4228764329569825,
+          "observed_yaw_delta_degrees": 0.0,
+          "visible_before": true,
+          "visible_after": true,
+          "same_visible_target": false
+        }
+      ]
+    }
+  ],
+  "full_rng_matched": false,
+  "final_b_used": false,
+  "neural_learning_improvement_established": false,
+  "limitation": "Reused development layouts, small sample, unrecorded complete world/entity RNG; motor change only, no policy updates."
+}

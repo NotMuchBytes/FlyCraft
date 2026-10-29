@@ -101,3 +101,30 @@ Details and actual intervals are in `PHASE_9_REPORT.md`.
 The strict 80%-of-30 live one-log gate remains unmet. Phase 7.5 is not complete.
 Preserve the current evidence and broaden independent strict evaluations before
 scaling or claiming reliable natural-world collection.
+
+## Later October 29: strict one-log evaluation
+
+The subsequent fixed 30-seed evaluation scored **27/30 (90%)** with two-tick
+forward input, bounded 15-degree turns and crosshair-only mining. Actual frozen
+inventory and acknowledged boundary delivery confirmed outcomes. The point
+target is met for these controlled near-tree fixtures; Wilson 95% interval is
+74.4%-96.5%. Thirty distinct seeds produced seven relative fixture snapshots,
+so this does not demonstrate natural exploration or 30 unique terrain types.
+
+All three failures are retained: one mined without pickup, two never broke a
+block. Near-zero movement sometimes still receives a successful-input ack;
+collision feedback and recovery remain weak. Every trial ended within the
+400-tick deadline and all servers closed cleanly. Milestones 1,10,25,30 have
+verified MP4s; the other 26 intentionally retain logs only per the user's change.
+
+Trial 11's early success row lacked its terminal field. The coordinator stopped;
+an audited validator-only repair confirmed the unchanged raw acknowledged
+inventory boundary without rerunning gameplay. Previous config/source/state
+and the rejection are archived. Actor, controller, policy and trial settings
+did not change. All **97 tests passed in 20.020 seconds** after this repair.
+
+The checkpoint remained unchanged throughout evaluation. The 27/30 result
+establishes no new learning or causal neural contribution. Full provenance,
+motor comparison and limitations are in `PHASE_9_REPORT.md`. Broader connection,
+interruption, long-horizon and recovery validation remains; Phase 7.5 is not
+declared complete solely from this collection milestone.

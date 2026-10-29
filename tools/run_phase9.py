@@ -91,17 +91,20 @@ small,strong{{display:block}}small{{color:#a9bfdc}}strong{{font-size:22px;overfl
 def worker_command(campaign, attempt, args, seconds):
     profile = campaign.config["runtime_profile"]
     command = [sys.executable, str(ROOT/"tools/run_phase8_live.py"), "--run-id", attempt["run_id"],
-        "--headless", "--spectator", "--milestone", str(attempt["episode_number"]),
+        "--headless",
         "--checkpoint",attempt["checkpoint"]["path"],"--frozen-checkpoint",campaign.config.get("frozen_checkpoint",campaign.config["initial_checkpoint"])["path"],
         "--goals",attempt["goal"],"--conditions",attempt["condition"],"--trials","1",
         "--world-seed",str(attempt["world_seed"]),"--layout-start",str(attempt["layout_seed"]),
         "--policy-seed",str(attempt["policy_seed"]),"--seconds",str(seconds),"--trial-ticks","400",
         "--camera-mode","bounded","--graphics-backend","opengl",
+        "--forward-ticks",str(profile.get("forward_ticks",5)),
         "--server-heap-mib",str(profile["server_heap_mib"]),"--client-heap-mib",str(profile["client_heap_mib"]),
         "--capture-width",str(profile["width"]),"--capture-height",str(profile["height"]),
         "--work-dir",str(args.work_dir),"--build-dir",str(args.build_dir),"--obs-control-dir",str(args.obs_control_dir),
         "--stop-file",str(campaign.folder/"STOP"),"--parent-pid",str(os.getpid()),
         "--parent-created",str(psutil.Process().create_time())]
+    if attempt.get("video_required", True):
+        command += ["--spectator", "--milestone", str(attempt["episode_number"])]
     if args.video_export_dir:
         command += ["--video-export-dir",str(args.video_export_dir)]
     if attempt["train"]:
@@ -119,6 +122,9 @@ def main():
     init.add_argument("--worlds",type=int,default=3)
     init.add_argument("--master-seed",type=int,default=20261029)
     init.add_argument("--compact",action="store_true",help="Development profile: 384/512 MiB server/client heaps, 854x480 capture")
+    init.add_argument("--forward-ticks",type=int,default=5,choices=range(1,11),help="Fixed input duration; freeze before paired evaluation")
+    init.add_argument("--recording-policy",choices=("milestones","all"),default="milestones")
+    init.add_argument("--recording-milestones",help="Optional comma-separated episode numbers; default Phase 9 schedule")
     for name in ("run","status","stop","clear-stop","freeze-final"):
         command=sub.add_parser(name)
         command.add_argument("--campaign",type=Path,required=True)
@@ -134,8 +140,15 @@ def main():
             command.add_argument("--video-export-dir",type=Path)
     args=parser.parse_args()
     if args.command=="init":
+        milestones=None
+        if args.recording_milestones is not None:
+            try:
+                milestones=tuple(int(n) for n in args.recording_milestones.split(","))
+            except ValueError:
+                parser.error("recording-milestones must be comma-separated integers")
         campaign=Campaign.create(ROOT/"experiments/phase9"/args.name, project_root=ROOT,name=args.name,
-            checkpoint=args.checkpoint,master=args.master_seed,worlds=args.worlds,compact=args.compact,frozen_checkpoint=args.frozen_checkpoint)
+            checkpoint=args.checkpoint,master=args.master_seed,worlds=args.worlds,compact=args.compact,frozen_checkpoint=args.frozen_checkpoint,
+            forward_ticks=args.forward_ticks,recording_policy=args.recording_policy,recording_milestones=milestones)
         campaign.save(); dashboard(campaign)
         print(campaign.folder)
         return

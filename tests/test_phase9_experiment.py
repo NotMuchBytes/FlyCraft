@@ -11,7 +11,7 @@ import unittest
 from unittest import mock
 
 from autonomy import AutonomousAgent
-from autonomy.experiment import Campaign, CampaignLock, atomic_json, digest, seed_catalog
+from autonomy.experiment import Campaign, CampaignLock, atomic_json, digest, seed_catalog, verified_terminal_inventory
 from learning import NeuralFeatureTable
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -22,11 +22,11 @@ class ExperimentTests(unittest.TestCase):
     def setUpClass(cls):
         cls.table=NeuralFeatureTable.from_phase35(ROOT/"experiments/phase35/results/rate_decoder_evaluation.json")
 
-    def campaign(self, folder, *, worlds=3):
+    def campaign(self, folder, *, worlds=3, **kwargs):
         initial=folder/"initial.npz"
         AutonomousAgent(self.table).save(initial)
         return Campaign.create(folder/"campaign",project_root=folder,name="unit_only",checkpoint=initial,
-                               worlds=worlds,table=self.table)
+                               worlds=worlds,table=self.table,**kwargs)
 
     def evidence(self, campaign, attempt, *, success=True, train=None, delta=0):
         results=campaign.root/"experiments/phase9"/attempt["run_id"]
@@ -55,7 +55,7 @@ class ExperimentTests(unittest.TestCase):
              "milestone_video_status":"verified","milestone_video":video,"elapsed_seconds":90}
         atomic_json(results/"run.json",run)
         for name,row in (("server.jsonl",score),("controller.jsonl",outcome),
-                         ("server.jsonl.delivery.jsonl",{"acknowledged":True})):
+                         ("server.jsonl.delivery.jsonl",{"episode_id":"trial_0000","acknowledged":True})):
             (results/name).write_text(json.dumps(row)+"\n")
         return results
 
@@ -68,6 +68,65 @@ class ExperimentTests(unittest.TestCase):
         self.assertEqual(len(a["eval_b"]),100)
         self.assertFalse(set(values)&{44556777,44556778,44556779})
         self.assertTrue(all(0<=value<2**63 for value in values))
+
+    def test_early_result_requires_matching_acknowledged_boundary_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory)
+            score={"episode_id":"trial_0000","train":False,"inventory":{"log":1}}
+            outcome={"train":False,"success":True}
+            row={"request":{"tick_id":105,"control":{"episode_id":"trial_0000","active":False,
+                "terminal":{"server_tick":100,"inventory":{"log":1}}}},
+                "response":{"status":"ok","episode_id":"trial_0000","terminal_acknowledged":True}}
+            for bad in ("missing_ack","wrong_episode","wrong_inventory"):
+                broken=json.loads(json.dumps(row))
+                if bad=="missing_ack": broken["response"]["terminal_acknowledged"]=False
+                if bad=="wrong_episode": broken["response"]["episode_id"]="trial_old"
+                if bad=="wrong_inventory": broken["request"]["control"]["terminal"]["inventory"]["log"]=0
+                (folder/"bridge.jsonl").write_text(json.dumps(broken)+"\n")
+                with self.subTest(bad=bad),self.assertRaises(ValueError):
+                    verified_terminal_inventory(folder,score,outcome)
+            # The production bridge logs requests as JSON strings.
+            row["request"]=json.dumps(row["request"])
+            (folder/"bridge.jsonl").write_text(json.dumps(row)+"\n")
+            self.assertEqual(verified_terminal_inventory(folder,score,outcome),({"log":1},"acknowledged_bridge_boundary"))
+            with self.assertRaises(ValueError):
+                verified_terminal_inventory(folder,score,dict(outcome,train=True))
+
+    def test_validation_amendment_archives_old_state_and_rejects_actor_changes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory); campaign=self.campaign(folder)
+            old_source=campaign.config["implementation_sha256"]
+            (folder/"autonomy").mkdir()
+            (folder/"autonomy/experiment.py").write_text("# synthetic validation-only patch\n")
+            revision=campaign.amend_validation_only("unit-test audit repair")
+            self.assertEqual(revision["previous_source_sha256"],old_source)
+            self.assertNotEqual(revision["source_sha256"],old_source)
+            self.assertTrue((Path(revision["archive"])/"state.json").is_file())
+            restored=Campaign(campaign.folder,project_root=folder,table=self.table)
+            self.assertEqual(restored.config["implementation_sha256"],revision["source_sha256"])
+            (folder/"autonomy/agent.py").write_text("# synthetic actor change\n")
+            with self.assertRaises(ValueError):
+                restored.amend_validation_only("must reject behavior change")
+
+    def test_only_planned_routine_episode_can_commit_without_video(self):
+        with tempfile.TemporaryDirectory() as directory:
+            campaign=self.campaign(Path(directory),recording_policy="milestones",recording_milestones=(1,3))
+            first=campaign.begin("eval_a")
+            self.assertTrue(first["video_required"])
+            self.evidence(campaign,first)
+            self.assertEqual(campaign.recover()["status"],"committed")
+            for expected_number,expected_status in ((2,"committed"),(3,"interrupted")):
+                attempt=campaign.begin("eval_a")
+                self.assertEqual(attempt["episode_number"],expected_number)
+                results=self.evidence(campaign,attempt)
+                run=json.loads((results/"run.json").read_text())
+                run.pop("milestone_video")
+                run.update(headless=True,spectator=False,client_exited_cleanly=None,
+                           milestone=None,recording=None,recording_mode="structured_event_logs_no_video",
+                           milestone_video_status="not_requested")
+                atomic_json(results/"run.json",run)
+                self.assertEqual(campaign.recover()["status"],expected_status)
+            self.assertEqual(campaign.summary()["evaluation_episodes"],2)
 
     def test_commit_is_atomic_idempotent_and_restores_checkpoint_chain(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -31,10 +31,11 @@ dedicated Java runtime uses the NVIDIA RTX 4050, verified by the selected
 renderer rather than a preference message; see [GPU evidence](docs/windows_gpu.md).
 
 Phase 9 is an ongoing development pilot with transactional checkpoint/resume,
-separate seed sets, a dashboard and mandatory Minecraft-only recording. Three
+separate seed sets, a dashboard and Minecraft-only milestone recording. Three
 real training episodes have committed readout updates. A matched two-seed,
-five-policy comparison establishes no learning or neural benefit; one headless
-plank episode passed from an empty inventory. The supplied local actor skin is
+five-policy comparison establishes no learning or neural benefit. A later strict
+one-log evaluation scored 27/30 with fixed two-tick movement; one headless plank
+episode passed from an empty inventory. The supplied local actor skin is
 installed. The 10,000-world campaign has not started, and broader reliability
 targets remain pending. See the
 [current report](PHASE_9_REPORT.md) and [architecture](docs/phase9_architecture.md).

@@ -34,6 +34,7 @@ public final class HeadlessAgent implements AutoCloseable {
     private final BufferedWriter trace;
     private final Properties properties;
     private final CameraDriver camera;
+    private final int forwardTicks;
     private final ExecutorService io=Executors.newSingleThreadExecutor(r -> {
         Thread thread=new Thread(r,"flycraft-headless-ipc"); thread.setDaemon(true); return thread;
     });
@@ -57,6 +58,8 @@ public final class HeadlessAgent implements AutoCloseable {
             properties.load(reader); controlFile=Path.of(properties.getProperty("controlFile"));
             trace=Files.newBufferedWriter(Path.of(properties.getProperty("traceFile")),StandardOpenOption.CREATE_NEW);
         } catch(IOException error) { throw new IllegalStateException(error); }
+        forwardTicks=Integer.parseInt(properties.getProperty("motor.forwardTicks","5"));
+        if(forwardTicks<1 || forwardTicks>10) throw new IllegalArgumentException("Invalid forward duration");
         properties.putIfAbsent("camera.mode","bounded"); camera=new CameraDriver(properties);
     }
 
@@ -260,7 +263,7 @@ public final class HeadlessAgent implements AutoCloseable {
                 var accepted=camera.relative(view,id,action.equals("TURN_LEFT") ? -degrees : degrees,0,observationTick,tick,observationNanos);
                 if(!accepted.accepted()) finish("failed",accepted.reason(),false,tick);
             }
-            case "FORWARD" -> { player.forwardTicks=5; readyAt=tick+5; }
+            case "FORWARD" -> { player.forwardTicks=forwardTicks; readyAt=tick+forwardTicks; }
             case "COLLECT_LOG" -> {
                 miningHit=crosshair();
                 if(miningHit.getType()!=HitResult.Type.BLOCK || !player.level().getBlockState(miningHit.getBlockPos()).is(BlockTags.LOGS)) {

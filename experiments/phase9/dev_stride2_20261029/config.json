@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "name": "dev_stride2_20261029",
+  "stage": "development",
+  "world_limit": 1,
+  "goal": "one_log",
+  "curriculum_level": 1,
+  "initial_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+    "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+  },
+  "frozen_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase7\\curriculum_v3_seed29.npz",
+    "sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6"
+  },
+  "catalog_sha256": "ff75148b6edb6087672e53ea7ae17aeac1c5cffba51c7a457464893b4754b8b4",
+  "created_unix": 1793267244.7031016,
+  "implementation_sha256": "216a6c6dcb058fde80dc3ceb1bcc029f301e785c98a6597663eda13e3e9c4a9f",
+  "runtime_profile": {
+    "server_heap_mib": 384,
+    "client_heap_mib": 512,
+    "forward_ticks": 2,
+    "width": 854,
+    "height": 480
+  },
+  "final_policy": null,
+  "official_experiment_authorized": false
+}
