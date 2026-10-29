@@ -1,0 +1,38 @@
+<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="5">
+<title>FlyCraft development dashboard</title><style>
+body{font:16px system-ui;background:#101722;color:#e5efff;margin:32px;max-width:1200px}h1{color:#71aaff}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.cards div,section{padding:16px;background:#1a2536;border-radius:10px;margin-bottom:12px}
+small,strong{display:block}small{color:#a9bfdc}strong{font-size:22px;overflow-wrap:anywhere}table{width:100%;font-size:13px}td,th{padding:7px;text-align:left;border-bottom:1px solid #334}pre{white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:7px}label span{display:block;height:5px;background:#55a7ff}</style>
+<h1>FlyCraft · development</h1><p>Status: committed. Official training worlds: 0. Goal: planks, curriculum level 1.</p>
+<div class="cards"><div><small>generated world instances</small><strong>30</strong></div><div><small>distinct generated seeds</small><strong>30</strong></div><div><small>training episodes</small><strong>0</strong></div><div><small>training updates</small><strong>0</strong></div><div><small>evaluation episodes</small><strong>30</strong></div><div><small>recent training success rate</small><strong>None</strong></div><div><small>mean training reward</small><strong>None</strong></div><div><small>measured training worlds per hour</small><strong>None</strong></div><div><small>estimated remaining seconds</small><strong>None</strong></div></div><p>Throughput is observed worker wall time including startup and filming. Remaining seconds are an estimate. This is a small development pilot, not a learning-performance claim.</p>
+<section><h2>Observed worker resources</h2><pre>{
+  &quot;timestamp_unix&quot;: 1793272824.3514972,
+  &quot;available_ram_mib&quot;: 2743.74609375,
+  &quot;cpu_percent&quot;: 56.0,
+  &quot;gpu_temperature_c&quot;: 45,
+  &quot;gpu_utilization_percent&quot;: 19,
+  &quot;gpu_memory_mib&quot;: 707,
+  &quot;server_alive&quot;: false,
+  &quot;client_alive&quot;: false,
+  &quot;recording_active&quot;: false,
+  &quot;completed_episodes&quot;: 1,
+  &quot;peak_process_rss_mib&quot;: {
+    &quot;bridge&quot;: 115.76171875,
+    &quot;server&quot;: 601.4296875,
+    &quot;client&quot;: 981.21875
+  },
+  &quot;lifecycle_updated_unix&quot;: 1793272827.8250923,
+  &quot;finalized&quot;: true,
+  &quot;stop_reason&quot;: &quot;suite_complete&quot;
+}</pre><p>CPU temperature unavailable. Samples may be absent during startup. Resource timestamps are Unix seconds.</p></section>
+<section><h2>Actual policy readout</h2><p>Requested action: CRAFT_PLANKS; command 4. Execution needs a game acknowledgment.</p><label>NO_OP 0.0131<span style='width:1.311%'></span></label><label>TURN_LEFT 0.1432<span style='width:14.317%'></span></label><label>TURN_RIGHT 0.0220<span style='width:2.196%'></span></label><label>FORWARD 0.2008<span style='width:20.078%'></span></label><label>COLLECT_LOG 0.0000<span style='width:0.000%'></span></label><label>CRAFT_PLANKS 0.6210<span style='width:62.098%'></span></label><label>CRAFT_STICKS 0.0000<span style='width:0.000%'></span></label><label>CRAFT_TABLE 0.0000<span style='width:0.000%'></span></label><label>PLACE_TABLE 0.0000<span style='width:0.000%'></span></label><label>CRAFT_PICKAXE 0.0000<span style='width:0.000%'></span></label><pre>{
+  &quot;bias&quot;: 1.0,
+  &quot;left_readout_div50&quot;: 0.7443819379317574,
+  &quot;right_readout_div50&quot;: 0.04171278750611236,
+  &quot;total_readout_div50&quot;: 0.7860947254378697
+}</pre><p>Fixed neural window: 18 steps; peak active neurons: 825. Feature mode: trained.</p><p>Activity comes from the fixed connectome. Only the linear softmax readout is learned. Bias is not neural activity. Bars show action probabilities, not neuron firing animations.</p></section>
+<section><h2>Recent episodes</h2><table><tr><th>Episode</th><th>Split</th><th>Policy</th><th>Outcome</th><th>Actions</th><th>Reward</th><th>Run</th></tr><tr><td>11</td><td>eval_a</td><td>trained</td><td>True</td><td>16</td><td>10.845443336117658</td><td>dev_planks30_20261029_eval_a_trained_00011_a0011</td></tr><tr><td>12</td><td>eval_a</td><td>trained</td><td>True</td><td>13</td><td>11.054237376988109</td><td>dev_planks30_20261029_eval_a_trained_00012_a0012</td></tr><tr><td>13</td><td>eval_a</td><td>trained</td><td>False</td><td>35</td><td>-0.7000000000000003</td><td>dev_planks30_20261029_eval_a_trained_00013_a0013</td></tr><tr><td>14</td><td>eval_a</td><td>trained</td><td>True</td><td>14</td><td>9.26937570620319</td><td>dev_planks30_20261029_eval_a_trained_00014_a0014</td></tr><tr><td>15</td><td>eval_a</td><td>trained</td><td>True</td><td>15</td><td>8.724781181110185</td><td>dev_planks30_20261029_eval_a_trained_00015_a0015</td></tr><tr><td>16</td><td>eval_a</td><td>trained</td><td>True</td><td>6</td><td>9.387601205608803</td><td>dev_planks30_20261029_eval_a_trained_00016_a0016</td></tr><tr><td>17</td><td>eval_a</td><td>trained</td><td>True</td><td>16</td><td>10.39263820213712</td><td>dev_planks30_20261029_eval_a_trained_00017_a0017</td></tr><tr><td>18</td><td>eval_a</td><td>trained</td><td>False</td><td>31</td><td>0.05855594678591525</td><td>dev_planks30_20261029_eval_a_trained_00018_a0018</td></tr><tr><td>19</td><td>eval_a</td><td>trained</td><td>False</td><td>32</td><td>0.07742817877615145</td><td>dev_planks30_20261029_eval_a_trained_00019_a0019</td></tr><tr><td>20</td><td>eval_a</td><td>trained</td><td>True</td><td>11</td><td>9.901486386114414</td><td>dev_planks30_20261029_eval_a_trained_00020_a0020</td></tr><tr><td>21</td><td>eval_a</td><td>trained</td><td>True</td><td>9</td><td>10.68054084144164</td><td>dev_planks30_20261029_eval_a_trained_00021_a0021</td></tr><tr><td>22</td><td>eval_a</td><td>trained</td><td>True</td><td>10</td><td>11.244489845147902</td><td>dev_planks30_20261029_eval_a_trained_00022_a0022</td></tr><tr><td>23</td><td>eval_a</td><td>trained</td><td>True</td><td>14</td><td>9.658201453993685</td><td>dev_planks30_20261029_eval_a_trained_00023_a0023</td></tr><tr><td>24</td><td>eval_a</td><td>trained</td><td>False</td><td>31</td><td>0.06962279843459852</td><td>dev_planks30_20261029_eval_a_trained_00024_a0024</td></tr><tr><td>25</td><td>eval_a</td><td>trained</td><td>True</td><td>8</td><td>10.051350831004939</td><td>dev_planks30_20261029_eval_a_trained_00025_a0025</td></tr><tr><td>26</td><td>eval_a</td><td>trained</td><td>False</td><td>27</td><td>0.4516596025078571</td><td>dev_planks30_20261029_eval_a_trained_00026_a0026</td></tr><tr><td>27</td><td>eval_a</td><td>trained</td><td>True</td><td>10</td><td>9.367231534265725</td><td>dev_planks30_20261029_eval_a_trained_00027_a0027</td></tr><tr><td>28</td><td>eval_a</td><td>trained</td><td>True</td><td>17</td><td>9.529731988725525</td><td>dev_planks30_20261029_eval_a_trained_00028_a0028</td></tr><tr><td>29</td><td>eval_a</td><td>trained</td><td>True</td><td>12</td><td>10.345474302496203</td><td>dev_planks30_20261029_eval_a_trained_00029_a0029</td></tr><tr><td>30</td><td>eval_a</td><td>trained</td><td>True</td><td>4</td><td>9.46659045451212</td><td>dev_planks30_20261029_eval_a_trained_00030_a0030</td></tr></table></section>
+<section><h2>Safe stop and checkpoint</h2><p>Create the file <code>C:\Users\anass\Documents\FlyCraft\experiments\phase9\dev_planks30_20261029\STOP</code> or run the CLI stop command. The worker interrupts safely and preserves evidence. Use clear-stop before a later resume.</p><pre>{
+  &quot;path&quot;: &quot;C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz&quot;,
+  &quot;sha256&quot;: &quot;acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5&quot;
+}</pre><pre>[]</pre></section>

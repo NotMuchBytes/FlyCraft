@@ -1,0 +1,19 @@
+{
+  "timestamp_unix": 1793272076.574999,
+  "available_ram_mib": 5465.79296875,
+  "cpu_percent": 31.1,
+  "gpu_temperature_c": 40,
+  "gpu_utilization_percent": 1,
+  "gpu_memory_mib": 29,
+  "server_alive": false,
+  "client_alive": false,
+  "recording_active": false,
+  "completed_episodes": 1,
+  "peak_process_rss_mib": {
+    "bridge": 146.4453125,
+    "server": 599.4296875
+  },
+  "lifecycle_updated_unix": 1793272077.1302357,
+  "finalized": true,
+  "stop_reason": "suite_complete"
+}

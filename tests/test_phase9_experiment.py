@@ -11,7 +11,7 @@ import unittest
 from unittest import mock
 
 from autonomy import AutonomousAgent
-from autonomy.experiment import Campaign, CampaignLock, atomic_json, digest, seed_catalog, verified_terminal_inventory
+from autonomy.experiment import Campaign, CampaignLock, atomic_json, digest, seed_catalog, verified_terminal_inventory, RESOURCE_GOALS
 from learning import NeuralFeatureTable
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -32,11 +32,13 @@ class ExperimentTests(unittest.TestCase):
         results=campaign.root/"experiments/phase9"/attempt["run_id"]
         results.mkdir(parents=True)
         trained=attempt["train"] if train is None else train
+        item,count=RESOURCE_GOALS[attempt["goal"]]
+        inventory={"log":0,"planks":0}; inventory[item]=count*int(success)
         score={"episode_id":"trial_0000","success":success,"ticks":80,"train":trained,
-               "layout_seed":attempt["layout_seed"],"inventory":{"log":int(success)}}
+               "goal":attempt["goal"],"layout_seed":attempt["layout_seed"],"inventory":inventory}
         outcome={"episode_id":"trial_0000","success":success,"done":True,"train":trained,
                  "actions":2,"total_reward":8.2 if success else -2,"termination":"success" if success else "episode_boundary",
-                 "terminal_inventory":{"log":int(success)},"update":{"weight_delta_norm":delta}}
+                 "terminal_inventory":dict(inventory),"update":{"weight_delta_norm":delta}}
         if trained:
             agent,_=AutonomousAgent.load(Path(attempt["checkpoint"]["path"]),self.table)
             agent.session=outcome.copy()
@@ -127,6 +129,22 @@ class ExperimentTests(unittest.TestCase):
                 atomic_json(results/"run.json",run)
                 self.assertEqual(campaign.recover()["status"],expected_status)
             self.assertEqual(campaign.summary()["evaluation_episodes"],2)
+
+    def test_plank_goal_requires_actual_plank_output_not_a_collected_log(self):
+        for valid_output in (False,True):
+            with self.subTest(valid_output=valid_output),tempfile.TemporaryDirectory() as directory:
+                folder=Path(directory); campaign=self.campaign(folder,goal="planks")
+                attempt=campaign.begin("eval_a")
+                results=self.evidence(campaign,attempt)
+                if not valid_output:
+                    for name in ("server.jsonl","controller.jsonl"):
+                        row=json.loads((results/name).read_text())
+                        key="inventory" if name=="server.jsonl" else "terminal_inventory"
+                        row[key]={"log":1,"planks":0}
+                        (results/name).write_text(json.dumps(row)+"\n")
+                outcome=campaign.recover()
+                self.assertEqual(outcome["status"],"committed" if valid_output else "interrupted")
+                if valid_output: self.assertTrue(outcome["success"])
 
     def test_commit_is_atomic_idempotent_and_restores_checkpoint_chain(self):
         with tempfile.TemporaryDirectory() as directory:

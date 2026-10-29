@@ -128,3 +128,19 @@ establishes no new learning or causal neural contribution. Full provenance,
 motor comparison and limitations are in `PHASE_9_REPORT.md`. Broader connection,
 interruption, long-horizon and recovery validation remains; Phase 7.5 is not
 declared complete solely from this collection milestone.
+
+## Repeated plank validation and remaining reliability work
+
+A second fixed 30-seed evaluation scored 21/30 (70%) from empty inventory to
+four planks (Wilson 95% 52.1%-83.3%). All 21 observed pickups led to a confirmed
+craft; six failures mined without pickup and three broke no block. The engine's
+recipe clicks remain an engineered macro selected by the learned policy.
+All 98 automated tests pass; the new goal predicate rejects a log-only false
+craft success. The source and checkpoint stayed fixed for this evaluation.
+
+Only milestones 1,10,25,30 were recorded, as requested, and all four MP4s are
+verified; routine episodes retain logs. Both one-log and plank point targets
+are now met in controlled fixtures. This does not establish natural-world
+autonomy, causal neural benefit or new learning. Repeated live fault recovery,
+blocked-movement feedback, policy pitch control and longer goals still need
+work. Phase 7.5 is not declared wholly complete. See `PHASE_9_REPORT.md`.

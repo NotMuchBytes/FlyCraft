@@ -1,0 +1,6 @@
+{
+  "original_module_sha256": "9d9d77e91c07c541131fdbb5ff98b6692c2e19fbc0803d1ca76dff8e1e6e2716",
+  "repaired_module_sha256": "59554e25d2931d446beb50916968f74e2b706a3aa67576000aad6bc1755563cb",
+  "method": "Original source bytes reconstructed by reversing the isolated validator patch from immutable Git commit 1a5bb24, confirmed against the pre-existing original source manifest. No gameplay, actions or episode logs changed.",
+  "base_commit": "1a5bb24"
+}

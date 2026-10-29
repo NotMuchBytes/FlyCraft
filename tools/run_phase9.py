@@ -14,7 +14,7 @@ import psutil
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from autonomy.experiment import Campaign, CampaignLock, atomic_json, replace_file
+from autonomy.experiment import Campaign, CampaignLock, atomic_json, replace_file, RESOURCE_GOALS
 
 
 def read_json(path):
@@ -75,7 +75,7 @@ def dashboard(campaign, status="idle", results=None):
 body{{font:16px system-ui;background:#101722;color:#e5efff;margin:32px;max-width:1200px}}h1{{color:#71aaff}}
 .cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}.cards div,section{{padding:16px;background:#1a2536;border-radius:10px;margin-bottom:12px}}
 small,strong{{display:block}}small{{color:#a9bfdc}}strong{{font-size:22px;overflow-wrap:anywhere}}table{{width:100%;font-size:13px}}td,th{{padding:7px;text-align:left;border-bottom:1px solid #334}}pre{{white-space:pre-wrap;overflow-wrap:anywhere}}label{{display:block;margin:7px}}label span{{display:block;height:5px;background:#55a7ff}}</style>
-<h1>FlyCraft · development</h1><p>Status: {escape(status)}. Official training worlds: 0. Goal: one log, curriculum level 1.</p>
+<h1>FlyCraft · development</h1><p>Status: {escape(status)}. Official training worlds: 0. Goal: {escape(summary['goal'])}, curriculum level 1.</p>
 <div class="cards">{cards}</div><p>Throughput is observed worker wall time including startup and filming. Remaining seconds are an estimate. This is a small development pilot, not a learning-performance claim.</p>
 <section><h2>Observed worker resources</h2><pre>{escape(json.dumps(live,indent=2))}</pre><p>CPU temperature unavailable. Samples may be absent during startup. Resource timestamps are Unix seconds.</p></section>
 <section><h2>Actual policy readout</h2>{bars or '<p>No neural decision sample yet.</p>'}<p>Activity comes from the fixed connectome. Only the linear softmax readout is learned. Bias is not neural activity. Bars show action probabilities, not neuron firing animations.</p></section>
@@ -117,6 +117,7 @@ def main():
     sub=parser.add_subparsers(dest="command",required=True)
     init=sub.add_parser("init")
     init.add_argument("--name",required=True)
+    init.add_argument("--goal",choices=tuple(RESOURCE_GOALS),default="one_log")
     init.add_argument("--checkpoint",type=Path,required=True)
     init.add_argument("--frozen-checkpoint",type=Path,help="Explicit preserved reference for the frozen condition")
     init.add_argument("--worlds",type=int,default=3)
@@ -148,7 +149,7 @@ def main():
                 parser.error("recording-milestones must be comma-separated integers")
         campaign=Campaign.create(ROOT/"experiments/phase9"/args.name, project_root=ROOT,name=args.name,
             checkpoint=args.checkpoint,master=args.master_seed,worlds=args.worlds,compact=args.compact,frozen_checkpoint=args.frozen_checkpoint,
-            forward_ticks=args.forward_ticks,recording_policy=args.recording_policy,recording_milestones=milestones)
+            forward_ticks=args.forward_ticks,recording_policy=args.recording_policy,recording_milestones=milestones,goal=args.goal)
         campaign.save(); dashboard(campaign)
         print(campaign.folder)
         return

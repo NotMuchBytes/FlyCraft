@@ -1,8 +1,8 @@
 # FlyCraft Phase 9 development report
 
 Updated: 2026-10-29. Status: **in progress; not a completed 10,000-world experiment**.
-The later strict one-log evaluation scored 27/30 in controlled fixtures. Phase
-8's longer-goal targets and broader Phase 7.5 recovery/integration validation
+The later strict evaluations scored one-log 27/30 and four-plank 21/30 in
+controlled fixtures. Three-log/pickaxe targets and broader Phase 7.5 recovery/integration validation
 remain incomplete. Earlier reports, checkpoints and experimental data are kept.
 
 ## October 28 development increment (preserved history)
@@ -427,11 +427,80 @@ is separate from assisted Phase 8 results and the tiny matched neural-control
 comparison. It is not evidence that the neural features caused success or that
 the three earlier real training updates improved generalization.
 
+## Plank coordinator extension
+
+After preserving and pushing the complete one-log result, the coordinator was
+extended to select either `one_log` or `planks` explicitly. Each goal has its
+own actual inventory predicate: log >= 1 or planks >= 4. Full terminal inventory
+agreement is checked; a collected log cannot be mislabeled as plank success.
+The same goal is forwarded to the Minecraft harness and learned controller.
+This is operator-selected evaluation, not automatic curriculum promotion.
+
+The full suite passed **98 tests in 15.016 seconds**, including rejection of
+a false plank success with only a log. The actor, neural architecture, learned
+readout and vanilla recipe implementation were unchanged. A separate 30-seed
+plan was fixed before any plank trial, with fresh seeds, empty starting
+inventory, learning disabled, two-tick forward input, a 400-tick deadline and
+recordings only at trials 1,10,25,30. Its source is frozen separately from the
+earlier one-log evaluation. The recipe click macro remains engineered and the
+policy remains responsible for selecting it.
+
+### Completed strict 30-seed plank evaluation
+
+Result: **21/30 (70%)**, meeting the requested plank point target. Wilson 95%
+interval is **52.1%-83.3%**; this does not establish population success of at
+least 70% at 95% confidence. Thirty distinct fresh seeds produced nine relative
+prepared-tree fixture snapshots. All 30 initial inventories were checked empty.
+
+| Measurement | Actual result |
+| --- | --- |
+| Inventory-confirmed four-plank success | 21/30 |
+| Trials with log pickup observed | 21 |
+| Acknowledged crafts / successful craft acknowledgments | 21 / 21 |
+| Mean actions, all trials / successes | 17.33 / 11.86 |
+| Mean game time, failures included | 12.398 seconds |
+| Total worker wall time | 1,563.244 seconds |
+| Maximum sampled GPU / minimum available RAM | 46 C / 2,613.926 MiB |
+| Required milestone MP4s | 1,10,25,30; all verified |
+| Intentional event-only trials | 26 |
+| Policy updates / validation-source amendments | 0 / 0 |
+
+Failures were trials 1,7,8,9,13,18,19,24,26: six mined without pickup and three
+had no confirmed block break. All ended at the 400-tick deadline. Every trial
+with an observed log pickup went on to confirm four planks; there were no
+failed craft acknowledgments in this set. This is a conditional observation
+under an inventory-masked recipe macro, not unrestricted crafting accuracy.
+Both server and controller inventory agreed, terminal deliveries were
+acknowledged, and all game processes exited cleanly. The source and checkpoint
+hashes remained fixed throughout all 30 trials.
+
+The final recorded trial collected a log and crafted four planks in four actions
+and 96 ticks (4.8 game seconds). Milestone 1 instead shows a genuine failed
+collection attempt; its complete recording is kept and not presented as success.
+There are no missing required milestone MP4s. The 26 unrecorded routine trials
+are intentional under the user's preference. Full outcomes, conditional craft
+counts, empty-inventory checks, source provenance and navigation audits are in
+`experiments/phase9/planks30_validation_20261029.json`; figures/CSV are under
+`recordings/phase9/youtube/figures/planks30_validation_20261029/`.
+
+The log and plank sets used different seeds; their percentages do not establish
+a causal effect of goal length. Neither this evaluation nor the 27/30 result
+establishes a neural benefit or a learning improvement. All 60 trials evaluated
+the same preserved checkpoint with learning disabled. There remain three prior
+committed Phase 9 real training updates, and zero official experiment worlds.
+
+The original and repaired validator source modules for the one-log amendment
+are retained alongside their manifests. The original bytes were reconstructed
+from the isolated patch and independently matched to the pre-existing SHA256;
+the verification record states that provenance. No game logs or actions changed.
+The raw connectome SHA256 was reverified unchanged, and all 30 one-log initial
+inventories were separately checked empty in a supplementary audit.
+
 ## Remaining work and recommendations
 
-Complete independent multi-seed strict one-log validation before expanding
-claims. Expand the one successful headless plank check, interrupted mining,
-connection-loss recovery and checkpoint restoration to repeated real sessions.
+Broaden strict collection/crafting to natural terrain and powered matched
+policy controls before expanding claims. Validate interrupted mining,
+connection-loss recovery and checkpoint restoration in repeated real sessions.
 The serial transactional coordinator, separate seed sets, dashboard and small
 five-condition comparison are implemented; parallel throughput and long-run
 memory/recovery validation remain absent. A complete faithful replay mechanism
@@ -444,8 +513,8 @@ authorization only after the development pilot and frozen configuration are
 reviewable. Continue to respect the 60% weekly limit and stop starting new
 development around 55%; report only actual usage telemetry.
 
-The strict one-log point target is now met in controlled fixtures. Longer-goal
-Phase 8 gates and repeated integration/recovery stress tests remain incomplete.
+The strict one-log and plank point targets are met in controlled fixtures.
+Three-log/pickaxe gates and repeated integration/recovery stress tests remain incomplete.
 Do not declare Phase 7.5, Phase 8 or the Phase 9 experiment complete. Continue
 with powered strict evaluation and retention-controlled training before scaling.
 Later work should test policy-selected pitch/finer camera actions and natural

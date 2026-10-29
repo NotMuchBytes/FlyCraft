@@ -285,4 +285,37 @@ missing terminal field from its original acknowledged boundary, without replay
 or actor/controller changes. Its original rejection and provenance are kept.
 The final full suite passed 97 tests. See `PHASE_9_REPORT.md` for all results.
 
-Three-log, plank and pickaxe 30-trial gates remain unmet. Phase 8 is not done.
+At this stage the three-log, plank and pickaxe 30-trial gates remained unmet.
+
+## Later October 29: repeated real plank crafting
+
+A separately fixed evaluation on 30 fresh seeds scored **21/30 (70%)** from
+empty inventory to at least four planks. This meets the plank point target in
+prepared near-tree flat fixtures; Wilson 95% interval is 52.1%-83.3%. Seeds
+produced nine relative fixture snapshots, not 30 unique terrain types.
+
+The coordinator now validates the selected goal's actual inventory predicate;
+one log cannot count as plank success. It checks full terminal inventory
+agreement and forwards the same goal to Minecraft and the learned controller.
+All 98 automated tests passed in 15.016 seconds. The recipe macro, neural graph
+and readout were preserved; no policy was updated during evaluation.
+
+All 21 observed log pickups led to four planks with 21 successful craft
+acknowledgments. Six failed trials mined without collecting and three never
+broke a block. Mean actions were 17.33 across all trials, mean game time 12.398
+seconds including failures. All game processes exited cleanly and terminal
+delivery was acknowledged. Milestones 1,10,25,30 have verified MP4s, including
+the genuine failure at milestone 1; 26 routine trials intentionally kept logs.
+
+| Current strict controlled-fixture goal | Actual result | Point target |
+| --- | --- | --- |
+| One log | 27/30 (90%) | Met |
+| Four planks | 21/30 (70%) | Met |
+| Three logs | No completed 30-trial validation | Unmet |
+| Wooden pickaxe | No completed 30-trial validation | Unmet |
+
+The two evaluated goals used different seeds, so their rates do not isolate a
+goal-length effect. Neural contribution and learning improvement remain
+unestablished. Blocked movement/drop pickup, the missing policy pitch actions,
+more complex headless crafting and natural terrain remain limitations. Full
+provenance is in `PHASE_9_REPORT.md`. Phase 8 is not declared complete.

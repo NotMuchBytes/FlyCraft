@@ -88,3 +88,16 @@ episode has a verified MP4 and unchanged evaluation checkpoint. All exact paired
 comparisons give p=1.0; neither learning nor neural benefit is established.
 See `experiments/phase9/validation_20261029.json` for actions, times, intervals
 and failures, and `PHASE_9_REPORT.md` for simulation retention/rehearsal results.
+
+The later fixed two-tick one-log evaluation scored 27/30, with 30 distinct seeds
+and seven relative prepared-tree snapshots. Wilson 95% interval: 74.4%-96.5%.
+It used no learning and supplies no causal neural comparison under the new
+motor setting. Milestones 1,10,25,30 are verified MP4s; routine trials have
+intentional event-only evidence. The report and archived validation-only
+amendment explain one early row whose terminal inventory was verified from
+the original acknowledged boundary without rerunning gameplay.
+
+The plank coordinator has a separate goal-specific predicate (inventory planks
+>= 4) and cannot count log pickup as crafting. Its fixed evaluation plan uses
+fresh development seeds, starts with empty inventory, disables learning and
+preserves failures. Outcomes are reported separately from the one-log set.

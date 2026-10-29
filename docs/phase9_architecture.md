@@ -107,7 +107,11 @@ instances, seeds, episodes, nonzero updates and estimates. Its neural panel uses
 actual logged features, action probabilities and peak activity; requested actions
 are labeled separately from game execution.
 
-Only verified one-log training is enabled. There is no automatic curriculum
+The coordinator exposes the implemented one-log and four-plank goals. A goal
+is selected explicitly when initializing a campaign; its success predicate is
+checked against both server and terminal inventory. A log alone cannot pass
+the plank goal. Plank validation uses learning disabled; real plank training
+is not established by those evaluations. There is no automatic curriculum
 advancement or official 10,000-world executor. Parallel throughput, full RNG
 replay, long-run memory stability, natural terrain and longer goals remain
 unverified. See `PHASE_9_REPORT.md` for actual results. Explicit authorization is

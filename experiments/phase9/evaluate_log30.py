@@ -83,13 +83,24 @@ def main():
                 raise ValueError("milestone MP4 changed")
         elif run["spectator"] or run["recording"] is not None or a["video"] is not None:
             raise ValueError("routine episode was unexpectedly recorded")
-        relative_fixtures.add(json.dumps(fixture(folder), sort_keys=True))
+        initial = fixture(folder)
+        if any(initial["inventory"].values()):
+            raise ValueError("evaluation did not start with an empty inventory")
+        relative_fixtures.add(json.dumps(initial, sort_keys=True))
         audit = analyze_run(folder); audits.append(audit)
+        pickup_observed = False
+        for line in (folder / "bridge.jsonl").read_text(encoding="utf-8").splitlines():
+            request = json.loads(line)["request"]
+            if isinstance(request,str): request = json.loads(request)
+            pickup_observed |= request.get("telemetry",{}).get("inventory",{}).get("log",0) >= 1
         broken = controller.get("confirmed_block_changes", 0)
         outcomes.append({"episode":a["episode_number"], "world_seed":a["world_seed"],
             "success":success, "ticks":score["ticks"], "actions":controller["actions"],
             "inventory_log":score["inventory"]["log"], "confirmed_block_changes":broken,
             "inventory_planks":score["inventory"]["planks"],
+            "log_pickup_observed":pickup_observed,
+            "craft_actions_acknowledged":sum(m["action"]=="CRAFT_PLANKS" for m in audit["motions"]),
+            "craft_success_acks":sum(m["action"]=="CRAFT_PLANKS" and m["ack_status"]=="success" for m in audit["motions"]),
             "failed_actions":controller["failed_actions"], "recoveries":controller["recovery_attempts"],
             "failure_mode":None if success else "collected_without_crafting" if goal=="planks" and score["inventory"]["log"] else "mined_without_pickup" if broken else "no_confirmed_block_break",
             "recorded_milestone":required, "longest_unseen_decisions":audit["longest_unseen_decision_streak"],
@@ -108,6 +119,9 @@ def main():
         "mean_actions_all":statistics.fmean(row["actions"] for row in outcomes),
         "mean_actions_success":statistics.fmean(row["actions"] for row in outcomes if row["success"]) if successes else None,
         "mean_game_seconds_all":statistics.fmean(row["ticks"]/20 for row in outcomes),
+        "trials_with_log_pickup_observed":sum(row["log_pickup_observed"] for row in outcomes),
+        "craft_actions_acknowledged":sum(row["craft_actions_acknowledged"] for row in outcomes),
+        "craft_success_acknowledgments":sum(row["craft_success_acks"] for row in outcomes),
         "worker_wall_seconds":sum(row["wall_seconds"] for row in outcomes),
         "maximum_sampled_gpu_c":max(r["maximum_sampled_gpu_c"] for r in resources if r["maximum_sampled_gpu_c"] is not None),
         "minimum_available_ram_mib":min(r["minimum_sampled_available_ram_mib"] for r in resources),
@@ -117,6 +131,7 @@ def main():
         "validation_source_revisions":state.get("validation_revisions", []),
         "source_hash_episode_counts":dict(Counter(r["implementation_sha256"] for r in resources)),
         "policy_updated":False, "neural_learning_gain_established":False,
+        "all_initial_inventories_empty":True,
         "interrupted_attempts":[a for a in state["attempts"] if a["status"] != "committed"],
         "outcomes":outcomes, "navigation_audits":audits,
         "limitations":"Prepared near-tree flat fixtures and semantic sensors; distinct seeds can share relative layout geometry. Motor setting selected on prior development seeds. Fixed policy evaluation only; no untouched final benchmark or natural-world autonomy claim."}

@@ -15,6 +15,7 @@ from tools.milestone_video import MILESTONES
 
 SPLITS = ("pilot", "training", "eval_a", "eval_b")
 CONDITIONS = ("trained", "frozen", "uniform", "no_neural", "shuffled")
+RESOURCE_GOALS = {"one_log": ("log", 1), "planks": ("planks", 4)}
 
 
 def digest(path):
@@ -166,11 +167,13 @@ class Campaign:
         self.check_current()
 
     @classmethod
-    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None, forward_ticks=5, recording_policy="all", recording_milestones=None):
+    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None, forward_ticks=5, recording_policy="all", recording_milestones=None, goal="one_log"):
         if not name or len(name) > 36 or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in name):
             raise ValueError("campaign name must be a simple identifier up to 36 characters")
         if not 1 <= worlds <= 100:
             raise ValueError("development campaigns permit 1-100 worlds; official launch is not enabled")
+        if goal not in RESOURCE_GOALS:
+            raise ValueError("only the implemented one-log and plank interactions are enabled")
         if not isinstance(forward_ticks, int) or isinstance(forward_ticks, bool) or not 1 <= forward_ticks <= 10:
             raise ValueError("forward duration must be an integer from 1 to 10 ticks")
         if recording_policy not in ("all", "milestones"):
@@ -187,7 +190,7 @@ class Campaign:
         manifest = source_manifest(root)
         atomic_json(folder / "source_manifest.json", manifest)
         config = {"schema": 1, "name": name, "stage": "development", "world_limit": worlds,
-                  "goal": "one_log", "curriculum_level": 1, "initial_checkpoint": initial,
+                  "goal": goal, "curriculum_level": 1, "initial_checkpoint": initial,
                   "frozen_checkpoint": frozen,
                   "catalog_sha256": digest(folder / "seeds.json"), "created_unix": time.time(),
                   "implementation_sha256": manifest["implementation_sha256"],
@@ -291,10 +294,13 @@ class Campaign:
                 raise ValueError("terminal delivery belongs to another episode")
             if score["success"] != outcome["success"] or score["episode_id"] != outcome["episode_id"]:
                 raise ValueError("controller and Minecraft scoring disagree")
-            if score["success"] != (score["inventory"]["log"] >= 1) or score["layout_seed"] != attempt["layout_seed"]:
+            item, count = RESOURCE_GOALS[attempt["goal"]]
+            if score.get("goal", attempt["goal"]) != attempt["goal"]:
+                raise ValueError("Minecraft scored a different goal")
+            if score["success"] != (score["inventory"][item] >= count) or score["layout_seed"] != attempt["layout_seed"]:
                 raise ValueError("score differs from inventory goal or planned layout")
             terminal_inventory, terminal_source = verified_terminal_inventory(results, score, outcome)
-            if terminal_inventory["log"] != score["inventory"]["log"]:
+            if any(terminal_inventory.get(key) != value for key,value in score["inventory"].items()):
                 raise ValueError("terminal inventory mismatch")
             if not attempt["train"] and (score["train"] or outcome["train"] or outcome["update"]["weight_delta_norm"] != 0):
                 raise ValueError("evaluation attempted learning")
@@ -404,7 +410,7 @@ class Campaign:
                 "mean_actions_per_success": sum(a["actions"] for a in recent if a["success"])/sum(a["success"] for a in recent) if any(a["success"] for a in recent) else None,
                 "estimated_remaining_seconds": remaining*attempt_seconds if attempt_seconds is not None else None,
                 "estimate_basis": "remaining generated-world slots times measured attempt wall time; interruptions included",
-                "curriculum_level": 1, "goal": "one_log", "progression": "only verified goal enabled",
+                "curriculum_level": 1, "goal": self.config["goal"], "progression": "operator-selected interaction goal; no automatic curriculum advancement",
                 "checkpoint": self.state["current_checkpoint"], "active_attempt": self.state["active_attempt"],
                 "recent_errors": [a.get("error") for a in attempts if a["status"] == "interrupted"][-5:],
                 "updated_unix": time.time()}

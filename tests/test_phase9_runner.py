@@ -19,11 +19,11 @@ class RunnerTests(unittest.TestCase):
     def setUpClass(cls):
         cls.table=NeuralFeatureTable.from_phase35(ROOT/"experiments/phase35/results/rate_decoder_evaluation.json")
 
-    def campaign(self,folder):
+    def campaign(self,folder,**kwargs):
         checkpoint=folder/"initial.npz"
         AutonomousAgent(self.table).save(checkpoint)
         return Campaign.create(folder/"campaign",project_root=folder,name="runner_unit",checkpoint=checkpoint,
-                               worlds=2,table=self.table,forward_ticks=2)
+                               worlds=2,table=self.table,forward_ticks=2,**kwargs)
 
     def test_manual_stop_blocks_worker_launch_and_clear_preserves_request(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -77,7 +77,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_routine_command_omits_spectator_and_milestone(self):
         with tempfile.TemporaryDirectory() as directory:
-            folder=Path(directory); campaign=self.campaign(folder)
+            folder=Path(directory); campaign=self.campaign(folder,goal="planks")
             args=argparse.Namespace(work_dir=folder/"work",build_dir=folder/"build",obs_control_dir=folder/"obs",video_export_dir=None)
             attempt=campaign.begin("eval_a")
             milestone=runner.worker_command(campaign,attempt,args,240)
@@ -86,6 +86,7 @@ class RunnerTests(unittest.TestCase):
             self.assertIn("--headless",routine)
             self.assertNotIn("--spectator",routine)
             self.assertNotIn("--milestone",routine)
+            self.assertEqual(routine[routine.index("--goals")+1],"planks")
             for flag in ("--camera-mode","--forward-ticks","--trial-ticks","--policy-seed","--checkpoint"):
                 self.assertEqual(milestone[milestone.index(flag)+1],routine[routine.index(flag)+1])
 

@@ -63,7 +63,12 @@ ownership checks also stop the game if the coordinator disappears. A failed
 attempt stops that invocation. Resume commits fully completed evidence once or
 preserves the interruption before using a fresh attempt identity and checkpoint.
 
-Only one-log training is enabled. A checkpoint advances after actual game
+Use `init --goal one_log` (default) or `init --goal planks` for the two
+implemented interaction goals. This is an explicit operator selection, not
+automatic curriculum promotion. Planks require actual inventory planks >= 4,
+not just a collected log; other headless crafting goals remain disabled.
+The repeated plank validation runs with learning off. It does not establish
+plank-training improvements. A checkpoint advances after actual game
 outcomes, acknowledged inventory, model integrity and scheduled recording checks agree.
 Passive terminal rewards are logged separately and suppress learning when they
 cannot be assigned safely. This is a conservative accounting fix, not a new

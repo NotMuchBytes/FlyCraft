@@ -1,0 +1,87 @@
+{
+  "status": "committed",
+  "summary": {
+    "stage": "development",
+    "official_training_worlds": 0,
+    "generated_world_instances": 30,
+    "unverified_world_counts": 0,
+    "distinct_generated_seeds": 30,
+    "committed_episodes": 30,
+    "training_episodes": 0,
+    "training_updates": 0,
+    "evaluation_episodes": 30,
+    "recording_policy": "milestones",
+    "recorded_episodes": 4,
+    "event_only_episodes": 26,
+    "recent_training_success_rate": null,
+    "mean_training_reward": null,
+    "measured_training_worlds_per_hour": null,
+    "mean_actions_per_success": null,
+    "estimated_remaining_seconds": null,
+    "estimate_basis": "remaining generated-world slots times measured attempt wall time; interruptions included",
+    "curriculum_level": 1,
+    "goal": "planks",
+    "progression": "operator-selected interaction goal; no automatic curriculum advancement",
+    "checkpoint": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+      "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+    },
+    "active_attempt": null,
+    "recent_errors": [],
+    "updated_unix": 1793272829.5427377
+  },
+  "live_worker": {
+    "timestamp_unix": 1793272824.3514972,
+    "available_ram_mib": 2743.74609375,
+    "cpu_percent": 56.0,
+    "gpu_temperature_c": 45,
+    "gpu_utilization_percent": 19,
+    "gpu_memory_mib": 707,
+    "server_alive": false,
+    "client_alive": false,
+    "recording_active": false,
+    "completed_episodes": 1,
+    "peak_process_rss_mib": {
+      "bridge": 115.76171875,
+      "server": 601.4296875,
+      "client": 981.21875
+    },
+    "lifecycle_updated_unix": 1793272827.8250923,
+    "finalized": true,
+    "stop_reason": "suite_complete"
+  },
+  "brain": {
+    "timestamp_unix": 1793272821.3592517,
+    "requested_action": "CRAFT_PLANKS",
+    "command_id": 4,
+    "features": {
+      "bias": 1.0,
+      "left_readout_div50": 0.7443819379317574,
+      "right_readout_div50": 0.04171278750611236,
+      "total_readout_div50": 0.7860947254378697
+    },
+    "probabilities": {
+      "NO_OP": 0.013110351078066634,
+      "TURN_LEFT": 0.14317169200575447,
+      "TURN_RIGHT": 0.021957350736222667,
+      "FORWARD": 0.20078052802014354,
+      "COLLECT_LOG": 0.0,
+      "CRAFT_PLANKS": 0.6209800781598126,
+      "CRAFT_STICKS": 0.0,
+      "CRAFT_TABLE": 0.0,
+      "PLACE_TABLE": 0.0,
+      "CRAFT_PICKAXE": 0.0
+    },
+    "mode": "trained",
+    "policy_inputs": {
+      "bias": 1.0,
+      "left_input": 0.7443819379317574,
+      "right_input": 0.04171278750611236,
+      "total_input": 0.7860947254378697
+    },
+    "intervention": "none",
+    "peak_active_neurons": 825,
+    "neural_steps": 18,
+    "reward": 0.48659045451211946
+  }
+}

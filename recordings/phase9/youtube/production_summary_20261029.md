@@ -77,3 +77,25 @@ this openly if discussing validation reliability. Figures and per-trial CSV are
 under `figures/log30_validation_20261029/`; the graph is evaluation outcomes,
 not a training learning curve. Natural terrain and causal neural benefit remain
 unestablished.
+
+## Completed four-plank evaluation
+
+A separate fixed 30-seed set scored **21/30 (70%; Wilson 95% 52.1%-83.3%)**
+from empty inventory to four actual planks. Nine relative prepared-tree
+snapshots were represented. All 21 observed pickups led to confirmed crafts;
+six failures mined without pickup and three broke no block. Keep failures in
+the story. Different seeds were used for the one-log and plank goals, so the
+rate difference does not isolate goal length or forgetting.
+
+Milestone clips are `dev_planks30_20261029_eval_a_trained_00001_a0001`,
+`...00010_a0010`, `...00025_a0025` and `...00030_a0030`. All have verified
+complete MP4s. Milestone 1 is a genuine failure; milestone 30 succeeds in four
+actions/96 ticks with inventory planks=4 and log=0. Do not label the failed
+clip successful. The other 26 trials intentionally have event-only evidence.
+
+All 60 one-log/plank trials used the same checkpoint without learning. Both
+point targets are met in this narrow setting, with broad confidence intervals.
+The three-log and pickaxe targets, natural terrain, powered neural controls,
+fault recovery and the official 10,000-world experiment remain incomplete.
+Figures/CSV are in `figures/planks30_validation_20261029/`; per-milestone JSON
+files map original episode data, policy hashes and checksummed MP4s.
