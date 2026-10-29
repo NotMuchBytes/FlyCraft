@@ -269,6 +269,81 @@ class Phase8Tests(unittest.TestCase):
             finally:
                 controller.close()
 
+    def test_passive_terminal_pickup_accounts_reward_without_crediting_unexecuted_action(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory); controller=self.controller(folder)
+            try:
+                first=controller.evaluate_request(self.request(10,train=True))
+                second=controller.evaluate_request(self.request(20,train=True,ack=self.ack(first)))
+                weights=controller.agent.policy.weights.copy()
+                prior_reward=controller.agent.session["total_reward"]
+                trajectory_length=len(controller.agent.trajectory)
+                self.boundary(folder,controller,logs=1)
+                result=controller.evaluate_request(self.request(30,ack=self.ack(second,status="not_executed",changed=False)))
+                session=controller.agent.session
+                self.assertEqual(result["autonomy_status"],"success")
+                self.assertEqual(session["actions"],1)
+                self.assertEqual(len(controller.agent.trajectory),trajectory_length)
+                self.assertAlmostEqual(session["unattributed_terminal_reward"],8.25)
+                self.assertAlmostEqual(session["total_reward"],prior_reward+8.25)
+                self.assertEqual(session["subgoals_complete"],session["subgoals"])
+                self.assertIn("root",session["completed"])
+                self.assertEqual(controller.agent.memory.inventory["log"],1)
+                self.assertFalse(session["train"])
+                np.testing.assert_array_equal(controller.agent.policy.weights,weights)
+                controller.evaluate_request(self.request(40))
+                self.assertAlmostEqual(session["total_reward"],prior_reward+8.25)
+            finally:
+                controller.close()
+
+    def test_delayed_old_episode_observation_cannot_mutate_new_lifecycle(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory); controller=self.controller(folder)
+            try:
+                first=controller.evaluate_request(self.request(10))
+                path=folder/"control.json"
+                path.write_text(json.dumps(self.request(20,episode="replacement")["control"] | {"active":True}))
+                controller.control_file=path
+                response=controller.evaluate_request(self.request(20,ack=self.ack(first)))
+                self.assertTrue(response["observe_only"])
+                self.assertEqual(controller.episode_id,"unit")
+                self.assertEqual(controller.agent.session["actions"],0)
+            finally:
+                controller.close()
+
+    def test_shuffled_control_permutates_actual_window_even_for_center_sector(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller=self.controller(Path(directory))
+            try:
+                controller.neural.neural_observation=lambda sector:(np.array([1.,.11,.22,.33]),None,123)
+                response=controller.evaluate_request(self.request(10,condition="shuffled"))
+                np.testing.assert_allclose(controller.agent.pending[0][:4],[1.,.33,.11,.22])
+                self.assertEqual(response["neural_features"]["left_readout_div50"],.11)
+                self.assertEqual(response["policy_neural_inputs"]["left_input"],.33)
+                self.assertEqual(response["peak_global_active"],123)
+                self.assertAlmostEqual(sum(response["action_probabilities"].values()),1)
+                self.assertIn("permutation",response["feature_intervention"])
+            finally:
+                controller.close()
+
+    def test_success_boundary_cancellation_is_not_failed_gameplay_or_recovery(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory); controller=self.controller(folder)
+            try:
+                first=controller.evaluate_request(self.request(10))
+                second=controller.evaluate_request(self.request(20,ack=self.ack(first)))
+                self.boundary(folder,controller,logs=1)
+                result=controller.evaluate_request(self.request(30,ack=self.ack(second,status="interrupted",error="episode_boundary",changed=False)))
+                session=controller.agent.session
+                self.assertEqual(result["autonomy_status"],"success")
+                self.assertEqual(session["actions"],2)
+                self.assertEqual(session["failed_actions"],0)
+                self.assertEqual(len(controller.agent.recovery.events),0)
+                self.assertAlmostEqual(session["total_reward"],8.21)
+                self.assertEqual(session["subgoals_complete"],session["subgoals"])
+            finally:
+                controller.close()
+
 
 if __name__ == "__main__":
     unittest.main()

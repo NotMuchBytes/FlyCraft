@@ -15,9 +15,10 @@ import org.flycraft.bridge.control.CameraMotion;
 public final class SpectatorClient {
     public static SpectatorClient INSTANCE;
     private Path controlFile,readyFile;
-    private Path frameFile;
+    private Path frameFile,gateFile;
     private String windowTitle;
     private boolean frameRequested;
+    private long lastFrameTick;
     private double distance,height,side;
     private boolean firstPerson,initialized;
     private long tick;
@@ -28,6 +29,7 @@ public final class SpectatorClient {
         catch(IOException error) { throw new IllegalStateException(error); }
         controlFile=Path.of(properties.getProperty("controlFile")); readyFile=Path.of(properties.getProperty("readyFile"));
         frameFile=Path.of(properties.getProperty("frameFile")); windowTitle=properties.getProperty("windowTitle");
+        gateFile=Path.of(properties.getProperty("captureGate",readyFile.resolveSibling("start.enabled").toString()));
         distance=Double.parseDouble(properties.getProperty("distance","6"));
         height=Double.parseDouble(properties.getProperty("height","3"));
         side=Double.parseDouble(properties.getProperty("side","2"));
@@ -72,18 +74,25 @@ public final class SpectatorClient {
         }
         if(!initialized && settled) {
             initialized=true;
+            lastFrameTick=tick-30; // allow several rendered frames before the first capture
             try { Files.writeString(readyFile,"{\"ready\":true,\"role\":\"recording_only\"}",StandardOpenOption.CREATE_NEW); }
             catch(IOException error) { throw new IllegalStateException(error); }
             FlyCraftMod.LOGGER.info("FLYCRAFT_SPECTATOR ready actor={} view={}",actor.getUUID(),firstPerson ? "first_person" : "third_person");
         }
     }
     public void rendered() {
-        if(!initialized || frameRequested) return;
+        if(!initialized || frameRequested || tick-lastFrameTick<40 || Files.exists(gateFile)) return;
         frameRequested=true;
+        lastFrameTick=tick;
         var client=Minecraft.getInstance();
         Screenshot.takeScreenshot(client.gameRenderer.mainRenderTarget(),image -> {
-            try(image) { image.writeToFile(frameFile); }
-            catch(IOException error) { throw new IllegalStateException(error); }
+            try(image) {
+                if(Files.exists(gateFile)) return;
+                Path temporary=frameFile.resolveSibling(frameFile.getFileName()+".tmp");
+                image.writeToFile(temporary);
+                Files.move(temporary,frameFile,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);
+            } catch(IOException error) { FlyCraftMod.LOGGER.warn("FLYCRAFT_SPECTATOR screenshot will retry",error); }
+            finally { frameRequested=false; }
         });
     }
 }

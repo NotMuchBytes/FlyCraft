@@ -1,0 +1,110 @@
+{
+  "run_id": "dev_pilot_20261029_b_eval_a_uniform_00001_a0006",
+  "world_seed": 9127220692899967105,
+  "layout_start": 9127220692899967105,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "uniform"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 0,
+  "stop_reason": "wall_budget",
+  "elapsed_seconds": 242.00883479998447,
+  "maximum_sampled_gpu_c": 43,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-29 07-06-10.mp4",
+  "recording_confirmed": true,
+  "milestone": 1,
+  "experiment_stage": "development",
+  "redo_of": null,
+  "execution_kind": "new_execution_not_replay",
+  "headless": true,
+  "spectator": true,
+  "spectator_view": "third_person",
+  "capture_requested_size": [
+    854,
+    480
+  ],
+  "client_fps_limit": 30,
+  "capture_content_proof": null,
+  "capture_content_proof_error": {
+    "matched": false,
+    "mean_absolute_rgb_error": 0.2726783769063181,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\dev_pilot_20261029_b_eval_a_uniform_00001_a0006\\spectator-frame.png",
+    "game_frame_sha256": "7ffde9c6eeccdf573d3ce5f640405417556dd0b6ff36c0851a9c20e8fc3cc76b",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\Screenshot 2026-10-29 07-09-19.png",
+    "obs_frame_sha256": "b563906089d5346c2af3b79ce5f2374bf368ebf6a64449077eb16ee9d18e8211",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "recording_mode": "OBS_isolated_spectator",
+  "generated_world_instances": 1,
+  "episodes_in_generated_world": 0,
+  "environment_kind": "controlled_flat_survival_fixture",
+  "server_heap_mib": 384,
+  "client_heap_mib": 512,
+  "trial_tick_limit": 400,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "experiment_kind": "policy_goal",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "launcher": "direct",
+  "minimum_sampled_available_ram_mib": 2418.25,
+  "available_ram_guard_mib": 768,
+  "peak_sampled_process_tree_rss_mib": {
+    "bridge": 166.625,
+    "server": 565.6796875,
+    "client": 982.76171875
+  },
+  "exit_codes_before_cleanup": {
+    "prepare": 0,
+    "bridge": null,
+    "server": null,
+    "client": null
+  },
+  "client_exited_cleanly": false,
+  "server_exited_cleanly": false,
+  "actual_graphics": [
+    "Using graphics backend OpenGL, using drivers: 3.3.0 NVIDIA 617.42",
+    "Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU/PCIe/SSE2 (NVIDIA Corporation)"
+  ],
+  "policy_label": "six_live_log_episodes",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "implementation_sha256": "b469e918b63fa40e96c6f96d4545a00323f80c509b1cabb53bb5e0eae9b3a029",
+  "frozen_label": "phase7_frozen_transfer",
+  "frozen_checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+  "frozen_checkpoint_sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f",
+  "milestone_video_status": "partial",
+  "milestone_video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 5714,
+    "duration_seconds": 190.466667,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "5714"
+    },
+    "bytes": 14029324,
+    "sha256": "eb85a6c8af46ebf04db5a27e67abfc9cb116d9ee2c8cc16802dd3ec0b10dc3a6",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-29 07-06-10.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_dev_pilot_20261029_b_eval_a_uniform_00001_a0006.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": false,
+    "visual_content_preflight_verified": false
+  },
+  "milestone_video_export": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\FlyCraft_Development_Milestone_00001_dev_pilot_20261029_b_eval_a_uniform_00001_a0006.mp4"
+}

@@ -176,6 +176,41 @@ class AutonomousAgent:
         self.session["subgoals_complete"] += sum(g.status == "complete" for g in self.manager.goals.values() if g.id != "root")
         self.session["replans"] += 1
 
+    def observe_terminal(self, after: dict, *, before: dict | None = None) -> None:
+        """Account for a final passive outcome without inventing an action.
+
+        An item may arrive after the last acknowledged action and before the
+        scoring boundary. Its environment reward is recorded separately from
+        action returns; no policy gradient is inferred for an unexecuted command.
+        """
+        if self.pending is not None:
+            raise RuntimeError("acknowledge or discard the pending command first")
+        if self.session is None or self.session["done"]:
+            return
+        if after["world_id"] != self.session["world_id"]:
+            raise ValueError("terminal observation belongs to another world")
+        was_success = self.manager.success
+        active = self.manager.active()
+        completed = self.manager.update(after)
+        self.session["completed"] = sorted(set(self.session["completed"]) | set(completed))
+        self.session["subgoals_complete"] += sum(key != "root" for key in completed)
+        production = 0
+        if before is not None and active is not None:
+            item = before.get("active_goal_item", active.item)
+            count = before.get("active_goal_count", active.count)
+            production = min(max(0, count - before["produced"].get(item, 0)),
+                             max(0, after["produced"].get(item, 0) - before["produced"].get(item, 0)))
+        reward = 0.25 * production + 8.0 * (self.manager.success and not was_success)
+        self.session["unattributed_terminal_reward"] = reward
+        self.session["terminal_completed"] = completed
+        self.session["total_reward"] += reward
+        if reward and self.session["train"]:
+            self.session["requested_train"] = True
+            self.session["train"] = False
+            self.session["training_suppressed"] = "passive_terminal_outcome"
+        self.memory.inventory = dict(after["inventory"])
+        self._finish(self.manager.success, "success" if self.manager.success else "episode_boundary")
+
     def _finish(self, success: bool, reason: str) -> None:
         if self.session["done"]:
             return

@@ -41,8 +41,10 @@ motor; interaction requires the actual crosshair to hit a reachable block.
 There is no automatic block aiming. Forward movement uses normal player
 physics; item pickup is vanilla inventory pickup. The adapter currently supports
 one-log and plank goals. Planks use normal 2x2 inventory-menu transactions;
-headless plank success remains unvalidated. More complex headless crafting is
-not implemented. The old learned action set has no pitch action.
+one live empty-inventory plank pilot passed on October 29, with four planks
+confirmed in inventory. Repeated reliability remains unvalidated. More complex
+headless crafting is not implemented. The old learned action set has no pitch
+action.
 
 The operator creates small tree fixtures near spawn and resets episodes.
 That preparation is engineered assistance, not learned tree search. Initial
@@ -58,14 +60,42 @@ change its result. Missing or unexecuted terminal actions are excluded from
 learning; an acknowledgment timeout is recorded explicitly. Client and headless
 adapters recheck lifecycle state before applying delayed policy responses.
 
-## Remaining infrastructure
+## Development coordinator
 
-There is no completed serial/multi-worker training orchestrator, official seed
-catalog, isolated 100-world development and final evaluation sets, dashboard,
-transactional world counter, or complete resume/crash recovery protocol yet.
-The existing worker can request learning, but the development headless trials
-used for initial validation kept the policy frozen. A subsequent one-episode
-development training trial updated the existing readout from real feedback;
-its saved checkpoint loaded successfully. This does not establish improved
-generalization. See `PHASE_9_REPORT.md` for the bounded results.
-An official 10,000-world launch needs explicit authorization after pilot review.
+The 2026-10-29 increment checks fresh episode identities immediately before
+execution. A passive terminal pickup updates inventory memory and goal progress
+without adding an executed action. Its outcome bonus is recorded separately as
+`unattributed_terminal_reward`; learning is suppressed when the reward cannot
+be safely assigned to an acknowledged command. Later pickups remain excluded.
+
+`autonomy/experiment.py` and `tools/run_phase9.py` implement a serial development
+coordinator. Each invocation permits 1-5 episodes and at most 900 seconds. A
+campaign permits up to 100 generated pilot worlds, including interrupted
+instances. OS file leases prevent simultaneous coordinators and workers. The
+worker detects coordinator loss and shuts down its owned processes.
+
+Configuration, source manifest, seed catalog and checkpoint hashes are checked
+before each attempt. Disjoint SHA256-derived partitions contain 100 pilot,
+10,000 reserved training, 100 development-evaluation and 100 final-evaluation
+seeds. Catalog creation does not generate worlds or authorize official training.
+Changing behavior code requires a new development campaign.
+
+An attempt is durable before launch. Commitment requires server/controller
+agreement, terminal inventory/acknowledgment, clean game exits, checkpoint
+integrity, a measured readout change matching the report and a verified MP4.
+Interrupted attempts preserve evidence and leave the committed policy unchanged.
+Resume uses a fresh attempt identity; reused seeds and extra generated instances
+are counted separately. Pending commands are never replayed. A STOP file requests
+safe interruption and its acknowledgment is archived when cleared explicitly.
+
+Atomic state updates retain the old full file until replacement succeeds, with
+bounded retries for Windows reader-sharing locks. The dashboard distinguishes
+instances, seeds, episodes, nonzero updates and estimates. Its neural panel uses
+actual logged features, action probabilities and peak activity; requested actions
+are labeled separately from game execution.
+
+Only verified one-log training is enabled. There is no automatic curriculum
+advancement or official 10,000-world executor. Parallel throughput, full RNG
+replay, long-run memory stability, natural terrain and longer goals remain
+unverified. See `PHASE_9_REPORT.md` for actual results. Explicit authorization is
+still required for the full experiment after pilot review.

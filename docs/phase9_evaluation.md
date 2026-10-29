@@ -6,6 +6,13 @@ world instances, distinct seeds and episodes must be counted separately.
 Repeated trials of seed 44556777 in this pilot are repeated development worlds,
 not evidence of generalization across unseen seeds.
 
+The coordinator now creates reproducible, disjoint pilot/training partitions,
+100-seed Set A and 100-seed Set B using versioned SHA256 derivation. Set B
+execution requires a frozen final policy; that selection blocks further
+training. Evaluation disables learning, and a nonzero update or learning flag
+fails commitment. Conditions share seeds, policy RNG, action budgets, camera
+mode and affordances. Catalog creation does not mean those worlds were evaluated.
+
 `headless_smoke_01` completed one real survival episode and failed (0/1).
 The actor initially spawned at the default origin rather than the vanilla
 adjusted spawn. The fixture was consequently placed in the air and the actor
@@ -43,8 +50,9 @@ and development seed 44556779. With learning disabled, it collected one log in
 after evaluation. The video was fully decoded and visually inspected. This
 tests restoration, not generalization improvement. A late unexecuted policy
 response was rejected at the boundary; terminal inventory still correctly
-confirmed success. Passive terminal-pickup reward/subgoal counters are incomplete
-in this case and need correction before training curves are interpreted.
+confirmed success. This historical run exposed incomplete passive terminal-pickup
+reward/subgoal counters. The October 29 fix updates goal progress and logs
+unattributed reward separately while suppressing unsafe learning.
 
 Phase 8's historical 29/30 trained one-log result used visible-target aiming
 assistance. The strict camera comparison used only three matched layouts:
@@ -57,3 +65,26 @@ observation/action affordances, matched starting conditions, separate unseen
 seeds, actual inventory-based outcomes and reported failures. Small development
 pilots are insufficient to establish causal neural contribution. Training must
 be disabled for evaluation and checkpoint hashes retained.
+
+## 2026-10-29 control definition
+
+The new control campaign uses the preserved original Phase 7 policy as its
+explicit frozen reference. Earlier development comparisons used the campaign's
+starting checkpoint instead; those results remain separate. The no-neural
+condition retains bias, planning, memory, context and masks but zeros the three
+activity inputs. The shuffled condition now permutes the actual window's
+activity columns as `[total, left, right]`, retaining bias. The historical
+sector-swap control left centered inputs unchanged and used cached features;
+its data and source manifests remain preserved. Do not pool these interventions.
+
+Raw fixed-network activity and the intervened policy inputs are both logged.
+Comparisons use identical real Minecraft affordances, camera limits, budgets and
+paired seeds. Confidence intervals are descriptive over small controlled
+fixtures. The final 100-seed Set B remains unused.
+
+On October 29 the complete two-seed development comparison scored trained 1/2,
+original frozen Phase 7 2/2, uniform 1/2, no-neural 0/2 and shuffled 1/2. Every
+episode has a verified MP4 and unchanged evaluation checkpoint. All exact paired
+comparisons give p=1.0; neither learning nor neural benefit is established.
+See `experiments/phase9/validation_20261029.json` for actions, times, intervals
+and failures, and `PHASE_9_REPORT.md` for simulation retention/rehearsal results.

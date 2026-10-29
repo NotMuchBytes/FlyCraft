@@ -1,0 +1,154 @@
+{
+  "environment": "World2D simulator, not Minecraft",
+  "candidate_promoted": false,
+  "conditions": {
+    "focused_find_collect": {
+      "collect_multiple": {
+        "episodes": 100,
+        "frozen_successes": 76,
+        "candidate_successes": 69,
+        "candidate_wilson_95": [
+          0.5937394428051057,
+          0.7722030278762395
+        ],
+        "frozen_only": 18,
+        "candidate_only": 11,
+        "exact_paired_p": 0.26493089646101
+      },
+      "collect_nearby": {
+        "episodes": 100,
+        "frozen_successes": 100,
+        "candidate_successes": 100,
+        "candidate_wilson_95": [
+          0.9630065017930143,
+          1
+        ],
+        "frozen_only": 0,
+        "candidate_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "craft_simple": {
+        "episodes": 100,
+        "frozen_successes": 100,
+        "candidate_successes": 100,
+        "candidate_wilson_95": [
+          0.9630065017930143,
+          1
+        ],
+        "frozen_only": 0,
+        "candidate_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "find_collect": {
+        "episodes": 100,
+        "frozen_successes": 100,
+        "candidate_successes": 100,
+        "candidate_wilson_95": [
+          0.9630065017930143,
+          1
+        ],
+        "frozen_only": 0,
+        "candidate_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "navigate_object": {
+        "episodes": 100,
+        "frozen_successes": 100,
+        "candidate_successes": 100,
+        "candidate_wilson_95": [
+          0.9630065017930143,
+          1
+        ],
+        "frozen_only": 0,
+        "candidate_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "wooden_pickaxe": {
+        "episodes": 100,
+        "frozen_successes": 62,
+        "candidate_successes": 66,
+        "candidate_wilson_95": [
+          0.5627772885472462,
+          0.7453847920265184
+        ],
+        "frozen_only": 13,
+        "candidate_only": 17,
+        "exact_paired_p": 0.584664711728692
+      }
+    },
+    "mixed_rehearsal": {
+      "collect_multiple": {
+        "episodes": 100,
+        "frozen_successes": 76,
+        "candidate_successes": 67,
+        "candidate_wilson_95": [
+          0.5730534379509052,
+          0.7543687726587197
+        ],
+        "frozen_only": 20,
+        "candidate_only": 11,
+        "exact_paired_p": 0.14961278438568115
+      },
+      "collect_nearby": {
+        "episodes": 100,
+        "frozen_successes": 100,
+        "candidate_successes": 100,
+        "candidate_wilson_95": [
+          0.9630065017930143,
+          1
+        ],
+        "frozen_only": 0,
+        "candidate_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "craft_simple": {
+        "episodes": 100,
+        "frozen_successes": 100,
+        "candidate_successes": 100,
+        "candidate_wilson_95": [
+          0.9630065017930143,
+          1
+        ],
+        "frozen_only": 0,
+        "candidate_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "find_collect": {
+        "episodes": 100,
+        "frozen_successes": 100,
+        "candidate_successes": 100,
+        "candidate_wilson_95": [
+          0.9630065017930143,
+          1
+        ],
+        "frozen_only": 0,
+        "candidate_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "navigate_object": {
+        "episodes": 100,
+        "frozen_successes": 100,
+        "candidate_successes": 100,
+        "candidate_wilson_95": [
+          0.9630065017930143,
+          1
+        ],
+        "frozen_only": 0,
+        "candidate_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "wooden_pickaxe": {
+        "episodes": 100,
+        "frozen_successes": 62,
+        "candidate_successes": 70,
+        "candidate_wilson_95": [
+          0.6041514536665332,
+          0.7810511470506724
+        ],
+        "frozen_only": 12,
+        "candidate_only": 20,
+        "exact_paired_p": 0.21532714972272515
+      }
+    }
+  }
+}

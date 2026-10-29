@@ -1,0 +1,73 @@
+{
+  "run_id": "headless_terminal_fix_01",
+  "world_seed": 44556779,
+  "layout_start": 44556779,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 0,
+  "stop_reason": "available_ram_guard",
+  "elapsed_seconds": 189.091069600021,
+  "maximum_sampled_gpu_c": 52,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-29 06-29-07.mp4",
+  "recording_confirmed": true,
+  "milestone": 1,
+  "experiment_stage": "development",
+  "redo_of": null,
+  "execution_kind": "new_execution_not_replay",
+  "headless": true,
+  "spectator": true,
+  "spectator_view": "third_person",
+  "capture_requested_size": [
+    1280,
+    720
+  ],
+  "client_fps_limit": 30,
+  "capture_content_proof": null,
+  "capture_content_proof_error": null,
+  "recording_mode": "OBS_isolated_spectator",
+  "generated_world_instances": 1,
+  "episodes_in_generated_world": 0,
+  "environment_kind": "controlled_flat_survival_fixture",
+  "server_heap_mib": 512,
+  "client_heap_mib": 768,
+  "trial_tick_limit": 400,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "experiment_kind": "policy_goal",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "launcher": "direct",
+  "minimum_sampled_available_ram_mib": 601.62890625,
+  "available_ram_guard_mib": 768,
+  "peak_sampled_process_tree_rss_mib": {
+    "bridge": 112.7890625,
+    "server": 527.15234375,
+    "client": 888.0
+  },
+  "exit_codes_before_cleanup": {
+    "prepare": 0,
+    "bridge": null,
+    "server": null,
+    "client": null
+  },
+  "client_exited_cleanly": false,
+  "server_exited_cleanly": false,
+  "actual_graphics": [
+    "Using graphics backend OpenGL, using drivers: 3.3.0 NVIDIA 617.42",
+    "Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU/PCIe/SSE2 (NVIDIA Corporation)"
+  ],
+  "policy_label": "first_headless_learning_update",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+  "checkpoint_sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f",
+  "implementation_sha256": "5b25f5bb892d415236541a88d86b3c80871144fc2af795e320497b50d90480d0",
+  "milestone_video_status": "missing",
+  "milestone_video_error": "[Errno 2] No such file or directory: 'C:\\\\Users\\\\anass\\\\Documents\\\\FlyCraft\\\\experiments\\\\phase9\\\\headless_terminal_fix_01\\\\server.jsonl'"
+}

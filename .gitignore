@@ -12,6 +12,7 @@ work/
 outputs/
 recordings/**/*.mp4
 recordings/**/*.mkv
+experiments/phase9/**/coordinator.lock
 .env
 .env.*
 **/.gradle/

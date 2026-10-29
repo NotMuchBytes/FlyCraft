@@ -27,7 +27,7 @@ public final class Phase8Harness {
     private static Path cameraProbeResult;
     private static int index = -1, warmup, between, maxTicks;
     private static boolean active, complete;
-    private static long started, programStarted;
+    private static long started, programStarted, policySeed;
     private static double originX, originZ;
     private static int groundY;
     private static int maxSeconds;
@@ -47,6 +47,7 @@ public final class Phase8Harness {
             if (Files.exists(resultsFile)) throw new IllegalStateException("refusing to overwrite Phase 8 results");
             maxTicks = Integer.parseInt(config.getProperty("maxTrialTicks", "1200"));
             maxSeconds = Integer.parseInt(config.getProperty("maxSeconds", "600"));
+            policySeed = Long.parseLong(config.getProperty("policySeed", "9001"));
             trials = new ArrayList<>();
             for (String line : Files.readAllLines(Path.of(config.getProperty("trialsFile")))) {
                 if (line.isBlank() || line.startsWith("#")) continue;
@@ -63,7 +64,7 @@ public final class Phase8Harness {
         control.addProperty("episode_id", String.format("trial_%04d", Math.max(index, 0)));
         Trial trial = trials.get(Math.clamp(index, 0, trials.size() - 1));
         control.addProperty("goal", trial.goal); control.addProperty("condition", trial.condition);
-        control.addProperty("train", trial.train); control.addProperty("policy_seed", 9001);
+        control.addProperty("train", trial.train); control.addProperty("policy_seed", policySeed);
         control.addProperty("active", enabled); control.addProperty("suite_complete", done);
         if (terminal != null) control.add("terminal", terminal.deepCopy());
         // No fixture coordinates, world/layout seeds, future states or success labels.

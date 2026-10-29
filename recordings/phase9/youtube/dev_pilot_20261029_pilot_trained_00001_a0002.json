@@ -1,0 +1,19 @@
+{
+  "run_id": "dev_pilot_20261029_pilot_trained_00001_a0002",
+  "milestone": 1,
+  "stage": "development",
+  "status": "missing",
+  "video": null,
+  "error": "No confirmed recording source exists",
+  "episode_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\dev_pilot_20261029_pilot_trained_00001_a0002\\server.jsonl",
+  "action_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\dev_pilot_20261029_pilot_trained_00001_a0002\\headless.jsonl",
+  "observation_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\dev_pilot_20261029_pilot_trained_00001_a0002\\bridge.jsonl",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+  "checkpoint_sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f",
+  "checkpoint_timing": "before_episode_update",
+  "camera_role": "recording_only",
+  "recording_kind": "synchronized_spectator_capture",
+  "redo_of": null,
+  "replay": false,
+  "actions_altered_for_video": false
+}

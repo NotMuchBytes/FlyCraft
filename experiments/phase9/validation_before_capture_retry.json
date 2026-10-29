@@ -1,0 +1,115 @@
+{
+  "environment": "real Minecraft, controlled flat survival fixtures, crosshair-only",
+  "stage": "development",
+  "conditions": {
+    "trained": {
+      "episodes": 1,
+      "successes": 1,
+      "success_rate": 1.0,
+      "wilson_95": [
+        0.20654931437723745,
+        1
+      ],
+      "world_seeds": [
+        9127220692899967105
+      ],
+      "actions": [
+        4
+      ],
+      "ticks": [
+        99
+      ],
+      "mean_actions": 4.0,
+      "mean_game_seconds": 4.95,
+      "failures": [],
+      "updates_zero": true
+    },
+    "frozen": {
+      "episodes": 1,
+      "successes": 1,
+      "success_rate": 1.0,
+      "wilson_95": [
+        0.20654931437723745,
+        1
+      ],
+      "world_seeds": [
+        9127220692899967105
+      ],
+      "actions": [
+        21
+      ],
+      "ticks": [
+        332
+      ],
+      "mean_actions": 21.0,
+      "mean_game_seconds": 16.6,
+      "failures": [],
+      "updates_zero": true
+    }
+  },
+  "comparisons_to_trained": {
+    "frozen": {
+      "matched_worlds": 1,
+      "trained_only": 0,
+      "control_only": 0,
+      "exact_paired_p": 1.0
+    }
+  },
+  "interval": "95% Wilson, descriptive conditional on these fixtures; small samples",
+  "final_b_used": false,
+  "learning_improvement_established": false,
+  "neural_benefit_established": false,
+  "simulation_retention": {
+    "environment": "Phase7 World2D simulator, not Minecraft",
+    "goals": {
+      "collect_multiple": {
+        "episodes": 100,
+        "before_successes": 74,
+        "after_successes": 73,
+        "before_only": 6,
+        "after_only": 5,
+        "exact_paired_p": 1.0
+      },
+      "collect_nearby": {
+        "episodes": 100,
+        "before_successes": 100,
+        "after_successes": 100,
+        "before_only": 0,
+        "after_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "craft_simple": {
+        "episodes": 100,
+        "before_successes": 100,
+        "after_successes": 100,
+        "before_only": 0,
+        "after_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "find_collect": {
+        "episodes": 100,
+        "before_successes": 100,
+        "after_successes": 100,
+        "before_only": 0,
+        "after_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "navigate_object": {
+        "episodes": 100,
+        "before_successes": 100,
+        "after_successes": 100,
+        "before_only": 0,
+        "after_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "wooden_pickaxe": {
+        "episodes": 100,
+        "before_successes": 65,
+        "after_successes": 61,
+        "before_only": 11,
+        "after_only": 7,
+        "exact_paired_p": 0.480682373046875
+      }
+    }
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "environment": "real Minecraft, controlled flat survival fixtures, crosshair-only",
+  "stage": "development",
+  "conditions": {
+    "trained": {
+      "episodes": 2,
+      "successes": 1,
+      "success_rate": 0.5,
+      "wilson_95": [
+        0.09453120573423074,
+        0.9054687942657693
+      ],
+      "world_seeds": [
+        810842654367122139,
+        5267432988167438838
+      ],
+      "actions": [
+        30,
+        2
+      ],
+      "ticks": [
+        400,
+        74
+      ],
+      "mean_actions": 16.0,
+      "mean_game_seconds": 11.85,
+      "failures": [
+        "episode_boundary"
+      ],
+      "updates_zero": true
+    },
+    "frozen": {
+      "episodes": 2,
+      "successes": 2,
+      "success_rate": 1.0,
+      "wilson_95": [
+        0.34238022750665303,
+        1
+      ],
+      "world_seeds": [
+        810842654367122139,
+        5267432988167438838
+      ],
+      "actions": [
+        10,
+        4
+      ],
+      "ticks": [
+        186,
+        106
+      ],
+      "mean_actions": 7.0,
+      "mean_game_seconds": 7.300000000000001,
+      "failures": [],
+      "updates_zero": true
+    },
+    "uniform": {
+      "episodes": 2,
+      "successes": 1,
+      "success_rate": 0.5,
+      "wilson_95": [
+        0.09453120573423074,
+        0.9054687942657693
+      ],
+      "world_seeds": [
+        810842654367122139,
+        5267432988167438838
+      ],
+      "actions": [
+        30,
+        8
+      ],
+      "ticks": [
+        400,
+        167
+      ],
+      "mean_actions": 19.0,
+      "mean_game_seconds": 14.175,
+      "failures": [
+        "episode_boundary"
+      ],
+      "updates_zero": true
+    },
+    "no_neural": {
+      "episodes": 2,
+      "successes": 0,
+      "success_rate": 0.0,
+      "wilson_95": [
+        0,
+        0.6576197724933469
+      ],
+      "world_seeds": [
+        810842654367122139,
+        5267432988167438838
+      ],
+      "actions": [
+        30,
+        24
+      ],
+      "ticks": [
+        400,
+        400
+      ],
+      "mean_actions": 27.0,
+      "mean_game_seconds": 20.0,
+      "failures": [
+        "episode_boundary",
+        "episode_boundary"
+      ],
+      "updates_zero": true
+    },
+    "shuffled": {
+      "episodes": 2,
+      "successes": 1,
+      "success_rate": 0.5,
+      "wilson_95": [
+        0.09453120573423074,
+        0.9054687942657693
+      ],
+      "world_seeds": [
+        810842654367122139,
+        5267432988167438838
+      ],
+      "actions": [
+        30,
+        8
+      ],
+      "ticks": [
+        400,
+        159
+      ],
+      "mean_actions": 19.0,
+      "mean_game_seconds": 13.975,
+      "failures": [
+        "episode_boundary"
+      ],
+      "updates_zero": true
+    }
+  },
+  "comparisons_to_trained": {
+    "frozen": {
+      "matched_worlds": 2,
+      "trained_only": 0,
+      "control_only": 1,
+      "exact_paired_p": 1.0
+    },
+    "uniform": {
+      "matched_worlds": 2,
+      "trained_only": 0,
+      "control_only": 0,
+      "exact_paired_p": 1.0
+    },
+    "no_neural": {
+      "matched_worlds": 2,
+      "trained_only": 1,
+      "control_only": 0,
+      "exact_paired_p": 1.0
+    },
+    "shuffled": {
+      "matched_worlds": 2,
+      "trained_only": 0,
+      "control_only": 0,
+      "exact_paired_p": 1.0
+    }
+  },
+  "interval": "95% Wilson, descriptive conditional on these fixtures; small samples",
+  "final_b_used": false,
+  "learning_improvement_established": false,
+  "neural_benefit_established": false,
+  "simulation_retention": {
+    "environment": "Phase7 World2D simulator, not Minecraft",
+    "goals": {
+      "collect_multiple": {
+        "episodes": 100,
+        "before_successes": 74,
+        "after_successes": 73,
+        "before_only": 6,
+        "after_only": 5,
+        "exact_paired_p": 1.0
+      },
+      "collect_nearby": {
+        "episodes": 100,
+        "before_successes": 100,
+        "after_successes": 100,
+        "before_only": 0,
+        "after_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "craft_simple": {
+        "episodes": 100,
+        "before_successes": 100,
+        "after_successes": 100,
+        "before_only": 0,
+        "after_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "find_collect": {
+        "episodes": 100,
+        "before_successes": 100,
+        "after_successes": 100,
+        "before_only": 0,
+        "after_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "navigate_object": {
+        "episodes": 100,
+        "before_successes": 100,
+        "after_successes": 100,
+        "before_only": 0,
+        "after_only": 0,
+        "exact_paired_p": 1.0
+      },
+      "wooden_pickaxe": {
+        "episodes": 100,
+        "before_successes": 65,
+        "after_successes": 61,
+        "before_only": 11,
+        "after_only": 7,
+        "exact_paired_p": 0.480682373046875
+      }
+    }
+  }
+}

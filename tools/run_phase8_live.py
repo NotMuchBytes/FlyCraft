@@ -6,6 +6,7 @@ import hashlib
 import math
 import json
 import os
+import shutil
 import socket
 import subprocess
 import sys
@@ -20,6 +21,11 @@ from autonomy.minecraft import CONDITIONS, OBJECTIVES
 from tools.obs_control import ObsRecorder
 from tools.java_launch import command_from_export
 from tools.milestone_video import MILESTONES, require_video_tools, preserve_milestone, compare_capture_frames
+from autonomy.experiment import atomic_json, source_manifest, CampaignLock
+
+
+class SupervisorStop(RuntimeError):
+    pass
 
 
 class EventLogRecording:
@@ -101,7 +107,7 @@ def owned_rss_mib(process):
         return None
 
 
-def main():
+def run():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--work-dir", type=Path, required=True)
@@ -118,18 +124,23 @@ def main():
     parser.add_argument("--seconds", type=int, default=180)
     parser.add_argument("--trial-ticks", type=int, default=600)
     parser.add_argument("--train", action="store_true")
+    parser.add_argument("--policy-seed", type=int, default=9001)
+    parser.add_argument("--stop-file", type=Path, help="Safely interrupt owned processes when this file exists")
+    parser.add_argument("--parent-pid", type=int, help="Coordinator ownership; stop if it disappears")
+    parser.add_argument("--parent-created", type=float)
     parser.add_argument("--camera-mode", choices=("legacy","instant","bounded"), default="bounded")
     parser.add_argument("--turn-degrees", type=float, default=15)
     parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
     parser.add_argument("--graphics-backend", choices=("default","opengl","vulkan"),default="opengl")
     parser.add_argument("--minimum-available-ram-mib", type=int, default=768)
+    parser.add_argument("--minimum-free-disk-mib", type=int, default=2048)
     parser.add_argument("--launcher", choices=("direct", "gradle"), default="direct")
     parser.add_argument("--headless", action="store_true", help="Server-only adapter; structured event logs, no MP4")
     parser.add_argument("--spectator", action="store_true", help="Record a headless agent with an isolated spectator client")
     parser.add_argument("--spectator-view", choices=("third_person","first_person"), default="third_person")
     parser.add_argument("--capture-width", type=int, default=1920)
     parser.add_argument("--capture-height", type=int, default=1080)
-    parser.add_argument("--milestone", type=int, choices=MILESTONES)
+    parser.add_argument("--milestone", type=int, help="Recorded development episode number (1-10000)")
     parser.add_argument("--redo-of", help="Prior development run retained separately; this is a new execution, not a replay")
     parser.add_argument("--video-export-dir", type=Path)
     parser.add_argument("--server-heap-mib", type=int, default=768)
@@ -147,13 +158,15 @@ def main():
         parser.error("use 1-30 trials and a bounded wall limit up to 900 seconds")
     if args.minimum_available_ram_mib < 256:
         parser.error("the RAM reserve must be at least 256 MiB")
-    if not 512<=args.server_heap_mib<=2048 or not 768<=args.client_heap_mib<=2048:
+    if not 384<=args.server_heap_mib<=2048 or not 512<=args.client_heap_mib<=2048:
         parser.error("use bounded server/client heaps")
     if graphical and args.obs_control_dir is None:
         parser.error("graphical trials require --obs-control-dir")
     if args.spectator and not args.headless:
         parser.error("--spectator requires --headless")
     if args.milestone is not None:
+        if not 1<=args.milestone<=10000:
+            parser.error("development recording number must be 1-10000")
         if not args.spectator or args.trials!=1 or len(goals)!=1 or len(conditions)!=1:
             parser.error("a milestone requires one episode and an isolated recorded spectator")
         require_video_tools()
@@ -178,12 +191,9 @@ def main():
         parser.error("run paths must be new")
     server_dir, client_dir = runtime / "server", runtime / "client"
     server_dir.mkdir(parents=True); client_dir.mkdir(); results.mkdir(parents=True)
-    source_paths=[ROOT/"minecraft_bridge.py",ROOT/"minecraft_mod/build.gradle",ROOT/"tools/run_phase8_live.py",ROOT/"tools/java_launch.py"]
-    for source_folder in ("autonomy","learning","simulator","interface","minecraft_mod/src"):
-        source_paths.extend(path for path in (ROOT/source_folder).rglob("*") if path.is_file() and path.suffix in {".py",".java",".json",".png"})
-    source_hashes={str(path.relative_to(ROOT)).replace("\\","/"):hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(set(source_paths)) if path.is_file()}
-    implementation_sha256=hashlib.sha256(json.dumps(source_hashes,sort_keys=True).encode()).hexdigest()
-    (results/"source_manifest.json").write_text(json.dumps({"implementation_sha256":implementation_sha256,"files":source_hashes},indent=2),encoding="utf-8",newline="\n")
+    manifest=source_manifest(ROOT)
+    implementation_sha256=manifest["implementation_sha256"]
+    atomic_json(results/"source_manifest.json",manifest)
     control = runtime / "control.json"
     control.write_text(json.dumps({"episode_id": "initial", "goal": goals[0], "condition": conditions[0],
                                   "train": False, "active": False, "suite_complete": False}), encoding="utf-8")
@@ -194,7 +204,7 @@ def main():
     def java_path(path):
         return str(path).replace("\\", "/")
     (server_dir / "flycraft-phase8.properties").write_text(
-        f"controlFile={java_path(control)}\ntrialsFile={java_path(trials)}\nresultsFile={java_path(results / 'server.jsonl')}\nmaxTrialTicks={args.trial_ticks}\nmaxSeconds={args.seconds}\n", encoding="utf-8")
+        f"controlFile={java_path(control)}\ntrialsFile={java_path(trials)}\nresultsFile={java_path(results / 'server.jsonl')}\nmaxTrialTicks={args.trial_ticks}\nmaxSeconds={args.seconds}\npolicySeed={args.policy_seed}\n", encoding="utf-8")
     capture_title="FlyCraft Recording "+args.run_id
     (client_dir / "flycraft-phase8-client.properties").write_text(f"controlFile={java_path(control)}\ncapture.windowTitle={capture_title}\n", encoding="utf-8")
     camera_trace=results / "camera.jsonl"
@@ -209,12 +219,14 @@ def main():
     if args.headless:
         (server_dir/"flycraft-headless.properties").write_text(
             f"controlFile={java_path(control)}\ntraceFile={java_path(results/'headless.jsonl')}\n"
-            f"camera.mode={args.camera_mode}\ncamera.traceFile={java_path(camera_trace)}\n",encoding="utf-8")
+            f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\ncamera.traceFile={java_path(camera_trace)}\n",encoding="utf-8")
     if args.spectator:
         (client_dir/"flycraft-spectator.properties").write_text(
             f"controlFile={java_path(control)}\nreadyFile={java_path(runtime/'spectator.ready')}\nview={args.spectator_view}\n"
             f"windowTitle={capture_title}\nframeFile={java_path(runtime/'spectator-frame.png')}\n",
             encoding="utf-8")
+        with (client_dir/"flycraft-spectator.properties").open("a",encoding="utf-8") as handle:
+            handle.write(f"captureGate={java_path(runtime/'start.enabled')}\n")
     with (server_dir / "flycraft-phase8.properties").open("a", encoding="utf-8") as handle:
         handle.write(f"startGate={java_path(runtime / 'start.enabled')}\n")
     # Reuse the user's existing local-test EULA acceptance; never open a saved player world.
@@ -241,6 +253,18 @@ def main():
     low_ram_samples = 0
     capture_proof=None
     capture_proof_error=None
+    gpu_utilization=None
+    gpu_memory_mib=None
+    def ownership_check():
+        if args.stop_file is not None and args.stop_file.exists():
+            raise SupervisorStop("manual_stop")
+        if args.parent_pid is not None:
+            try:
+                owner=psutil.Process(args.parent_pid)
+                if args.parent_created is None or abs(owner.create_time()-args.parent_created)>.01:
+                    raise SupervisorStop("coordinator_lost")
+            except psutil.NoSuchProcess:
+                raise SupervisorStop("coordinator_lost")
     try:
         def launch(command, name, cwd):
             handle = (results / (name + "_launcher.log")).open("x", encoding="utf-8")
@@ -250,6 +274,7 @@ def main():
             processes.append(process)
             named_processes[name]=process
             return process
+        ownership_check()
         direct_commands = {}
         if args.launcher == "direct":
             export_dir = runtime / "launch"
@@ -258,6 +283,7 @@ def main():
                 "-PflycraftExportLaunchDir="+java_path(export_dir), "runServer"] + (["runClient"] if graphical else []), "prepare", ROOT / "minecraft_mod")
             preparation_deadline=time.perf_counter()+min(90,args.seconds)
             while preparation.poll() is None:
+                ownership_check()
                 if time.perf_counter()>=preparation_deadline:
                     raise RuntimeError("launch_preparation_timeout")
                 time.sleep(.5)
@@ -280,8 +306,11 @@ def main():
         client = None
         next_thermal = 0
         while time.perf_counter() - started < args.seconds:
+            ownership_check()
             elapsed = time.perf_counter() - started
             available_ram = psutil.virtual_memory().available / 1024**2
+            if shutil.disk_usage(runtime).free/1024**2<args.minimum_free_disk_mib:
+                stop_reason="free_disk_guard"; break
             for process_name,owned_process in named_processes.items():
                 observed_rss=owned_rss_mib(owned_process)
                 if observed_rss is not None:
@@ -291,6 +320,11 @@ def main():
             if low_ram_samples >= 3:
                 stop_reason = "available_ram_guard"; break
             recording_active=recorder.pulse()
+            atomic_json(results/"status.json",{"timestamp_unix":time.time(),"available_ram_mib":available_ram,
+                "cpu_percent":psutil.cpu_percent(),"gpu_temperature_c":temperatures[-1] if temperatures else None,
+                "gpu_utilization_percent":gpu_utilization,"gpu_memory_mib":gpu_memory_mib,
+                "server_alive":server.poll() is None,"client_alive":client is not None and client.poll() is None,
+                "recording_active":recording_active,"completed_episodes":last_rows,"peak_process_rss_mib":peak_process_rss})
             graphics_ready=not graphical
             client_launcher=results / "client_launcher.log"
             if graphical and client_launcher.exists():
@@ -303,9 +337,16 @@ def main():
                 state=recorder.state()
                 game_frame=runtime/"spectator-frame.png"
                 obs_frame=Path(state[6]) if state and state[6] else None
-                if game_frame.is_file() and obs_frame is not None and obs_frame.is_file() and obs_frame.stat().st_mtime>=game_frame.stat().st_mtime:
+                ready_time=(runtime/"spectator.ready").stat().st_mtime if spectator_ready else 0
+                if game_frame.is_file() and obs_frame is not None and obs_frame.is_file() and obs_frame.stat().st_mtime>=ready_time and abs(obs_frame.stat().st_mtime-game_frame.stat().st_mtime)<=3:
                     try:
-                        proof=compare_capture_frames(game_frame,obs_frame)
+                        # Freeze the exact compared bytes; repeated GPU readbacks
+                        # may replace the live screenshot until this gate opens.
+                        frozen_game=runtime/"capture-proof-game.png"
+                        frozen_obs=runtime/"capture-proof-obs.png"
+                        shutil.copyfile(game_frame,frozen_game)
+                        shutil.copyfile(obs_frame,frozen_obs)
+                        proof=compare_capture_frames(frozen_game,frozen_obs)
                         if proof["matched"]:
                             capture_proof=proof
                             recorder.mark_capture_verified()
@@ -337,15 +378,20 @@ def main():
             if elapsed >= next_thermal:
                 next_thermal = elapsed + 5
                 try:
-                    thermal = subprocess.run(["nvidia-smi", "--query-gpu=temperature.gpu", "--format=csv,noheader,nounits"], capture_output=True, text=True, timeout=3)
-                    value = int(thermal.stdout.splitlines()[0]); temperatures.append(value)
+                    thermal = subprocess.run(["nvidia-smi", "--query-gpu=temperature.gpu,utilization.gpu,memory.used", "--format=csv,noheader,nounits"], capture_output=True, text=True, timeout=3)
+                    values=thermal.stdout.splitlines()[0].split(",")
+                    value = int(values[0]); temperatures.append(value)
+                    if len(values)>=3:
+                        gpu_utilization=int(values[1]); gpu_memory_mib=int(values[2])
                     if value >= 75:
                         stop_reason = "gpu_temperature_guard"; break
                 except (OSError, ValueError, IndexError, subprocess.TimeoutExpired):
                     pass
             time.sleep(1)
+    except SupervisorStop as error:
+        stop_reason=str(error)
     except (RuntimeError, OSError) as error:
-        stop_reason = "recording_control_error" if isinstance(error, OSError) else "recording_confirmation_lost" if "OBS" in str(error) else "supervisor_error"
+        stop_reason = "supervisor_io_error" if isinstance(error, OSError) else "recording_confirmation_lost" if "OBS" in str(error) else "supervisor_error"
         print(json.dumps({"error": str(error), "stop_reason": stop_reason}), flush=True)
     finally:
         recording = None
@@ -366,7 +412,6 @@ def main():
             stop(process)
         for handle in handles:
             handle.close()
-        import shutil
         for name, folder in (("server", server_dir), ("client", client_dir)):
             log = folder / "logs/latest.log"
             if log.exists():
@@ -395,7 +440,7 @@ def main():
         summary["server_heap_mib"] = args.server_heap_mib
         summary["client_heap_mib"] = args.client_heap_mib if graphical else None
         summary["trial_tick_limit"] = args.trial_ticks
-        summary["policy_rng_seed"] = 9001
+        summary["policy_rng_seed"] = args.policy_seed
         summary["camera_mode"] = args.camera_mode
         summary["turn_degrees"] = args.turn_degrees
         summary["experiment_kind"] = "scripted_camera_probe_not_policy" if args.camera_probe else "policy_goal"
@@ -436,7 +481,8 @@ def main():
                 destination=ROOT/"recordings/phase9"/video_name
                 # Independent server episode time is a conservative coverage
                 # minimum; OBS was gated before any policy action.
-                scores=[json.loads(line) for line in (results/"server.jsonl").read_text().splitlines()]
+                score_file=results/"server.jsonl"
+                scores=[json.loads(line) for line in score_file.read_text().splitlines()] if score_file.is_file() else []
                 minimum_seconds=sum(row["ticks"]/20 for row in scores)
                 verified=preserve_milestone(recording,destination,minimum_seconds=minimum_seconds)
                 complete=last_rows==len(rows) and summary["stop_reason"]=="suite_complete" and capture_proof is not None
@@ -464,8 +510,25 @@ def main():
                 "replay":False,"actions_altered_for_video":False}
             with (media_folder/(args.run_id+".json")).open("x",encoding="utf-8",newline="\n") as handle:
                 json.dump(media,handle,indent=2)
-        (results / "run.json").write_text(json.dumps(summary, indent=2), encoding="utf-8",newline="\n")
+        atomic_json(results/"run.json",summary)
+        status_file=results/"status.json"
+        try:
+            status=json.loads(status_file.read_text()) if status_file.is_file() else {}
+        except (OSError,ValueError):
+            status={}
+        status.update(lifecycle_updated_unix=time.time(),finalized=True,recording_active=False,
+            server_alive=named_processes.get("server") is not None and named_processes["server"].poll() is None,
+            client_alive=named_processes.get("client") is not None and named_processes["client"].poll() is None,
+            stop_reason=summary["stop_reason"])
+        atomic_json(status_file,status)
         print(json.dumps(summary, indent=2), flush=True)
+
+
+def main():
+    lease_dir=ROOT/".runtime/live-worker"
+    lease_dir.mkdir(parents=True,exist_ok=True)
+    with CampaignLock(lease_dir):
+        run()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,35 @@
+<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="5">
+<title>FlyCraft development dashboard</title><style>
+body{font:16px system-ui;background:#101722;color:#e5efff;margin:32px;max-width:1200px}h1{color:#71aaff}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.cards div,section{padding:16px;background:#1a2536;border-radius:10px;margin-bottom:12px}
+small,strong{display:block}small{color:#a9bfdc}strong{font-size:22px;overflow-wrap:anywhere}table{width:100%;font-size:13px}td,th{padding:7px;text-align:left;border-bottom:1px solid #334}pre{white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:7px}label span{display:block;height:5px;background:#55a7ff}</style>
+<h1>FlyCraft · development</h1><p>Status: committed. Official training worlds: 0. Goal: one log, curriculum level 1.</p>
+<div class="cards"><div><small>generated world instances</small><strong>10</strong></div><div><small>distinct generated seeds</small><strong>2</strong></div><div><small>training episodes</small><strong>0</strong></div><div><small>training updates</small><strong>0</strong></div><div><small>evaluation episodes</small><strong>10</strong></div><div><small>recent training success rate</small><strong>None</strong></div><div><small>mean training reward</small><strong>None</strong></div><div><small>measured training worlds per hour</small><strong>None</strong></div><div><small>estimated remaining seconds</small><strong>None</strong></div></div><p>Throughput is observed worker wall time including startup and filming. Remaining seconds are an estimate. This is a small development pilot, not a learning-performance claim.</p>
+<section><h2>Observed worker resources</h2><pre>{
+  &quot;timestamp_unix&quot;: 1793248356.7318926,
+  &quot;available_ram_mib&quot;: 2887.25,
+  &quot;cpu_percent&quot;: 42.4,
+  &quot;gpu_temperature_c&quot;: 45,
+  &quot;gpu_utilization_percent&quot;: 37,
+  &quot;gpu_memory_mib&quot;: 712,
+  &quot;server_alive&quot;: true,
+  &quot;client_alive&quot;: true,
+  &quot;recording_active&quot;: true,
+  &quot;completed_episodes&quot;: 1,
+  &quot;peak_process_rss_mib&quot;: {
+    &quot;bridge&quot;: 114.22265625,
+    &quot;server&quot;: 607.66796875,
+    &quot;client&quot;: 979.4140625
+  }
+}</pre><p>CPU temperature unavailable. Samples may be absent during startup. Resource timestamps are Unix seconds.</p></section>
+<section><h2>Actual policy readout</h2><p>Requested action: FORWARD; command 8. Execution needs a game acknowledgment.</p><label>NO_OP 0.0860<span style='width:8.598%'></span></label><label>TURN_LEFT 0.6428<span style='width:64.280%'></span></label><label>TURN_RIGHT 0.1186<span style='width:11.857%'></span></label><label>FORWARD 0.1526<span style='width:15.265%'></span></label><label>COLLECT_LOG 0.0000<span style='width:0.000%'></span></label><label>CRAFT_PLANKS 0.0000<span style='width:0.000%'></span></label><label>CRAFT_STICKS 0.0000<span style='width:0.000%'></span></label><label>CRAFT_TABLE 0.0000<span style='width:0.000%'></span></label><label>PLACE_TABLE 0.0000<span style='width:0.000%'></span></label><label>CRAFT_PICKAXE 0.0000<span style='width:0.000%'></span></label><pre>{
+  &quot;bias&quot;: 1.0,
+  &quot;left_readout_div50&quot;: 0.0,
+  &quot;right_readout_div50&quot;: 0.0,
+  &quot;total_readout_div50&quot;: 0.0
+}</pre><p>Fixed neural window: 18 steps; peak active neurons: 0. Feature mode: shuffled.</p><p>Activity comes from the fixed connectome. Only the linear softmax readout is learned. Bias is not neural activity. Bars show action probabilities, not neuron firing animations.</p></section>
+<section><h2>Recent episodes</h2><table><tr><th>Episode</th><th>Split</th><th>Policy</th><th>Outcome</th><th>Actions</th><th>Reward</th><th>Run</th></tr><tr><td>1</td><td>eval_a</td><td>trained</td><td>False</td><td>30</td><td>0.14859157520388894</td><td>dev_controls_20261029_c_eval_a_trained_00001_a0001</td></tr><tr><td>2</td><td>eval_a</td><td>trained</td><td>True</td><td>2</td><td>8.110000000000001</td><td>dev_controls_20261029_c_eval_a_trained_00002_a0002</td></tr><tr><td>1</td><td>eval_a</td><td>frozen</td><td>True</td><td>10</td><td>8.822967155498972</td><td>dev_controls_20261029_c_eval_a_frozen_00001_a0003</td></tr><tr><td>2</td><td>eval_a</td><td>frozen</td><td>True</td><td>4</td><td>7.831921121445992</td><td>dev_controls_20261029_c_eval_a_frozen_00002_a0004</td></tr><tr><td>1</td><td>eval_a</td><td>uniform</td><td>False</td><td>30</td><td>-0.7286133898096426</td><td>dev_controls_20261029_c_eval_a_uniform_00001_a0005</td></tr><tr><td>2</td><td>eval_a</td><td>uniform</td><td>True</td><td>8</td><td>7.881377627419829</td><td>dev_controls_20261029_c_eval_a_uniform_00002_a0006</td></tr><tr><td>1</td><td>eval_a</td><td>no_neural</td><td>False</td><td>30</td><td>0.14859157520388838</td><td>dev_controls_20261029_c_eval_a_no_neural_00001_a0007</td></tr><tr><td>2</td><td>eval_a</td><td>no_neural</td><td>False</td><td>24</td><td>-0.9174328279818087</td><td>dev_controls_20261029_c_eval_a_no_neural_00002_a0008</td></tr><tr><td>1</td><td>eval_a</td><td>shuffled</td><td>False</td><td>30</td><td>0.14859157520388838</td><td>dev_controls_20261029_c_eval_a_shuffled_00001_a0009</td></tr><tr><td>2</td><td>eval_a</td><td>shuffled</td><td>True</td><td>8</td><td>8.464046622072338</td><td>dev_controls_20261029_c_eval_a_shuffled_00002_a0010</td></tr></table></section>
+<section><h2>Safe stop and checkpoint</h2><p>Create the file <code>C:\Users\anass\Documents\FlyCraft\experiments\phase9\dev_controls_20261029_c\STOP</code> or run the CLI stop command. The worker interrupts safely and preserves evidence. Use clear-stop before a later resume.</p><pre>{
+  &quot;path&quot;: &quot;C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz&quot;,
+  &quot;sha256&quot;: &quot;acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5&quot;
+}</pre><pre>[]</pre></section>

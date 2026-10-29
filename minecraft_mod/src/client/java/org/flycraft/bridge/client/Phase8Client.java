@@ -204,7 +204,11 @@ public final class Phase8Client {
                     if (response.get("observe_only").getAsBoolean()) { readyAt = tick + 5; return; }
                     try { control=JsonParser.parseString(Files.readString(taskPath)).getAsJsonObject(); }
                     catch(Exception error) { cancel("control_unavailable_before_execution"); return; }
-                    if(control.has("terminal")) {
+                    if(!expectedEpisode.equals(control.get("episode_id").getAsString())
+                        || !expectedEpisode.equals(response.get("episode_id").getAsString())) {
+                        cancel("episode_replaced_before_execution"); return;
+                    }
+                    if(control.has("terminal") || !control.get("active").getAsBoolean()) {
                         lastAck=new JsonObject();
                         lastAck.addProperty("command_id",response.get("command_id").getAsLong());
                         lastAck.addProperty("action",response.get("action").getAsString());

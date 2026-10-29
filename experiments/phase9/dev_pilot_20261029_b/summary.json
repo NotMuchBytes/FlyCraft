@@ -1,0 +1,29 @@
+{
+  "stage": "development",
+  "official_training_worlds": 0,
+  "generated_world_instances": 6,
+  "unverified_world_counts": 0,
+  "distinct_generated_seeds": 3,
+  "committed_episodes": 4,
+  "training_episodes": 2,
+  "training_updates": 2,
+  "evaluation_episodes": 2,
+  "recent_training_success_rate": 1.0,
+  "mean_training_reward": 9.610535313938254,
+  "measured_training_worlds_per_hour": 46.93411122137828,
+  "estimated_remaining_seconds": 76.70327415000065,
+  "estimate_basis": "measured complete worker wall time, including recording/preparation",
+  "curriculum_level": 1,
+  "goal": "one_log",
+  "progression": "only verified goal enabled",
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+    "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+  },
+  "active_attempt": null,
+  "recent_errors": [
+    "worker did not complete exactly one episode",
+    "worker did not complete exactly one episode"
+  ],
+  "updated_unix": 1793246974.7877529
+}

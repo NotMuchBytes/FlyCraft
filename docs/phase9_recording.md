@@ -21,6 +21,19 @@ must be at most 0.10 and the game image must pass a brightness check. This
 preflight catches the observed wrong capture. It is not continuous verification
 of every video frame; inspect exported footage as well.
 
+The 2026-10-29 pilot exposed another preflight failure: a one-time internal
+screenshot could capture an early sky-only render while OBS showed the settled
+spectator correctly. The observer now waits several rendered frames and retries
+framebuffer capture until the gate opens. The runner compares recent independent
+image copies, then freezes the verified proof bytes. The image-error threshold
+is unchanged; no actor action starts before a match.
+
+Every coordinator development episode is recorded, including policy failures
+and operator interruption tests. Interrupted mining has a playable partial MP4,
+explicitly marked incomplete. Its later retry is a new execution with its own
+recording and attempt ID. An unscored startup recording is not a successful task
+video. Preserve original failures and report missing/partial milestones.
+
 Lua control uses complete command/status frames, ownership tokens, a 60-second
 heartbeat watchdog and safe stop semantics. It refuses to take over unrelated
 recordings. It never sends desktop input. Recording starts before the AI gate
@@ -41,3 +54,11 @@ cannot repair missing footage from an old run. Current missing/rejected attempts
 include `headless_smoke_01`, `headless_recorded_redo_01`,
 `headless_recorded_redo_02` and the pre-launch compilation failure
 `headless_recorded_redo_03`. These are not completed official milestones.
+
+Additional 2026-10-29 startup failures are retained under
+`headless_terminal_fix_01` and `dev_pilot_20261029`: two stopped at the RAM guard
+and one encountered a Windows status-file sharing race. No scored episode
+occurred. A later `dev_pilot_20261029_b` uniform-control attempt never passed
+preflight and is retained as partial evidence. Its correct OBS view was not used
+to bypass the failed internal screenshot. Changed configurations use new
+development campaigns and preserve their source manifests.

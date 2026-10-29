@@ -30,11 +30,13 @@ comparing it with earlier assisted runs. On this Windows laptop, FlyCraft's
 dedicated Java runtime uses the NVIDIA RTX 4050, verified by the selected
 renderer rather than a preference message; see [GPU evidence](docs/windows_gpu.md).
 
-Phase 9 is an ongoing development pilot. A dedicated-server survival actor
-collected a real log with the frozen policy, accompanied by verified
-Minecraft-only MP4 footage and a separate observer with no policy role.
-The supplied local actor skin is installed. The 10,000-world training campaign
-has not started, and broader reliability targets remain pending. See the
+Phase 9 is an ongoing development pilot with transactional checkpoint/resume,
+separate seed sets, a dashboard and mandatory Minecraft-only recording. Three
+real training episodes have committed readout updates. A matched two-seed,
+five-policy comparison establishes no learning or neural benefit; one headless
+plank episode passed from an empty inventory. The supplied local actor skin is
+installed. The 10,000-world campaign has not started, and broader reliability
+targets remain pending. See the
 [current report](PHASE_9_REPORT.md) and [architecture](docs/phase9_architecture.md).
 
 A connectome supplies structural connectivity and annotations. It does not by

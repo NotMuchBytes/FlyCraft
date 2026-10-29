@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="5">
+<title>FlyCraft development dashboard</title><style>
+body{font:16px system-ui;background:#101722;color:#e5efff;margin:32px;max-width:1200px}h1{color:#71aaff}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.cards div,section{padding:16px;background:#1a2536;border-radius:10px;margin-bottom:12px}
+small,strong{display:block}small{color:#a9bfdc}strong{font-size:22px;overflow-wrap:anywhere}table{width:100%;font-size:13px}td,th{padding:7px;text-align:left;border-bottom:1px solid #334}pre{white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:7px}label span{display:block;height:5px;background:#55a7ff}</style>
+<h1>FlyCraft · development</h1><p>Status: interrupted. Official training worlds: 0. Goal: one log, curriculum level 1.</p>
+<div class="cards"><div><small>generated world instances</small><strong>6</strong></div><div><small>distinct generated seeds</small><strong>3</strong></div><div><small>training episodes</small><strong>2</strong></div><div><small>training updates</small><strong>2</strong></div><div><small>evaluation episodes</small><strong>2</strong></div><div><small>recent training success rate</small><strong>1.0</strong></div><div><small>mean training reward</small><strong>9.610535313938254</strong></div><div><small>measured training worlds per hour</small><strong>46.93411122137828</strong></div><div><small>estimated remaining seconds</small><strong>76.70327415000065</strong></div></div><p>Throughput is observed worker wall time including startup and filming. Remaining seconds are an estimate. This is a small development pilot, not a learning-performance claim.</p>
+<section><h2>Observed worker resources</h2><pre>{
+  &quot;timestamp_unix&quot;: 1793246960.2637095,
+  &quot;available_ram_mib&quot;: 2472.11328125,
+  &quot;cpu_percent&quot;: 30.4,
+  &quot;gpu_temperature_c&quot;: 43,
+  &quot;server_alive&quot;: true,
+  &quot;client_alive&quot;: true,
+  &quot;recording_active&quot;: true,
+  &quot;completed_episodes&quot;: 0,
+  &quot;peak_process_rss_mib&quot;: {
+    &quot;bridge&quot;: 166.625,
+    &quot;server&quot;: 565.6796875,
+    &quot;client&quot;: 982.76171875
+  }
+}</pre><p>CPU temperature unavailable. Samples may be absent during startup. Resource timestamps are Unix seconds.</p></section>
+<section><h2>Actual policy readout</h2><p>No neural decision sample yet.</p><p>Activity comes from the fixed connectome. Only the linear softmax readout is learned. Bias is not neural activity. Bars show action probabilities, not neuron firing animations.</p></section>
+<section><h2>Recent episodes</h2><table><tr><th>Episode</th><th>Split</th><th>Policy</th><th>Outcome</th><th>Actions</th><th>Reward</th><th>Run</th></tr><tr><td>1</td><td>pilot</td><td>trained</td><td>True</td><td>15</td><td>10.239485297880538</td><td>dev_pilot_20261029_b_pilot_trained_00001_a0001</td></tr><tr><td>2</td><td>pilot</td><td>trained</td><td>interrupted</td><td>—</td><td>—</td><td>dev_pilot_20261029_b_pilot_trained_00002_a0002</td></tr><tr><td>2</td><td>pilot</td><td>trained</td><td>True</td><td>5</td><td>8.98158532999597</td><td>dev_pilot_20261029_b_pilot_trained_00002_a0003</td></tr><tr><td>1</td><td>eval_a</td><td>trained</td><td>True</td><td>4</td><td>8.4388913565113</td><td>dev_pilot_20261029_b_eval_a_trained_00001_a0004</td></tr><tr><td>1</td><td>eval_a</td><td>frozen</td><td>True</td><td>21</td><td>8.65588960899526</td><td>dev_pilot_20261029_b_eval_a_frozen_00001_a0005</td></tr><tr><td>1</td><td>eval_a</td><td>uniform</td><td>interrupted</td><td>—</td><td>—</td><td>dev_pilot_20261029_b_eval_a_uniform_00001_a0006</td></tr></table></section>
+<section><h2>Safe stop and checkpoint</h2><p>Create the file <code>C:\Users\anass\Documents\FlyCraft\experiments\phase9\dev_pilot_20261029_b\STOP</code> or run the CLI stop command. The worker interrupts safely and preserves evidence. Use clear-stop before a later resume.</p><pre>{
+  &quot;path&quot;: &quot;C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz&quot;,
+  &quot;sha256&quot;: &quot;acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5&quot;
+}</pre><pre>[
+  &quot;worker did not complete exactly one episode&quot;,
+  &quot;worker did not complete exactly one episode&quot;
+]</pre></section>

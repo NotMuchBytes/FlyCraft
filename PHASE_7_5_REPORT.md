@@ -42,7 +42,7 @@ Graphics Capture and image preflight now gate new recorded trials.
 
 ## Verification and limits
 
-The latest full suite passed 74 tests in 17.153 seconds, covering old behavior
+The October 28 full suite passed 74 tests in 17.153 seconds, covering old behavior
 plus terminal inventory, interruption/acknowledgment handling, restoration,
 camera kinematics, launch arguments and recording integrity. Fabric compiled
 and the accepted headless redo's client/server exited cleanly. The existing
@@ -67,3 +67,37 @@ Next: run independent strict one-log trials across starting conditions, validate
 real interrupted mining and reconnect recovery, then collect the required
 matched five-policy comparisons. Keep negative results and MP4 gaps explicit.
 Finish these reliability gates before claiming broader natural-world autonomy.
+
+## October 29 reliability and learning increment
+
+The full automated suite now passes **90 tests in 16.376 seconds**. Passive
+terminal pickup updates goal memory without inventing an executed action;
+unsafe reward attribution suppresses learning. Both adapters reject replies
+for obsolete episode IDs. Successful terminal cancellation no longer creates
+a false failed action/recovery. Windows status-file reader contention and
+early-render capture preflight failures received bounded retry fixes.
+
+A live STOP/resume check preserved an interrupted episode and partial MP4,
+discarded its candidate update, and restored the last committed checkpoint in
+a fresh attempt. Two new real training episodes committed verified readout
+updates. The serial coordinator uses durable state, source/checkpoint hashes,
+exclusive worker leases and finite jobs. Connection-loss and mining-interruption
+reliability across repeated real sessions remain unestablished.
+
+The five-policy strict live comparison used two matched development seeds:
+trained 1/2, original frozen Phase 7 2/2, uniform 1/2, neural removal 0/2,
+shuffled features 1/2. All ten MP4s are verified. All paired exact p-values
+are 1.0, so neither a learning gain nor causal neural benefit is established.
+The trained failure repeated unproductive turns/movements until its finite
+400-tick deadline; one detected stagnation/replan did not recover the goal.
+
+A separate empty-inventory plank pilot collected a log and crafted four planks
+in four actions/93 ticks (1/1), with actual block/inventory confirmation and
+a verified MP4. Recipe clicks remain an engineered action transaction. The
+simulation-only retention and rehearsal experiments show possible task tradeoffs,
+without significant improvement; neither rehearsal candidate was promoted.
+Details and actual intervals are in `PHASE_9_REPORT.md`.
+
+The strict 80%-of-30 live one-log gate remains unmet. Phase 7.5 is not complete.
+Preserve the current evidence and broaden independent strict evaluations before
+scaling or claiming reliable natural-world collection.

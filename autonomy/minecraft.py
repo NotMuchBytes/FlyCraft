@@ -99,6 +99,7 @@ class LiveResourceController:
         self.checkpoint_dir = checkpoint_dir
         self.control_file = control_file
         self.terminal_ack_episode = None
+        self.raw_neural_features = None
         self.episode_id = None
         self.condition = "trained"
         self.pending_id = None
@@ -215,11 +216,13 @@ class LiveResourceController:
                     return self._reply("NO_OP", 0, started)
                 return self._reply("NO_OP", 0, started, observe_only=True)
             self.ack_waits = 0
+            passive_before = None
             if terminal and ack and ack.get("status") == "not_executed" and self.pending_id is not None:
                 self.agent.session["requested_train"] = self.agent.session["train"]
                 self.agent.session["train"] = False
                 self.agent.session["training_suppressed"] = "unexecuted_terminal_command"
                 self.agent.session["unexecuted_command_id"] = self.pending_id
+                passive_before = self.agent.pending[3] if self.agent.pending is not None else None
                 self.agent.pending = None
                 self.pending_id = None
             if terminal:
@@ -252,6 +255,12 @@ class LiveResourceController:
                 "allowed_actions": [a for a in telemetry["allowed_actions"] if a in ACTIONS],
                 "last_error": ack.get("error", "") if ack and self.pending_id is not None else "",
                 "resource_exhausted": False, "interrupted": bool(ack and ack.get("status") == "interrupted")}
+            if terminal and self.agent.pending and ack and ack.get("error") == "episode_boundary" \
+                    and self.agent.manager.goals[self.agent.manager.root].satisfied(observation):
+                # Ending a successful goal cancels any remaining held input.
+                # That lifecycle cancellation is not an action failure/recovery.
+                observation["last_error"] = ""
+                observation["interrupted"] = False
             if self.needs_start or self.agent.session is None:
                 self.agent.start(OBJECTIVES[control["goal"]], observation,
                                  train=bool(control.get("train", False)) and self.condition == "trained")
@@ -267,9 +276,7 @@ class LiveResourceController:
                 self.agent.session["terminal_server_tick"] = int(terminal["server_tick"])
                 self.agent.session["terminal_inventory"] = inventory.copy()
                 if not self.agent.session["done"]:
-                    self.agent.manager.update(observation)
-                    success = self.agent.manager.success
-                    self.agent._finish(success, "success" if success else "episode_boundary")
+                    self.agent.observe_terminal(observation, before=passive_before)
                 self._record()
                 self._ack_terminal(episode)
                 return self._reply("NO_OP", 0, started)
@@ -277,11 +284,13 @@ class LiveResourceController:
                 self._record()
                 return self._reply("NO_OP", 0, started)
             neural, _, peak = self.neural.neural_observation(request.get("sector"))
+            self.raw_neural_features = np.array(neural, copy=True)
             if self.condition == "no_neural":
                 neural = np.array([1., 0., 0., 0.])
             elif self.condition == "shuffled":
-                swaps = {"far_left": "far_right", "left": "right", "right": "left", "far_right": "far_left"}
-                neural = self.table.for_sector(swaps.get(request.get("sector"), request.get("sector")))
+                # Fixed column permutation of the actual neural window. Bias
+                # stays fixed; even centered observations receive the intervention.
+                neural = neural[[0, 3, 1, 2]]
             action = self.agent.choose_action(observation, neural=neural)
             if self.agent.session["done"]:
                 self._record()
@@ -300,7 +309,22 @@ class LiveResourceController:
 
     def _reply(self, action, command, started, *, observe_only=False, peak=0):
         done = self.agent.session is not None and self.agent.session["done"] and self.episode_id is not None
+        neural = None
+        probabilities = None
+        inputs = None
+        if command and self.agent.pending is not None:
+            features, _, distribution, _ = self.agent.pending
+            raw = self.raw_neural_features if self.raw_neural_features is not None else features[:4]
+            neural = {name: float(value) for name, value in zip(
+                ("bias", "left_readout_div50", "right_readout_div50", "total_readout_div50"), raw)}
+            inputs = dict(zip(("bias", "left_input", "right_input", "total_input"), map(float, features[:4])))
+            probabilities = dict(zip(ACTIONS, map(float, distribution)))
         return {"action": action, "command_id": command, "observe_only": observe_only,
+                "neural_features": neural, "action_probabilities": probabilities,
+                "policy_neural_inputs": inputs,
+                "feature_intervention": "fixed_activity_permutation_3_1_2_bias_retained" if self.condition=="shuffled" else "zero_activity_bias_retained" if self.condition=="no_neural" else "none",
+                "feature_mode": self.condition, "learning_scope": "linear_softmax_readout_only",
+                "cumulative_reward": self.agent.session["total_reward"] if self.agent.session else None,
                 "terminal_acknowledged": self.terminal_ack_episode == self.episode_id and self.episode_id is not None,
                 "autonomy_status": self.agent.session["termination"] if done else "running", "episode_id": self.episode_id,
                 "policy_source": self.policy_source + ":" + self.condition, "peak_global_active": peak,

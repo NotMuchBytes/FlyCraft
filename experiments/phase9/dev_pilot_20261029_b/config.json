@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "name": "dev_pilot_20261029_b",
+  "stage": "development",
+  "world_limit": 3,
+  "goal": "one_log",
+  "curriculum_level": 1,
+  "initial_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+    "sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f"
+  },
+  "catalog_sha256": "763ee081f13b79fd3005c4573ed2f9be2698f6fc786f4784dbb9db97291fddd4",
+  "created_unix": 1793246012.4360938,
+  "implementation_sha256": "b469e918b63fa40e96c6f96d4545a00323f80c509b1cabb53bb5e0eae9b3a029",
+  "runtime_profile": {
+    "server_heap_mib": 384,
+    "client_heap_mib": 512,
+    "width": 854,
+    "height": 480
+  },
+  "final_policy": null,
+  "official_experiment_authorized": false
+}

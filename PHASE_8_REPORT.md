@@ -246,3 +246,24 @@ reward baselines across multiple training seeds. Separate transaction
 reliability from policy success, test interrupted actions and reconnects in
 real game sessions, and progressively replace nearby flat fixtures with
 unseen terrain and natural tree search. Retain all negative results.
+
+## October 29 development follow-up
+
+The preserved headless implementation now has a verified empty-inventory
+log-to-four-planks trial: four policy-selected actions, one actual block broken,
+inventory log pickup followed by planks=4, 93 ticks, clean game exits and a
+fully decoded MP4. Vanilla inventory clicks form an engineered recipe macro;
+camera actions remain policy-selected with crosshair-only mining. This 1/1
+pilot does not meet the 30-trial plank target. Headless sticks, table and
+pickaxe transactions remain absent; existing graphical transactions are kept.
+
+A strict, matched two-seed comparison scored trained 1/2, frozen original
+Phase 7 2/2, uniform 1/2, no-neural 0/2 and shuffled 1/2. Every scored episode
+has verified footage, but the sample establishes no learning or neural benefit.
+Two new real readout updates committed through the bounded serial coordinator;
+an interrupted candidate was retained without promotion. All 90 automated tests
+pass. Full results, retention experiments and recording gaps are documented in
+`PHASE_9_REPORT.md`.
+
+Historical assisted 29/30 results remain separate. Strict one-log reliability
+and the three-log/plank/pickaxe 30-trial gates remain unmet. Phase 8 is not done.

@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "config_sha256": "88f5c55f18ba430770a747be56320e982e44193c7ba4f825c0ee7db9a5d0486b",
+  "current_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+    "sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f"
+  },
+  "active_attempt": null,
+  "attempts": [
+    {
+      "number": 1,
+      "episode_number": 1,
+      "run_id": "dev_pilot_20261029_pilot_trained_00001_a0001",
+      "split": "pilot",
+      "condition": "trained",
+      "world_seed": 8338200656347676539,
+      "layout_seed": 8338200656347676539,
+      "policy_seed": 9001,
+      "goal": "one_log",
+      "train": true,
+      "checkpoint": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+        "sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f"
+      },
+      "status": "interrupted",
+      "started_unix": 1793245609.0366595,
+      "generated_world_instances": 1,
+      "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\dev_pilot_20261029_pilot_trained_00001_a0001",
+      "worker_pid": 25888,
+      "worker_created": 1793245609.044196,
+      "finished_unix": 1793245673.6638222,
+      "error": "worker did not complete exactly one episode",
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\dev_pilot_20261029_pilot_trained_00001_a0001"
+    },
+    {
+      "number": 2,
+      "episode_number": 1,
+      "run_id": "dev_pilot_20261029_pilot_trained_00001_a0002",
+      "split": "pilot",
+      "condition": "trained",
+      "world_seed": 8338200656347676539,
+      "layout_seed": 8338200656347676539,
+      "policy_seed": 9001,
+      "goal": "one_log",
+      "train": true,
+      "checkpoint": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+        "sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f"
+      },
+      "status": "interrupted",
+      "started_unix": 1793245823.250758,
+      "generated_world_instances": 1,
+      "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\dev_pilot_20261029_pilot_trained_00001_a0002",
+      "worker_pid": 9856,
+      "worker_created": 1793245823.2568862,
+      "finished_unix": 1793245875.7508218,
+      "error": "worker did not complete exactly one episode",
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\dev_pilot_20261029_pilot_trained_00001_a0002"
+    }
+  ],
+  "final_policy": null
+}

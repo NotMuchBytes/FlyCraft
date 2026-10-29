@@ -147,6 +147,10 @@ public final class HeadlessAgent implements AutoCloseable {
                         if(response.get("observe_only").getAsBoolean()) return;
                         try { control=JsonParser.parseString(Files.readString(controlFile)).getAsJsonObject(); }
                         catch(IOException error) { throw new IllegalStateException("Lifecycle changed before action execution",error); }
+                        if(!expected.equals(control.get("episode_id").getAsString())
+                            || !expected.equals(response.get("episode_id").getAsString())) {
+                            cancel("episode_replaced_before_execution",server.getTickCount()); return;
+                        }
                         if(control.has("terminal") || !control.get("active").getAsBoolean()) {
                             ack=JSON.toJsonTree(Map.of("command_id",response.get("command_id").getAsLong(),
                                 "action",response.get("action").getAsString(),"status","not_executed",
@@ -251,7 +255,9 @@ public final class HeadlessAgent implements AutoCloseable {
         switch(action) {
             case "NO_OP" -> { }
             case "TURN_LEFT","TURN_RIGHT" -> {
-                var accepted=camera.relative(view,id,action.equals("TURN_LEFT") ? -15 : 15,0,observationTick,tick,observationNanos);
+                double degrees=Double.parseDouble(properties.getProperty("camera.turnDegrees","15"));
+                if(!Double.isFinite(degrees) || degrees<=0 || degrees>45) throw new IllegalArgumentException("Invalid turn magnitude");
+                var accepted=camera.relative(view,id,action.equals("TURN_LEFT") ? -degrees : degrees,0,observationTick,tick,observationNanos);
                 if(!accepted.accepted()) finish("failed",accepted.reason(),false,tick);
             }
             case "FORWARD" -> { player.forwardTicks=5; readyAt=tick+5; }

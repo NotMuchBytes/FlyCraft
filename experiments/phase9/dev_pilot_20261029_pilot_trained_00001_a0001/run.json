@@ -1,0 +1,73 @@
+{
+  "run_id": "dev_pilot_20261029_pilot_trained_00001_a0001",
+  "world_seed": 8338200656347676539,
+  "layout_start": 8338200656347676539,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 0,
+  "stop_reason": "available_ram_guard",
+  "elapsed_seconds": 62.868085900030565,
+  "maximum_sampled_gpu_c": 46,
+  "train": true,
+  "recording": null,
+  "recording_confirmed": false,
+  "milestone": 1,
+  "experiment_stage": "development",
+  "redo_of": null,
+  "execution_kind": "new_execution_not_replay",
+  "headless": true,
+  "spectator": true,
+  "spectator_view": "third_person",
+  "capture_requested_size": [
+    854,
+    480
+  ],
+  "client_fps_limit": 30,
+  "capture_content_proof": null,
+  "capture_content_proof_error": null,
+  "recording_mode": "OBS_isolated_spectator",
+  "generated_world_instances": 1,
+  "episodes_in_generated_world": 0,
+  "environment_kind": "controlled_flat_survival_fixture",
+  "server_heap_mib": 384,
+  "client_heap_mib": 512,
+  "trial_tick_limit": 400,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "experiment_kind": "policy_goal",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "launcher": "direct",
+  "minimum_sampled_available_ram_mib": 689.1328125,
+  "available_ram_guard_mib": 768,
+  "peak_sampled_process_tree_rss_mib": {
+    "bridge": 113.8046875,
+    "server": 545.4609375,
+    "client": 538.38671875
+  },
+  "exit_codes_before_cleanup": {
+    "prepare": 0,
+    "bridge": null,
+    "server": null,
+    "client": null
+  },
+  "client_exited_cleanly": false,
+  "server_exited_cleanly": false,
+  "actual_graphics": [],
+  "policy_label": "six_live_log_episodes",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+  "checkpoint_sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f",
+  "implementation_sha256": "acd4a58d8f4cfdb108c9f4893904a814c90917357094f83adb26c5892d48e0a5",
+  "frozen_label": "phase7_frozen_transfer",
+  "frozen_checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+  "frozen_checkpoint_sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f",
+  "milestone_video_status": "missing",
+  "milestone_video_error": "No confirmed recording source exists"
+}

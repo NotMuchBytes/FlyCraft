@@ -1,0 +1,11 @@
+run_id,split,condition,episode_number,world_seed,status,success,ticks,actions,total_reward,wall_seconds,training_applied
+dev_controls_20261029_c_eval_a_trained_00001_a0001,eval_a,trained,1,810842654367122139,committed,False,400,30,0.14859157520388894,90.77994310000213,False
+dev_controls_20261029_c_eval_a_trained_00002_a0002,eval_a,trained,2,5267432988167438838,committed,True,74,2,8.110000000000001,71.70249570003944,False
+dev_controls_20261029_c_eval_a_frozen_00001_a0003,eval_a,frozen,1,810842654367122139,committed,True,186,10,8.822967155498972,77.30970730003901,False
+dev_controls_20261029_c_eval_a_frozen_00002_a0004,eval_a,frozen,2,5267432988167438838,committed,True,106,4,7.831921121445992,73.27091680001467,False
+dev_controls_20261029_c_eval_a_uniform_00001_a0005,eval_a,uniform,1,810842654367122139,committed,False,400,30,-0.7286133898096426,87.57361210003728,False
+dev_controls_20261029_c_eval_a_uniform_00002_a0006,eval_a,uniform,2,5267432988167438838,committed,True,167,8,7.881377627419829,75.5874671000056,False
+dev_controls_20261029_c_eval_a_no_neural_00001_a0007,eval_a,no_neural,1,810842654367122139,committed,False,400,30,0.14859157520388838,90.18871229997603,False
+dev_controls_20261029_c_eval_a_no_neural_00002_a0008,eval_a,no_neural,2,5267432988167438838,committed,False,400,24,-0.9174328279818087,92.66748459998053,False
+dev_controls_20261029_c_eval_a_shuffled_00001_a0009,eval_a,shuffled,1,810842654367122139,committed,False,400,30,0.14859157520388838,90.59792329999618,False
+dev_controls_20261029_c_eval_a_shuffled_00002_a0010,eval_a,shuffled,2,5267432988167438838,committed,True,159,8,8.464046622072338,78.59707760001766,False

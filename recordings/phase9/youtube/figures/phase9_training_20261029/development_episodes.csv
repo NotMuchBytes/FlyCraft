@@ -1,0 +1,7 @@
+run_id,split,condition,episode_number,world_seed,status,success,ticks,actions,total_reward,wall_seconds,training_applied
+dev_pilot_20261029_b_pilot_trained_00001_a0001,pilot,trained,1,7898523939352789152,committed,True,240,15,10.239485297880538,82.36968299996806,True
+dev_pilot_20261029_b_pilot_trained_00002_a0002,pilot,trained,2,8945550618337943518,interrupted,,,,,,
+dev_pilot_20261029_b_pilot_trained_00002_a0003,pilot,trained,2,8945550618337943518,committed,True,116,5,8.98158532999597,71.03686530003324,True
+dev_pilot_20261029_b_eval_a_trained_00001_a0004,eval_a,trained,1,9127220692899967105,committed,True,99,4,8.4388913565113,71.6272159999935,False
+dev_pilot_20261029_b_eval_a_frozen_00001_a0005,eval_a,frozen,1,9127220692899967105,committed,True,332,21,8.65588960899526,82.12170829996467,False
+dev_pilot_20261029_b_eval_a_uniform_00001_a0006,eval_a,uniform,1,9127220692899967105,interrupted,,,,,,

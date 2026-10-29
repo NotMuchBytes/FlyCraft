@@ -1,0 +1,29 @@
+{
+  "stage": "development",
+  "official_training_worlds": 0,
+  "generated_world_instances": 2,
+  "unverified_world_counts": 0,
+  "distinct_generated_seeds": 1,
+  "committed_episodes": 0,
+  "training_episodes": 0,
+  "training_updates": 0,
+  "evaluation_episodes": 0,
+  "recent_training_success_rate": null,
+  "mean_training_reward": null,
+  "measured_training_worlds_per_hour": null,
+  "estimated_remaining_seconds": null,
+  "estimate_basis": "measured complete worker wall time, including recording/preparation",
+  "curriculum_level": 1,
+  "goal": "one_log",
+  "progression": "only verified goal enabled",
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\headless_learning_pilot_01\\trial_0000.npz",
+    "sha256": "06e41aca4e12b62ae191e22d9214779783485adccc9374f6cd7ddbd2b35c741f"
+  },
+  "active_attempt": null,
+  "recent_errors": [
+    "worker did not complete exactly one episode",
+    "worker did not complete exactly one episode"
+  ],
+  "updated_unix": 1793245875.7624266
+}
