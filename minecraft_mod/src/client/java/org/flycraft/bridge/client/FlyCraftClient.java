@@ -52,6 +52,10 @@ public final class FlyCraftClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		if(java.nio.file.Files.exists(java.nio.file.Path.of("flycraft-companion.properties"))) {
+			new CompanionClient().initialize();
+			return;
+		}
 		if(java.nio.file.Files.exists(java.nio.file.Path.of("flycraft-spectator.properties"))) {
 			new SpectatorClient().initialize(); return;
 		}

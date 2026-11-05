@@ -1,0 +1,52 @@
+{
+  "kind": "engineered_companion_follow_not_neural_evaluation",
+  "token": "companion_follow_20261031",
+  "stage": "failed_preserving_evidence",
+  "training_updates": 0,
+  "minimum_available_ram_mib": 757.55078125,
+  "capture_proof": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.062257171387073346,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\companion_20261031\\follow-frame.png",
+    "game_frame_sha256": "cc74c1a0c6cb9d9a334091c1b1520bf43731be225b23644610631ce128ce6886",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\Screenshot 2026-10-31 09-11-48.png",
+    "obs_frame_sha256": "59dce6f70cfd4f121b148d48ce74a67f0519732f282260fde3c6e7430daa1c41",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "command_acknowledgments": [
+    {
+      "request_id": "d8ef3b937f3b43ff8d0d1a476c989043",
+      "command": "follow",
+      "alive": true,
+      "following": true,
+      "server_tick": 1590
+    }
+  ],
+  "follow_started_unix": 1793427153.076814,
+  "error": "RuntimeError('No server acknowledgment for stop')",
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 3140,
+    "duration_seconds": 104.7,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "3141"
+    },
+    "bytes": 82867375,
+    "sha256": "20682a7e76a60a83c18dc9d5aae8852785f9ad91db6ff2af789780e605e2a90a",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-10-31 09-11-35.mp4",
+    "path": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\FlyCraft_Companion_Follow_20261031.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ]
+  },
+  "elapsed_seconds": 342.2609314918518
+}

@@ -19,5 +19,6 @@ public abstract class CameraRenderMixin {
         if(Phase8Client.INSTANCE!=null) Phase8Client.INSTANCE.renderedCamera(camera.yRot(),camera.xRot());
         else if(FlyCraftClient.INSTANCE!=null) FlyCraftClient.INSTANCE.renderedCamera(camera.yRot(),camera.xRot());
         if(SpectatorClient.INSTANCE!=null) SpectatorClient.INSTANCE.rendered();
+        if(org.flycraft.bridge.client.CompanionClient.INSTANCE!=null) org.flycraft.bridge.client.CompanionClient.INSTANCE.rendered();
     }
 }

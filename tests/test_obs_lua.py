@@ -90,6 +90,10 @@ assert(capture_settings.method==2 and capture_settings.priority==0,'require WGC 
 assert(capture_settings.window=='FlyCraft Recording C:GLFW30:java.exe','capture only this run')
 write_command('C','start_verified',true); poller(); assert(active,'capture proof preserves recording')
 capture_settings.method=1; poller(); assert(not active and stops==3,'unsafe capture change stops owned recording')
+script_load({{command_file=command_path,state_file=state_path,window_class='SDL_app',process_name='javaw.exe'}})
+write_command('D','start',true); poller(); active=true; poller()
+assert(capture_settings.window=='FlyCraft Recording D:SDL_app:javaw.exe','SDL capture retains exact token and executable')
+write_command('D','stop',true); poller(); assert(stops==4 and not active)
 """
                 code = stub + (ROOT / "tools/obs_recording.lua").read_text(encoding="utf-8") + cases
                 error = library.luaL_loadstring(state, code.encode())

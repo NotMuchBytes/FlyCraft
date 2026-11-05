@@ -47,6 +47,11 @@ public final class HeadlessAgent implements AutoCloseable {
     private String episode="",stopped="",terminalHandled="",action="";
     private long commandId,actionStarted,readyAt,inventoryRevision=1;
     private Map<String,Integer> previousInventory=Map.of();
+    private static final ThreadLocal<HeadlessAgent> RESPAWNING=new ThreadLocal<>();
+    private CompanionFollower follower;
+    private long modeRevision,followCommand;
+    private boolean deathReported;
+    private String followStatus="paused";
     private BlockHitResult miningHit;
     private final CameraDriver.View view=new CameraDriver.View() {
         public double yaw() { return player.getYRot(); }
@@ -58,7 +63,10 @@ public final class HeadlessAgent implements AutoCloseable {
         properties=new Properties();
         try(var reader=Files.newBufferedReader(Path.of("flycraft-headless.properties"))) {
             properties.load(reader); controlFile=Path.of(properties.getProperty("controlFile"));
-            trace=Files.newBufferedWriter(Path.of(properties.getProperty("traceFile")),StandardOpenOption.CREATE_NEW);
+            Path tracePath=Path.of(properties.getProperty("traceFile"));
+            if(Boolean.parseBoolean(properties.getProperty("companion.enabled","false")))
+                tracePath=tracePath.resolveSibling(tracePath.getFileName()+"."+System.currentTimeMillis()+".jsonl");
+            trace=Files.newBufferedWriter(tracePath,StandardOpenOption.CREATE_NEW);
         } catch(IOException error) { throw new IllegalStateException(error); }
         forwardTicks=Integer.parseInt(properties.getProperty("motor.forwardTicks","5"));
         verifyMovement=Boolean.parseBoolean(properties.getProperty("motor.verifyMovement","true"));
@@ -71,7 +79,10 @@ public final class HeadlessAgent implements AutoCloseable {
         int forwardTicks;
         long lastPhysicsTick=-1,physicsTicks;
         Actor(MinecraftServer server,ServerLevel level,CommonListenerCookie cookie) {
-            super(server,level,cookie.gameProfile(),cookie.clientInformation()); owner=server;
+            this(server,level,cookie.gameProfile(),cookie.clientInformation());
+        }
+        Actor(MinecraftServer server,ServerLevel level,GameProfile profile,ClientInformation information) {
+            super(server,level,profile,information); owner=server;
         }
         @Override public void tick() {
             if(lastPhysicsTick==owner.getTickCount()) return;
@@ -88,7 +99,8 @@ public final class HeadlessAgent implements AutoCloseable {
     }
 
     private void spawn(MinecraftServer server) {
-        if(!server.getPlayerList().getPlayers().isEmpty()) throw new IllegalStateException("Headless environment must start without players");
+        if(!Boolean.parseBoolean(properties.getProperty("companion.enabled","false"))
+            && !server.getPlayerList().getPlayers().isEmpty()) throw new IllegalStateException("Headless environment must start without players");
         UUID id=UUID.nameUUIDFromBytes(Path.of("").toAbsolutePath().toString().getBytes(StandardCharsets.UTF_8));
         var cookie=CommonListenerCookie.createInitial(new GameProfile(id,"FlyCraftAgent"),false);
         player=new Actor(server,server.overworld(),cookie);
@@ -106,10 +118,30 @@ public final class HeadlessAgent implements AutoCloseable {
 
     public void tick(MinecraftServer server) {
         if(player==null) { spawn(server); return; }
-        for(ServerPlayer observer:server.getPlayerList().getPlayers())
-            if(observer!=player && !observer.isSpectator()) observer.setGameMode(GameType.SPECTATOR);
+        if(!Boolean.parseBoolean(properties.getProperty("companion.enabled","false")))
+            for(ServerPlayer observer:server.getPlayerList().getPlayers())
+                if(observer!=player && !observer.isSpectator()) observer.setGameMode(GameType.SPECTATOR);
         player.tick(); drainPackets();
         long tick=server.getTickCount();
+        if(!player.isAlive()) {
+            cancel("player_died",tick); follower=null; followStatus="dead";
+            if(!deathReported) { modeRevision++; deathReported=true; event("companion_death",Map.of("server_tick",tick)); }
+            return;
+        }
+        if(follower!=null) {
+            var step=follower.tick(server,player); var movement=step.movement();
+            camera.velocity(view,++followCommand,movement.yawRate(),0,tick,5);
+            camera.tick(view,tick); player.setYHeadRot(player.getYRot());
+            player.forwardTicks=movement.forward() ? 1 : 0;
+            player.setJumping(movement.jump()); player.setSprinting(movement.sprint());
+            if(!followStatus.equals(step.status()) || tick%20==0) event("companion_follow",Map.of(
+                "server_tick",tick,"status",step.status(),"distance",step.distance(),"path_nodes",step.pathNodes(),
+                "position_xyz",List.of(player.getX(),player.getY(),player.getZ()),"yaw",player.getYRot(),
+                "movement",movement,"assistance","vanilla_pathfinding_not_neural"));
+            followStatus=step.status();
+            if(step.status().equals("owner_unavailable")) stopCompanion(tick);
+            return;
+        }
         if(tick%5==0) {
             try { control=JsonParser.parseString(Files.readString(controlFile)).getAsJsonObject(); }
             catch(Exception error) { cancel("control_unavailable",tick); return; }
@@ -133,6 +165,7 @@ public final class HeadlessAgent implements AutoCloseable {
         if(tick%5!=0 || !terminal && (tick<readyAt || stopped.equals(episode)) || !pending.compareAndSet(false,true)) return;
         JsonObject request=observe(tick);
         String expected=episode;
+        long expectedMode=modeRevision;
         long observationNanos=System.nanoTime();
         io.execute(() -> {
             try(var socket=new Socket()) {
@@ -146,6 +179,7 @@ public final class HeadlessAgent implements AutoCloseable {
                 JsonObject response=JsonParser.parseString(line).getAsJsonObject();
                 server.execute(() -> {
                     try {
+                        if(modeRevision!=expectedMode || !player.isAlive()) return;
                         if(!response.get("status").getAsString().equals("ok")) throw new IllegalStateException(response.toString());
                         if(!expected.equals(episode) || server.getTickCount()-tick>40) { cancel("stale_response",server.getTickCount()); return; }
                         if(response.has("terminal_acknowledged") && response.get("terminal_acknowledged").getAsBoolean()) terminalHandled=episode;
@@ -167,10 +201,61 @@ public final class HeadlessAgent implements AutoCloseable {
                     } finally { pending.set(false); }
                 });
             } catch(Exception error) {
-                server.execute(() -> { cancel("bridge_connection_lost",server.getTickCount()); pending.set(false); readyAt=server.getTickCount()+20;
+                server.execute(() -> { if(modeRevision!=expectedMode) { pending.set(false); return; } cancel("bridge_connection_lost",server.getTickCount()); pending.set(false); readyAt=server.getTickCount()+20;
                     event("bridge_error",Map.of("error",error.toString())); });
             }
         });
+    }
+
+    public boolean alive() { return player!=null && player.isAlive(); }
+    public boolean ready() { return player!=null; }
+    public boolean following() { return follower!=null; }
+    public String companionStatus() { return followStatus; }
+    public void stopCompanion(long tick) {
+        modeRevision++; follower=null;
+        if(player!=null) { cancel("companion_paused",tick); player.setJumping(false); player.setSprinting(false); }
+        followStatus=alive() ? "paused" : "dead";
+    }
+    public void follow(MinecraftServer server,ServerPlayer owner) {
+        if(!Boolean.parseBoolean(properties.getProperty("companion.enabled","false"))) throw new IllegalStateException("Companion mode required");
+        stopCompanion(server.getTickCount());
+        if(!alive()) respawnCompanion(server,owner);
+        camera.reset(view,"companion_follow"); followCommand=0;
+        follower=new CompanionFollower(player,owner); followStatus="following";
+        event("companion_follow_started",Map.of("owner",owner.getUUID().toString(),"assistance","vanilla_pathfinding_not_neural"));
+    }
+    public static ServerPlayer createRespawnPlayer(MinecraftServer server,ServerLevel level,GameProfile profile,ClientInformation information) {
+        HeadlessAgent agent=RESPAWNING.get();
+        if(agent!=null && agent.player.getUUID().equals(profile.id())) return new Actor(server,level,profile,information);
+        return new ServerPlayer(server,level,profile,information);
+    }
+    public void respawnCompanion(MinecraftServer server,ServerPlayer owner) {
+        if(!Boolean.parseBoolean(properties.getProperty("companion.enabled","false"))) throw new IllegalStateException("Companion mode required");
+        stopCompanion(server.getTickCount());
+        if(alive()) return;
+        RESPAWNING.set(this);
+        try { player=(Actor)server.getPlayerList().respawn(player,false,net.minecraft.world.entity.Entity.RemovalReason.KILLED); }
+        finally { RESPAWNING.remove(); }
+        player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
+        deathReported=false; inventoryRevision++; previousInventory=Map.of();
+        // Explicit companion recovery only. A fresh life may be placed beside
+        // its owner; subsequent following walks and never teleports to catch up.
+        for(int radius=2;radius<=8;radius++) for(int dy=0;dy<=8;dy++) for(int dx=-radius;dx<=radius;dx++) for(int dz=-radius;dz<=radius;dz++) {
+            if(Math.max(Math.abs(dx),Math.abs(dz))!=radius) continue;
+            BlockPos pos=owner.blockPosition().offset(dx,dy,dz); var level=owner.level();
+            if(!level.getWorldBorder().isWithinBounds(pos) || !level.getFluidState(pos).isEmpty()
+                || !level.getFluidState(pos.above()).isEmpty()
+                || !level.getBlockState(pos.below()).isFaceSturdy(level,pos.below(),Direction.UP)) continue;
+            Vec3 target=Vec3.atBottomCenterOf(pos);
+            if(!level.noCollision(player,player.getBoundingBox().move(target.subtract(player.position())))) continue;
+            player.teleportTo(level,target.x,target.y,target.z,Set.of(),owner.getYRot(),0,true);
+            player.setDeltaMovement(Vec3.ZERO); drainPackets();
+            event("companion_respawn",Map.of("placement","safe_owner_adjacent","server_tick",server.getTickCount(),
+                "health",player.getHealth(),"inventory",inventory(),"position_xyz",List.of(player.getX(),player.getY(),player.getZ())));
+            followStatus="paused"; return;
+        }
+        event("companion_respawn",Map.of("placement","vanilla_spawn_no_safe_owner_position","server_tick",server.getTickCount()));
+        followStatus="paused";
     }
 
     private void drainPackets() {

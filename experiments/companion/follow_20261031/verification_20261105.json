@@ -1,0 +1,21 @@
+{
+  "review_date": "2026-11-05",
+  "timezone": "Asia/Amman",
+  "tests": {"passed": 101, "elapsed_seconds": 23.052},
+  "minecraft_26_2_assemble": {
+    "status": "passed",
+    "elapsed_seconds": 17,
+    "tasks_executed": 7,
+    "retry_reason": "Old generated headers directory locked on Windows; fresh build output succeeded"
+  },
+  "minecraft_26_3_installed_jar_sha256": "7b6f87ceb71485ada5c8dba770f7f436b4af8dd0c9fdfbd3cfe38b85da6647fa",
+  "live_manifest_files_reverified": 98,
+  "live_manifest_implementation_mismatches": [],
+  "graph_sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "training_updates": 0,
+  "new_live_trials_on_review_date": 0,
+  "phase_7_5_complete": false,
+  "live_stop_resume_validated": false,
+  "live_respawn_validated": false
+}

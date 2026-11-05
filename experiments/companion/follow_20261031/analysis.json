@@ -1,0 +1,22 @@
+{
+  "trace": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\companion_20261031\\headless.1793426950651.jsonl",
+  "assistance": "engineered vanilla navigation, not learned following",
+  "follow_samples": 93,
+  "status_counts": {
+    "turning_or_unsafe_drop": 25,
+    "walking": 24,
+    "no_route": 2,
+    "waiting_to_replan": 5,
+    "near_owner": 37
+  },
+  "observed_path_length_blocks": 18.771105427983446,
+  "observed_movement_after_forward_command_blocks": 12.89002224082532,
+  "note": "Sparse position samples; human collision/teleport/interference is not experimentally isolated.",
+  "owner_distance_min": 0.9820593416420431,
+  "owner_distance_max": 6.114079796095518,
+  "owner_distance_last": 2.653726180837272,
+  "recovery_events": [],
+  "deaths": 0,
+  "live_stop_resume_check": "Interrupted by world/client exit before stop acknowledgment",
+  "gameplay_video": "outputs/FlyCraft_Companion_Follow_20261031.mp4"
+}

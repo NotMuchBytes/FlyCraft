@@ -210,3 +210,28 @@ live mining/connection-loss stress tests. Phase 7.5 remains incomplete.
 
 Actual weekly usage reached 55% after this bounded task. No new development
 tasks or experiments were started afterward; results were packaged for review.
+
+## Companion follow increment — reviewed November 5
+
+Subsequent user-authorized companion work adds a separate opt-in singleplayer
+NPC, engineered vanilla following, bounded stuck/no-route handling, stale neural
+response rejection after mode changes, lazy brain loading and explicit death
+recovery. Human controls remain independent. The 26.3 compatibility port is
+isolated from the 26.2 development target; both compiled successfully.
+
+One October 31 interactive Minecraft session produced 93 follow trace samples
+and a fully decoded, playable 104.7-second Minecraft-only MP4. Following was
+observed; human gameplay and teleport commands prevent treating this as an
+independent evaluation. Normal world/client exit interrupted the planned
+stop/resume check before acknowledgment. Respawn and water survival remain
+unverified live. Earlier interactive resource sessions have no MP4; the follow
+recording does not replace missing footage for them.
+
+The regression suite gained a Java follow-steering/motor test; final verification
+on November 5 passed **101 tests in 23.052 seconds**. No graph,
+checkpoint or training update was made. Owner coordinates and server collision
+knowledge belong only to engineered companion navigation, not neural resource
+observations. This result does not add a log-collection success or establish
+neural benefit. Full evidence, provenance and remaining checks are in
+[`docs/companion_follow_validation.md`](docs/companion_follow_validation.md).
+Phase 7.5 remains incomplete.

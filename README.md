@@ -47,6 +47,13 @@ A connectome supplies structural connectivity and annotations. It does not by
 itself supply exact neuron or synapse dynamics, learning rules, consciousness,
 or Minecraft knowledge. Later engineering assumptions must be documented.
 
+For playing alongside a separate NPC, an opt-in Minecraft 26.3
+[companion preview](docs/companion_play.md) supports `/flycraft follow`,
+`/flycraft stop`, and the existing neural resource mode. Following is engineered
+vanilla navigation, separately from learned-policy evaluation. A recorded
+interactive follow demonstration exists; stop/resume and death recovery still
+need live validation. See [the evidence and limitations](docs/companion_follow_validation.md).
+
 ## Reproduce Phase 1 analysis
 
 ```powershell

@@ -5,6 +5,11 @@ local token, command, heartbeat = "initial", "idle", 0
 local owned, requested, last_token, owned_heartbeat = false, false, "", 0
 local record_started, screenshot_taken, previous_state, ever_active = 0, false, "", false
 local last_screenshot = 0
+local window_class, process_name = "GLFW30", "java.exe"
+
+local function capture_window(capture_token)
+    return "FlyCraft Recording " .. capture_token .. ":" .. window_class .. ":" .. process_name
+end
 
 local function event(message)
     local file = io.open(state_file .. ".events.log", "a")
@@ -31,7 +36,7 @@ local function poll()
         local start_command = command == "start" or command == "start_verified"
         local valid_token = token:match("^[%w_-]+$") ~= nil
         if not active and fresh and start_command and valid_token and obs.obs_source_get_id(source) == "window_capture" then
-            local expected = "FlyCraft Recording " .. token .. ":GLFW30:java.exe"
+            local expected = capture_window(token)
             if obs.obs_data_get_string(settings, "window") ~= expected or obs.obs_data_get_int(settings, "method") ~= 2 or obs.obs_data_get_int(settings, "priority") ~= 0 then
                 obs.obs_data_set_string(settings, "window", expected)
                 obs.obs_data_set_int(settings, "method", 2) -- Windows Graphics Capture, never BitBlt
@@ -46,7 +51,7 @@ local function poll()
         local capture_token = owned and requested and last_token or token
         capture_ok = obs.obs_source_get_id(source) == "window_capture" and obs.obs_data_get_int(settings, "method") == 2
             and obs.obs_data_get_int(settings, "priority") == 0
-            and obs.obs_data_get_string(settings, "window") == "FlyCraft Recording " .. capture_token .. ":GLFW30:java.exe"
+            and obs.obs_data_get_string(settings, "window") == capture_window(capture_token)
         obs.obs_data_release(settings)
         width, height = obs.obs_source_get_width(source), obs.obs_source_get_height(source)
         obs.obs_source_release(source)
@@ -98,6 +103,10 @@ end
 function script_load(settings)
     command_file = obs.obs_data_get_string(settings, "command_file")
     state_file = obs.obs_data_get_string(settings, "state_file")
+    local configured_class=obs.obs_data_get_string(settings,"window_class") or ""
+    local configured_process=obs.obs_data_get_string(settings,"process_name") or ""
+    if configured_class:match("^[%w_.-]+$") then window_class=configured_class end
+    if configured_process:match("^[%w_.-]+%.exe$") then process_name=configured_process end
     obs.timer_add(poll, 250)
 end
 function script_unload()

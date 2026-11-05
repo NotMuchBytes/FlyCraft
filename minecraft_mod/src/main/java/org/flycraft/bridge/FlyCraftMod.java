@@ -29,6 +29,10 @@ public final class FlyCraftMod implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("FlyCraft bridge initialized");
 		Phase8ServerObservations.initialize();
+		if (Files.exists(Path.of("flycraft-companion.properties"))) {
+			CompanionSession.initialize();
+			return;
+		}
 		if (Files.exists(Path.of("flycraft-phase8.properties"))) {
 			if(Files.exists(Path.of("flycraft-headless.properties"))) {
 				var headless=new HeadlessAgent();

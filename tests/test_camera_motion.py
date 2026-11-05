@@ -12,6 +12,17 @@ JAVA = JAVA_DIR / "java.exe"
 
 @unittest.skipUnless(JAVAC.is_file() and JAVA.is_file(), "Local JDK25 unavailable")
 class CameraMotionTests(unittest.TestCase):
+    def test_companion_follow_spacing_hazards_and_bounded_motor(self):
+        with tempfile.TemporaryDirectory() as directory:
+            sources=[ROOT/"minecraft_mod/src/main/java/org/flycraft/bridge/control/CameraMotion.java",
+                     ROOT/"minecraft_mod/src/main/java/org/flycraft/bridge/control/FollowSteering.java",
+                     ROOT/"minecraft_mod/src/test/java/org/flycraft/bridge/control/FollowSteeringTest.java"]
+            compiled=subprocess.run([str(JAVAC),"-d",directory,*map(str,sources)],capture_output=True,text=True,timeout=30)
+            self.assertEqual(compiled.returncode,0,compiled.stderr)
+            result=subprocess.run([str(JAVA),"-cp",directory,"org.flycraft.bridge.control.FollowSteeringTest"],capture_output=True,text=True,timeout=30)
+            self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+            self.assertEqual(json.loads(result.stdout)["closed_loop_ticks"],1200)
+
     def test_real_java_movement_feedback_threshold_and_invalid_pose(self):
         with tempfile.TemporaryDirectory() as directory:
             sources=[ROOT/"minecraft_mod/src/main/java/org/flycraft/bridge/control/MovementFeedback.java",
