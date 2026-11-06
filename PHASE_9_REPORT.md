@@ -1,5 +1,12 @@
 # FlyCraft Phase 9 development report
 
+November 6: the Phase 7.5 reliability increment passed 104 automated tests and
+recorded successful strict collection/mining-interruption recovery. A real
+bridge process-tree stall exposed a command-rejection acknowledgment defect
+and failed pickup; development stopped at that problem. Zero new training
+updates or official experiment worlds. See
+[the evidence and blocker](docs/phase75_reliability_20261106.md).
+
 Updated: 2026-10-29. Status: **in progress; not a completed 10,000-world experiment**.
 The later strict evaluations scored one-log 27/30 and four-plank 21/30 in
 controlled fixtures. Three-log/pickaxe targets and broader Phase 7.5 recovery/integration validation

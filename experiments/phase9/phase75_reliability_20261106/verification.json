@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-06",
+  "timezone": "Asia/Amman",
+  "baseline_tests": {"passed": 101, "elapsed_seconds": 25.137},
+  "final_tests": {"passed": 104, "elapsed_seconds": 20.999},
+  "minecraft_26_2_launch_preparation": "passed for all six bounded attempts",
+  "new_training_updates": 0,
+  "graph_preserved": true,
+  "checkpoint_preserved": true,
+  "final_sampled_usage": {"five_hour_used_percent": 52, "weekly_used_percent": 9},
+  "reset_credit_used": false,
+  "stopping_reason": "Reproduced stale command rejection without acknowledgment; goal recovery fails after bridge process-tree stall",
+  "recording_limitation": "Bridge-failure MP4 is playable but a game menu obscures part of the episode",
+  "phase_7_5_complete": false,
+  "phase_8_complete": false,
+  "phase_9_experiment_complete": false
+}

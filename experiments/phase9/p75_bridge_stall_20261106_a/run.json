@@ -1,0 +1,121 @@
+{
+  "run_id": "p75_bridge_stall_20261106_a",
+  "world_seed": 2026110601,
+  "layout_start": 2026110601,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 1,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 82.96988859999692,
+  "maximum_sampled_gpu_c": 50,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-06 09-18-41.mp4",
+  "recording_confirmed": true,
+  "milestone": 1,
+  "experiment_stage": "development",
+  "redo_of": null,
+  "execution_kind": "new_execution_not_replay",
+  "headless": true,
+  "operator_fault": "bridge_stall",
+  "operator_fault_events": [
+    {
+      "kind": "bridge_stall",
+      "requested_unix": 1793945935.814963,
+      "mining_command_id": 1,
+      "mining_started_server_tick": 713,
+      "disturbance": "owned_bridge_suspended",
+      "requested_stall_seconds": 6,
+      "resumed_unix": 1793945942.2270222
+    }
+  ],
+  "spectator": true,
+  "spectator_view": "third_person",
+  "capture_requested_size": [
+    854,
+    480
+  ],
+  "client_fps_limit": 30,
+  "capture_content_proof": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.040445715323166306,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_bridge_stall_20261106_a\\capture-proof-game.png",
+    "game_frame_sha256": "64d63bce538b4c56ff12c7ad6d94f407e5f3de74f3b0291ae10f148078d2b5dd",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_bridge_stall_20261106_a\\capture-proof-obs.png",
+    "obs_frame_sha256": "d26f985d1636dc21c5555acdc9731ae0b7960c6c023fea11ffdc1d5e8ddde1d5",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "capture_content_proof_error": null,
+  "recording_mode": "OBS_isolated_spectator",
+  "generated_world_instances": 1,
+  "episodes_in_generated_world": 1,
+  "environment_kind": "controlled_flat_survival_fixture",
+  "server_heap_mib": 384,
+  "client_heap_mib": 512,
+  "trial_tick_limit": 400,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "forward_ticks": 2,
+  "movement_feedback": "displacement",
+  "experiment_kind": "policy_goal_with_operator_fault",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "launcher": "direct",
+  "minimum_sampled_available_ram_mib": 909.80078125,
+  "available_ram_guard_mib": 768,
+  "peak_sampled_process_tree_rss_mib": {
+    "bridge": 164.9921875,
+    "server": 592.171875,
+    "client": 1007.43359375
+  },
+  "exit_codes_before_cleanup": {
+    "prepare": 0,
+    "bridge": null,
+    "server": 0,
+    "client": 0
+  },
+  "client_exited_cleanly": true,
+  "server_exited_cleanly": true,
+  "actual_graphics": [
+    "Using graphics backend OpenGL, using drivers: 3.3.0 NVIDIA 617.42",
+    "Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU/PCIe/SSE2 (NVIDIA Corporation)"
+  ],
+  "policy_label": "six_live_log_episodes",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "implementation_sha256": "134146b095378c85533ae85547eaeaab66983edcec68f75617f3338d8024ead0",
+  "milestone_video_status": "verified",
+  "milestone_video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 781,
+    "duration_seconds": 26.033333,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "781"
+    },
+    "bytes": 9815938,
+    "sha256": "b2f8cedcfe36bff6c3ea6322c6d208e07f182feff5f65184ebeea64bd44bd234",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-06 09-18-41.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_p75_bridge_stall_20261106_a.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": true,
+    "visual_content_preflight_verified": true
+  },
+  "milestone_video_export": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\FlyCraft_Development_Milestone_00001_p75_bridge_stall_20261106_a.mp4"
+}

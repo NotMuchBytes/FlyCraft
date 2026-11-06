@@ -54,6 +54,11 @@ vanilla navigation, separately from learned-policy evaluation. A recorded
 interactive follow demonstration exists; stop/resume and death recovery still
 need live validation. See [the evidence and limitations](docs/companion_follow_validation.md).
 
+The latest [Phase 7.5 reliability checks](docs/phase75_reliability_20261106.md)
+fixed rejected-observation accounting and recorded mining-interruption recovery.
+A bridge stall still leaves an unacknowledged rejected command; this blocks
+reliable continuation. The full experiment remains gated on that repair.
+
 ## Reproduce Phase 1 analysis
 
 ```powershell

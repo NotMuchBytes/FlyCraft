@@ -6,6 +6,17 @@ with at most 300 seconds per worker. Do not start overnight or extended
 unattended training. Stop new development around 55% weekly usage, with a 60%
 maximum; obtain actual account measurements.
 
+Development reliability checks can use the live worker's
+`--operator-fault mining_interrupt` or `--operator-fault bridge_stall` with one
+headless episode and learning disabled. Add `--spectator --milestone 1` and the
+usual isolated OBS paths for a recorded check. The former issues one disruptive
++90-degree yaw command after mining starts; the latter pauses/resumes the owned
+Python process tree for six seconds while Minecraft continues. These are
+operator test inputs, never learned actions or ordinary success-rate data.
+The current bridge-stall check fails recovery; do not begin new training before
+the rejection acknowledgment defect is repaired. See
+[November 6 evidence](phase75_reliability_20261106.md).
+
 From the repository root, use the existing runner with `--headless` to omit
 the agent's graphical client. `--spectator --milestone 1` adds mandatory
 verified-window OBS capture for a single development episode. Supply a fresh

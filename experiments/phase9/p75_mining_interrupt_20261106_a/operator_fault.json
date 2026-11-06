@@ -1,0 +1,10 @@
+[
+  {
+    "kind": "mining_interrupt",
+    "requested_unix": 1793945772.305183,
+    "mining_command_id": 1,
+    "mining_started_server_tick": 721,
+    "disturbance": "relative_yaw_plus_90_degrees",
+    "command_written": true
+  }
+]

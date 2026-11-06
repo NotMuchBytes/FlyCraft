@@ -1,5 +1,16 @@
 # Phase 9 recording and evidence
 
+November 6 development checks: all four scored reliability sessions have
+playable MP4s. Final review marks the bridge-recovery failure's visual coverage
+partial: a game menu obscures part of the episode. Automated metadata was
+backed up before adding this assessment; footage/game logs are unchanged.
+Two zero-action startup
+attempts (`p75_observation_20261106_a/b`) produced no MP4: the RAM guard and AMD
+renderer gate stopped them. Their logs are retained. The `c` retry is a new
+execution, not replacement footage or replay. A launcher-only bridge pause is
+recorded but excluded from fault-validation claims. See
+[the complete audit](phase75_reliability_20261106.md).
+
 Every milestone requires a playable MP4. A unit-test fixture is never footage.
 No new AI actions are substituted into an old episode's recording. Development
 reruns are labeled `new_execution_not_replay` and retain their original attempt.

@@ -1,0 +1,586 @@
+{
+  "kind": "bounded_development_reliability_checks_not_heldout_evaluation",
+  "review_date": "2026-11-06",
+  "training_updates": 0,
+  "runs": {
+    "p75_observation_20261106_a": {
+      "stop_reason": "available_ram_guard",
+      "generated_world_instances": 1,
+      "world_seed": 2026110601,
+      "server_results": [],
+      "controller_results": [],
+      "action_start_count": 0,
+      "unique_started_command_ids": 0,
+      "issued_but_not_started": [],
+      "interrupted_acknowledgments": [],
+      "operator_faults": [],
+      "maximum_sampled_gpu_c": 53,
+      "minimum_available_ram_mib": 690.30078125,
+      "client_exited_cleanly": false,
+      "server_exited_cleanly": false,
+      "video_status": "missing",
+      "video": null,
+      "implementation_sha256": "d077b2f24490357ca03001a57aba760a15934dff6aacc105d50a99acef453cb7"
+    },
+    "p75_observation_20261106_b": {
+      "stop_reason": "requested_nvidia_device_not_selected",
+      "generated_world_instances": 1,
+      "world_seed": 2026110601,
+      "server_results": [],
+      "controller_results": [],
+      "action_start_count": 0,
+      "unique_started_command_ids": 0,
+      "issued_but_not_started": [],
+      "interrupted_acknowledgments": [],
+      "operator_faults": [],
+      "maximum_sampled_gpu_c": 48,
+      "minimum_available_ram_mib": 1315.76953125,
+      "client_exited_cleanly": false,
+      "server_exited_cleanly": false,
+      "video_status": "missing",
+      "video": null,
+      "implementation_sha256": "d077b2f24490357ca03001a57aba760a15934dff6aacc105d50a99acef453cb7"
+    },
+    "p75_observation_20261106_c": {
+      "stop_reason": "suite_complete",
+      "generated_world_instances": 1,
+      "world_seed": 2026110601,
+      "server_results": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 2026110601,
+          "success": true,
+          "ticks": 76,
+          "train": false,
+          "inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          }
+        }
+      ],
+      "controller_results": [
+        {
+          "goal": "find_collect",
+          "world_seed": 0,
+          "world_id": "4e9fa6e7-dcc4-32d1-ae02-357503319b41:trial_0000",
+          "train": false,
+          "actions": 2,
+          "total_reward": 8.21,
+          "done": true,
+          "success": true,
+          "termination": "success",
+          "completed": [
+            "002:collect:log",
+            "root"
+          ],
+          "failed_actions": 0,
+          "replans": 0,
+          "subgoals": 3,
+          "subgoals_complete": 3,
+          "elapsed_seconds": 3.730088399956003,
+          "update": {
+            "weight_delta_norm": 0.0,
+            "gradient_norm": 0.0
+          },
+          "terminal_server_tick": 829,
+          "terminal_inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "table_placed": 0,
+            "wooden_pickaxe": 0
+          },
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_events": [],
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "confirmed_block_changes": 1
+        }
+      ],
+      "action_start_count": 2,
+      "unique_started_command_ids": 2,
+      "issued_but_not_started": [],
+      "interrupted_acknowledgments": [],
+      "operator_faults": [],
+      "maximum_sampled_gpu_c": 50,
+      "minimum_available_ram_mib": 1184.30078125,
+      "client_exited_cleanly": true,
+      "server_exited_cleanly": true,
+      "video_status": "verified",
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 589,
+        "duration_seconds": 19.633333,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "589"
+        },
+        "bytes": 4683783,
+        "sha256": "3d2e52dd8b068a0d90ac8b9d09e6272981417d60a443c10025b80413431a2b58",
+        "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-06 09-12-25.mp4",
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_p75_observation_20261106_c.mp4",
+        "recovery": "none",
+        "verification_attempts": [
+          "verified_original"
+        ],
+        "episode_coverage_complete": true,
+        "visual_content_preflight_verified": true
+      },
+      "implementation_sha256": "d077b2f24490357ca03001a57aba760a15934dff6aacc105d50a99acef453cb7"
+    },
+    "p75_mining_interrupt_20261106_a": {
+      "stop_reason": "suite_complete",
+      "generated_world_instances": 1,
+      "world_seed": 2026110601,
+      "server_results": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 2026110601,
+          "success": true,
+          "ticks": 358,
+          "train": false,
+          "inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          }
+        }
+      ],
+      "controller_results": [
+        {
+          "goal": "find_collect",
+          "world_seed": 0,
+          "world_id": "cfaf8af9-d0eb-3e05-b2ff-0de2c2a25213:trial_0000",
+          "train": false,
+          "actions": 22,
+          "total_reward": 8.729282564799226,
+          "done": true,
+          "success": true,
+          "termination": "success",
+          "completed": [
+            "000:search:",
+            "001:navigate:",
+            "002:collect:log",
+            "root"
+          ],
+          "failed_actions": 2,
+          "replans": 1,
+          "subgoals": 6,
+          "subgoals_complete": 5,
+          "elapsed_seconds": 17.739009400014766,
+          "update": {
+            "weight_delta_norm": 0.0,
+            "gradient_norm": 0.0
+          },
+          "terminal_server_tick": 1069,
+          "terminal_inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "table_placed": 0,
+            "wooden_pickaxe": 0
+          },
+          "recovery_attempts": 1,
+          "recovery_successes": 1,
+          "recovery_events": [
+            {
+              "reason": "interrupted",
+              "step": 1
+            }
+          ],
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "confirmed_block_changes": 1
+        }
+      ],
+      "action_start_count": 22,
+      "unique_started_command_ids": 22,
+      "issued_but_not_started": [],
+      "interrupted_acknowledgments": [
+        {
+          "command_id": 1,
+          "inventory_revision": 2,
+          "ticks": 17,
+          "error": "mining_aim_lost",
+          "block_changed": false,
+          "action": "COLLECT_LOG",
+          "status": "interrupted"
+        },
+        {
+          "command_id": 22,
+          "inventory_revision": 2,
+          "ticks": 8,
+          "error": "episode_boundary",
+          "block_changed": false,
+          "action": "TURN_RIGHT",
+          "status": "interrupted"
+        }
+      ],
+      "operator_faults": [
+        {
+          "kind": "mining_interrupt",
+          "requested_unix": 1793945772.305183,
+          "mining_command_id": 1,
+          "mining_started_server_tick": 721,
+          "disturbance": "relative_yaw_plus_90_degrees",
+          "command_written": true
+        }
+      ],
+      "maximum_sampled_gpu_c": 51,
+      "minimum_available_ram_mib": 1325.421875,
+      "client_exited_cleanly": true,
+      "server_exited_cleanly": true,
+      "video_status": "verified",
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 1010,
+        "duration_seconds": 33.7,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "1011"
+        },
+        "bytes": 14197367,
+        "sha256": "39d84b7f8bd6d5a79780facbce68926f159d14d98786ca26432b71bdf732f0c9",
+        "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-06 09-15-58.mp4",
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_p75_mining_interrupt_20261106_a.mp4",
+        "recovery": "none",
+        "verification_attempts": [
+          "verified_original"
+        ],
+        "episode_coverage_complete": true,
+        "visual_content_preflight_verified": true
+      },
+      "implementation_sha256": "e12eafefd3b0af88a5869140014945c03a78e5b0767abc1cd8ac52fef5495589"
+    },
+    "p75_bridge_stall_20261106_a": {
+      "stop_reason": "suite_complete",
+      "generated_world_instances": 1,
+      "world_seed": 2026110601,
+      "server_results": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 2026110601,
+          "success": true,
+          "ticks": 185,
+          "train": false,
+          "inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          }
+        }
+      ],
+      "controller_results": [
+        {
+          "goal": "find_collect",
+          "world_seed": 0,
+          "world_id": "95aa1b09-2f08-3629-9f1f-53b503aeab65:trial_0000",
+          "train": false,
+          "actions": 10,
+          "total_reward": 8.521376666416112,
+          "done": true,
+          "success": true,
+          "termination": "success",
+          "completed": [
+            "002:collect:log",
+            "root"
+          ],
+          "failed_actions": 0,
+          "replans": 0,
+          "subgoals": 3,
+          "subgoals_complete": 3,
+          "elapsed_seconds": 9.245022999995854,
+          "update": {
+            "weight_delta_norm": 0.0,
+            "gradient_norm": 0.0
+          },
+          "terminal_server_tick": 890,
+          "terminal_inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "table_placed": 0,
+            "wooden_pickaxe": 0
+          },
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_events": [],
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "confirmed_block_changes": 1
+        }
+      ],
+      "action_start_count": 10,
+      "unique_started_command_ids": 10,
+      "issued_but_not_started": [],
+      "interrupted_acknowledgments": [],
+      "operator_faults": [
+        {
+          "kind": "bridge_stall",
+          "requested_unix": 1793945935.814963,
+          "mining_command_id": 1,
+          "mining_started_server_tick": 713,
+          "disturbance": "owned_bridge_suspended",
+          "requested_stall_seconds": 6,
+          "resumed_unix": 1793945942.2270222
+        }
+      ],
+      "maximum_sampled_gpu_c": 50,
+      "minimum_available_ram_mib": 909.80078125,
+      "client_exited_cleanly": true,
+      "server_exited_cleanly": true,
+      "video_status": "verified",
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 781,
+        "duration_seconds": 26.033333,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "781"
+        },
+        "bytes": 9815938,
+        "sha256": "b2f8cedcfe36bff6c3ea6322c6d208e07f182feff5f65184ebeea64bd44bd234",
+        "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-06 09-18-41.mp4",
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_p75_bridge_stall_20261106_a.mp4",
+        "recovery": "none",
+        "verification_attempts": [
+          "verified_original"
+        ],
+        "episode_coverage_complete": true,
+        "visual_content_preflight_verified": true
+      },
+      "implementation_sha256": "134146b095378c85533ae85547eaeaab66983edcec68f75617f3338d8024ead0",
+      "fault_valid": false,
+      "fault_limitation": "Only venv launcher paused; serving child continued. Exclude from bridge recovery claims."
+    },
+    "p75_bridge_stall_20261106_b": {
+      "stop_reason": "suite_complete",
+      "generated_world_instances": 1,
+      "world_seed": 2026110601,
+      "server_results": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 2026110601,
+          "success": false,
+          "ticks": 400,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          }
+        }
+      ],
+      "controller_results": [
+        {
+          "goal": "find_collect",
+          "world_seed": 0,
+          "world_id": "96e79220-5648-3dfa-93fc-550fb7743c56:trial_0000",
+          "train": false,
+          "actions": 1,
+          "total_reward": -2.02,
+          "done": true,
+          "success": false,
+          "termination": "acknowledgment_timeout",
+          "completed": [],
+          "failed_actions": 1,
+          "replans": 0,
+          "subgoals": 3,
+          "subgoals_complete": 2,
+          "elapsed_seconds": 8.728154599957634,
+          "update": {
+            "weight_delta_norm": 0.0,
+            "gradient_norm": 0.0
+          },
+          "recovery_attempts": 0,
+          "recovery_successes": 0,
+          "recovery_events": [],
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "confirmed_block_changes": 1
+        }
+      ],
+      "action_start_count": 1,
+      "unique_started_command_ids": 1,
+      "issued_but_not_started": [
+        {
+          "status": "ok",
+          "tick_id": 775,
+          "sector": "center",
+          "action": "FORWARD",
+          "command_id": 2,
+          "observe_only": false,
+          "neural_features": {
+            "bias": 1.0,
+            "left_readout_div50": 0.39466560728731565,
+            "right_readout_div50": 0.3729771838634042,
+            "total_readout_div50": 0.7676427911507199
+          },
+          "action_probabilities": {
+            "NO_OP": 0.05002880899078651,
+            "TURN_LEFT": 0.17424910031889468,
+            "TURN_RIGHT": 0.21386347700640373,
+            "FORWARD": 0.5618586136839151,
+            "COLLECT_LOG": 0.0,
+            "CRAFT_PLANKS": 0.0,
+            "CRAFT_STICKS": 0.0,
+            "CRAFT_TABLE": 0.0,
+            "PLACE_TABLE": 0.0,
+            "CRAFT_PICKAXE": 0.0
+          },
+          "policy_neural_inputs": {
+            "bias": 1.0,
+            "left_input": 0.39466560728731565,
+            "right_input": 0.3729771838634042,
+            "total_input": 0.7676427911507199
+          },
+          "feature_intervention": "none",
+          "feature_mode": "trained",
+          "learning_scope": "linear_softmax_readout_only",
+          "cumulative_reward": -0.02,
+          "terminal_acknowledged": false,
+          "autonomy_status": "running",
+          "episode_id": "trial_0000",
+          "policy_source": "phase8_existing_learned_readout:trained",
+          "peak_global_active": 947,
+          "neural_steps": 18,
+          "latency_ms": 139.80880001327023,
+          "response_logged_unix": 1793946093.4897125
+        }
+      ],
+      "interrupted_acknowledgments": [],
+      "operator_faults": [
+        {
+          "kind": "bridge_stall",
+          "requested_unix": 1793946086.88527,
+          "mining_command_id": 1,
+          "mining_started_server_tick": 713,
+          "disturbance": "owned_bridge_process_tree_suspended",
+          "requested_stall_seconds": 6,
+          "suspended_processes": [
+            {
+              "pid": 14204,
+              "created": 1793946029.872623,
+              "name": "python.exe"
+            },
+            {
+              "pid": 23252,
+              "created": 1793946029.6581316,
+              "name": "conhost.exe"
+            },
+            {
+              "pid": 30952,
+              "created": 1793946029.6348083,
+              "name": "python.exe"
+            }
+          ],
+          "resumed_unix": 1793946093.349057
+        }
+      ],
+      "maximum_sampled_gpu_c": 51,
+      "minimum_available_ram_mib": 1236.9375,
+      "client_exited_cleanly": true,
+      "server_exited_cleanly": true,
+      "video_status": "partial_visual_coverage",
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 1093,
+        "duration_seconds": 36.433333,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "1093"
+        },
+        "bytes": 6071024,
+        "sha256": "748062f55a287da0a88796cf2d71c0994ec823770ae4fe94e4e23814bd050cc9",
+        "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-06 09-21-12.mp4",
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_p75_bridge_stall_20261106_b.mp4",
+        "recovery": "none",
+        "verification_attempts": [
+          "verified_original"
+        ],
+        "episode_coverage_complete": false,
+        "visual_content_preflight_verified": true
+      },
+      "implementation_sha256": "920e7f2b2f6da08ff9f234d49143a242c593531f69253c83cbc7967ac2614276",
+      "visual_review": {
+        "review_date": "2026-11-06",
+        "playable_mp4": true,
+        "visual_coverage": "partial_game_menu_obscures_gameplay",
+        "observed_gameplay_frame_seconds": 14,
+        "observed_menu_frame_seconds": [
+          18,
+          22
+        ],
+        "cause": "Menu origin not established; no desktop input was injected by the runner",
+        "original_actions_and_game_logs_unchanged": true,
+        "full_visual_reconstruction": "Unavailable: original interval was obscured and exact world/entity RNG replay is unverified",
+        "automated_metadata_backup_sha256": "00d059d770b5dbbdc00e440b443e7c0c3daae4ed01053ddc65ed5cd76062fd96"
+      },
+      "measured_process_tree_stall_seconds": 6.463786840438843,
+      "bridge_records_during_stall": 0,
+      "subsequent_request_ack_ids": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null
+      ]
+    }
+  },
+  "generated_world_instances": 6,
+  "distinct_world_seeds": 1,
+  "scored_episodes": 4,
+  "missing_startup_recordings": [
+    "p75_observation_20261106_a",
+    "p75_observation_20261106_b"
+  ],
+  "graph_sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+}

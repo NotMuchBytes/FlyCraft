@@ -1,0 +1,20 @@
+{
+  "timestamp_unix": 1793945446.6874049,
+  "available_ram_mib": 1315.76953125,
+  "cpu_percent": 40.1,
+  "gpu_temperature_c": 48,
+  "gpu_utilization_percent": 33,
+  "gpu_memory_mib": 203,
+  "server_alive": false,
+  "client_alive": false,
+  "recording_active": false,
+  "completed_episodes": 0,
+  "peak_process_rss_mib": {
+    "bridge": 161.90234375,
+    "server": 550.35546875,
+    "client": 595.8515625
+  },
+  "lifecycle_updated_unix": 1793945446.8953867,
+  "finalized": true,
+  "stop_reason": "requested_nvidia_device_not_selected"
+}

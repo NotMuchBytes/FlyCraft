@@ -95,6 +95,50 @@ class Phase8Tests(unittest.TestCase):
         with self.assertRaises(ObservationError):
             ledger.observe(after | {"inventory_consistent": False}, None)
 
+    def test_rejected_geometry_cannot_commit_inventory_or_count_a_retried_mining_ack(self):
+        for invalid in ({"position": [float("nan"), 0., 0.]},
+                        {"position": [0., 0.]},
+                        {"target_distance": float("inf")},
+                        {"target_angle": float("nan")}):
+            with self.subTest(invalid=invalid), tempfile.TemporaryDirectory() as directory:
+                controller = self.controller(Path(directory))
+                try:
+                    first = controller.evaluate_request(self.request(10))
+                    prior = copy.deepcopy(controller.ledger.to_dict())
+                    after = self.telemetry(inventory_revision=2)
+                    after["inventory"]["log"] = 1
+                    rejected = controller.evaluate_request(self.request(20, telemetry=after | invalid,
+                                                                        ack=self.ack(first)))
+                    self.assertTrue(rejected["observe_only"])
+                    self.assertEqual(rejected["command_id"], 0)
+                    self.assertEqual(controller.ledger.to_dict(), prior)
+                    self.assertEqual(controller.agent.session["actions"], 0)
+                    self.assertEqual(controller.pending_id, first["command_id"])
+                    accepted = controller.evaluate_request(self.request(20, telemetry=after, ack=self.ack(first)))
+                    self.assertEqual(accepted["autonomy_status"], "success")
+                    self.assertEqual(controller.ledger.mined_blocks, 1)
+                    self.assertEqual(controller.ledger.produced["log"], 1)
+                    self.assertEqual(controller.agent.session["actions"], 1)
+                finally:
+                    controller.close()
+
+    def test_repeated_invalid_geometry_stops_without_replaying_or_inventing_inventory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller = self.controller(Path(directory))
+            try:
+                first = controller.evaluate_request(self.request(10))
+                for tick in range(20, 70, 10):
+                    rejected = controller.evaluate_request(self.request(tick,
+                        telemetry=self.telemetry(target_angle=float("nan")), ack=self.ack(first)))
+                    self.assertEqual(rejected["command_id"], 0)
+                self.assertEqual(rejected["autonomy_status"], "invalid_visible_geometry")
+                self.assertEqual(controller.ledger.mined_blocks, 0)
+                self.assertEqual(controller.ledger.previous["log"], 0)
+                self.assertEqual(controller.agent.session["actions"], 0)
+                self.assertFalse(controller.agent.session["success"])
+            finally:
+                controller.close()
+
     def test_creative_or_privileged_observation_rejected(self):
         for telemetry in (self.telemetry(game_mode="CREATIVE"), self.telemetry(world_seed=123)):
             with self.assertRaises(ObservationError):

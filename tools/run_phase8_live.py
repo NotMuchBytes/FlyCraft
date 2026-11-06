@@ -107,6 +107,26 @@ def owned_rss_mib(process):
         return None
 
 
+def pending_mining_command(trace):
+    """Read actual actor events for a one-shot operator fault, never policy input."""
+    try:
+        lines = trace.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return None
+    pending = None
+    for line in lines:
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue  # An append may still be in progress.
+        if event.get("event") == "action_start":
+            pending = event["data"] if event["data"].get("action") == "COLLECT_LOG" else None
+        elif event.get("event") == "action_end" and pending is not None:
+            if event["data"].get("ack", {}).get("command_id") == pending["command_id"]:
+                pending = None
+    return pending
+
+
 def run():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-id", required=True)
@@ -135,6 +155,8 @@ def run():
     parser.add_argument("--movement-feedback",choices=("input_only","displacement"),default="displacement",
                         help="Require at least 0.02 blocks of own-pose movement for forward success")
     parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
+    parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall"), default="none",
+                        help="One-shot mining yaw disturbance or six-second owned bridge stall; reliability tests only")
     parser.add_argument("--graphics-backend", choices=("default","opengl","vulkan"),default="opengl")
     parser.add_argument("--minimum-available-ram-mib", type=int, default=768)
     parser.add_argument("--minimum-free-disk-mib", type=int, default=2048)
@@ -187,6 +209,9 @@ def run():
         parser.error("forward-ticks must be in [1,10]")
     if args.camera_probe and (args.camera_mode=="legacy" or goals!=["camera_probe"] or args.trials!=1):
         parser.error("camera-probe requires one camera_probe trial in instant or bounded mode")
+    if args.operator_fault != "none" and (not args.headless or args.train or args.trials != 1
+                                         or len(goals) != 1 or len(conditions) != 1):
+        parser.error("operator faults require one headless episode with learning disabled")
     if listening(25567) or listening(8765):
         parser.error("live test ports already occupied; no existing process will be stopped")
     recorder = EventLogRecording() if not graphical else ObsRecorder(args.obs_control_dir.resolve(), args.run_id)
@@ -263,6 +288,9 @@ def run():
     capture_proof_error=None
     gpu_utilization=None
     gpu_memory_mib=None
+    fault_events=[]
+    bridge_resume_at=None
+    suspended_bridge_processes=[]
     def ownership_check():
         if args.stop_file is not None and args.stop_file.exists():
             raise SupervisorStop("manual_stop")
@@ -372,6 +400,37 @@ def run():
                     gradle + ["-PflycraftRunDir=" + java_path(client_dir), "-PflycraftAutotest", "-PflycraftServer=127.0.0.1:25567",
                     "-PflycraftGraphicsBackend="+args.graphics_backend, "runClient"],
                     "client", client_dir if direct_commands else ROOT / "minecraft_mod")
+            if args.operator_fault != "none" and not fault_events:
+                mining = pending_mining_command(results / "headless.jsonl")
+                if mining is not None:
+                    event = {"kind": args.operator_fault, "requested_unix": time.time(),
+                        "mining_command_id": mining["command_id"], "mining_started_server_tick": mining["server_tick"]}
+                    if args.operator_fault == "mining_interrupt":
+                        # Adversarial disturbance, not aiming or a goal action.
+                        command = b"execute as FlyCraftAgent at @s run teleport @s ~ ~ ~ ~90 ~\n"
+                        server.stdin.write(command); server.stdin.flush()
+                        event.update(disturbance="relative_yaw_plus_90_degrees", command_written=True)
+                    else:
+                        # Only this supervisor's owned Python process is paused.
+                        # Minecraft continues; actual socket timeouts are logged.
+                        bridge_resume_at = time.perf_counter() + 6
+                        parent = psutil.Process(bridge.pid)
+                        # Windows venv python.exe can be a launcher with the
+                        # real interpreter below it. Pause every owned child.
+                        for owned in reversed([parent, *parent.children(recursive=True)]):
+                            owned.suspend()
+                            suspended_bridge_processes.append(owned)
+                        event.update(disturbance="owned_bridge_process_tree_suspended", requested_stall_seconds=6,
+                            suspended_processes=[{"pid": owned.pid, "created": owned.create_time(), "name": owned.name()}
+                                                 for owned in suspended_bridge_processes])
+                    fault_events.append(event)
+                    atomic_json(results / "operator_fault.json", fault_events)
+            if bridge_resume_at is not None and time.perf_counter() >= bridge_resume_at:
+                for owned in reversed(suspended_bridge_processes):
+                    if owned.is_running(): owned.resume()
+                suspended_bridge_processes.clear(); bridge_resume_at = None
+                fault_events[-1]["resumed_unix"] = time.time()
+                atomic_json(results / "operator_fault.json", fault_events)
             server_rows = (results / "server.jsonl").read_text(encoding="utf-8").splitlines() if (results / "server.jsonl").exists() else []
             if len(server_rows) != last_rows:
                 last_rows = len(server_rows)
@@ -403,6 +462,14 @@ def run():
         stop_reason = "supervisor_io_error" if isinstance(error, OSError) else "recording_confirmation_lost" if "OBS" in str(error) else "supervisor_error"
         print(json.dumps({"error": str(error), "stop_reason": stop_reason}), flush=True)
     finally:
+        for owned in reversed(suspended_bridge_processes):
+            try:
+                if owned.is_running(): owned.resume()
+            except psutil.Error:
+                pass
+        if suspended_bridge_processes and fault_events:
+            fault_events[-1]["resumed_during_cleanup_unix"] = time.time()
+            atomic_json(results / "operator_fault.json", fault_events)
         recording = None
         try:
             recording = recorder.stop()
@@ -436,6 +503,8 @@ def run():
         summary["redo_of"] = args.redo_of
         summary["execution_kind"] = "new_execution_not_replay"
         summary["headless"] = args.headless
+        summary["operator_fault"] = args.operator_fault
+        summary["operator_fault_events"] = fault_events
         summary["spectator"] = args.spectator
         summary["spectator_view"] = args.spectator_view if args.spectator else None
         summary["capture_requested_size"] = [args.capture_width,args.capture_height] if graphical else None
@@ -454,7 +523,8 @@ def run():
         summary["turn_degrees"] = args.turn_degrees
         summary["forward_ticks"] = args.forward_ticks
         summary["movement_feedback"] = args.movement_feedback
-        summary["experiment_kind"] = "scripted_camera_probe_not_policy" if args.camera_probe else "policy_goal"
+        summary["experiment_kind"] = ("scripted_camera_probe_not_policy" if args.camera_probe else
+                                      "policy_goal_with_operator_fault" if args.operator_fault != "none" else "policy_goal")
         summary["interaction_assistance"] = "visible_target_aim_macro" if args.camera_mode=="legacy" else "crosshair_only_no_automatic_aim"
         summary["requested_graphics_backend"] = args.graphics_backend
         summary["launcher"] = args.launcher

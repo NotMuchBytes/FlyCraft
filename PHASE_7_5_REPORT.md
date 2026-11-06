@@ -235,3 +235,29 @@ observations. This result does not add a log-collection success or establish
 neural benefit. Full evidence, provenance and remaining checks are in
 [`docs/companion_follow_validation.md`](docs/companion_follow_validation.md).
 Phase 7.5 remains incomplete.
+
+## November 6 reliability increment
+
+The controller now validates position/visible geometry before committing
+inventory and mining acknowledgments. An invalid-packet/retry diagnostic
+counted one block twice before the fix and once afterward. Baseline 101 tests
+passed; final **104 tests passed in 20.999 seconds**.
+
+A recorded strict one-log smoke check succeeded in 2 actions/76 ticks. A real
++90-degree mining interruption produced `mining_aim_lost`; the learned
+controller recovered and collected a log in 22 actions/358 ticks. These are
+controlled survival fixtures, with learning off. A real 6.464-second bridge
+process-tree stall exposed a protocol defect: an outdated command is discarded
+without a rejection acknowledgment, leaving `acknowledgment_timeout`. That
+trial mined but collected no log by 400 ticks. No infinite loop or crash occurred.
+Work stopped at this reproduced problem under the user's instruction; the
+handshake defect remains unresolved.
+
+All four scored sessions have playable MP4s; final review marks the bridge-failure
+clip's visual coverage partial because a game menu obscures part of gameplay.
+The original metadata/footage are preserved. This includes a launcher-only pause
+explicitly excluded from connection-recovery claims. Two zero-action preflight
+attempts have no MP4 (RAM guard, AMD renderer). Six generated instances reuse
+one seed, not independent unseen-world tests. Graph/checkpoint hashes are
+unchanged; there were zero new training updates. See
+[full evidence and next steps](docs/phase75_reliability_20261106.md).

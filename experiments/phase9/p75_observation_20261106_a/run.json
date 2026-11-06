@@ -1,0 +1,72 @@
+{
+  "run_id": "p75_observation_20261106_a",
+  "world_seed": 2026110601,
+  "layout_start": 2026110601,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 0,
+  "stop_reason": "available_ram_guard",
+  "elapsed_seconds": 72.43656879995251,
+  "maximum_sampled_gpu_c": 53,
+  "train": false,
+  "recording": null,
+  "recording_confirmed": false,
+  "milestone": 1,
+  "experiment_stage": "development",
+  "redo_of": null,
+  "execution_kind": "new_execution_not_replay",
+  "headless": true,
+  "spectator": true,
+  "spectator_view": "third_person",
+  "capture_requested_size": [
+    854,
+    480
+  ],
+  "client_fps_limit": 30,
+  "capture_content_proof": null,
+  "capture_content_proof_error": null,
+  "recording_mode": "OBS_isolated_spectator",
+  "generated_world_instances": 1,
+  "episodes_in_generated_world": 0,
+  "environment_kind": "controlled_flat_survival_fixture",
+  "server_heap_mib": 384,
+  "client_heap_mib": 512,
+  "trial_tick_limit": 400,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "forward_ticks": 2,
+  "movement_feedback": "displacement",
+  "experiment_kind": "policy_goal",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "launcher": "direct",
+  "minimum_sampled_available_ram_mib": 690.30078125,
+  "available_ram_guard_mib": 768,
+  "peak_sampled_process_tree_rss_mib": {
+    "bridge": 388.37890625,
+    "server": 533.53515625,
+    "client": 552.00390625
+  },
+  "exit_codes_before_cleanup": {
+    "prepare": 0,
+    "bridge": null,
+    "server": null,
+    "client": null
+  },
+  "client_exited_cleanly": false,
+  "server_exited_cleanly": false,
+  "actual_graphics": [],
+  "policy_label": "six_live_log_episodes",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "implementation_sha256": "d077b2f24490357ca03001a57aba760a15934dff6aacc105d50a99acef453cb7",
+  "milestone_video_status": "missing",
+  "milestone_video_error": "No confirmed recording source exists"
+}

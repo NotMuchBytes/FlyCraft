@@ -1,0 +1,11 @@
+[
+  {
+    "kind": "bridge_stall",
+    "requested_unix": 1793945935.814963,
+    "mining_command_id": 1,
+    "mining_started_server_tick": 713,
+    "disturbance": "owned_bridge_suspended",
+    "requested_stall_seconds": 6,
+    "resumed_unix": 1793945942.2270222
+  }
+]

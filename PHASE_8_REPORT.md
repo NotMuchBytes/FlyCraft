@@ -1,5 +1,12 @@
 # FlyCraft — Phase 8 progress report
 
+November 6 reliability update: a recorded strict one-log smoke check and
+interrupted-mining recovery succeeded. A recorded bridge process-tree stall
+exposed an unresolved stale-command rejection/acknowledgment defect and failed
+collection. These small development checks reuse one fixture seed; they are
+not held-out benchmarks or learning gains. Phase 8 remains incomplete. See
+[the Phase 7.5 evidence](docs/phase75_reliability_20261106.md).
+
 Updated: 2026-10-28 (Asia/Amman). **Phase 8 is not complete.**
 The one-log target has been demonstrated in controlled real Minecraft fixtures:
 29/30 inventory-confirmed successes. Longer-goal evaluation remains underway.

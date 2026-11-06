@@ -230,6 +230,17 @@ class LiveResourceController:
                     position=list(terminal["position"]), inventory_consistent=True,
                     visible=False, near=False, station_visible=False, allowed_actions=["NO_OP"])
             try:
+                # Validate the complete pose before committing inventory or a
+                # block acknowledgment. A rejected packet may be retried with
+                # that same acknowledgment and must not partly mutate evidence.
+                position = [float(v) for v in telemetry["position"]]
+                if len(position) != 3 or not all(math.isfinite(v) for v in position):
+                    raise ObservationError("invalid_position")
+                visible = bool(telemetry["visible"])
+                distance = float(telemetry["target_distance"]) if visible else None
+                angle = float(telemetry["target_angle"]) if visible else None
+                if visible and (not math.isfinite(distance) or not 0 <= distance <= 12 or not math.isfinite(angle)):
+                    raise ObservationError("invalid_visible_geometry")
                 inventory = self.ledger.observe(telemetry, ack if self.pending_id is not None else None,
                                                 terminal_tick=int(terminal["server_tick"]) if terminal else None)
                 self.inventory_waits = 0
@@ -240,14 +251,6 @@ class LiveResourceController:
                     self._record()
                     return self._reply("NO_OP", 0, started)
                 return self._reply("NO_OP", 0, started, observe_only=True)
-            position = [float(v) for v in telemetry["position"]]
-            if len(position) != 3 or not all(math.isfinite(v) for v in position):
-                raise ObservationError("invalid_position")
-            visible = bool(telemetry["visible"])
-            distance = float(telemetry["target_distance"]) if visible else None
-            angle = float(telemetry["target_angle"]) if visible else None
-            if visible and (not math.isfinite(distance) or not 0 <= distance <= 12 or not math.isfinite(angle)):
-                raise ObservationError("invalid_visible_geometry")
             observation = {"world_id": telemetry["session_id"] + ":" + episode, "position": position,
                 "visible": visible, "sector": request.get("sector") if visible else None,
                 "near": bool(telemetry["near"]), "distance": distance, "angle": angle,
