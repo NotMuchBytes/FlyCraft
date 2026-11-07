@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -32,6 +33,7 @@ public final class Phase8Harness {
     private static int groundY;
     private static int maxSeconds;
     private static boolean initialized;
+    private static boolean threeTrees;
     private static JsonObject terminal;
     private static int terminalWait;
     private static final Map<ServerPlayer, BlockPos> placements = new HashMap<>();
@@ -48,6 +50,7 @@ public final class Phase8Harness {
             maxTicks = Integer.parseInt(config.getProperty("maxTrialTicks", "1200"));
             maxSeconds = Integer.parseInt(config.getProperty("maxSeconds", "600"));
             policySeed = Long.parseLong(config.getProperty("policySeed", "9001"));
+            threeTrees = Boolean.parseBoolean(config.getProperty("fixture.threeTrees", "false"));
             trials = new ArrayList<>();
             for (String line : Files.readAllLines(Path.of(config.getProperty("trialsFile")))) {
                 if (line.isBlank() || line.startsWith("#")) continue;
@@ -187,13 +190,26 @@ public final class Phase8Harness {
             return;
         }
         Random rng = new Random(trial.seed);
-        double bearing = Math.toRadians(-40 + rng.nextDouble() * 80), distance = 2.0 + rng.nextDouble() * 1.5;
+        if (threeTrees && trial.goal.equals("three_logs")) {
+            // Separate trunks offer three logs at eye height to the yaw-only policy.
+            for (int lane = -1; lane <= 1; lane++) {
+                double bearing = lane * 38 + (rng.nextDouble() - 0.5) * 8;
+                double distance = (lane == 0 ? 2.2 : 4.1) + rng.nextDouble() * 0.5;
+                placeTree(level, Math.toRadians(bearing), distance);
+            }
+        } else {
+            double bearing = Math.toRadians(-40 + rng.nextDouble() * 80);
+            placeTree(level, bearing, 2.0 + rng.nextDouble() * 1.5);
+        }
+        FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 episode_start id={} condition={} goal={} layout_seed={}", index, trial.condition, trial.goal, trial.seed);
+        initialState(player,trial);
+    }
+
+    private static void placeTree(ServerLevel level, double bearing, double distance) {
         int x = (int)Math.floor(originX - Math.sin(bearing) * distance), z = (int)Math.floor(originZ + Math.cos(bearing) * distance);
         for (int y = 0; y < 3; y++) level.setBlockAndUpdate(new BlockPos(x, groundY + y, z), Blocks.OAK_LOG.defaultBlockState());
         for (int dx = -1; dx <= 1; dx++) for (int dz = -1; dz <= 1; dz++)
             level.setBlockAndUpdate(new BlockPos(x + dx, groundY + 3, z + dz), Blocks.OAK_LEAVES.defaultBlockState());
-        FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 episode_start id={} condition={} goal={} layout_seed={}", index, trial.condition, trial.goal, trial.seed);
-        initialState(player,trial);
     }
 
     private static void initialState(ServerPlayer player,Trial trial) {

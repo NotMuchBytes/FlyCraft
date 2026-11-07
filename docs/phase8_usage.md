@@ -49,6 +49,12 @@ Evaluation conditions never update policy weights. The `frozen` condition uses
 the explicit Phase 7 checkpoint, and uniform sampling uses the same affordance
 mask and engineered planner as the trained agent.
 
+Use `--headless --goals three_logs --three-tree-fixture` for the controlled
+multi-tree goal. Three separate trunks make logs reachable at eye height
+with the existing yaw-only action set. The server records each initial
+fixture and requires three logs in inventory. The flag applies only to
+the three-log goal and defaults off.
+
 ## Camera and NVIDIA graphics
 
 New runs use the bounded camera and crosshair-only interactions. Use explicit
