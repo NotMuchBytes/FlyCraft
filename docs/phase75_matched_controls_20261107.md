@@ -52,10 +52,20 @@ The plan separately selected a recorded trained repeat of the first fixture.
 Both recording attempts stopped before gameplay at the RAM guard, with
 minimum samples of 610.93 and 513.45 MiB. Neither produced an MP4. The second
 used the later controller-abort accounting fix, with the same policy and
-settings. The original matched episode data remain intact. The recording
-milestone remains pending.
+settings. The original matched episode data remain intact.
 [First attempt](../recordings/phase9/youtube/p75_controls_recorded_20261107_a.json)
 [Retry](../recordings/phase9/youtube/p75_controls_recorded_20261107_b.json)
+
+A third attempt completed the preselected trained repeat with the same
+world and layout seeds, checkpoint, and motor settings. This execution
+used the later implementation, with the three-log options inactive.
+The controller completed the goal in two actions, and Minecraft confirmed
+one log in inventory at 78 game ticks and acknowledged the terminal
+boundary. The controller recorded success before the final exchange and
+its result row lacks a separate terminal inventory field. The run remains
+outside the paired statistics. The 22.6-second OBS MP4 passed full decoding
+and Minecraft-window capture verification on the RTX 4050.
+[Verified recording](../recordings/phase9/youtube/p75_controls_recorded_20261107_c.json)
 
 [Fixed plan](../experiments/phase9/phase75_controls_20261107/plan.json)
 [Per-trial results](../experiments/phase9/phase75_controls_20261107/results.json)
