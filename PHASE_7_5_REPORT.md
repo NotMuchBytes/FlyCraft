@@ -324,3 +324,15 @@ server and controller inventories confirmed four planks in six actions and
 An earlier attempt stopped at the RAM guard and has startup-only footage.
 All 110 automated tests passed. This controlled fault result is separate from
 normal success rates. See the [restart trace](docs/phase75_checkpoint_restart_20261107.md).
+
+## Matched live controls on three additional seeds
+
+Fifteen Minecraft trials paired the five policies within three new
+world/layout seeds. The trained policy collected a log in 2/3 trials,
+frozen Phase 7 and uniform in 3/3 each, shuffled in 1/3, and no-neural in 0/3.
+Every result has matching server and controller inventory evidence and an
+acknowledged terminal boundary. The trained miss mined a log without
+picking it up. These controlled fixtures and small sample leave causal
+neural contribution, training benefit and natural-terrain performance
+unestablished. See the
+[matched results, intervals and failure analysis](docs/phase75_matched_controls_20261107.md).

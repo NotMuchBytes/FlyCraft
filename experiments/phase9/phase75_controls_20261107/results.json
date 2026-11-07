@@ -1,0 +1,282 @@
+{
+  "complete_matched_blocks": 3,
+  "blocks": [
+    {
+      "run_id": "p75_controls_20261107_1",
+      "world_seed": 8201953184419146674,
+      "layout_seed": 4896194030999330467,
+      "stop_reason": "suite_complete",
+      "matched_initial_snapshots": true,
+      "eligible_complete_block": true,
+      "episodes": [
+        {
+          "condition": "trained",
+          "episode_id": "trial_0000",
+          "success": true,
+          "inventory_logs": 1,
+          "ticks": 78,
+          "action_starts": 2,
+          "block_changes": 1,
+          "verified": true,
+          "failure": null,
+          "controller_termination": "success"
+        },
+        {
+          "condition": "frozen",
+          "episode_id": "trial_0001",
+          "success": true,
+          "inventory_logs": 1,
+          "ticks": 79,
+          "action_starts": 2,
+          "block_changes": 1,
+          "verified": true,
+          "failure": null,
+          "controller_termination": "success"
+        },
+        {
+          "condition": "uniform",
+          "episode_id": "trial_0002",
+          "success": true,
+          "inventory_logs": 1,
+          "ticks": 87,
+          "action_starts": 3,
+          "block_changes": 1,
+          "verified": true,
+          "failure": null,
+          "controller_termination": "success"
+        },
+        {
+          "condition": "no_neural",
+          "episode_id": "trial_0003",
+          "success": false,
+          "inventory_logs": 0,
+          "ticks": 400,
+          "action_starts": 27,
+          "block_changes": 1,
+          "verified": true,
+          "failure": "mined_without_pickup",
+          "controller_termination": "episode_boundary"
+        },
+        {
+          "condition": "shuffled",
+          "episode_id": "trial_0004",
+          "success": true,
+          "inventory_logs": 1,
+          "ticks": 100,
+          "action_starts": 4,
+          "block_changes": 1,
+          "verified": true,
+          "failure": null,
+          "controller_termination": "success"
+        }
+      ]
+    },
+    {
+      "run_id": "p75_controls_20261107_2",
+      "world_seed": 3665084300002622467,
+      "layout_seed": 1211927932419778272,
+      "stop_reason": "suite_complete",
+      "matched_initial_snapshots": true,
+      "eligible_complete_block": true,
+      "episodes": [
+        {
+          "condition": "uniform",
+          "episode_id": "trial_0000",
+          "success": true,
+          "inventory_logs": 1,
+          "ticks": 104,
+          "action_starts": 4,
+          "block_changes": 1,
+          "verified": true,
+          "failure": null,
+          "controller_termination": "success"
+        },
+        {
+          "condition": "no_neural",
+          "episode_id": "trial_0001",
+          "success": false,
+          "inventory_logs": 0,
+          "ticks": 400,
+          "action_starts": 31,
+          "block_changes": 0,
+          "verified": true,
+          "failure": "no_block_broken",
+          "controller_termination": "episode_boundary"
+        },
+        {
+          "condition": "shuffled",
+          "episode_id": "trial_0002",
+          "success": false,
+          "inventory_logs": 0,
+          "ticks": 400,
+          "action_starts": 33,
+          "block_changes": 0,
+          "verified": true,
+          "failure": "no_block_broken",
+          "controller_termination": "episode_boundary"
+        },
+        {
+          "condition": "trained",
+          "episode_id": "trial_0003",
+          "success": false,
+          "inventory_logs": 0,
+          "ticks": 400,
+          "action_starts": 27,
+          "block_changes": 1,
+          "verified": true,
+          "failure": "mined_without_pickup",
+          "controller_termination": "episode_boundary"
+        },
+        {
+          "condition": "frozen",
+          "episode_id": "trial_0004",
+          "success": true,
+          "inventory_logs": 1,
+          "ticks": 138,
+          "action_starts": 7,
+          "block_changes": 1,
+          "verified": true,
+          "failure": null,
+          "controller_termination": "success"
+        }
+      ]
+    },
+    {
+      "run_id": "p75_controls_20261107_3",
+      "world_seed": 3002759740381173349,
+      "layout_seed": 3402188431168806763,
+      "stop_reason": "suite_complete",
+      "matched_initial_snapshots": true,
+      "eligible_complete_block": true,
+      "episodes": [
+        {
+          "condition": "shuffled",
+          "episode_id": "trial_0000",
+          "success": false,
+          "inventory_logs": 0,
+          "ticks": 400,
+          "action_starts": 32,
+          "block_changes": 0,
+          "verified": true,
+          "failure": "no_block_broken",
+          "controller_termination": "episode_boundary"
+        },
+        {
+          "condition": "trained",
+          "episode_id": "trial_0001",
+          "success": true,
+          "inventory_logs": 1,
+          "ticks": 195,
+          "action_starts": 12,
+          "block_changes": 1,
+          "verified": true,
+          "failure": null,
+          "controller_termination": "success"
+        },
+        {
+          "condition": "frozen",
+          "episode_id": "trial_0002",
+          "success": true,
+          "inventory_logs": 1,
+          "ticks": 189,
+          "action_starts": 11,
+          "block_changes": 1,
+          "verified": true,
+          "failure": null,
+          "controller_termination": "success"
+        },
+        {
+          "condition": "uniform",
+          "episode_id": "trial_0003",
+          "success": true,
+          "inventory_logs": 1,
+          "ticks": 219,
+          "action_starts": 12,
+          "block_changes": 1,
+          "verified": true,
+          "failure": null,
+          "controller_termination": "success"
+        },
+        {
+          "condition": "no_neural",
+          "episode_id": "trial_0004",
+          "success": false,
+          "inventory_logs": 0,
+          "ticks": 400,
+          "action_starts": 31,
+          "block_changes": 0,
+          "verified": true,
+          "failure": "no_block_broken",
+          "controller_termination": "episode_boundary"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "trained": {
+      "successes": 2,
+      "trials": 3,
+      "wilson_95": [
+        0.2076596008020477,
+        0.9385080552796037
+      ],
+      "median_action_starts": 12,
+      "failure_modes": {
+        "no_block_broken": 0,
+        "mined_without_pickup": 1
+      }
+    },
+    "frozen": {
+      "successes": 3,
+      "trials": 3,
+      "wilson_95": [
+        0.4385029682449546,
+        1.0
+      ],
+      "median_action_starts": 7,
+      "failure_modes": {
+        "no_block_broken": 0,
+        "mined_without_pickup": 0
+      }
+    },
+    "uniform": {
+      "successes": 3,
+      "trials": 3,
+      "wilson_95": [
+        0.4385029682449546,
+        1.0
+      ],
+      "median_action_starts": 4,
+      "failure_modes": {
+        "no_block_broken": 0,
+        "mined_without_pickup": 0
+      }
+    },
+    "no_neural": {
+      "successes": 0,
+      "trials": 3,
+      "wilson_95": [
+        0.0,
+        0.5614970317550454
+      ],
+      "median_action_starts": 31,
+      "failure_modes": {
+        "no_block_broken": 2,
+        "mined_without_pickup": 1
+      }
+    },
+    "shuffled": {
+      "successes": 1,
+      "trials": 3,
+      "wilson_95": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "median_action_starts": 32,
+      "failure_modes": {
+        "no_block_broken": 2,
+        "mined_without_pickup": 0
+      }
+    }
+  }
+}
