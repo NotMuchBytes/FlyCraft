@@ -326,3 +326,18 @@ goal-length effect. Neural contribution and learning improvement remain
 unestablished. Blocked movement/drop pickup, the missing policy pitch actions,
 more complex headless crafting and natural terrain remain limitations. Full
 provenance is in `PHASE_9_REPORT.md`. Phase 8 is not declared complete.
+
+## November 7 reliability and control checks
+
+Minecraft 26.2 trials verified recovery from a lost bridge reply and from
+an in-episode Python process restart while mining was pending. The recorded
+restart finished with four server-confirmed planks in six actions. These
+deliberate faults are separate from the ordinary plank trials.
+[Live checkpoint restoration](docs/phase75_checkpoint_restart_20261107.md)
+
+A follow-up matched comparison across three additional controlled fixture
+seeds gave 2/3 for the trained checkpoint, 3/3 each for frozen and uniform,
+1/3 for shuffled features, and 0/3 with neural activity removed. This small
+sample does not demonstrate a learned advantage. The three-log and wooden
+pickaxe validation targets remain open.
+[Full results and recording status](docs/phase75_matched_controls_20261107.md)

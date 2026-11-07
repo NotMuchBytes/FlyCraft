@@ -336,3 +336,14 @@ picking it up. These controlled fixtures and small sample leave causal
 neural contribution, training benefit and natural-terrain performance
 unestablished. See the
 [matched results, intervals and failure analysis](docs/phase75_matched_controls_20261107.md).
+
+## Learning safety after a controller abort
+
+An acknowledgment timeout previously turned an unconfirmed command into a
+failed action and added a synthetic negative reward. The new regression
+reproduces that failure after one real acknowledged action. The controller
+now records the unconfirmed command ID separately and suppresses the update
+for an aborted episode. Acknowledged gameplay failures still use the normal
+reward and recovery paths. This regression uses injected protocol packets.
+All 111 automated tests passed in 20.182 seconds. No checkpoint update was
+made and the fix has yet to be exercised by a new Minecraft run.

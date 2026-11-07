@@ -130,12 +130,16 @@ class LiveResourceController:
 
     def _abort(self, reason):
         if self.agent.session and not self.agent.session["done"]:
-            if self.agent.pending:
-                features, index, probabilities, before = self.agent.pending
+            session = self.agent.session
+            if self.agent.pending is not None:
+                session["unconfirmed_command_id"] = self.pending_id
                 self.agent.pending = None
-                self.agent.trajectory.append((features, index, probabilities, -2.0))
-                self.agent.session["total_reward"] -= 2
-                self.agent.session["failed_actions"] += 1
+            # A controller abort has no reliable terminal outcome for training.
+            # Confirmed action failures still go through the ordinary observer.
+            if session["train"]:
+                session["requested_train"] = True
+                session["train"] = False
+                session["training_suppressed"] = reason
             self.agent._finish(False, reason)
         self.pending_id = None
 

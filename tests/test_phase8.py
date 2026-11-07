@@ -185,6 +185,29 @@ class Phase8Tests(unittest.TestCase):
             finally:
                 controller.close()
 
+    def test_unconfirmed_action_cannot_create_penalty_or_train_on_abort(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller = self.controller(Path(directory))
+            try:
+                first = controller.evaluate_request(self.request(10, train=True))
+                second = controller.evaluate_request(self.request(20, train=True, ack=self.ack(first)))
+                weights = controller.agent.policy.weights.copy()
+                reward = controller.agent.session["total_reward"]
+                for tick in range(30, 80, 10):
+                    response = controller.evaluate_request(self.request(tick))
+                session = controller.agent.session
+                self.assertEqual(response["autonomy_status"], "acknowledgment_timeout")
+                self.assertEqual(session["actions"], 1)
+                self.assertEqual(session["failed_actions"], 0)
+                self.assertEqual(len(controller.agent.trajectory), 1)
+                self.assertEqual(session["total_reward"], reward)
+                self.assertTrue(session["requested_train"])
+                self.assertFalse(session["train"])
+                self.assertEqual(session["unconfirmed_command_id"], second["command_id"])
+                np.testing.assert_array_equal(controller.agent.policy.weights, weights)
+            finally:
+                controller.close()
+
     def test_rejected_delivery_resamples_without_execution_credit_or_learning(self):
         with tempfile.TemporaryDirectory() as directory:
             controller = self.controller(Path(directory))
