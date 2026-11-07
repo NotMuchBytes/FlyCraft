@@ -1,0 +1,16 @@
+[
+  {
+    "kind": "bridge_checkpoint_restart",
+    "requested_unix": 1794031468.979385,
+    "mining_command_id": 1,
+    "mining_started_server_tick": 768,
+    "disturbance": "owned_bridge_restarted_from_pending_checkpoint",
+    "stopped_unix": 1794031469.0283473,
+    "stopped_pid": 29400,
+    "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p75_pending_checkpoint_20261107_b\\pending_mining.npz",
+    "checkpoint_sha256": "314189ca182405c5e9cec89ac542df001977e84ac6948ddc7921c6e02e398af3",
+    "restored_controller_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p75_pending_checkpoint_20261107_b\\controller-restored.jsonl",
+    "restarted_unix": 1794031474.344832,
+    "restarted_pid": 984
+  }
+]

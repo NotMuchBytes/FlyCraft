@@ -1,0 +1,65 @@
+{
+  "purpose": "Matched development evaluation of the current strict one-log controller",
+  "implementation_sha256": "c51d5ef720dbd925a8bcef759125f38a061b0703815582bf11c9d35a19ce6d18",
+  "seed_catalog_master": 2026110705,
+  "checkpoint": {
+    "path": "checkpoints/phase9/dev_pilot_20261029_b_pilot_trained_00002_a0003/trial_0000.npz",
+    "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+  },
+  "frozen_checkpoint": {
+    "path": "checkpoints/phase7/curriculum_v3_seed29.npz",
+    "sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6"
+  },
+  "settings": {
+    "goal": "one_log",
+    "train": false,
+    "camera": "bounded",
+    "turn_degrees": 15,
+    "forward_ticks": 2,
+    "movement_feedback": "displacement",
+    "trial_ticks": 400,
+    "policy_seed": 9001,
+    "trials_per_condition": 1,
+    "environment": "controlled flat survival fixture"
+  },
+  "blocks": [
+    {
+      "run_id": "p75_controls_20261107_1",
+      "world_seed": 8201953184419146674,
+      "layout_seed": 4896194030999330467,
+      "condition_order": [
+        "trained",
+        "frozen",
+        "uniform",
+        "no_neural",
+        "shuffled"
+      ]
+    },
+    {
+      "run_id": "p75_controls_20261107_2",
+      "world_seed": 3665084300002622467,
+      "layout_seed": 1211927932419778272,
+      "condition_order": [
+        "uniform",
+        "no_neural",
+        "shuffled",
+        "trained",
+        "frozen"
+      ]
+    },
+    {
+      "run_id": "p75_controls_20261107_3",
+      "world_seed": 3002759740381173349,
+      "layout_seed": 3402188431168806763,
+      "condition_order": [
+        "shuffled",
+        "trained",
+        "frozen",
+        "uniform",
+        "no_neural"
+      ]
+    }
+  ],
+  "recording_milestone": "Separate trained repeat of block 1, excluded from matched statistics.",
+  "analysis": "Pair within world/layout. Verify starting snapshots, inventory and terminal delivery. Summarize Wilson 95% intervals and failure types. Report partial blocks separately."
+}

@@ -20,8 +20,11 @@ to cross the adapter's 15-second read timeout. It reproduced a lost command
 and zero inventory logs before the repair. A
 [headless retry](phase75_rejection_recovery_20261106.md#verified-minecraft-read-timeout-recovery)
 crossed the socket deadline and collected a log after discarding the
-undelivered decision. Graphical-adapter recovery and live checkpoint
-restoration still require validation before expanding training.
+undelivered decision. A separate
+[`bridge_checkpoint_restart` diagnostic](phase75_checkpoint_restart_20261107.md)
+restored the bridge during a live headless mining episode and verified four
+planks in inventory. The graphical adapter and full Minecraft server restart
+remain unverified.
 
 From the repository root, use the existing runner with `--headless` to omit
 the agent's graphical client. `--spectator --milestone 1` adds mandatory

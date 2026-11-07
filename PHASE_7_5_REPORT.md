@@ -311,3 +311,16 @@ spectator used the RTX 4050. Both live recoveries use the same controlled
 fixture seed, with training disabled. Phase 7.5 remains incomplete pending
 broader trials and live checkpoint restoration. See the
 [recorded milestone](docs/phase75_rejection_recovery_20261106.md#recorded-milestone).
+
+## Live checkpoint restoration
+
+A new operator diagnostic stops Python during an acknowledged Minecraft
+mining attempt and restores a checkpoint with that action still pending.
+In a recorded Minecraft 26.2 test, the replacement process accepted the
+original mining acknowledgment exactly once and issued the next command.
+The policy then collected the log and selected the plank recipe. Independent
+server and controller inventories confirmed four planks in six actions and
+281 game ticks. The 32.133-second Minecraft-only MP4 passed full decoding.
+An earlier attempt stopped at the RAM guard and has startup-only footage.
+All 110 automated tests passed. This controlled fault result is separate from
+normal success rates. See the [restart trace](docs/phase75_checkpoint_restart_20261107.md).

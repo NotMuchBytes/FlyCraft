@@ -275,8 +275,11 @@ class Phase8Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             controller = self.controller(folder)
+            controller.mining_checkpoint = folder / "pending.npz"
             first = controller.evaluate_request(self.request(10))
-            controller.save_state(folder / "pending.npz")
+            self.assertEqual(first["action"], "COLLECT_LOG")
+            self.assertTrue((folder / "pending.npz").is_file())
+            self.assertIsNone(controller.mining_checkpoint)
             controller.close()
             restored = self.controller(folder, checkpoint=folder / "pending.npz", result="restored")
             try:
@@ -285,6 +288,8 @@ class Phase8Tests(unittest.TestCase):
                 response = restored.evaluate_request(self.request(20, telemetry=after, ack=self.ack(first)))
                 self.assertEqual(response["autonomy_status"], "success")
                 self.assertEqual(restored.command_id, first["command_id"])
+                self.assertEqual(restored.agent.session["actions"], 1)
+                self.assertEqual(restored.ledger.mined_blocks, 1)
             finally:
                 restored.close()
 

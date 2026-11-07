@@ -85,7 +85,8 @@ class LiveResourceController:
     condition and learning enablement. World/layout seeds never enter this API.
     """
     def __init__(self, neural, table, checkpoint: Path, *, frozen_checkpoint: Path | None = None,
-                 result_log: Path, checkpoint_dir: Path | None = None, control_file: Path | None = None):
+                 result_log: Path, checkpoint_dir: Path | None = None, control_file: Path | None = None,
+                 mining_checkpoint: Path | None = None):
         self.neural, self.table = neural, table
         self.agent, _ = AutonomousAgent.load(checkpoint, table)
         self.trained = self.agent.policy
@@ -97,6 +98,7 @@ class LiveResourceController:
         result_log.parent.mkdir(parents=True, exist_ok=True)
         self.results = result_log.open("x", encoding="utf-8")
         self.checkpoint_dir = checkpoint_dir
+        self.mining_checkpoint = mining_checkpoint
         self.control_file = control_file
         self.terminal_ack_episode = None
         self.raw_neural_features = None
@@ -327,6 +329,10 @@ class LiveResourceController:
             self.command_id += 1
             self.pending_id = self.command_id
             self.pending_transport_id = transport_id
+            if (action == "COLLECT_LOG" and self.mining_checkpoint is not None
+                    and self.condition == "trained" and not self.agent.session["train"]):
+                self.save_state(self.mining_checkpoint)
+                self.mining_checkpoint = None
             return self._reply(action, self.command_id, started, peak=peak)
 
     def _reconcile_lost_reply(self, loss, tick, world_id, transport_id):

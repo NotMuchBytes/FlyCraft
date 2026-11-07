@@ -155,8 +155,9 @@ def run():
     parser.add_argument("--movement-feedback",choices=("input_only","displacement"),default="displacement",
                         help="Require at least 0.02 blocks of own-pose movement for forward success")
     parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
-    parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall", "bridge_read_timeout"), default="none",
-                        help="One-shot mining yaw disturbance or bounded owned bridge stall; reliability tests only")
+    parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall", "bridge_read_timeout",
+                        "bridge_checkpoint_restart"), default="none",
+                        help="One-shot mining interruption, bridge stall or checkpoint restart; reliability tests only")
     parser.add_argument("--graphics-backend", choices=("default","opengl","vulkan"),default="opengl")
     parser.add_argument("--minimum-available-ram-mib", type=int, default=768)
     parser.add_argument("--minimum-free-disk-mib", type=int, default=2048)
@@ -212,6 +213,9 @@ def run():
     if args.operator_fault != "none" and (not args.headless or args.train or args.trials != 1
                                          or len(goals) != 1 or len(conditions) != 1):
         parser.error("operator faults require one headless episode with learning disabled")
+    checkpoint_restart = args.operator_fault == "bridge_checkpoint_restart"
+    if checkpoint_restart and conditions != ["trained"]:
+        parser.error("bridge checkpoint restart requires the trained evaluation condition")
     if listening(25567) or listening(8765):
         parser.error("live test ports already occupied; no existing process will be stopped")
     recorder = EventLogRecording() if not graphical else ObsRecorder(args.obs_control_dir.resolve(), args.run_id)
@@ -290,6 +294,7 @@ def run():
     gpu_memory_mib=None
     fault_events=[]
     bridge_resume_at=None
+    bridge_restart_at=None
     suspended_bridge_processes=[]
     def ownership_check():
         if args.stop_file is not None and args.stop_file.exists():
@@ -335,7 +340,9 @@ def run():
             bridge_command += ["--phase8-frozen-checkpoint", str(args.frozen_checkpoint.resolve())]
         if args.train:
             bridge_command += ["--phase8-save-dir", str(ROOT / "checkpoints" / phase / args.run_id)]
-        bridge = launch(bridge_command, "bridge", ROOT)
+        pending_checkpoint = results / "pending_mining.npz"
+        initial_bridge_command = bridge_command + ["--phase8-mining-checkpoint", str(pending_checkpoint)] if checkpoint_restart else bridge_command
+        bridge = launch(initial_bridge_command, "bridge", ROOT)
         server = launch(direct_commands["server"] if direct_commands else
             gradle + ["-PflycraftRunDir=" + java_path(server_dir), "runServer", "--args=nogui"],
             "server", server_dir if direct_commands else ROOT / "minecraft_mod")
@@ -410,6 +417,21 @@ def run():
                         command = b"execute as FlyCraftAgent at @s run teleport @s ~ ~ ~ ~90 ~\n"
                         server.stdin.write(command); server.stdin.flush()
                         event.update(disturbance="relative_yaw_plus_90_degrees", command_written=True)
+                    elif checkpoint_restart:
+                        from learning import LinearSoftmaxPolicy
+                        _, metadata = LinearSoftmaxPolicy.load(pending_checkpoint)
+                        pending = metadata["extra"]["extension"]["phase8"]
+                        if pending["pending_id"] != mining["command_id"]:
+                            raise RuntimeError("mining checkpoint does not match the active command")
+                        stop(bridge)
+                        if bridge.poll() is None or listening(8765):
+                            raise RuntimeError("owned bridge did not stop for checkpoint restart")
+                        event.update(disturbance="owned_bridge_restarted_from_pending_checkpoint",
+                            stopped_unix=time.time(), stopped_pid=bridge.pid,
+                            checkpoint=str(pending_checkpoint),
+                            checkpoint_sha256=hashlib.sha256(pending_checkpoint.read_bytes()).hexdigest(),
+                            restored_controller_log=str(results / "controller-restored.jsonl"))
+                        bridge_restart_at = time.perf_counter() + 5
                     else:
                         # Only this supervisor's owned Python process is paused.
                         # Minecraft continues; actual socket timeouts are logged.
@@ -426,6 +448,14 @@ def run():
                                                  for owned in suspended_bridge_processes])
                     fault_events.append(event)
                     atomic_json(results / "operator_fault.json", fault_events)
+            if bridge_restart_at is not None and time.perf_counter() >= bridge_restart_at:
+                restored = bridge_command.copy()
+                restored[restored.index("--phase8-checkpoint") + 1] = str(pending_checkpoint)
+                restored[restored.index("--phase8-results") + 1] = str(results / "controller-restored.jsonl")
+                bridge = launch(restored, "bridge-restored", ROOT)
+                bridge_restart_at = None
+                fault_events[-1].update(restarted_unix=time.time(), restarted_pid=bridge.pid)
+                atomic_json(results / "operator_fault.json", fault_events)
             if bridge_resume_at is not None and time.perf_counter() >= bridge_resume_at:
                 for owned in reversed(suspended_bridge_processes):
                     if owned.is_running(): owned.resume()
@@ -442,7 +472,8 @@ def run():
                 while any(process.poll() is None for name,process in named_processes.items() if name in {"client","server"}) and time.perf_counter()<closing_deadline:
                     recorder.pulse(); time.sleep(.25)
                 break
-            if bridge.poll() is not None or server.poll() is not None or client is not None and client.poll() is not None:
+            if (bridge_restart_at is None and bridge.poll() is not None or server.poll() is not None
+                    or client is not None and client.poll() is not None):
                 stop_reason = "process_exit"; break
             if elapsed >= next_thermal:
                 next_thermal = elapsed + 5
