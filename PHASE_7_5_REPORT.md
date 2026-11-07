@@ -286,3 +286,11 @@ stopped at `acknowledgment_timeout`. One block broke, but inventory remained
 at zero logs at 600 ticks. This was a log-only diagnostic. The read-timeout
 path remains unresolved and Phase 7.5 remains incomplete. The full automated
 suite passed again with 107 tests in 19.685 seconds.
+
+The read-timeout repair now checks a failed-reply interval, command watermark
+and adapter identity before it discards an undelivered policy decision. Both
+Minecraft validation attempts reached the RAM guard. The first had no
+gameplay. The second had one server-confirmed log, but the bridge was resumed
+during cleanup before the socket deadline, so recovery remains unverified in
+Minecraft. No milestone MP4 was produced. See the
+[repair and retained run evidence](docs/phase75_rejection_recovery_20261106.md#read-timeout-repair-and-validation-status).

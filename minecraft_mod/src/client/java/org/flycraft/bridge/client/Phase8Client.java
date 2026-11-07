@@ -39,6 +39,8 @@ public final class Phase8Client {
     private Map<String, Integer> authoritative = new HashMap<>();
     private ItemStack[] serverInventory;
     private long inventoryRevision, blockRevision, tick, readyAt, actionStarted, actionId, initialBlockVersion, initialInventoryVersion;
+    private long replyLossSince=-1;
+    private final String transportId=java.util.UUID.randomUUID().toString();
     private String episode = "", stoppedEpisode = "", action = "", stage = "";
     private String terminalHandledEpisode="";
     private JsonObject control, lastAck;
@@ -165,13 +167,14 @@ public final class Phase8Client {
         }
         if (control != null && control.get("suite_complete").getAsBoolean()) { cancel(""); client.stop(); return; }
         if (client.player == null || client.level == null || client.gameMode == null) {
-            cancel("connection_lost"); return;
+            replyLossSince=-1; cancel("connection_lost"); return;
         }
         if(camera!=null) camera.tick(cameraView,tick);
         if (tick % 5 == 0 && control != null) {
             String nextEpisode = control.get("episode_id").getAsString();
             if (!nextEpisode.equals(episode)) {
                 cancel("episode_interrupted"); episode = nextEpisode; lastAck = null; readyAt = tick + 15;
+                replyLossSince=-1;
                 serverBlocks.clear(); blockVersions.clear();
                 if(camera!=null) camera.reset(cameraView,episode);
             }
@@ -187,10 +190,19 @@ public final class Phase8Client {
         if(!terminal && camera!=null && camera.busy()) return;
         if (tick % 5 != 0 || !terminal && (tick < readyAt || stoppedEpisode.equals(episode)) || !pending.compareAndSet(false, true)) return;
         JsonObject request = observe();
+        request.addProperty("transport_id",transportId);
+        if(replyLossSince>=0) {
+            JsonObject loss=new JsonObject();
+            loss.addProperty("since_tick",replyLossSince); loss.addProperty("command_watermark",actionId);
+            request.add("reply_loss",loss);
+        }
         String expectedEpisode = episode;
+        var expectedLevel = client.level;
+        var expectedPlayer = client.player;
         long observationTick = tick;
         long observationNanos = System.nanoTime();
         io.execute(() -> {
+            JsonObject response;
             try (Socket socket = new Socket()) {
                 socket.connect(new InetSocketAddress("127.0.0.1", 8765), 1500); socket.setSoTimeout(15_000);
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8));
@@ -198,12 +210,25 @@ public final class Phase8Client {
                 writer.write(request.toString()); writer.newLine(); writer.flush();
                 String line = reader.readLine();
                 if (line == null) throw new IOException("bridge closed without response");
-                JsonObject response = JsonParser.parseString(line).getAsJsonObject();
+                response = JsonParser.parseString(line).getAsJsonObject();
                 if (!response.get("status").getAsString().equals("ok")) throw new IOException(response.toString());
+            } catch (Exception error) {
                 client.execute(() -> {
                     try {
-                    if(client.player==null || !episode.equals(expectedEpisode)
+                        if(client.player!=expectedPlayer || client.level!=expectedLevel || !episode.equals(expectedEpisode)) return;
+                        if(replyLossSince<0) replyLossSince=observationTick;
+                        cancel("minecraft_connection_lost"); readyAt=tick+20;
+                        FlyCraftMod.LOGGER.error("FLYCRAFT_PHASE8 bridge_error episode={} request_tick={} reply_loss_since_tick={} command_watermark={}",
+                            expectedEpisode,observationTick,replyLossSince,actionId,error);
+                    } finally { pending.set(false); }
+                });
+                return;
+            }
+            client.execute(() -> {
+                try {
+                    if(client.player!=expectedPlayer || client.level!=expectedLevel || !episode.equals(expectedEpisode)
                         || !expectedEpisode.equals(response.get("episode_id").getAsString())) return;
+                    if(response.get("command_id").getAsLong()>0) replyLossSince=-1;
                     if(tick-observationTick>40) {
                         cancel("stale_response"); rejectUnexecuted(response,"stale_response"); return;
                     }
@@ -225,15 +250,8 @@ public final class Phase8Client {
                         return;
                     }
                     startAction(response.get("action").getAsString(), response.get("command_id").getAsLong(),observationTick,observationNanos);
-                    } finally { pending.set(false); }
-                });
-            } catch (Exception error) {
-                client.execute(() -> {
-                    try { if(episode.equals(expectedEpisode)) { cancel("minecraft_connection_lost"); readyAt=tick+20; } }
-                    finally { pending.set(false); }
-                });
-                FlyCraftMod.LOGGER.error("FLYCRAFT_PHASE8 bridge_error episode={}", expectedEpisode, error);
-            }
+                } finally { pending.set(false); }
+            });
         });
     }
 

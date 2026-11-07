@@ -65,6 +65,15 @@ does not reproduce the exact pixels of the main Minecraft camera.
 - Interrupted/failed crafting returns partial ingredients through normal
   inventory clicks. Actions have deadlines. Commands are not replayed after
   missing acknowledgments or checkpoint restoration.
+- After a bridge exchange fails, Fabric reports the first affected observation
+  tick and the last command ID it accepted or explicitly rejected. Exchanges
+  are serialized through the game-thread callback. The controller can discard
+  a pending decision only when it came from that interval in the same game
+  session and adapter instance, and is newer than Fabric's watermark. A
+  matching game acknowledgment takes precedence. The next action is sampled
+  from a fresh observation, and the
+  affected episode is excluded from training. These are transport fields,
+  separate from policy inputs.
 
 ## Evaluation boundary
 

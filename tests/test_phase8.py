@@ -33,7 +33,7 @@ class Phase8Tests(unittest.TestCase):
                 "target_id": "visible_block", "allowed_actions": ["NO_OP", "COLLECT_LOG"], **extra}
 
     def request(self, tick, *, episode="unit", goal="one_log", condition="trained", telemetry=None, ack=None, train=False):
-        request = {"tick_id": tick, "sector": "center", "control": {"episode_id": episode, "goal": goal, "condition": condition,
+        request = {"tick_id": tick, "sector": "center", "transport_id": "unit_transport", "control": {"episode_id": episode, "goal": goal, "condition": condition,
             "policy_seed": 7, "train": train}, "telemetry": telemetry or self.telemetry()}
         if ack:
             request["ack"] = ack
@@ -395,6 +395,81 @@ class Phase8Tests(unittest.TestCase):
                 self.assertEqual(controller.agent.session["actions"],0)
             finally:
                 controller.close()
+
+    def test_lost_reply_resamples_after_invalid_inventory_without_credit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller = self.controller(Path(directory))
+            try:
+                first = controller.evaluate_request(self.request(10, train=True))
+                second = controller.evaluate_request(self.request(20, train=True, ack=self.ack(first)))
+                loss = {"since_tick": 20, "command_watermark": first["command_id"]}
+                invalid = self.request(30, telemetry=self.telemetry(inventory_consistent=False), ack=self.ack(first))
+                result = controller.evaluate_request(invalid | {"reply_loss": loss})
+                self.assertTrue(result["observe_only"])
+                self.assertEqual(controller.pending_id, second["command_id"])
+                self.assertTrue(controller.agent.session["train"])
+
+                result = controller.evaluate_request(self.request(40, ack=self.ack(first)) | {"reply_loss": loss})
+                self.assertGreater(result["command_id"], second["command_id"])
+                self.assertEqual(controller.agent.session["actions"], 1)
+                self.assertEqual(controller.agent.session["failed_actions"], 0)
+                self.assertEqual(controller.ledger.mined_blocks, 1)
+                self.assertEqual(controller.agent.session["unexecuted_command_ids"], [second["command_id"]])
+                self.assertFalse(controller.agent.session["train"])
+            finally:
+                controller.close()
+
+    def test_reply_loss_cannot_discard_a_possible_execution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller = self.controller(Path(directory))
+            try:
+                first = controller.evaluate_request(self.request(10))
+                id_ = first["command_id"]
+                for tick, since, watermark, session_id, transport_id in [
+                    (20, 11, 0, "unit_world", "unit_transport"),
+                    (30, 10, id_, "unit_world", "unit_transport"),
+                    (40, 10, 0, "another_world", "unit_transport"),
+                    (50, 10, 0, "unit_world", "restarted_adapter"),
+                ]:
+                    with self.subTest(tick=tick):
+                        request = self.request(tick, telemetry=self.telemetry(session_id=session_id))
+                        result = controller.evaluate_request(request | {"transport_id": transport_id, "reply_loss": {
+                            "since_tick": since, "command_watermark": watermark,
+                        }})
+                        self.assertTrue(result["observe_only"])
+                        self.assertEqual(controller.pending_id, id_)
+
+                request = self.request(60, ack=self.ack(first)) | {
+                    "reply_loss": {"since_tick": 10, "command_watermark": 0},
+                }
+                controller.evaluate_request(request)
+                self.assertEqual(controller.agent.session["actions"], 1)
+                self.assertEqual(controller.ledger.mined_blocks, 1)
+            finally:
+                controller.close()
+
+    def test_restored_pending_reply_can_only_be_reconciled_by_same_adapter(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            original = self.controller(folder)
+            checkpoint = folder / "reply_loss.npz"
+            try:
+                first = original.evaluate_request(self.request(10, train=True))
+                original.save_state(checkpoint)
+            finally:
+                original.close()
+
+            restored = self.controller(folder, checkpoint=checkpoint, result="restored")
+            try:
+                loss = {"since_tick": 10, "command_watermark": 0}
+                other = self.request(20) | {"transport_id": "restarted_adapter", "reply_loss": loss}
+                self.assertTrue(restored.evaluate_request(other)["observe_only"])
+                result = restored.evaluate_request(self.request(30) | {"reply_loss": loss})
+                self.assertGreater(result["command_id"], first["command_id"])
+                self.assertEqual(restored.agent.session["actions"], 0)
+                self.assertFalse(restored.agent.session["train"])
+            finally:
+                restored.close()
 
     def test_passive_terminal_pickup_accounts_reward_without_crediting_unexecuted_action(self):
         with tempfile.TemporaryDirectory() as directory:

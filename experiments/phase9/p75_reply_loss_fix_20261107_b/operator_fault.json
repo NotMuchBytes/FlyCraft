@@ -1,0 +1,28 @@
+[
+  {
+    "kind": "bridge_read_timeout",
+    "requested_unix": 1794029543.2609591,
+    "mining_command_id": 1,
+    "mining_started_server_tick": 48,
+    "disturbance": "owned_bridge_process_tree_suspended",
+    "requested_stall_seconds": 20,
+    "suspended_processes": [
+      {
+        "pid": 19508,
+        "created": 1794029516.7572114,
+        "name": "python.exe"
+      },
+      {
+        "pid": 30288,
+        "created": 1794029516.7194614,
+        "name": "conhost.exe"
+      },
+      {
+        "pid": 18976,
+        "created": 1794029516.7019775,
+        "name": "python.exe"
+      }
+    ],
+    "resumed_during_cleanup_unix": 1794029553.8850138
+  }
+]

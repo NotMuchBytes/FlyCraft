@@ -99,3 +99,31 @@ logs only. It was a fault reproduction without a recording milestone or a
 successful recovery. Raw events are preserved locally and the run manifest is
 checked in. The 107-test automated suite passed again in 19.685 seconds.
 [Read-timeout run manifest](../experiments/phase9/p75_bridge_read_timeout_20261107_a/run.json)
+
+## Read-timeout repair and validation status
+
+Fabric now reports the start of a failed reply interval and its most recently
+accepted or explicitly rejected command ID. The controller reconciles a
+pending decision only when it was issued within that interval, belongs to the
+same adapter instance and game session, and is newer than Fabric's watermark.
+A real acknowledgment takes precedence. On proven loss the existing
+unexecuted-command handling discards the decision, suppresses learning and
+resamples from current observations. No replay or action credit is assigned
+to the undelivered command.
+
+The repository's regression suite passed 110 tests in 19.224 seconds. Added
+coverage includes invalid inventory during recovery, real acknowledgment
+precedence, adapter replacement, and pending checkpoint restoration.
+
+The first server-only retry, `p75_reply_loss_fix_20261107_a`, compiled and
+stopped at the 768 MiB RAM guard before gameplay (732.17 MiB minimum).
+The second retry used Serial GC and a four-processor JVM limit while keeping
+the 384 MiB heap and RAM guard. The Minecraft server confirmed one log after
+78 game ticks, but the RAM guard (631.95 MiB minimum) ended the run during the
+suspension. The bridge resumed after 10.624 seconds during cleanup, before the
+15-second socket deadline. The controller stopped without an acknowledged
+episode. This is inventory evidence from the server and does not validate
+read-timeout recovery. No matched recorded recovery or new milestone MP4
+was produced. Raw episode and operator-fault data are retained.
+[First retry](../experiments/phase9/p75_reply_loss_fix_20261107_a/run.json)
+[Second retry](../experiments/phase9/p75_reply_loss_fix_20261107_b/run.json)

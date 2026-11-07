@@ -103,6 +103,7 @@ class LiveResourceController:
         self.episode_id = None
         self.condition = "trained"
         self.pending_id = None
+        self.pending_transport_id = None
         self.command_id = 0
         self.last_tick = -1
         self.ledger = TransactionLedger()
@@ -116,6 +117,7 @@ class LiveResourceController:
         state = metadata["extra"].get("extension", {}).get("phase8")
         if state and self.agent.session and not self.agent.session["done"]:
             self.episode_id, self.pending_id = state["episode_id"], state["pending_id"]
+            self.pending_transport_id = state.get("pending_transport_id")
             self.command_id, self.last_tick = state["command_id"], state["last_tick"]
             self.ledger = TransactionLedger.from_dict(state["ledger"])
 
@@ -150,7 +152,8 @@ class LiveResourceController:
 
     def save_state(self, path):
         self.agent.save(path, extension={"phase8": {"episode_id": self.episode_id, "pending_id": self.pending_id,
-                         "command_id": self.command_id, "last_tick": self.last_tick, "ledger": self.ledger.to_dict()}})
+                         "command_id": self.command_id, "last_tick": self.last_tick, "ledger": self.ledger.to_dict(),
+                         "pending_transport_id": self.pending_transport_id if self.pending_id is not None else None}})
 
     def evaluate_request(self, request):
         started = time.perf_counter()
@@ -193,6 +196,10 @@ class LiveResourceController:
                 self.started = started
                 self.needs_start = True
             ack = request.get("ack")
+            world_id = telemetry["session_id"] + ":" + episode
+            transport_id = request.get("transport_id")
+            if self.pending_id is not None and (not ack or int(ack["command_id"]) < self.pending_id):
+                ack = self._reconcile_lost_reply(request.get("reply_loss"), tick, world_id, transport_id) or ack
             if self.pending_id is not None and (not ack or int(ack["command_id"]) != self.pending_id):
                 if terminal:
                     # The client may still be canceling an in-flight command.
@@ -251,7 +258,7 @@ class LiveResourceController:
                     self._record()
                     return self._reply("NO_OP", 0, started)
                 return self._reply("NO_OP", 0, started, observe_only=True)
-            observation = {"world_id": telemetry["session_id"] + ":" + episode, "position": position,
+            observation = {"world_id": world_id, "position": position,
                 "visible": visible, "sector": request.get("sector") if visible else None,
                 "near": bool(telemetry["near"]), "distance": distance, "angle": angle,
                 "target_id": telemetry.get("target_id"), "inventory": inventory, "produced": dict(self.ledger.produced),
@@ -319,7 +326,23 @@ class LiveResourceController:
                 return self._reply("NO_OP", 0, started)
             self.command_id += 1
             self.pending_id = self.command_id
+            self.pending_transport_id = transport_id
             return self._reply(action, self.command_id, started, peak=peak)
+
+    def _reconcile_lost_reply(self, loss, tick, world_id, transport_id):
+        if (not isinstance(loss, dict) or not isinstance(transport_id, str) or not transport_id
+                or transport_id != self.pending_transport_id or self.agent.pending is None
+                or self.agent.session["world_id"] != world_id):
+            return None
+        since, watermark = loss.get("since_tick"), loss.get("command_watermark")
+        # Fabric serializes exchanges through the game-thread callback. No
+        # command was accepted after this failed request, and last_tick is
+        # the observation that produced the outstanding decision.
+        if (type(since) is not int or type(watermark) is not int
+                or not 0 <= since <= self.last_tick < tick or not 0 <= watermark < self.pending_id):
+            return None
+        return {"command_id": self.pending_id, "action": ACTIONS[self.agent.pending[1]],
+                "status": "not_executed", "error": "bridge_reply_lost", "block_changed": False}
 
     def _ack_terminal(self, episode):
         if self.control_file is not None:

@@ -46,6 +46,8 @@ public final class HeadlessAgent implements AutoCloseable {
     private JsonObject control,ack;
     private String episode="",stopped="",terminalHandled="",action="";
     private long commandId,actionStarted,readyAt,inventoryRevision=1;
+    private long replyLossSince=-1;
+    private final String transportId=UUID.randomUUID().toString();
     private Map<String,Integer> previousInventory=Map.of();
     private static final ThreadLocal<HeadlessAgent> RESPAWNING=new ThreadLocal<>();
     private CompanionFollower follower;
@@ -125,7 +127,7 @@ public final class HeadlessAgent implements AutoCloseable {
         long tick=server.getTickCount();
         if(!player.isAlive()) {
             cancel("player_died",tick); follower=null; followStatus="dead";
-            if(!deathReported) { modeRevision++; deathReported=true; event("companion_death",Map.of("server_tick",tick)); }
+            if(!deathReported) { modeRevision++; replyLossSince=-1; deathReported=true; event("companion_death",Map.of("server_tick",tick)); }
             return;
         }
         if(follower!=null) {
@@ -151,6 +153,7 @@ public final class HeadlessAgent implements AutoCloseable {
         String next=control.get("episode_id").getAsString();
         if(!episode.equals(next)) {
             cancel("episode_interrupted",tick); episode=next; ack=null; readyAt=tick+15;
+            replyLossSince=-1;
             camera.reset(view,episode);
             event("episode_observed",Map.of("episode_id",episode,"position",position(),"inventory",inventory()));
         }
@@ -164,10 +167,14 @@ public final class HeadlessAgent implements AutoCloseable {
         if(!terminal && camera.busy()) return;
         if(tick%5!=0 || !terminal && (tick<readyAt || stopped.equals(episode)) || !pending.compareAndSet(false,true)) return;
         JsonObject request=observe(tick);
+        request.addProperty("transport_id",transportId);
+        if(replyLossSince>=0) request.add("reply_loss",JSON.toJsonTree(Map.of(
+            "since_tick",replyLossSince,"command_watermark",commandId)));
         String expected=episode;
         long expectedMode=modeRevision;
         long observationNanos=System.nanoTime();
         io.execute(() -> {
+            JsonObject response;
             try(var socket=new Socket()) {
                 socket.connect(new java.net.InetSocketAddress("127.0.0.1",Integer.parseInt(properties.getProperty("bridgePort","8765"))),1500);
                 socket.setSoTimeout(15_000);
@@ -176,36 +183,45 @@ public final class HeadlessAgent implements AutoCloseable {
                 writer.write(request.toString()); writer.newLine(); writer.flush();
                 String line=reader.readLine();
                 if(line==null) throw new IOException("Bridge closed without response");
-                JsonObject response=JsonParser.parseString(line).getAsJsonObject();
+                response=JsonParser.parseString(line).getAsJsonObject();
+                if(!response.get("status").getAsString().equals("ok")) throw new IOException(response.toString());
+            } catch(Exception error) {
                 server.execute(() -> {
                     try {
-                        if(modeRevision!=expectedMode || !player.isAlive()) return;
-                        if(!response.get("status").getAsString().equals("ok")) throw new IllegalStateException(response.toString());
-                        if(!expected.equals(episode) || !expected.equals(response.get("episode_id").getAsString())) return;
-                        if(server.getTickCount()-tick>40) {
-                            cancel("stale_response",server.getTickCount());
-                            rejectUnexecuted(response,"stale_response",server.getTickCount()); return;
-                        }
-                        if(response.has("terminal_acknowledged") && response.get("terminal_acknowledged").getAsBoolean()) terminalHandled=episode;
-                        if(!response.get("autonomy_status").getAsString().equals("running")) { stopped=episode; cancel("controller_done",server.getTickCount()); return; }
-                        if(response.get("observe_only").getAsBoolean()) return;
-                        try { control=JsonParser.parseString(Files.readString(controlFile)).getAsJsonObject(); }
-                        catch(IOException error) { throw new IllegalStateException("Lifecycle changed before action execution",error); }
-                        if(!expected.equals(control.get("episode_id").getAsString())
-                            || !expected.equals(response.get("episode_id").getAsString())) {
-                            cancel("episode_replaced_before_execution",server.getTickCount()); return;
-                        }
-                        if(control.has("terminal") || !control.get("active").getAsBoolean()) {
-                            rejectUnexecuted(response,"episode_ended_before_execution",server.getTickCount());
-                            return;
-                        }
-                        start(response.get("action").getAsString(),response.get("command_id").getAsLong(),tick,observationNanos,server.getTickCount());
+                        if(modeRevision!=expectedMode || !expected.equals(episode)) return;
+                        if(replyLossSince<0) replyLossSince=tick;
+                        cancel("bridge_connection_lost",server.getTickCount()); readyAt=server.getTickCount()+20;
+                        event("bridge_error",Map.of("error",error.toString(),"request_tick",tick,
+                            "reply_loss_since_tick",replyLossSince,"command_watermark",commandId));
                     } finally { pending.set(false); }
                 });
-            } catch(Exception error) {
-                server.execute(() -> { if(modeRevision!=expectedMode) { pending.set(false); return; } cancel("bridge_connection_lost",server.getTickCount()); pending.set(false); readyAt=server.getTickCount()+20;
-                    event("bridge_error",Map.of("error",error.toString())); });
+                return;
             }
+            server.execute(() -> {
+                try {
+                    if(modeRevision!=expectedMode || !player.isAlive()) return;
+                    if(!expected.equals(episode) || !expected.equals(response.get("episode_id").getAsString())) return;
+                    if(response.get("command_id").getAsLong()>0) replyLossSince=-1;
+                    if(server.getTickCount()-tick>40) {
+                        cancel("stale_response",server.getTickCount());
+                        rejectUnexecuted(response,"stale_response",server.getTickCount()); return;
+                    }
+                    if(response.has("terminal_acknowledged") && response.get("terminal_acknowledged").getAsBoolean()) terminalHandled=episode;
+                    if(!response.get("autonomy_status").getAsString().equals("running")) { stopped=episode; cancel("controller_done",server.getTickCount()); return; }
+                    if(response.get("observe_only").getAsBoolean()) return;
+                    try { control=JsonParser.parseString(Files.readString(controlFile)).getAsJsonObject(); }
+                    catch(IOException error) { throw new IllegalStateException("Lifecycle changed before action execution",error); }
+                    if(!expected.equals(control.get("episode_id").getAsString())
+                        || !expected.equals(response.get("episode_id").getAsString())) {
+                        cancel("episode_replaced_before_execution",server.getTickCount()); return;
+                    }
+                    if(control.has("terminal") || !control.get("active").getAsBoolean()) {
+                        rejectUnexecuted(response,"episode_ended_before_execution",server.getTickCount());
+                        return;
+                    }
+                    start(response.get("action").getAsString(),response.get("command_id").getAsLong(),tick,observationNanos,server.getTickCount());
+                } finally { pending.set(false); }
+            });
         });
     }
 
@@ -223,7 +239,7 @@ public final class HeadlessAgent implements AutoCloseable {
     public boolean following() { return follower!=null; }
     public String companionStatus() { return followStatus; }
     public void stopCompanion(long tick) {
-        modeRevision++; follower=null;
+        modeRevision++; replyLossSince=-1; follower=null;
         if(player!=null) { cancel("companion_paused",tick); player.setJumping(false); player.setSprinting(false); }
         followStatus=alive() ? "paused" : "dead";
     }
