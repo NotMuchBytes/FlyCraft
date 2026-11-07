@@ -14,7 +14,10 @@ usual isolated OBS paths for a recorded check. The former issues one disruptive
 Python process tree for six seconds while Minecraft continues. These are
 operator test inputs, never learned actions or ordinary success-rate data.
 A [recorded retry](phase75_rejection_recovery_20261106.md) recovered from a
-delayed response and confirmed a log in inventory. Full disconnect and live
+delayed response and confirmed a log in inventory. The separate
+`--operator-fault bridge_read_timeout` test pauses the bridge for 20 seconds
+to cross the adapter's 15-second read timeout. It reproduced a lost command
+and zero inventory logs. Transport recovery and live
 checkpoint restoration still require validation before expanding training.
 
 From the repository root, use the existing runner with `--headless` to omit

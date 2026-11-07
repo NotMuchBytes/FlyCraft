@@ -155,8 +155,8 @@ def run():
     parser.add_argument("--movement-feedback",choices=("input_only","displacement"),default="displacement",
                         help="Require at least 0.02 blocks of own-pose movement for forward success")
     parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
-    parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall"), default="none",
-                        help="One-shot mining yaw disturbance or six-second owned bridge stall; reliability tests only")
+    parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall", "bridge_read_timeout"), default="none",
+                        help="One-shot mining yaw disturbance or bounded owned bridge stall; reliability tests only")
     parser.add_argument("--graphics-backend", choices=("default","opengl","vulkan"),default="opengl")
     parser.add_argument("--minimum-available-ram-mib", type=int, default=768)
     parser.add_argument("--minimum-free-disk-mib", type=int, default=2048)
@@ -413,14 +413,15 @@ def run():
                     else:
                         # Only this supervisor's owned Python process is paused.
                         # Minecraft continues; actual socket timeouts are logged.
-                        bridge_resume_at = time.perf_counter() + 6
+                        stall_seconds = 6 if args.operator_fault == "bridge_stall" else 20
+                        bridge_resume_at = time.perf_counter() + stall_seconds
                         parent = psutil.Process(bridge.pid)
                         # Windows venv python.exe can be a launcher with the
                         # real interpreter below it. Pause every owned child.
                         for owned in reversed([parent, *parent.children(recursive=True)]):
                             owned.suspend()
                             suspended_bridge_processes.append(owned)
-                        event.update(disturbance="owned_bridge_process_tree_suspended", requested_stall_seconds=6,
+                        event.update(disturbance="owned_bridge_process_tree_suspended", requested_stall_seconds=stall_seconds,
                             suspended_processes=[{"pid": owned.pid, "created": owned.create_time(), "name": owned.name()}
                                                  for owned in suspended_bridge_processes])
                     fault_events.append(event)

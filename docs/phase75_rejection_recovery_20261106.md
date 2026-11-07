@@ -75,3 +75,27 @@ The routine server-only regression was logged without OBS and ran with at
 least 1,101.49 MiB free RAM in samples. Its logs do not replace the startup-only
 recordings from the two earlier attempts.
 [Run manifest](../experiments/phase9/p75_rejection_normal_20261107_c/run.json)
+
+## Read timeout reproduced on November 7
+
+A separate server-only diagnostic used the same seed and checkpoint with a
+600-tick budget. The harness suspended the owned bridge process tree for
+20.082 seconds. Command 1 broke a log at tick 108. The post-mining request
+from tick 110 was waiting when Java logged `SocketTimeoutException: Read timed out`.
+After resuming, Python processed that request and issued FORWARD command 2 on
+the already-closed connection. The next live request, from tick 430, still
+acknowledged command 1. Command 2 has no action-start event and no receipt.
+Five unmatched acknowledgments ended the controller session with
+`acknowledgment_timeout`. The server recorded **zero inventory logs at 600
+ticks** and exited cleanly. The trace shows one actual action, the successful
+mining action. The controller's failure counter includes the unacknowledged
+command, which was a transport failure.
+
+The earlier fix handles late replies that reach Fabric. This fault closes the
+socket before Fabric can learn the pending command ID. Repair requires an
+explicit delivery reconciliation that rules out earlier execution before
+discarding the pending decision. The read-timeout diagnostic used structured
+logs only. It was a fault reproduction without a recording milestone or a
+successful recovery. Raw events are preserved locally and the run manifest is
+checked in. The 107-test automated suite passed again in 19.685 seconds.
+[Read-timeout run manifest](../experiments/phase9/p75_bridge_read_timeout_20261107_a/run.json)

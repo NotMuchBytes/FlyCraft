@@ -278,3 +278,11 @@ and has no MP4. Two no-fault recording attempts produced startup-only MP4s
 before the RAM guard stopped the runs. Full transport disconnect and live
 checkpoint restoration still require validation. See the
 [recovery evidence and recording details](docs/phase75_rejection_recovery_20261106.md).
+
+The November 7 read-timeout diagnostic uncovered a separate delivery defect.
+After a 20.082-second stall, Java timed out before receiving command 2. The
+controller issued that command on the closed connection and eventually
+stopped at `acknowledgment_timeout`. One block broke, but inventory remained
+at zero logs at 600 ticks. This was a log-only diagnostic. The read-timeout
+path remains unresolved and Phase 7.5 remains incomplete. The full automated
+suite passed again with 107 tests in 19.685 seconds.
