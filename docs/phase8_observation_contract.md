@@ -11,7 +11,7 @@ assistance, shared by trained, frozen, uniform and neural-ablation conditions.
 
 | Observation | Source and limits |
 |---|---|
-| Five-sector neural input | Selected observed resource, classified by relative yaw. The headless three-log goal prefers visible logs at the actor's current pitch. Visible drops retain priority. |
+| Five-sector neural input | Selected observed resource, classified by relative yaw. The headless three-log goal senses standing logs through the five yaw rays at the actor's current pitch. Visible drops retain priority. |
 | Visible logs | Fifteen first-hit rays: yaw offsets -40,-20,0,20,40 and pitch offsets -30,0,30 degrees, maximum 12 blocks; blocking geometry occludes farther blocks |
 | Dropped log items | Client-rendered entities within 12 blocks, yaw +/-50 and pitch +/-45 degrees, with unobstructed line of sight; visible drops take target priority |
 | Resource identity | Block/item semantic class and identity of the observed hit; this is a semantic sensor, not a learned pixel classifier |

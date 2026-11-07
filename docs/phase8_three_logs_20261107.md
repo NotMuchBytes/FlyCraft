@@ -22,8 +22,8 @@ actions and one, one, and two confirmed block changes. No crafting
 consumed a log. All three were still below the three-log target.
 
 In the first masked trial, all 42 observations after pickup selected the
-same upper block of the mined trunk. The headless three-log sensor now
-prefers a visible log found by a ray at the actor's current pitch when
+same upper block of the mined trunk. The next headless sensor variant
+preferred a visible log found by a ray at the actor's current pitch when
 one is available. Other visible logs remain a fallback and visible drops
 retain priority. The new ranking uses the existing rays and changes no
 camera action or target visibility.
@@ -39,3 +39,32 @@ block. All 27 observations with two logs selected that same block. The
 the RTX 4050. Sampled frames show the actor and the three trunks during
 gameplay.
 [Verified recording](../recordings/phase9/youtube/p8_three_tree_recorded_20261107_a.json)
+
+The two routine repeats of the ranking variant also ended with two logs
+each. This gives zero three-log completions across the three development
+layouts. The trials used different world instances from the retention
+batch, so absolute spawn and drop RNG can contribute to the difference.
+The next variant removes the off-pitch fallback for standing logs in
+headless three-log trials. It keeps the five existing yaw rays and the
+existing dropped-item observations.
+[Additional ranking trials](../experiments/phase9/p8_three_tree_rank_probe_20261107_a/run.json)
+
+| Headless sensor | Logs on layout 1 | Logs on layout 2 | Logs on layout 3 | Three-log completions |
+| --- | ---: | ---: | ---: | ---: |
+| Original rays with log retention | 1 | 1 | 2 | 0/3 |
+| Current-pitch rays preferred, with fallback | 2 | 2 | 2 | 0/3 |
+| Standing logs restricted to current pitch | 1 | 2 | 2 | 0/3 |
+
+The strict-pitch recording broke two blocks and retained one log after
+46 actions. Its 49.633-second OBS MP4 passed full decoding and Minecraft
+window verification. All nine trials after the initial probe used the
+same world seed, checkpoint, policy seed and 700-tick deadline. The recorded repeats
+used fresh world instances. The trained checkpoint received zero updates.
+
+The retained headless behavior gives current-pitch ray hits priority and
+falls back to the other visible standing logs. This variant had the highest
+observed log count across the three layout repeats. Both pickup and changing
+targets after mining still limited the agent. These development trials
+leave the 30-trial three-log gate open.
+[Strict-pitch recorded attempt](../recordings/phase9/youtube/p8_three_tree_recorded_20261107_b.json)
+[Additional strict-pitch trials](../experiments/phase9/p8_three_tree_pitch_probe_20261107_a/run.json)
