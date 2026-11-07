@@ -294,3 +294,20 @@ gameplay. The second had one server-confirmed log, but the bridge was resumed
 during cleanup before the socket deadline, so recovery remains unverified in
 Minecraft. No milestone MP4 was produced. See the
 [repair and retained run evidence](docs/phase75_rejection_recovery_20261106.md#read-timeout-repair-and-validation-status).
+
+A third retry completed the 20.199-second stall and crossed the socket
+deadline. Fabric's loss report let the controller discard command 2 and
+resample without executing it. In Minecraft 26.2, the server and controller
+both confirmed one log at 529 game ticks. The controller recorded ten
+acknowledged actions, including one zero-tick camera rejection. This was a
+single controlled fixture with learning disabled. The raw evidence is
+retained. See the
+[verified recovery trace summary](docs/phase75_rejection_recovery_20261106.md#verified-minecraft-read-timeout-recovery).
+
+A separate OBS-recorded run repeated the read-timeout test successfully.
+It recovered after a 20.417-second suspension and collected one log in 505
+game ticks. The 42.1-second Minecraft-only MP4 passed full decoding and the
+spectator used the RTX 4050. Both live recoveries use the same controlled
+fixture seed, with training disabled. Phase 7.5 remains incomplete pending
+broader trials and live checkpoint restoration. See the
+[recorded milestone](docs/phase75_rejection_recovery_20261106.md#recorded-milestone).

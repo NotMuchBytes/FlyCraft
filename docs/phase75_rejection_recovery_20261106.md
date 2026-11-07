@@ -127,3 +127,56 @@ read-timeout recovery. No matched recorded recovery or new milestone MP4
 was produced. Raw episode and operator-fault data are retained.
 [First retry](../experiments/phase9/p75_reply_loss_fix_20261107_a/run.json)
 [Second retry](../experiments/phase9/p75_reply_loss_fix_20261107_b/run.json)
+
+## Verified Minecraft read-timeout recovery
+
+Server-only run `p75_reply_loss_fix_20261107_c` completed the full test.
+The bridge process tree was suspended for 20.199 seconds. Minecraft broke a
+log at server tick 109, then Java's read of the tick-110 observation timed out.
+When Python resumed, it generated FORWARD command 2 for that closed exchange.
+The next exchange (observation tick 430) reported reply loss since tick 110
+and a watermark of 1. Python discarded command 2 and generated command 3.
+There is no Minecraft action-start event for command 2. The camera rejected
+command 3 for `stale_wall_time` with zero action ticks, and subsequent decisions
+continued normally.
+
+The controller counted 10 acknowledged actions (including the zero-tick
+camera rejection), one block change, and one log in terminal inventory.
+The independent server also confirmed one log at 529 episode ticks, received
+the terminal acknowledgment on the first wait tick, and exited cleanly.
+Minimum sampled RAM was 1,093.63 MiB and maximum sampled NVIDIA GPU
+temperature was 48 C. The unchanged checkpoint ran with learning disabled.
+The earlier failing trial used the same fixture and policy seeds and
+600-tick limit, with a different absolute spawn position and game RNG. This
+validates one headless recovery on Minecraft 26.2. Broader reliability,
+graphical-adapter recovery and live checkpoint restoration remain open.
+[Successful run manifest](../experiments/phase9/p75_reply_loss_fix_20261107_c/run.json)
+
+## Recorded milestone
+
+Run `p75_reply_loss_recorded_20261107_a` was a fresh execution with the same
+checkpoint, fixture and policy seeds, and an isolated OBS spectator. Java
+timed out on observation tick 780 during a 20.417-second bridge suspension.
+The bridge later generated FORWARD command 2 for the closed exchange. The
+tick-1100 request reported the loss and the watermark of 1, so the controller
+discarded command 2 before sampling command 3. The action trace confirms
+command 2 never started. The camera rejected command 3 for
+`stale_wall_time` with zero action ticks. The policy continued and both
+server and controller confirmed one log in inventory at **505 game ticks**.
+The controller recorded **nine acknowledged actions** including that camera
+rejection, and one block change. Terminal acknowledgment arrived on the
+first wait tick and both Minecraft processes exited cleanly.
+
+OBS recorded the Minecraft window on the RTX 4050 using OpenGL. The 42.1-second
+H.264 MP4 passed full decoding. The game ran at 854×480 and OBS exported
+1920×1080 at 30 fps. Capture preflight matched the independent Minecraft
+frame and six sampled timestamps show the game throughout the stall and
+recovery, with Minecraft tutorial overlays visible. The original video
+was preserved without editing the AI's actions. Minimum sampled available
+RAM was 1,516.57 MiB and maximum sampled GPU temperature was 47 C.
+
+This gives two confirmed read-timeout recoveries on the same fixture seed.
+They are excluded from normal goal success-rate and learning estimates. The
+earlier headless episodes retain their own logs and have no video. The new
+recording covers the recorded retry.
+[Recording metadata](../recordings/phase9/youtube/p75_reply_loss_recorded_20261107_a.json)

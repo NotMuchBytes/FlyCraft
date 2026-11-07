@@ -17,9 +17,11 @@ A [recorded retry](phase75_rejection_recovery_20261106.md) recovered from a
 delayed response and confirmed a log in inventory. The separate
 `--operator-fault bridge_read_timeout` test pauses the bridge for 20 seconds
 to cross the adapter's 15-second read timeout. It reproduced a lost command
-and zero inventory logs. A transport reconciliation repair is implemented,
-but the RAM guard cut short its live verification. Transport recovery and
-live checkpoint restoration still require validation before expanding training.
+and zero inventory logs before the repair. A
+[headless retry](phase75_rejection_recovery_20261106.md#verified-minecraft-read-timeout-recovery)
+crossed the socket deadline and collected a log after discarding the
+undelivered decision. Graphical-adapter recovery and live checkpoint
+restoration still require validation before expanding training.
 
 From the repository root, use the existing runner with `--headless` to omit
 the agent's graphical client. `--spectator --milestone 1` adds mandatory
