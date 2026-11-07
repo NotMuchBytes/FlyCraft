@@ -53,6 +53,9 @@ does not reproduce the exact pixels of the main Minecraft camera.
   result used this assisted interface and cannot be pooled with strict runs.
 - Collection completes only when the observed server inventory contains the
   required logs. Mining a block and obtaining its dropped item are separate.
+  The three-log objective removes recipe and placement actions from the
+  policy mask so the agent retains the logs it needs. Every comparison
+  condition receives this same mask.
 - Planks, sticks, crafting tables and pickaxes use normal container clicks:
   place exact ingredients, wait for the recipe result, transfer the output,
   and wait for server inventory confirmation. A pickaxe transaction can open

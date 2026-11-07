@@ -12,7 +12,7 @@ import numpy as np
 from learning import LinearSoftmaxPolicy
 from .agent import AutonomousAgent
 from .features import FEATURE_COUNT
-from .world import ACTIONS, ITEMS
+from .world import ACTIONS, CRAFT_ACTIONS, ITEMS
 
 
 OBJECTIVES = {"one_log": "find_collect", "three_logs": "collect_multiple", "planks": "craft_simple",
@@ -264,11 +264,15 @@ class LiveResourceController:
                     self._record()
                     return self._reply("NO_OP", 0, started)
                 return self._reply("NO_OP", 0, started, observe_only=True)
+            allowed_actions = [action for action in telemetry["allowed_actions"] if action in ACTIONS]
+            if control["goal"] == "three_logs":
+                # This objective needs logs in inventory. Recipes can consume them.
+                allowed_actions = [action for action in allowed_actions if action not in CRAFT_ACTIONS]
             observation = {"world_id": world_id, "position": position,
                 "visible": visible, "sector": request.get("sector") if visible else None,
                 "near": bool(telemetry["near"]), "distance": distance, "angle": angle,
                 "target_id": telemetry.get("target_id"), "inventory": inventory, "produced": dict(self.ledger.produced),
-                "allowed_actions": [a for a in telemetry["allowed_actions"] if a in ACTIONS],
+                "allowed_actions": allowed_actions,
                 "last_error": ack.get("error", "") if ack and self.pending_id is not None else "",
                 "resource_exhausted": False, "interrupted": bool(ack and ack.get("status") == "interrupted")}
             if terminal and self.agent.pending and ack and ack.get("error") == "episode_boundary" \

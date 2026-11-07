@@ -159,6 +159,27 @@ class Phase8Tests(unittest.TestCase):
             finally:
                 controller.close()
 
+    def test_three_log_goal_keeps_logs_and_requires_three_in_inventory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller = self.controller(Path(directory), forced="CRAFT_PLANKS")
+            try:
+                controller.agent.policy.weights[0, ACTIONS.index("COLLECT_LOG")] = 500
+                observation = self.telemetry(allowed_actions=["NO_OP", "COLLECT_LOG", "CRAFT_PLANKS"])
+                observation["inventory"]["log"] = 1
+                first = controller.evaluate_request(self.request(10, goal="three_logs", telemetry=observation))
+                self.assertEqual(first["action"], "COLLECT_LOG")
+                self.assertEqual(first["action_probabilities"]["CRAFT_PLANKS"], 0.0)
+                observation["inventory"]["log"] = 2
+                observation["inventory_revision"] = 2
+                second = controller.evaluate_request(self.request(20, goal="three_logs", telemetry=observation, ack=self.ack(first)))
+                self.assertEqual(second["autonomy_status"], "running")
+                observation["inventory"]["log"] = 3
+                observation["inventory_revision"] = 3
+                third = controller.evaluate_request(self.request(30, goal="three_logs", telemetry=observation, ack=self.ack(second)))
+                self.assertEqual(third["autonomy_status"], "success")
+            finally:
+                controller.close()
+
     def test_failed_block_interaction_triggers_bounded_recovery(self):
         with tempfile.TemporaryDirectory() as directory:
             controller = self.controller(Path(directory))
