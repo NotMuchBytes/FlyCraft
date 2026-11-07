@@ -1,0 +1,8 @@
+{
+  "lifecycle_updated_unix": 1793950746.1576762,
+  "finalized": true,
+  "recording_active": false,
+  "server_alive": false,
+  "client_alive": false,
+  "stop_reason": "supervisor_error"
+}

@@ -261,3 +261,20 @@ attempts have no MP4 (RAM guard, AMD renderer). Six generated instances reuse
 one seed, not independent unseen-world tests. Graph/checkpoint hashes are
 unchanged; there were zero new training updates. See
 [full evidence and next steps](docs/phase75_reliability_20261106.md).
+
+## Bridge recovery follow-up
+
+Both Fabric adapters now explicitly reject delayed, unexecuted commands so
+the policy can discard the pending decision and sample again. The headless
+26.2 recorded retry recovered from a 6.545-second bridge stall and collected one
+log in 10 actions and 276 game ticks. A separate no-fault 26.2 regression
+collected one log in 4 actions and 100 ticks. Both were confirmed by server
+inventory. The run with the deliberate stall is excluded from ordinary
+success-rate estimates. Both use one controlled fixture seed, with learning off.
+
+The automated suite passed 107 tests and the mod compiled for 26.2 and 26.3.
+The recovery MP4 passed a full decode. The first retry never reached gameplay
+and has no MP4. Two no-fault recording attempts produced startup-only MP4s
+before the RAM guard stopped the runs. Full transport disconnect and live
+checkpoint restoration still require validation. See the
+[recovery evidence and recording details](docs/phase75_rejection_recovery_20261106.md).

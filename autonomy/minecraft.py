@@ -241,7 +241,7 @@ class LiveResourceController:
                 angle = float(telemetry["target_angle"]) if visible else None
                 if visible and (not math.isfinite(distance) or not 0 <= distance <= 12 or not math.isfinite(angle)):
                     raise ObservationError("invalid_visible_geometry")
-                inventory = self.ledger.observe(telemetry, ack if self.pending_id is not None else None,
+                inventory = self.ledger.observe(telemetry, ack if self.pending_id is not None and ack.get("status") != "not_executed" else None,
                                                 terminal_tick=int(terminal["server_tick"]) if terminal else None)
                 self.inventory_waits = 0
             except ObservationError as error:
@@ -268,6 +268,25 @@ class LiveResourceController:
                 self.agent.start(OBJECTIVES[control["goal"]], observation,
                                  train=bool(control.get("train", False)) and self.condition == "trained")
                 self.needs_start = False
+            elif not terminal and self.pending_id is not None and ack.get("status") == "not_executed":
+                if ack.get("action") != ACTIONS[self.agent.pending[1]]:
+                    self._abort("ack_action_mismatch")
+                else:
+                    # The adapter rejected delivery, so there is no executed
+                    # action to reward, penalize, remember or replay. Sample a
+                    # fresh decision from the current observation instead.
+                    self.agent.session.setdefault("requested_train", self.agent.session["train"])
+                    self.agent.session["train"] = False
+                    self.agent.session["training_suppressed"] = "unexecuted_command"
+                    rejected = self.agent.session.setdefault("unexecuted_command_ids", [])
+                    rejected.append(self.pending_id)
+                    self.agent.pending = None
+                    self.pending_id = None
+                    observation["last_error"] = ""
+                    observation["interrupted"] = False
+                    self.agent.memory.inventory = inventory.copy()
+                    if len(rejected) >= 5:
+                        self._abort("command_delivery_rejected")
             elif self.agent.pending:
                 if ack.get("action") != ACTIONS[self.agent.pending[1]]:
                     self._abort("ack_action_mismatch")

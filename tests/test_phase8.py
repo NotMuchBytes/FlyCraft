@@ -185,6 +185,65 @@ class Phase8Tests(unittest.TestCase):
             finally:
                 controller.close()
 
+    def test_rejected_delivery_resamples_without_execution_credit_or_learning(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller = self.controller(Path(directory))
+            try:
+                first = controller.evaluate_request(self.request(10, train=True))
+                weights = controller.agent.policy.weights.copy()
+                reward = controller.agent.session["total_reward"]
+                rejection = self.ack(first, status="not_executed", error="stale_response", changed=True)
+                fresh = controller.evaluate_request(self.request(100, ack=rejection, train=True))
+                self.assertGreater(fresh["command_id"], first["command_id"])
+                self.assertEqual(controller.agent.session["actions"], 0)
+                self.assertEqual(controller.agent.session["failed_actions"], 0)
+                self.assertEqual(controller.agent.session["total_reward"], reward)
+                self.assertEqual(controller.agent.trajectory, [])
+                self.assertEqual(controller.ledger.mined_blocks, 0)
+                self.assertEqual(controller.agent.session["unexecuted_command_ids"], [first["command_id"]])
+                self.assertEqual(controller.agent.session["training_suppressed"], "unexecuted_command")
+                after = self.telemetry(inventory_revision=2)
+                after["inventory"]["log"] = 1
+                final = controller.evaluate_request(self.request(110, telemetry=after, ack=self.ack(fresh), train=True))
+                self.assertEqual(final["autonomy_status"], "success")
+                self.assertEqual(controller.agent.session["actions"], 1)
+                np.testing.assert_array_equal(controller.agent.policy.weights, weights)
+            finally:
+                controller.close()
+
+    def test_repeated_rejected_delivery_is_bounded_without_gameplay_actions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller = self.controller(Path(directory))
+            try:
+                response = controller.evaluate_request(self.request(10))
+                for tick in range(20, 70, 10):
+                    rejection = self.ack(response, status="not_executed", error="stale_response", changed=False)
+                    response = controller.evaluate_request(self.request(tick, ack=rejection))
+                self.assertEqual(response["autonomy_status"], "command_delivery_rejected")
+                self.assertEqual(response["command_id"], 0)
+                self.assertEqual(controller.agent.session["actions"], 0)
+                self.assertEqual(controller.agent.session["failed_actions"], 0)
+                self.assertEqual(controller.ledger.previous["log"], 0)
+            finally:
+                controller.close()
+
+    def test_restored_pending_command_can_be_rejected_without_replay(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            original = self.controller(folder)
+            first = original.evaluate_request(self.request(10))
+            original.save_state(folder / "pending_delivery.npz")
+            original.close()
+            restored = self.controller(folder, checkpoint=folder / "pending_delivery.npz", result="delivery_restored")
+            try:
+                response = restored.evaluate_request(self.request(100,
+                    ack=self.ack(first, status="not_executed", error="stale_response", changed=False)))
+                self.assertGreater(response["command_id"], first["command_id"])
+                self.assertEqual(restored.agent.session["actions"], 0)
+                self.assertEqual(restored.agent.session["unexecuted_command_ids"], [first["command_id"]])
+            finally:
+                restored.close()
+
     def test_connection_reset_interrupts_previous_goal(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)

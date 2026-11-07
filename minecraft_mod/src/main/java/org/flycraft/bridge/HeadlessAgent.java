@@ -181,7 +181,11 @@ public final class HeadlessAgent implements AutoCloseable {
                     try {
                         if(modeRevision!=expectedMode || !player.isAlive()) return;
                         if(!response.get("status").getAsString().equals("ok")) throw new IllegalStateException(response.toString());
-                        if(!expected.equals(episode) || server.getTickCount()-tick>40) { cancel("stale_response",server.getTickCount()); return; }
+                        if(!expected.equals(episode) || !expected.equals(response.get("episode_id").getAsString())) return;
+                        if(server.getTickCount()-tick>40) {
+                            cancel("stale_response",server.getTickCount());
+                            rejectUnexecuted(response,"stale_response",server.getTickCount()); return;
+                        }
                         if(response.has("terminal_acknowledged") && response.get("terminal_acknowledged").getAsBoolean()) terminalHandled=episode;
                         if(!response.get("autonomy_status").getAsString().equals("running")) { stopped=episode; cancel("controller_done",server.getTickCount()); return; }
                         if(response.get("observe_only").getAsBoolean()) return;
@@ -192,9 +196,7 @@ public final class HeadlessAgent implements AutoCloseable {
                             cancel("episode_replaced_before_execution",server.getTickCount()); return;
                         }
                         if(control.has("terminal") || !control.get("active").getAsBoolean()) {
-                            ack=JSON.toJsonTree(Map.of("command_id",response.get("command_id").getAsLong(),
-                                "action",response.get("action").getAsString(),"status","not_executed",
-                                "error","episode_ended_before_execution","block_changed",false)).getAsJsonObject();
+                            rejectUnexecuted(response,"episode_ended_before_execution",server.getTickCount());
                             return;
                         }
                         start(response.get("action").getAsString(),response.get("command_id").getAsLong(),tick,observationNanos,server.getTickCount());
@@ -208,6 +210,15 @@ public final class HeadlessAgent implements AutoCloseable {
     }
 
     public boolean alive() { return player!=null && player.isAlive(); }
+    private void rejectUnexecuted(JsonObject response,String reason,long tick) {
+        long id=response.get("command_id").getAsLong();
+        if(id<=commandId || id<=0) return;
+        commandId=id; // Consume its identity without executing it later.
+        ack=JSON.toJsonTree(Map.of("command_id",id,"action",response.get("action").getAsString(),
+            "status","not_executed","error",reason,"block_changed",false,
+            "inventory_revision",inventoryRevision,"ticks",0)).getAsJsonObject();
+        event("command_rejected",Map.of("ack",ack,"server_tick",tick));
+    }
     public boolean ready() { return player!=null; }
     public boolean following() { return follower!=null; }
     public String companionStatus() { return followStatus; }

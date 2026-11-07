@@ -13,9 +13,9 @@ usual isolated OBS paths for a recorded check. The former issues one disruptive
 +90-degree yaw command after mining starts; the latter pauses/resumes the owned
 Python process tree for six seconds while Minecraft continues. These are
 operator test inputs, never learned actions or ordinary success-rate data.
-The current bridge-stall check fails recovery; do not begin new training before
-the rejection acknowledgment defect is repaired. See
-[November 6 evidence](phase75_reliability_20261106.md).
+A [recorded retry](phase75_rejection_recovery_20261106.md) recovered from a
+delayed response and confirmed a log in inventory. Full disconnect and live
+checkpoint restoration still require validation before expanding training.
 
 From the repository root, use the existing runner with `--headless` to omit
 the agent's graphical client. `--spectator --milestone 1` adds mandatory

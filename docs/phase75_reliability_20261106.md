@@ -1,5 +1,8 @@
 # Phase 7.5 reliability checks — November 6, 2026
 
+The [follow-up](phase75_rejection_recovery_20261106.md) fixes the delayed-response
+defect reproduced below and documents the recorded retry.
+
 Phase 7.5, Phase 8 and Phase 9 remain incomplete. Work stopped at a reproduced
 bridge-recovery defect, as requested. No official campaign or training started.
 

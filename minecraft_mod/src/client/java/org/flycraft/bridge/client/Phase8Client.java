@@ -201,7 +201,12 @@ public final class Phase8Client {
                 JsonObject response = JsonParser.parseString(line).getAsJsonObject();
                 if (!response.get("status").getAsString().equals("ok")) throw new IOException(response.toString());
                 client.execute(() -> {
-                    if (client.player == null || !episode.equals(expectedEpisode) || tick - observationTick > 40) { cancel("stale_response"); return; }
+                    try {
+                    if(client.player==null || !episode.equals(expectedEpisode)
+                        || !expectedEpisode.equals(response.get("episode_id").getAsString())) return;
+                    if(tick-observationTick>40) {
+                        cancel("stale_response"); rejectUnexecuted(response,"stale_response"); return;
+                    }
                     if(response.has("terminal_acknowledged") && response.get("terminal_acknowledged").getAsBoolean())
                         terminalHandledEpisode=episode;
                     if (response.has("autonomy_status") && !response.get("autonomy_status").getAsString().equals("running")) {
@@ -216,21 +221,31 @@ public final class Phase8Client {
                         cancel("episode_replaced_before_execution"); return;
                     }
                     if(control.has("terminal") || !control.get("active").getAsBoolean()) {
-                        lastAck=new JsonObject();
-                        lastAck.addProperty("command_id",response.get("command_id").getAsLong());
-                        lastAck.addProperty("action",response.get("action").getAsString());
-                        lastAck.addProperty("status","not_executed");
-                        lastAck.addProperty("error","episode_ended_before_execution");
-                        lastAck.addProperty("block_changed",false);
+                        rejectUnexecuted(response,"episode_ended_before_execution");
                         return;
                     }
                     startAction(response.get("action").getAsString(), response.get("command_id").getAsLong(),observationTick,observationNanos);
+                    } finally { pending.set(false); }
                 });
             } catch (Exception error) {
-                client.execute(() -> { cancel("minecraft_connection_lost"); readyAt = tick + 20; });
+                client.execute(() -> {
+                    try { if(episode.equals(expectedEpisode)) { cancel("minecraft_connection_lost"); readyAt=tick+20; } }
+                    finally { pending.set(false); }
+                });
                 FlyCraftMod.LOGGER.error("FLYCRAFT_PHASE8 bridge_error episode={}", expectedEpisode, error);
-            } finally { pending.set(false); }
+            }
         });
+    }
+
+    private void rejectUnexecuted(JsonObject response,String reason) {
+        long id=response.get("command_id").getAsLong();
+        if(id<=actionId || id<=0) return;
+        actionId=id;
+        lastAck=new JsonObject();
+        lastAck.addProperty("command_id",id); lastAck.addProperty("action",response.get("action").getAsString());
+        lastAck.addProperty("status","not_executed"); lastAck.addProperty("error",reason);
+        lastAck.addProperty("block_changed",false); lastAck.addProperty("ticks",0);
+        FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 command_rejected episode={} ack={}",episode,lastAck);
     }
 
     private record Target(String kind, String id, Vec3 point, double distance, double angle) { }

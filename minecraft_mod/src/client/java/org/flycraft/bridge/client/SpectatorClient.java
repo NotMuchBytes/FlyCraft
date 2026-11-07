@@ -50,6 +50,12 @@ public final class SpectatorClient {
             || client.gameMode.getPlayerMode()!=net.minecraft.world.level.GameType.SPECTATOR) return;
         Entity actor=client.level.players().stream().filter(p -> p.getName().getString().equals("FlyCraftAgent")).findFirst().orElse(null);
         if(actor==null) return;
+        // This isolated client is a recording spectator, never the actor or
+        // companion human. Keep a pause overlay from obscuring its footage.
+        if(client.gui.screen() instanceof net.minecraft.client.gui.screens.PauseScreen) {
+            client.gui.setScreen(null);
+            FlyCraftMod.LOGGER.info("FLYCRAFT_SPECTATOR dismissed_pause_overlay recording_only=true");
+        }
         boolean settled=firstPerson;
         if(firstPerson) client.setCameraEntity(actor);
         else {

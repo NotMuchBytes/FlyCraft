@@ -56,8 +56,9 @@ need live validation. See [the evidence and limitations](docs/companion_follow_v
 
 The latest [Phase 7.5 reliability checks](docs/phase75_reliability_20261106.md)
 fixed rejected-observation accounting and recorded mining-interruption recovery.
-A bridge stall still leaves an unacknowledged rejected command; this blocks
-reliable continuation. The full experiment remains gated on that repair.
+A [recorded bridge recovery](docs/phase75_rejection_recovery_20261106.md)
+then collected a log after a delayed command was explicitly rejected.
+Full disconnect recovery and broader live evaluation are still pending.
 
 ## Reproduce Phase 1 analysis
 
