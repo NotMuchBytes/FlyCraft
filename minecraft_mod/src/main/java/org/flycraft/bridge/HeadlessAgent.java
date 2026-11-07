@@ -305,19 +305,21 @@ public final class HeadlessAgent implements AutoCloseable {
     private BlockHitResult crosshair() { return ray(player.getEyePosition().add(player.getLookAngle().scale(3))); }
     private Target sense() {
         Vec3 eye=player.getEyePosition();
-        Target target=null;
-        // For the yaw-only three-log goal, keep targets the actor can aim at.
-        double[] pitchOffsets=control.get("goal").getAsString().equals("three_logs")
-            ? new double[]{0} : new double[]{-30,0,30};
-        for(double dy:new double[]{-40,-20,0,20,40}) for(double dp:pitchOffsets) {
+        Target target=null, levelLog=null;
+        boolean preferLevelLogs=control.get("goal").getAsString().equals("three_logs");
+        for(double dy:new double[]{-40,-20,0,20,40}) for(double dp:new double[]{-30,0,30}) {
             double yaw=Math.toRadians(player.getYRot()+dy),pitch=Math.toRadians(Math.clamp(player.getXRot()+dp,-85,85));
             Vec3 direction=new Vec3(-Math.sin(yaw)*Math.cos(pitch),-Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch));
             BlockHitResult hit=ray(eye.add(direction.scale(12)));
             double distance=eye.distanceTo(hit.getLocation());
-            if(hit.getType()==HitResult.Type.BLOCK && player.level().getBlockState(hit.getBlockPos()).is(BlockTags.LOGS)
-                && (target==null || distance<target.distance))
-                target=new Target("block",hit.getBlockPos().toShortString(),hit.getLocation(),distance,bearing(hit.getLocation()),hit);
+            if(hit.getType()==HitResult.Type.BLOCK && player.level().getBlockState(hit.getBlockPos()).is(BlockTags.LOGS)) {
+                Target seen=new Target("block",hit.getBlockPos().toShortString(),hit.getLocation(),distance,bearing(hit.getLocation()),hit);
+                if(target==null || distance<target.distance) target=seen;
+                if(preferLevelLogs && dp==0 && (levelLog==null || distance<levelLog.distance)) levelLog=seen;
+            }
         }
+        // A visible log at the current pitch can be aimed at with yaw alone.
+        if(levelLog!=null) target=levelLog;
         for(ItemEntity item:player.level().getEntitiesOfClass(ItemEntity.class,player.getBoundingBox().inflate(12))) {
             if(!item.getItem().is(ItemTags.LOGS)) continue;
             Vec3 point=item.position().add(0,.1,0),delta=point.subtract(eye);

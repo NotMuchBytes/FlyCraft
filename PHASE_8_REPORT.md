@@ -341,3 +341,18 @@ seeds gave 2/3 for the trained checkpoint, 3/3 each for frozen and uniform,
 sample does not demonstrate a learned advantage. The three-log and wooden
 pickaxe validation targets remain open.
 [Full results and recording status](docs/phase75_matched_controls_20261107.md)
+
+The headless runner now accepts the three-log goal and has an optional
+three-tree fixture for the yaw-only policy. A live probe caught the policy
+spending its first log on planks. The three-log goal now masks recipe
+and placement actions across all policy conditions.
+
+The mask kept one, one, and two logs across three layout repeats. Giving
+visible standing logs at the current pitch priority yielded two logs
+on all three layouts. Restricting observations to the current pitch
+yielded one, two, and two logs, so the priority variant was retained.
+Each variant scored 0/3 three-log completions in this development set.
+The original checkpoint was frozen and all scores came from Minecraft
+inventory. Both recorded sensor variants have verified OBS footage.
+The retained build passed 112 automated tests and Fabric assembly.
+[Three-log trials and recording metadata](docs/phase8_three_logs_20261107.md)
