@@ -49,10 +49,13 @@ established by this batch.
 Peak sampled NVIDIA GPU temperature was 54 C and the lowest available RAM
 sample was 1,101.12 MiB. The three matched blocks used structured logs.
 The plan separately selected a recorded trained repeat of the first fixture.
-The first recording attempt stopped before gameplay at the RAM guard
-(610.93 MiB minimum) and produced no MP4. The original matched episode data
-remain intact. The recording milestone remains pending.
-[Attempt metadata](../recordings/phase9/youtube/p75_controls_recorded_20261107_a.json)
+Both recording attempts stopped before gameplay at the RAM guard, with
+minimum samples of 610.93 and 513.45 MiB. Neither produced an MP4. The second
+used the later controller-abort accounting fix, with the same policy and
+settings. The original matched episode data remain intact. The recording
+milestone remains pending.
+[First attempt](../recordings/phase9/youtube/p75_controls_recorded_20261107_a.json)
+[Retry](../recordings/phase9/youtube/p75_controls_recorded_20261107_b.json)
 
 [Fixed plan](../experiments/phase9/phase75_controls_20261107/plan.json)
 [Per-trial results](../experiments/phase9/phase75_controls_20261107/results.json)
