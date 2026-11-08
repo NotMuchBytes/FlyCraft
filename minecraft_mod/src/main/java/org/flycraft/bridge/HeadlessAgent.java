@@ -41,6 +41,8 @@ public final class HeadlessAgent implements AutoCloseable {
     private final CameraDriver camera;
     private final int forwardTicks;
     private final boolean verifyMovement;
+    private final boolean rememberMinedColumns;
+    private final Set<Long> minedColumns=new HashSet<>();
     private Vec3 movementStart=Vec3.ZERO;
     private final ExecutorService io=Executors.newSingleThreadExecutor(r -> {
         Thread thread=new Thread(r,"flycraft-headless-ipc"); thread.setDaemon(true); return thread;
@@ -77,6 +79,7 @@ public final class HeadlessAgent implements AutoCloseable {
         } catch(IOException error) { throw new IllegalStateException(error); }
         forwardTicks=Integer.parseInt(properties.getProperty("motor.forwardTicks","5"));
         verifyMovement=Boolean.parseBoolean(properties.getProperty("motor.verifyMovement","true"));
+        rememberMinedColumns=Boolean.parseBoolean(properties.getProperty("sensor.rememberMinedColumns","false"));
         if(forwardTicks<1 || forwardTicks>10) throw new IllegalArgumentException("Invalid forward duration");
         properties.putIfAbsent("camera.mode","bounded"); camera=new CameraDriver(properties);
     }
@@ -159,6 +162,7 @@ public final class HeadlessAgent implements AutoCloseable {
         if(!episode.equals(next)) {
             cancel("episode_interrupted",tick); episode=next; ack=null; readyAt=tick+15;
             replyLossSince=-1;
+            minedColumns.clear();
             camera.reset(view,episode);
             event("episode_observed",Map.of("episode_id",episode,"position",position(),"inventory",inventory()));
         }
@@ -336,6 +340,7 @@ public final class HeadlessAgent implements AutoCloseable {
         boolean preferLevelLogs=goal.equals("three_logs") || goal.equals("wooden_pickaxe");
         for(double dy:new double[]{-40,-20,0,20,40}) for(double dp:new double[]{-30,0,30}) {
             BlockHitResult hit=lookRay(eye,dy,dp,12);
+            if(rememberMinedColumns && dp!=0 && minedColumns.contains(column(hit.getBlockPos()))) continue;
             double distance=eye.distanceTo(hit.getLocation());
             if(hit.getType()==HitResult.Type.BLOCK && player.level().getBlockState(hit.getBlockPos()).is(BlockTags.LOGS)) {
                 Target seen=new Target("block",hit.getBlockPos().toShortString(),hit.getLocation(),distance,bearing(hit.getLocation()),hit);
@@ -354,6 +359,9 @@ public final class HeadlessAgent implements AutoCloseable {
                 target=new Target("drop","item:"+item.getId(),point,distance,bearing(point),null);
         }
         return target;
+    }
+    private static long column(BlockPos position) {
+        return BlockPos.asLong(position.getX(),0,position.getZ());
     }
     private static String kind(ItemStack stack) {
         if(stack.is(ItemTags.LOGS)) return "log"; if(stack.is(ItemTags.PLANKS)) return "planks";
@@ -525,7 +533,10 @@ public final class HeadlessAgent implements AutoCloseable {
             if(!camera.busy()) finish(camera.completion().equals("settled") ? "success" : "failed",camera.completion().equals("settled") ? "" : camera.completion(),false,tick);
         } else if(action.equals("COLLECT_LOG")) {
             BlockPos pos=miningHit.getBlockPos(); var state=player.level().getBlockState(pos);
-            if(!state.is(BlockTags.LOGS)) { finish("success","",true,tick); return; }
+            if(!state.is(BlockTags.LOGS)) {
+                if(rememberMinedColumns) minedColumns.add(column(pos));
+                finish("success","",true,tick); return;
+            }
             BlockHitResult center=crosshair();
             if(center.getType()!=HitResult.Type.BLOCK || !center.getBlockPos().equals(pos)) { cancel("mining_aim_lost",tick); return; }
             if(tick>=readyAt) { cancel("mining_timeout",tick); return; }

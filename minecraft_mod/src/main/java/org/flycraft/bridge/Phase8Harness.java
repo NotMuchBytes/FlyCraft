@@ -35,6 +35,7 @@ public final class Phase8Harness {
     private static boolean initialized;
     private static boolean threeTrees;
     private static boolean headlessFixture;
+    private static boolean unplacedTable;
     private static JsonObject terminal;
     private static int terminalWait;
     private static final Map<ServerPlayer, BlockPos> placements = new HashMap<>();
@@ -53,6 +54,7 @@ public final class Phase8Harness {
             policySeed = Long.parseLong(config.getProperty("policySeed", "9001"));
             threeTrees = Boolean.parseBoolean(config.getProperty("fixture.threeTrees", "false"));
             headlessFixture = Boolean.parseBoolean(config.getProperty("fixture.headless", "false"));
+            unplacedTable = Boolean.parseBoolean(config.getProperty("fixture.unplacedTable", "false"));
             trials = new ArrayList<>();
             for (String line : Files.readAllLines(Path.of(config.getProperty("trialsFile")))) {
                 if (line.isBlank() || line.startsWith("#")) continue;
@@ -187,8 +189,9 @@ public final class Phase8Harness {
             player.getInventory().add(new ItemStack(Items.STICK, 2));
             if (headlessFixture)
                 level.setBlockAndUpdate(BlockPos.containing(originX, groundY, originZ + 2), Blocks.OAK_PLANKS.defaultBlockState());
-            level.setBlockAndUpdate(BlockPos.containing(originX, groundY + (headlessFixture ? 1 : 0), originZ + 2),
-                Blocks.CRAFTING_TABLE.defaultBlockState());
+            BlockPos station = BlockPos.containing(originX, groundY + (headlessFixture ? 1 : 0), originZ + 2);
+            if (unplacedTable) player.getInventory().add(new ItemStack(Items.CRAFTING_TABLE));
+            level.setBlockAndUpdate(station, (unplacedTable ? Blocks.STONE : Blocks.CRAFTING_TABLE).defaultBlockState());
             player.inventoryMenu.sendAllDataToRemote();
             FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 transaction_fixture id={} goal=pickaxe_transaction prepared_ingredients=true", index);
             initialState(player,trial);

@@ -157,6 +157,10 @@ def run():
     parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
     parser.add_argument("--three-tree-fixture", action="store_true",
                         help="Use three separate trunks for the three-log or wooden-pickaxe goal")
+    parser.add_argument("--unplaced-table-fixture", action="store_true",
+                        help="Start a headless pickaxe transaction with an owned table and a visible support face")
+    parser.add_argument("--remember-mined-columns", action="store_true",
+                        help="Ignore off-pitch log hits in previously mined columns during headless collection")
     parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall", "bridge_read_timeout",
                         "bridge_checkpoint_restart"), default="none",
                         help="One-shot mining interruption, bridge stall or checkpoint restart; reliability tests only")
@@ -207,6 +211,10 @@ def run():
         parser.error("headless pilot requires direct launch, strict camera, and a resource goal")
     if args.three_tree_fixture and goals not in (["three_logs"], ["wooden_pickaxe"]):
         parser.error("three-tree-fixture requires the three_logs or wooden_pickaxe goal")
+    if args.unplaced_table_fixture and (not args.headless or goals != ["pickaxe_transaction"]):
+        parser.error("unplaced-table-fixture requires a headless pickaxe_transaction")
+    if args.remember_mined_columns and (not args.headless or goals not in (["three_logs"], ["wooden_pickaxe"])):
+        parser.error("remember-mined-columns requires a headless three_logs or wooden_pickaxe goal")
     if not args.checkpoint.is_file() or args.frozen_checkpoint and not args.frozen_checkpoint.is_file():
         parser.error("checkpoint files must exist")
     if not math.isfinite(args.turn_degrees) or not 0<args.turn_degrees<=45:
@@ -247,6 +255,7 @@ def run():
         f"controlFile={java_path(control)}\ntrialsFile={java_path(trials)}\nresultsFile={java_path(results / 'server.jsonl')}\n"
         f"maxTrialTicks={args.trial_ticks}\nmaxSeconds={args.seconds}\npolicySeed={args.policy_seed}\n"
         f"fixture.threeTrees={str(args.three_tree_fixture).lower()}\n"
+        f"fixture.unplacedTable={str(args.unplaced_table_fixture).lower()}\n"
         f"fixture.headless={str(args.headless).lower()}\n", encoding="utf-8")
     capture_title="FlyCraft Recording "+args.run_id
     (client_dir / "flycraft-phase8-client.properties").write_text(f"controlFile={java_path(control)}\ncapture.windowTitle={capture_title}\n", encoding="utf-8")
@@ -264,7 +273,8 @@ def run():
         (server_dir/"flycraft-headless.properties").write_text(
             f"controlFile={java_path(control)}\ntraceFile={java_path(results/'headless.jsonl')}\n"
             f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\ncamera.traceFile={java_path(camera_trace)}\n"
-            f"motor.forwardTicks={args.forward_ticks}\nmotor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n",encoding="utf-8")
+            f"motor.forwardTicks={args.forward_ticks}\nmotor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n"
+            f"sensor.rememberMinedColumns={str(args.remember_mined_columns).lower()}\n",encoding="utf-8")
     if args.spectator:
         (client_dir/"flycraft-spectator.properties").write_text(
             f"controlFile={java_path(control)}\nreadyFile={java_path(runtime/'spectator.ready')}\nview={args.spectator_view}\n"
@@ -556,6 +566,8 @@ def run():
         summary["episodes_in_generated_world"] = last_rows
         summary["environment_kind"] = ("controlled_flat_three_tree_fixture" if args.three_tree_fixture
                                        else "controlled_flat_survival_fixture")
+        summary["unplaced_table_fixture"] = args.unplaced_table_fixture
+        summary["remember_mined_columns"] = args.remember_mined_columns
         summary["server_heap_mib"] = args.server_heap_mib
         summary["client_heap_mib"] = args.client_heap_mib if graphical else None
         summary["trial_tick_limit"] = args.trial_ticks
