@@ -19,10 +19,15 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
 import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.tags.*;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.*;
 import org.flycraft.bridge.control.*;
 
@@ -303,14 +308,34 @@ public final class HeadlessAgent implements AutoCloseable {
         return player.level().clip(new ClipContext(player.getEyePosition(),end,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,player));
     }
     private BlockHitResult crosshair() { return ray(player.getEyePosition().add(player.getLookAngle().scale(3))); }
+    private BlockHitResult lookRay(Vec3 eye, double yawOffset, double pitchOffset, double range) {
+        double yaw=Math.toRadians(player.getYRot()+yawOffset);
+        double pitch=Math.toRadians(Math.clamp(player.getXRot()+pitchOffset,-85,85));
+        Vec3 direction=new Vec3(-Math.sin(yaw)*Math.cos(pitch),-Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch));
+        return ray(eye.add(direction.scale(range)));
+    }
+    private boolean hitsTable(BlockHitResult hit) {
+        return hit.getType()==HitResult.Type.BLOCK && player.level().getBlockState(hit.getBlockPos()).is(Blocks.CRAFTING_TABLE);
+    }
+    private Target visibleStation() {
+        Vec3 eye=player.getEyePosition();
+        Target nearest=null;
+        for(double yaw:new double[]{-40,-20,0,20,40}) for(double pitch:new double[]{-30,0,30}) {
+            BlockHitResult hit=lookRay(eye,yaw,pitch,4);
+            if(!hitsTable(hit)) continue;
+            double distance=eye.distanceTo(hit.getLocation());
+            if(nearest==null || distance<nearest.distance)
+                nearest=new Target("station",hit.getBlockPos().toShortString(),hit.getLocation(),distance,bearing(hit.getLocation()),hit);
+        }
+        return nearest;
+    }
     private Target sense() {
         Vec3 eye=player.getEyePosition();
         Target target=null, levelLog=null;
-        boolean preferLevelLogs=control.get("goal").getAsString().equals("three_logs");
+        String goal=control.get("goal").getAsString();
+        boolean preferLevelLogs=goal.equals("three_logs") || goal.equals("wooden_pickaxe");
         for(double dy:new double[]{-40,-20,0,20,40}) for(double dp:new double[]{-30,0,30}) {
-            double yaw=Math.toRadians(player.getYRot()+dy),pitch=Math.toRadians(Math.clamp(player.getXRot()+dp,-85,85));
-            Vec3 direction=new Vec3(-Math.sin(yaw)*Math.cos(pitch),-Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch));
-            BlockHitResult hit=ray(eye.add(direction.scale(12)));
+            BlockHitResult hit=lookRay(eye,dy,dp,12);
             double distance=eye.distanceTo(hit.getLocation());
             if(hit.getType()==HitResult.Type.BLOCK && player.level().getBlockState(hit.getBlockPos()).is(BlockTags.LOGS)) {
                 Target seen=new Target("block",hit.getBlockPos().toShortString(),hit.getLocation(),distance,bearing(hit.getLocation()),hit);
@@ -348,19 +373,32 @@ public final class HeadlessAgent implements AutoCloseable {
     private List<Double> position() { return List.of(player.getX(),player.getZ(),Math.toRadians(player.getYRot())); }
     private JsonObject observe(long tick) {
         Target target=sense(); BlockHitResult center=crosshair(); Map<String,Integer> items=inventory();
+        String goal=control.get("goal").getAsString();
+        boolean pickaxeGoal=goal.equals("wooden_pickaxe") || goal.equals("pickaxe_transaction");
+        Target station=pickaxeGoal ? visibleStation() : null;
         boolean mineable=target!=null && target.kind.equals("block") && target.distance<=3 && center.getType()==HitResult.Type.BLOCK
             && center.getBlockPos().equals(target.hit.getBlockPos());
         List<String> allowed=new ArrayList<>(List.of("NO_OP","TURN_LEFT","TURN_RIGHT","FORWARD"));
         if(mineable) allowed.add("COLLECT_LOG");
         if(items.get("log")>=1) allowed.add("CRAFT_PLANKS");
+        if(pickaxeGoal || goal.equals("sticks") || goal.equals("crafting_table")) {
+            if(items.get("planks")>=2) allowed.add("CRAFT_STICKS");
+            if(items.get("planks")>=4) allowed.add("CRAFT_TABLE");
+        }
+        if(pickaxeGoal && items.get("crafting_table")>=1 && tablePlacement(center)!=null)
+            allowed.add("PLACE_TABLE");
+        if(pickaxeGoal && items.get("planks")>=3 && items.get("sticks")>=2) {
+            if(hitsTable(center)) allowed.add("CRAFT_PICKAXE");
+            if(station!=null) target=station;
+        }
         Map<String,Object> telemetry=new LinkedHashMap<>();
         telemetry.put("session_id",player.getUUID().toString()); telemetry.put("position",position());
         telemetry.put("game_mode",player.gameMode().name()); telemetry.put("inventory",items);
         telemetry.put("inventory_revision",inventoryRevision); telemetry.put("inventory_consistent",true);
-        telemetry.put("visible",target!=null); telemetry.put("near",mineable || target!=null && target.distance<=1);
+        telemetry.put("visible",target!=null); telemetry.put("near",mineable || target!=null && target.distance<=1 || pickaxeGoal && hitsTable(center));
         telemetry.put("target_distance",target==null ? -1 : target.distance); telemetry.put("target_angle",target==null ? 0 : target.angle);
         telemetry.put("target_id",target==null ? "" : target.id); telemetry.put("target_kind",target==null ? "none" : target.kind);
-        telemetry.put("station_visible",false); telemetry.put("allowed_actions",allowed);
+        telemetry.put("station_visible",station!=null); telemetry.put("allowed_actions",allowed);
         telemetry.put("view_yaw_degrees",player.getYRot()); telemetry.put("view_pitch_degrees",player.getXRot());
         String sector="not_visible";
         if(target!=null) {
@@ -394,25 +432,93 @@ public final class HeadlessAgent implements AutoCloseable {
                     miningHit.getDirection(),player.level().getMaxY(),(int)id);
                 readyAt=tick+120;
             }
-            case "CRAFT_PLANKS" -> {
-                int source=-1;
-                for(int slot=0;slot<player.inventoryMenu.slots.size();slot++) {
-                    var entry=player.inventoryMenu.getSlot(slot);
-                    if(entry.container==player.getInventory() && entry.getItem().is(ItemTags.LOGS)) { source=slot; break; }
-                }
-                if(source<0 || !player.inventoryMenu.getCarried().isEmpty()) { finish("failed","crafting_input_unavailable",false,tick); return; }
-                // Exactly one log enters the ordinary 2x2 inventory recipe.
-                var menu=player.inventoryMenu;
-                int before=inventory().get("planks");
-                menu.clicked(source,0,ContainerInput.PICKUP,player);
-                menu.clicked(1,1,ContainerInput.PICKUP,player);
-                menu.clicked(source,0,ContainerInput.PICKUP,player);
-                menu.clicked(0,0,ContainerInput.QUICK_MOVE,player);
-                finish(inventory().get("planks")>=before+4 ? "success" : "failed",
-                    inventory().get("planks")>=before+4 ? "" : "crafting_output_missing",false,tick);
+            case "CRAFT_PLANKS" -> craft("planks",4,Map.of(1,"log"),tick);
+            case "CRAFT_STICKS" -> craft("sticks",4,Map.of(1,"planks",3,"planks"),tick);
+            case "CRAFT_TABLE" -> craft("crafting_table",1,Map.of(1,"planks",2,"planks",3,"planks",4,"planks"),tick);
+            case "PLACE_TABLE" -> placeTable(tick);
+            case "CRAFT_PICKAXE" -> {
+                BlockHitResult hit=crosshair();
+                if(!hitsTable(hit)) { finish("failed","invalid_crosshair_station",false,tick); return; }
+                player.gameMode.useItemOn(player,player.level(),player.getMainHandItem(),InteractionHand.MAIN_HAND,hit);
+                if(!(player.containerMenu instanceof CraftingMenu)) { finish("failed","crafting_menu_unavailable",false,tick); return; }
+                craft("wooden_pickaxe",1,Map.of(1,"planks",2,"planks",3,"planks",5,"sticks",8,"sticks"),tick);
             }
             default -> finish("failed","unsupported_headless_action",false,tick);
         }
+    }
+    private int inventoryMenuSlot(AbstractContainerMenu menu,String item) {
+        for(var slot:menu.slots)
+            if(slot.container==player.getInventory() && kind(slot.getItem()).equals(item)) return slot.index;
+        return -1;
+    }
+    private void craft(String output,int quantity,Map<Integer,String> ingredients,long tick) {
+        var menu=player.containerMenu;
+        boolean workbench=menu instanceof CraftingMenu;
+        int cells=workbench ? 9 : 4;
+        if((!workbench && menu!=player.inventoryMenu) || !menu.getCarried().isEmpty()) {
+            finish("failed","crafting_menu_busy",false,tick); return;
+        }
+        for(int cell=1;cell<=cells;cell++) {
+            if(menu.getSlot(cell).hasItem()) { finish("failed","crafting_grid_busy",false,tick); return; }
+        }
+        int before=inventory().get(output);
+        String error;
+        try {
+            error=fillRecipe(menu,output,quantity,ingredients);
+        } finally {
+            if(workbench) {
+                player.closeContainer();
+            } else {
+                for(int cell:ingredients.keySet()) {
+                    var slot=menu.getSlot(cell);
+                    if(!slot.hasItem()) continue;
+                    ItemStack remaining=slot.getItem();
+                    slot.set(ItemStack.EMPTY);
+                    player.getInventory().placeItemBackInInventory(remaining);
+                }
+            }
+        }
+        if(error.isEmpty() && inventory().get(output)!=before+quantity) error="crafting_output_missing";
+        finish(error.isEmpty() ? "success" : "failed",error,false,tick);
+    }
+    private String fillRecipe(AbstractContainerMenu menu,String output,int quantity,Map<Integer,String> ingredients) {
+        for(var ingredient:ingredients.entrySet()) {
+            int source=inventoryMenuSlot(menu,ingredient.getValue());
+            if(source<0) return "crafting_missing_resource";
+            menu.clicked(source,0,ContainerInput.PICKUP,player);
+            menu.clicked(ingredient.getKey(),1,ContainerInput.PICKUP,player);
+            menu.clicked(source,0,ContainerInput.PICKUP,player);
+        }
+        ItemStack result=menu.getSlot(0).getItem();
+        if(!kind(result).equals(output) || result.getCount()!=quantity) return "crafting_output_missing";
+        menu.clicked(0,0,ContainerInput.QUICK_MOVE,player);
+        return "";
+    }
+    private BlockPos tablePlacement(BlockHitResult hit) {
+        if(hit.getType()!=HitResult.Type.BLOCK || hitsTable(hit)) return null;
+        var context=new BlockPlaceContext(player,InteractionHand.MAIN_HAND,new ItemStack(Items.CRAFTING_TABLE),hit);
+        return context.canPlace() ? context.getClickedPos() : null;
+    }
+    private void placeTable(long tick) {
+        BlockHitResult hit=crosshair();
+        BlockPos destination=tablePlacement(hit);
+        var menu=player.inventoryMenu;
+        int source=inventoryMenuSlot(menu,"crafting_table");
+        if(destination==null || source<0 || player.containerMenu!=menu || !menu.getCarried().isEmpty()) {
+            finish("failed","table_placement_unavailable",false,tick); return;
+        }
+        int selected=player.getInventory().getSelectedSlot();
+        boolean swap=menu.getSlot(source).getContainerSlot()!=selected;
+        int before=inventory().get("crafting_table");
+        if(swap) menu.clicked(source,selected,ContainerInput.SWAP,player);
+        try {
+            player.gameMode.useItemOn(player,player.level(),player.getMainHandItem(),InteractionHand.MAIN_HAND,hit);
+        } finally {
+            if(swap) menu.clicked(source,selected,ContainerInput.SWAP,player);
+        }
+        boolean placed=player.level().getBlockState(destination).is(Blocks.CRAFTING_TABLE);
+        boolean confirmed=placed && inventory().get("crafting_table")==before-1;
+        finish(confirmed ? "success" : "failed",confirmed ? "" : "table_placement_unconfirmed",placed,tick);
     }
     private void advance(long tick) {
         if(action.equals("TURN_LEFT") || action.equals("TURN_RIGHT")) {

@@ -14,7 +14,7 @@ from .goal_manager import GoalManager
 from .memory import PersistentMemory
 from .recovery import Recovery
 from .subgoal_planner import SubgoalPlanner
-from .world import ACTIONS, ResourceWorld
+from .world import ACTIONS, CRAFT_ACTIONS, ResourceWorld
 
 
 @dataclass(frozen=True)
@@ -106,7 +106,10 @@ class AutonomousAgent:
             return "NO_OP"
         neural = self.table.for_sector(observation["sector"]) if neural is None else neural
         features = encode(neural, active.kind, observation, self.memory, self.recovery)
-        mask = np.array([action in observation["allowed_actions"] for action in ACTIONS])
+        allowed = observation["allowed_actions"]
+        if observation.get("restrict_recipes"):
+            allowed = [action for action in allowed if action not in CRAFT_ACTIONS or CRAFT_ACTIONS[action] == active.item]
+        mask = np.array([action in allowed for action in ACTIONS])
         if self.recovery.cooldown and self.recovery.cooldown_action in ACTIONS:
             index = ACTIONS.index(self.recovery.cooldown_action)
             if mask.sum() > 1:

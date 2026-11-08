@@ -273,6 +273,7 @@ class LiveResourceController:
                 "near": bool(telemetry["near"]), "distance": distance, "angle": angle,
                 "target_id": telemetry.get("target_id"), "inventory": inventory, "produced": dict(self.ledger.produced),
                 "allowed_actions": allowed_actions,
+                "restrict_recipes": control["goal"] in {"sticks", "crafting_table", "wooden_pickaxe", "pickaxe_transaction"},
                 "last_error": ack.get("error", "") if ack and self.pending_id is not None else "",
                 "resource_exhausted": False, "interrupted": bool(ack and ack.get("status") == "interrupted")}
             if terminal and self.agent.pending and ack and ack.get("error") == "episode_boundary" \

@@ -156,7 +156,7 @@ def run():
                         help="Require at least 0.02 blocks of own-pose movement for forward success")
     parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
     parser.add_argument("--three-tree-fixture", action="store_true",
-                        help="Use three separate trunks for the controlled three_logs goal")
+                        help="Use three separate trunks for the three-log or wooden-pickaxe goal")
     parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall", "bridge_read_timeout",
                         "bridge_checkpoint_restart"), default="none",
                         help="One-shot mining interruption, bridge stall or checkpoint restart; reliability tests only")
@@ -202,10 +202,11 @@ def run():
     if not 854<=args.capture_width<=1920 or not 480<=args.capture_height<=1080:
         parser.error("capture dimensions must remain within 854x480 and 1920x1080")
     if args.headless and (args.launcher!="direct" or args.camera_mode=="legacy" or args.camera_probe
-                         or any(goal not in {"one_log", "planks", "three_logs"} for goal in goals)):
-        parser.error("headless pilot supports direct launch, strict camera, and one_log/planks/three_logs")
-    if args.three_tree_fixture and goals != ["three_logs"]:
-        parser.error("three-tree-fixture requires the three_logs goal")
+                         or any(goal not in {"one_log", "planks", "three_logs", "sticks", "crafting_table",
+                                             "wooden_pickaxe", "pickaxe_transaction"} for goal in goals)):
+        parser.error("headless pilot requires direct launch, strict camera, and a resource goal")
+    if args.three_tree_fixture and goals not in (["three_logs"], ["wooden_pickaxe"]):
+        parser.error("three-tree-fixture requires the three_logs or wooden_pickaxe goal")
     if not args.checkpoint.is_file() or args.frozen_checkpoint and not args.frozen_checkpoint.is_file():
         parser.error("checkpoint files must exist")
     if not math.isfinite(args.turn_degrees) or not 0<args.turn_degrees<=45:
@@ -245,7 +246,8 @@ def run():
     (server_dir / "flycraft-phase8.properties").write_text(
         f"controlFile={java_path(control)}\ntrialsFile={java_path(trials)}\nresultsFile={java_path(results / 'server.jsonl')}\n"
         f"maxTrialTicks={args.trial_ticks}\nmaxSeconds={args.seconds}\npolicySeed={args.policy_seed}\n"
-        f"fixture.threeTrees={str(args.three_tree_fixture).lower()}\n", encoding="utf-8")
+        f"fixture.threeTrees={str(args.three_tree_fixture).lower()}\n"
+        f"fixture.headless={str(args.headless).lower()}\n", encoding="utf-8")
     capture_title="FlyCraft Recording "+args.run_id
     (client_dir / "flycraft-phase8-client.properties").write_text(f"controlFile={java_path(control)}\ncapture.windowTitle={capture_title}\n", encoding="utf-8")
     camera_trace=results / "camera.jsonl"

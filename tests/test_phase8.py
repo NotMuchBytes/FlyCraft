@@ -180,6 +180,21 @@ class Phase8Tests(unittest.TestCase):
             finally:
                 controller.close()
 
+    def test_pickaxe_subgoal_excludes_surplus_stick_crafting(self):
+        with tempfile.TemporaryDirectory() as directory:
+            controller = self.controller(Path(directory), forced="CRAFT_STICKS")
+            try:
+                controller.agent.policy.weights[0, ACTIONS.index("CRAFT_PICKAXE")] = 500
+                observation = self.telemetry(
+                    station_visible=True, allowed_actions=["NO_OP", "CRAFT_STICKS", "CRAFT_PICKAXE"]
+                )
+                observation["inventory"].update(planks=3, sticks=2)
+                result = controller.evaluate_request(self.request(10, goal="pickaxe_transaction", telemetry=observation))
+                self.assertEqual(result["action"], "CRAFT_PICKAXE")
+                self.assertEqual(result["action_probabilities"]["CRAFT_STICKS"], 0.0)
+            finally:
+                controller.close()
+
     def test_failed_block_interaction_triggers_bounded_recovery(self):
         with tempfile.TemporaryDirectory() as directory:
             controller = self.controller(Path(directory))
