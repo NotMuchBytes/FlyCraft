@@ -37,6 +37,10 @@ def main():
         assert run["remember_mined_columns"] and run["environment_kind"] == "controlled_flat_three_tree_fixture"
         deliveries = {row["episode_id"]: row for row in rows(folder, "server.jsonl.delivery.jsonl")}
         controller = {row["episode_id"]: row for row in rows(folder, "controller.jsonl")}
+        completed_actions = collections.defaultdict(set)
+        for event in rows(folder, "headless.jsonl"):
+            if event["event"] == "action_end" and event["data"]["ack"]["status"] == "success":
+                completed_actions[event["episode_id"]].add(event["data"]["ack"]["action"])
         expected = [(seed, goal) for seed in block["layout_seeds"] for goal in goals]
         scores = rows(folder, "server.jsonl")
         assert [(row["layout_seed"], row["goal"]) for row in scores] == expected[:len(scores)]
@@ -51,8 +55,16 @@ def main():
             verified = (deliveries.get(score["episode_id"], {}).get("acknowledged", False)
                         and (recorded_inventory is None
                              or all(recorded_inventory.get(key) == value for key, value in own.items())))
+            failure_stage = None
+            if not threshold:
+                confirmed = completed_actions[score["episode_id"]]
+                stages = [("PLACE_TABLE", "table_placed"), ("CRAFT_TABLE", "table_crafted"),
+                          ("CRAFT_STICKS", "sticks_crafted"), ("CRAFT_PLANKS", "planks_crafted"),
+                          ("COLLECT_LOG", "log_mined")]
+                failure_stage = next((stage for action, stage in stages if action in confirmed), "before_mining")
             episodes.append(score | {"run_id": block["run_id"], "verified": verified,
                                      "actions": ctrl.get("actions"),
+                                     "failure_stage": failure_stage,
                                      "controller_success": ctrl.get("success"),
                                      "block_changes": ctrl.get("confirmed_block_changes")})
     summary = {}
@@ -69,6 +81,7 @@ def main():
             "wilson_95_descriptive": wilson(successes, len(valid)),
             "median_actions": statistics.median(actions) if actions else None,
             "failed_terminal_log_or_table_counts": dict(sorted(failure_inventory.items())),
+            "failed_stages": dict(collections.Counter(row["failure_stage"] for row in valid if not row["success"])),
         }
     result = {"blocks": blocks, "goals": summary, "episodes": episodes}
     (FOLDER / "results.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8", newline="\n")

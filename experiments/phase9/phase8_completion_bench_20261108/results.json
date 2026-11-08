@@ -6,32 +6,47 @@
       "requested": 10,
       "scored": 10,
       "stop_reason": "suite_complete"
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_2",
+      "world_seed": 7765724931027979657,
+      "requested": 10,
+      "scored": 10,
+      "stop_reason": "suite_complete"
     }
   ],
   "goals": {
     "three_logs": {
-      "successes": 4,
-      "verified_trials": 5,
+      "successes": 7,
+      "verified_trials": 10,
       "wilson_95_descriptive": [
-        0.37553462976252533,
-        0.9637758913675698
+        0.39677814746114537,
+        0.8922087325936989
       ],
-      "median_actions": 69,
+      "median_actions": 69.0,
       "failed_terminal_log_or_table_counts": {
-        "2": 1
+        "2": 3
+      },
+      "failed_stages": {
+        "log_mined": 3
       }
     },
     "wooden_pickaxe": {
       "successes": 0,
-      "verified_trials": 5,
+      "verified_trials": 10,
       "wilson_95_descriptive": [
         0,
-        0.43448246478317476
+        0.2775327998628892
       ],
-      "median_actions": 107,
+      "median_actions": 107.5,
       "failed_terminal_log_or_table_counts": {
-        "0": 2,
-        "1": 3
+        "0": 4,
+        "1": 6
+      },
+      "failed_stages": {
+        "table_crafted": 6,
+        "planks_crafted": 1,
+        "sticks_crafted": 3
       }
     }
   },
@@ -54,6 +69,7 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 45,
+      "failure_stage": null,
       "controller_success": true,
       "block_changes": 3
     },
@@ -75,6 +91,7 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 107,
+      "failure_stage": "table_crafted",
       "controller_success": false,
       "block_changes": 3
     },
@@ -96,6 +113,7 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 68,
+      "failure_stage": null,
       "controller_success": true,
       "block_changes": 3
     },
@@ -117,6 +135,7 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 106,
+      "failure_stage": "planks_crafted",
       "controller_success": false,
       "block_changes": 2
     },
@@ -138,6 +157,7 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 74,
+      "failure_stage": null,
       "controller_success": true,
       "block_changes": 3
     },
@@ -159,6 +179,7 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 102,
+      "failure_stage": "sticks_crafted",
       "controller_success": false,
       "block_changes": 3
     },
@@ -180,6 +201,7 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 69,
+      "failure_stage": null,
       "controller_success": true,
       "block_changes": 3
     },
@@ -201,6 +223,7 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 108,
+      "failure_stage": "table_crafted",
       "controller_success": false,
       "block_changes": 3
     },
@@ -222,6 +245,7 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 110,
+      "failure_stage": "log_mined",
       "controller_success": false,
       "block_changes": 2
     },
@@ -243,6 +267,227 @@
       "run_id": "p8_completion_bench_20261108_1",
       "verified": true,
       "actions": 113,
+      "failure_stage": "table_crafted",
+      "controller_success": false,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0000",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 4771805819404282999,
+      "success": true,
+      "ticks": 697,
+      "train": false,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 42,
+      "failure_stage": null,
+      "controller_success": true,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0001",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 4771805819404282999,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 106,
+      "failure_stage": "sticks_crafted",
+      "controller_success": false,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0002",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 5825188189416362583,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 2,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 110,
+      "failure_stage": "log_mined",
+      "controller_success": false,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0003",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 5825188189416362583,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 1,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 108,
+      "failure_stage": "table_crafted",
+      "controller_success": false,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0004",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 4912925724826214634,
+      "success": true,
+      "ticks": 881,
+      "train": false,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 56,
+      "failure_stage": null,
+      "controller_success": true,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0005",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 4912925724826214634,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 1,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 113,
+      "failure_stage": "table_crafted",
+      "controller_success": false,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0006",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 1620031791343449616,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 2,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 99,
+      "failure_stage": "log_mined",
+      "controller_success": false,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0007",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 1620031791343449616,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 105,
+      "failure_stage": "sticks_crafted",
+      "controller_success": false,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0008",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 8385385739745770354,
+      "success": true,
+      "ticks": 1029,
+      "train": false,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 69,
+      "failure_stage": null,
+      "controller_success": true,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0009",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 8385385739745770354,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 1,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_2",
+      "verified": true,
+      "actions": 109,
+      "failure_stage": "table_crafted",
       "controller_success": false,
       "block_changes": 3
     }

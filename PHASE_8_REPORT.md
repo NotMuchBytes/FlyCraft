@@ -377,3 +377,16 @@ a 1,500-tick limit. The new fixed held-out plan uses 30 layout seeds across
 six worlds and scores both long goals. The historical 27/30 one-log and
 21/30 plank scores remain separate.
 [Crafting evidence and held-out plan](docs/phase8_crafting_20261108.md)
+
+The first two held-out worlds produced **7/10 three-log successes and
+0/10 pickaxe successes**. Three-log failures ended with two logs.
+Six pickaxe failures reached a crafted table and timed out before
+placement. A separate recorded three-log repeat succeeded in 57 actions
+and 887 ticks. Its 60.567-second MP4 passed full decoding.
+
+**Phase 8 remains open.** The two longer goals have controlled live
+demonstrations. The 30-trial gates still need 20 trials per goal, and the
+held-out pickaxe sample has yet to reproduce the development success.
+The plan and data are preserved at the 55% weekly usage stop point.
+All 113 automated tests passed and the Fabric build succeeded.
+[Held-out results and recordings](docs/phase8_crafting_20261108.md)

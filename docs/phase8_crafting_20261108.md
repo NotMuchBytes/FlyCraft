@@ -108,3 +108,25 @@ a fresh execution. It collected three logs in 57 actions and 887 game ticks.
 The original 60.567-second Minecraft-window MP4 passed full decoding and
 capture verification. This recording is separate from the scored trials.
 [Verified three-log recording](../recordings/phase9/youtube/p8_three_tree_completion_recorded_20261108_a.json)
+
+## Held-out results through two worlds
+
+| Goal | Confirmed successes | Descriptive 95% Wilson interval | Median actions |
+| --- | ---: | ---: | ---: |
+| Three logs | 7/10 | 39.7%–89.2% | 69 |
+| Wooden pickaxe | 0/10 | 0%–27.8% | 107.5 |
+
+All 20 episodes had acknowledged terminal delivery. The three collection
+failures ended with two logs. Six pickaxe failures stopped after crafting
+a table, three after crafting sticks, and one after crafting planks. These
+are grouped by the last confirmed crafting stage. The layouts share two
+worlds, so the intervals describe this sample and do not account for
+world clustering. The recorded from-empty success is a development
+trial and is outside the held-out count.
+
+The second world finished at the 55% weekly Codex stop point. Blocks 3–6
+remain unstarted and account for 20 additional trials per goal in the
+frozen plan. The separate preselected held-out pickaxe recording also
+remains pending. Both gameplay milestones have verified development MP4s.
+[Second held-out block](../experiments/phase9/p8_completion_bench_20261108_2/run.json)
+[Per-episode held-out results](../experiments/phase9/phase8_completion_bench_20261108/results.json)
