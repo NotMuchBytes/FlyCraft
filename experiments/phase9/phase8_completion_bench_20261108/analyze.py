@@ -21,7 +21,18 @@ def main():
     plan = json.loads((FOLDER / "plan.json").read_text(encoding="utf-8"))
     goals = plan["settings"]["goals"]
     episodes, blocks = [], []
-    for block in plan["blocks"]:
+    parents = {block["run_id"]: block for block in plan["blocks"]}
+    retry_file = FOLDER / "retries.json"
+    retries = json.loads(retry_file.read_text(encoding="utf-8")) if retry_file.is_file() else []
+    runs = plan["blocks"].copy()
+    for retry in retries:
+        parent = parents[retry["parent"]]
+        assert retry["layout_seed"] in parent["layout_seeds"] and retry["goal"] in goals
+        runs.append({"run_id": retry["run_id"], "world_seed": parent["world_seed"],
+                     "layout_seeds": [retry["layout_seed"]], "goals": [retry["goal"]],
+                     "retry_of": parent["run_id"]})
+    scored_pairs = set()
+    for block in runs:
         folder = FOLDER.parent / block["run_id"]
         manifest = folder / "run.json"
         if not manifest.is_file():
@@ -30,7 +41,10 @@ def main():
         assert run["implementation_sha256"] == plan["implementation_sha256"]
         assert run["checkpoint_sha256"] == plan["checkpoint"]["sha256"]
         assert run["world_seed"] == block["world_seed"] and run["layout_seeds"] == block["layout_seeds"]
-        assert run["goals"] == goals and not run["train"]
+        run_goals = block.get("goals", goals)
+        assert run["goals"] == run_goals and not run["train"]
+        if "retry_of" in block:
+            assert run["redo_of"] == block["retry_of"]
         assert run["trial_tick_limit"] == plan["settings"]["trial_ticks"]
         assert run["policy_rng_seed"] == plan["settings"]["policy_seed"]
         assert run["forward_ticks"] == plan["settings"]["forward_ticks"]
@@ -41,12 +55,15 @@ def main():
         for event in rows(folder, "headless.jsonl"):
             if event["event"] == "action_end" and event["data"]["ack"]["status"] == "success":
                 completed_actions[event["episode_id"]].add(event["data"]["ack"]["action"])
-        expected = [(seed, goal) for seed in block["layout_seeds"] for goal in goals]
+        expected = [(seed, goal) for seed in block["layout_seeds"] for goal in run_goals]
         scores = rows(folder, "server.jsonl")
         assert [(row["layout_seed"], row["goal"]) for row in scores] == expected[:len(scores)]
         blocks.append({"run_id": block["run_id"], "world_seed": block["world_seed"],
                        "requested": len(expected), "scored": len(scores), "stop_reason": run["stop_reason"]})
         for score in scores:
+            identity = (block["world_seed"], score["layout_seed"], score["goal"])
+            assert identity not in scored_pairs
+            scored_pairs.add(identity)
             own = score["inventory"]
             ctrl = controller.get(score["episode_id"], {})
             threshold = own["log"] >= 3 if score["goal"] == "three_logs" else own["wooden_pickaxe"] >= 1

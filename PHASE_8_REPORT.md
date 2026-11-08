@@ -387,6 +387,12 @@ and 887 ticks. Its 60.567-second MP4 passed full decoding.
 **Phase 8 remains open.** The two longer goals have controlled live
 demonstrations. The 30-trial gates still need 20 trials per goal, and the
 held-out pickaxe sample has yet to reproduce the development success.
-The plan and data are preserved at the 55% weekly usage stop point.
+The plan and data were preserved at the 55% weekly stop point for new development.
 All 113 automated tests passed and the Fabric build succeeded.
 [Held-out results and recordings](docs/phase8_crafting_20261108.md)
+
+The frozen evaluation later resumed on the third world. The RAM guard
+interrupted that block after five scores, and a fresh run completed its
+interrupted pickaxe layout. The cumulative held-out results are **8/13
+for three logs and 0/13 for pickaxes**. Seventeen planned trials per goal
+remain. The retry's original and interrupted records are both preserved.

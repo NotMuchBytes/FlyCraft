@@ -124,9 +124,26 @@ worlds, so the intervals describe this sample and do not account for
 world clustering. The recorded from-empty success is a development
 trial and is outside the held-out count.
 
-The second world finished at the 55% weekly Codex stop point. Blocks 3–6
-remain unstarted and account for 20 additional trials per goal in the
-frozen plan. The separate preselected held-out pickaxe recording also
-remains pending. Both gameplay milestones have verified development MP4s.
+The second world finished at the 55% weekly Codex stop point for starting
+new development. Both gameplay milestones have verified development MP4s.
 [Second held-out block](../experiments/phase9/p8_completion_bench_20261108_2/run.json)
+
+## Partial third world
+
+The existing frozen evaluation resumed at the user's request. The RAM
+guard stopped world block 3 after five scored episodes. Its lowest sample
+was about 418 MiB. A fresh run completed the interrupted third-layout
+pickaxe trial with the same world and layout seeds, checkpoint, policy
+seed and deadline. It finished with a crafting table, six planks and
+four sticks. The retry generated a new world instance, so absolute spawn
+and game RNG could differ. It scored the missing layout once.
+
+The cumulative held-out result is **8/13 for three logs** and **0/13 for
+wooden pickaxes**. In the first two worlds, six pickaxe failures crafted
+a table. Two saw a valid placement affordance and one selected it.
+The third world's fourth and fifth layout pairs and blocks 4–6 remain
+unstarted, leaving 17 trials per goal. The preselected held-out pickaxe
+recording is pending. These resumed scored trials used structured logs.
+[Interrupted block](../experiments/phase9/p8_completion_bench_20261108_3/run.json)
+[Same-layout retry](../experiments/phase9/p8_completion_bench_20261108_3_pair3_retry/run.json)
 [Per-episode held-out results](../experiments/phase9/phase8_completion_bench_20261108/results.json)
