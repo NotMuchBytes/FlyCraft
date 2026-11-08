@@ -93,3 +93,18 @@ limit and scores actual server inventory. The pickaxe layout includes
 the stone support and both goals begin with empty inventory. Results
 from development retries remain separate.
 [Held-out plan](../experiments/phase9/phase8_completion_bench_20261108/plan.json)
+
+The first completed world block scored **4/5 three-log** and **0/5
+wooden-pickaxe**. Every outcome had acknowledged terminal inventory
+delivery. Three pickaxe episodes ended holding a table. One never
+observed a support face after crafting the table. One requested a
+placement and Minecraft reported no confirmed block change. The other
+observed a valid placement affordance without selecting it. Two further
+pickaxe episodes ran out of time before crafting a table.
+[First held-out block](../experiments/phase9/p8_completion_bench_20261108_1/run.json)
+
+The preselected three-log recording repeated the first held-out layout in
+a fresh execution. It collected three logs in 57 actions and 887 game ticks.
+The original 60.567-second Minecraft-window MP4 passed full decoding and
+capture verification. This recording is separate from the scored trials.
+[Verified three-log recording](../recordings/phase9/youtube/p8_three_tree_completion_recorded_20261108_a.json)
