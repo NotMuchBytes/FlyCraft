@@ -333,6 +333,18 @@ public final class HeadlessAgent implements AutoCloseable {
         }
         return nearest;
     }
+    private Target visiblePlacementSurface() {
+        Vec3 eye=player.getEyePosition();
+        Target nearest=null;
+        for(double yaw:new double[]{-40,-20,0,20,40}) {
+            BlockHitResult hit=lookRay(eye,yaw,0,4);
+            if(tablePlacement(hit)==null) continue;
+            double distance=eye.distanceTo(hit.getLocation());
+            if(nearest==null || distance<nearest.distance)
+                nearest=new Target("placement_surface",hit.getBlockPos().toShortString(),hit.getLocation(),distance,bearing(hit.getLocation()),hit);
+        }
+        return nearest;
+    }
     private Target sense() {
         Vec3 eye=player.getEyePosition();
         Target target=null, levelLog=null;
@@ -384,6 +396,8 @@ public final class HeadlessAgent implements AutoCloseable {
         String goal=control.get("goal").getAsString();
         boolean pickaxeGoal=goal.equals("wooden_pickaxe") || goal.equals("pickaxe_transaction");
         Target station=pickaxeGoal ? visibleStation() : null;
+        boolean readyToPlace=pickaxeGoal && station==null && items.get("crafting_table")>=1;
+        boolean placeable=readyToPlace && tablePlacement(center)!=null;
         boolean mineable=target!=null && target.kind.equals("block") && target.distance<=3 && center.getType()==HitResult.Type.BLOCK
             && center.getBlockPos().equals(target.hit.getBlockPos());
         List<String> allowed=new ArrayList<>(List.of("NO_OP","TURN_LEFT","TURN_RIGHT","FORWARD"));
@@ -393,8 +407,11 @@ public final class HeadlessAgent implements AutoCloseable {
             if(items.get("planks")>=2) allowed.add("CRAFT_STICKS");
             if(items.get("planks")>=4) allowed.add("CRAFT_TABLE");
         }
-        if(pickaxeGoal && items.get("crafting_table")>=1 && tablePlacement(center)!=null)
-            allowed.add("PLACE_TABLE");
+        if(placeable) allowed.add("PLACE_TABLE");
+        if(readyToPlace) {
+            Target support=visiblePlacementSurface();
+            if(support!=null) target=support;
+        }
         if(pickaxeGoal && items.get("planks")>=3 && items.get("sticks")>=2) {
             if(hitsTable(center)) allowed.add("CRAFT_PICKAXE");
             if(station!=null) target=station;
@@ -403,7 +420,7 @@ public final class HeadlessAgent implements AutoCloseable {
         telemetry.put("session_id",player.getUUID().toString()); telemetry.put("position",position());
         telemetry.put("game_mode",player.gameMode().name()); telemetry.put("inventory",items);
         telemetry.put("inventory_revision",inventoryRevision); telemetry.put("inventory_consistent",true);
-        telemetry.put("visible",target!=null); telemetry.put("near",mineable || target!=null && target.distance<=1 || pickaxeGoal && hitsTable(center));
+        telemetry.put("visible",target!=null); telemetry.put("near",mineable || placeable || target!=null && target.distance<=1 || pickaxeGoal && hitsTable(center));
         telemetry.put("target_distance",target==null ? -1 : target.distance); telemetry.put("target_angle",target==null ? 0 : target.angle);
         telemetry.put("target_id",target==null ? "" : target.id); telemetry.put("target_kind",target==null ? "none" : target.kind);
         telemetry.put("station_visible",station!=null); telemetry.put("allowed_actions",allowed);
@@ -505,7 +522,8 @@ public final class HeadlessAgent implements AutoCloseable {
     private BlockPos tablePlacement(BlockHitResult hit) {
         if(hit.getType()!=HitResult.Type.BLOCK || hitsTable(hit)) return null;
         var context=new BlockPlaceContext(player,InteractionHand.MAIN_HAND,new ItemStack(Items.CRAFTING_TABLE),hit);
-        return context.canPlace() ? context.getClickedPos() : null;
+        BlockPos destination=context.getClickedPos();
+        return context.canPlace() && !player.getBoundingBox().intersects(destination) ? destination : null;
     }
     private void placeTable(long tick) {
         BlockHitResult hit=crosshair();

@@ -141,6 +141,7 @@ def run():
     parser.add_argument("--trials", type=int, default=1)
     parser.add_argument("--world-seed", type=int, default=81001)
     parser.add_argument("--layout-start", type=int, default=81001)
+    parser.add_argument("--layout-seeds", help="Explicit comma-separated signed 64-bit layout seeds")
     parser.add_argument("--seconds", type=int, default=180)
     parser.add_argument("--trial-ticks", type=int, default=600)
     parser.add_argument("--train", action="store_true")
@@ -189,6 +190,14 @@ def run():
         parser.error("unknown goal or condition")
     if not 0 < args.trials <= 30 or not 0 < args.seconds <= 900 or args.trial_ticks <= 0:
         parser.error("use 1-30 trials and a bounded wall limit up to 900 seconds")
+    try:
+        layout_seeds = ([int(seed) for seed in args.layout_seeds.split(",")] if args.layout_seeds is not None
+                        else list(range(args.layout_start, args.layout_start + args.trials)))
+    except ValueError:
+        parser.error("layout-seeds must be comma-separated integers")
+    if (len(layout_seeds) != args.trials or len(set(layout_seeds)) != args.trials
+            or any(not -(2**63) <= seed < 2**63 for seed in layout_seeds)):
+        parser.error("supply one distinct signed 64-bit layout seed per trial")
     if args.minimum_available_ram_mib < 256:
         parser.error("the RAM reserve must be at least 256 MiB")
     if not 384<=args.server_heap_mib<=2048 or not 512<=args.client_heap_mib<=2048:
@@ -209,11 +218,11 @@ def run():
                          or any(goal not in {"one_log", "planks", "three_logs", "sticks", "crafting_table",
                                              "wooden_pickaxe", "pickaxe_transaction"} for goal in goals)):
         parser.error("headless pilot requires direct launch, strict camera, and a resource goal")
-    if args.three_tree_fixture and goals not in (["three_logs"], ["wooden_pickaxe"]):
+    if args.three_tree_fixture and any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals):
         parser.error("three-tree-fixture requires the three_logs or wooden_pickaxe goal")
     if args.unplaced_table_fixture and (not args.headless or goals != ["pickaxe_transaction"]):
         parser.error("unplaced-table-fixture requires a headless pickaxe_transaction")
-    if args.remember_mined_columns and (not args.headless or goals not in (["three_logs"], ["wooden_pickaxe"])):
+    if args.remember_mined_columns and (not args.headless or any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals)):
         parser.error("remember-mined-columns requires a headless three_logs or wooden_pickaxe goal")
     if not args.checkpoint.is_file() or args.frozen_checkpoint and not args.frozen_checkpoint.is_file():
         parser.error("checkpoint files must exist")
@@ -246,8 +255,8 @@ def run():
     control.write_text(json.dumps({"episode_id": "initial", "goal": goals[0], "condition": conditions[0],
                                   "train": False, "active": False, "suite_complete": False}), encoding="utf-8")
     trials = runtime / "trials.csv"
-    rows = [f"{condition},{goal},{args.layout_start + i},{str(args.train and condition == 'trained').lower()}"
-            for i in range(args.trials) for goal in goals for condition in conditions]
+    rows = [f"{condition},{goal},{seed},{str(args.train and condition == 'trained').lower()}"
+            for seed in layout_seeds for goal in goals for condition in conditions]
     trials.write_text("\n".join(rows) + "\n", encoding="utf-8")
     def java_path(path):
         return str(path).replace("\\", "/")
@@ -568,6 +577,8 @@ def run():
                                        else "controlled_flat_survival_fixture")
         summary["unplaced_table_fixture"] = args.unplaced_table_fixture
         summary["remember_mined_columns"] = args.remember_mined_columns
+        if args.layout_seeds is not None:
+            summary["layout_seeds"] = layout_seeds
         summary["server_heap_mib"] = args.server_heap_mib
         summary["client_heap_mib"] = args.client_heap_mib if graphical else None
         summary["trial_tick_limit"] = args.trial_ticks

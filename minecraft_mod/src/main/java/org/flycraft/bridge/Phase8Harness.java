@@ -187,9 +187,10 @@ public final class Phase8Harness {
             // from-empty-inventory wooden-pickaxe autonomy success rates.
             player.getInventory().add(new ItemStack(Items.OAK_PLANKS, 3));
             player.getInventory().add(new ItemStack(Items.STICK, 2));
+            int stationDistance = unplacedTable ? 3 : 2;
             if (headlessFixture)
-                level.setBlockAndUpdate(BlockPos.containing(originX, groundY, originZ + 2), Blocks.OAK_PLANKS.defaultBlockState());
-            BlockPos station = BlockPos.containing(originX, groundY + (headlessFixture ? 1 : 0), originZ + 2);
+                level.setBlockAndUpdate(BlockPos.containing(originX, groundY, originZ + stationDistance), Blocks.OAK_PLANKS.defaultBlockState());
+            BlockPos station = BlockPos.containing(originX, groundY + (headlessFixture ? 1 : 0), originZ + stationDistance);
             if (unplacedTable) player.getInventory().add(new ItemStack(Items.CRAFTING_TABLE));
             level.setBlockAndUpdate(station, (unplacedTable ? Blocks.STONE : Blocks.CRAFTING_TABLE).defaultBlockState());
             player.inventoryMenu.sendAllDataToRemote();
@@ -204,6 +205,12 @@ public final class Phase8Harness {
                 double bearing = lane * 38 + (rng.nextDouble() - 0.5) * 8;
                 double distance = (lane == 0 ? 2.2 : 4.1) + rng.nextDouble() * 0.5;
                 placeTree(level, Math.toRadians(bearing), distance);
+            }
+            if (trial.goal.equals("wooden_pickaxe")) {
+                // A visible face for horizontal, crosshair-only placement on flat ground.
+                BlockPos support = BlockPos.containing(originX, groundY, originZ + 5);
+                level.setBlockAndUpdate(support, Blocks.STONE.defaultBlockState());
+                level.setBlockAndUpdate(support.above(), Blocks.STONE.defaultBlockState());
             }
         } else {
             double bearing = Math.toRadians(-40 + rng.nextDouble() * 80);

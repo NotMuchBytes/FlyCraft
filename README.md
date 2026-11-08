@@ -54,11 +54,11 @@ vanilla navigation, separately from learned-policy evaluation. A recorded
 interactive follow demonstration exists; stop/resume and death recovery still
 need live validation. See [the evidence and limitations](docs/companion_follow_validation.md).
 
-The latest [Phase 7.5 reliability checks](docs/phase75_reliability_20261106.md)
-fixed rejected-observation accounting and recorded mining-interruption recovery.
-A [recorded bridge recovery](docs/phase75_rejection_recovery_20261106.md)
-then collected a log after a delayed command was explicitly rejected.
-Full disconnect recovery and broader live evaluation are still pending.
+Controlled [Phase 7.5 validation](PHASE_7_5_REPORT.md) reached 27/30
+inventory-confirmed one-log trials and recorded mining interruption,
+bridge timeout recovery and in-episode checkpoint restoration.
+[Phase 8](PHASE_8_REPORT.md) has live three-log and from-empty pickaxe
+development successes. Held-out long-goal reliability remains under evaluation.
 
 ## Reproduce Phase 1 analysis
 

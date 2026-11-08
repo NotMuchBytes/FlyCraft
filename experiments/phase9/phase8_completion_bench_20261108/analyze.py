@@ -1,0 +1,79 @@
+"""Summarize scored trials against the fixed Phase 8 completion plan."""
+import collections
+import json
+from pathlib import Path
+import statistics
+import sys
+
+FOLDER = Path(__file__).resolve().parent
+sys.path.insert(0, str(FOLDER.parents[2]))
+from tools.analyze_phase8 import wilson
+
+
+def rows(folder, name):
+    path = folder / name
+    if not path.is_file():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+
+
+def main():
+    plan = json.loads((FOLDER / "plan.json").read_text(encoding="utf-8"))
+    goals = plan["settings"]["goals"]
+    episodes, blocks = [], []
+    for block in plan["blocks"]:
+        folder = FOLDER.parent / block["run_id"]
+        manifest = folder / "run.json"
+        if not manifest.is_file():
+            continue
+        run = json.loads(manifest.read_text(encoding="utf-8"))
+        assert run["implementation_sha256"] == plan["implementation_sha256"]
+        assert run["checkpoint_sha256"] == plan["checkpoint"]["sha256"]
+        assert run["world_seed"] == block["world_seed"] and run["layout_seeds"] == block["layout_seeds"]
+        assert run["goals"] == goals and not run["train"]
+        assert run["trial_tick_limit"] == plan["settings"]["trial_ticks"]
+        assert run["policy_rng_seed"] == plan["settings"]["policy_seed"]
+        assert run["forward_ticks"] == plan["settings"]["forward_ticks"]
+        assert run["remember_mined_columns"] and run["environment_kind"] == "controlled_flat_three_tree_fixture"
+        deliveries = {row["episode_id"]: row for row in rows(folder, "server.jsonl.delivery.jsonl")}
+        controller = {row["episode_id"]: row for row in rows(folder, "controller.jsonl")}
+        expected = [(seed, goal) for seed in block["layout_seeds"] for goal in goals]
+        scores = rows(folder, "server.jsonl")
+        assert [(row["layout_seed"], row["goal"]) for row in scores] == expected[:len(scores)]
+        blocks.append({"run_id": block["run_id"], "world_seed": block["world_seed"],
+                       "requested": len(expected), "scored": len(scores), "stop_reason": run["stop_reason"]})
+        for score in scores:
+            own = score["inventory"]
+            ctrl = controller.get(score["episode_id"], {})
+            threshold = own["log"] >= 3 if score["goal"] == "three_logs" else own["wooden_pickaxe"] >= 1
+            assert score["success"] == threshold and score["condition"] == "trained"
+            recorded_inventory = ctrl.get("terminal_inventory")
+            verified = (deliveries.get(score["episode_id"], {}).get("acknowledged", False)
+                        and (recorded_inventory is None
+                             or all(recorded_inventory.get(key) == value for key, value in own.items())))
+            episodes.append(score | {"run_id": block["run_id"], "verified": verified,
+                                     "actions": ctrl.get("actions"),
+                                     "controller_success": ctrl.get("success"),
+                                     "block_changes": ctrl.get("confirmed_block_changes")})
+    summary = {}
+    for goal in goals:
+        valid = [row for row in episodes if row["goal"] == goal and row["verified"]]
+        successes = sum(row["success"] for row in valid)
+        actions = [row["actions"] for row in valid if row["actions"] is not None]
+        failure_inventory = collections.Counter(
+            (row["inventory"]["log"] if goal == "three_logs" else row["inventory"]["crafting_table"])
+            for row in valid if not row["success"]
+        )
+        summary[goal] = {
+            "successes": successes, "verified_trials": len(valid),
+            "wilson_95_descriptive": wilson(successes, len(valid)),
+            "median_actions": statistics.median(actions) if actions else None,
+            "failed_terminal_log_or_table_counts": dict(sorted(failure_inventory.items())),
+        }
+    result = {"blocks": blocks, "goals": summary, "episodes": episodes}
+    (FOLDER / "results.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8", newline="\n")
+    print(json.dumps(summary, indent=2))
+
+
+if __name__ == "__main__":
+    main()

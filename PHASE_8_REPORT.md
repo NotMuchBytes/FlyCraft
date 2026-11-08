@@ -356,3 +356,24 @@ The original checkpoint was frozen and all scores came from Minecraft
 inventory. Both recorded sensor variants have verified OBS footage.
 The retained build passed 112 automated tests and Fabric assembly.
 [Three-log trials and recording metadata](docs/phase8_three_logs_20261107.md)
+
+## November 8 headless crafting and longer goals
+
+The headless adapter now executes vanilla inventory recipes for planks,
+sticks and crafting tables. It places a table through the actual crosshair,
+opens the workbench through normal interaction, and verifies the recipe
+and inventory for wooden pickaxes. A prepared recorded transaction placed
+and used its table in four actions and 31 ticks.
+
+The recorded full pickaxe chain began with empty inventory and finished in
+103 actions and 1,396 ticks. It gathered three logs, crafted the ingredients
+and table, and used a stone support face supplied by the controlled fixture.
+The server confirmed one wooden pickaxe in inventory. The recorded trial
+demonstrates the full chain in that fixture. The earlier trial reached the
+table and failed before placement. Both are development episodes.
+
+A separate three-log pilot reached the goal in 2/3 development trials with
+a 1,500-tick limit. The new fixed held-out plan uses 30 layout seeds across
+six worlds and scores both long goals. The historical 27/30 one-log and
+21/30 plank scores remain separate.
+[Crafting evidence and held-out plan](docs/phase8_crafting_20261108.md)

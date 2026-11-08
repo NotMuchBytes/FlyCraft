@@ -53,7 +53,17 @@ Use `--headless --goals three_logs --three-tree-fixture` for the controlled
 multi-tree goal. Three separate trunks make logs reachable at eye height
 with the existing yaw-only action set. The server records each initial
 fixture and requires three logs in inventory. The flag applies only to
-the three-log goal and defaults off.
+the three-log and wooden-pickaxe goals and defaults off. The wooden-pickaxe
+version starts with empty inventory and includes a stone face for horizontal
+table placement.
+
+The headless `pickaxe_transaction` diagnostic supplies planks, sticks and
+a reachable workbench. Add `--unplaced-table-fixture` to start with an
+owned workbench and a visible support face so the policy must place it
+first. Keep these diagnostics separate from `wooden_pickaxe` trials.
+For a fixed evaluation plan, `--layout-seeds` takes one distinct signed
+64-bit seed per `--trials` slot. Every goal and condition in that slot
+uses the same layout seed.
 
 ## Camera and NVIDIA graphics
 

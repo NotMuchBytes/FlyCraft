@@ -1,0 +1,95 @@
+{
+  "purpose": "Fixed held-out development evaluation of three-log and from-empty pickaxe goals",
+  "implementation_sha256": "ed6438c495a5256245263029f2068927de1f2d6e020b89b255a91d6242d96f21",
+  "checkpoint": {
+    "path": "checkpoints/phase9/dev_pilot_20261029_b_pilot_trained_00002_a0003/trial_0000.npz",
+    "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5"
+  },
+  "seed_catalog_master": 2026110802,
+  "settings": {
+    "goals": [
+      "three_logs",
+      "wooden_pickaxe"
+    ],
+    "condition": "trained",
+    "training": false,
+    "policy_seed": 9001,
+    "trial_ticks": 1500,
+    "forward_ticks": 2,
+    "three_tree_fixture": true,
+    "remember_mined_columns": true,
+    "camera_mode": "bounded",
+    "turn_degrees": 15,
+    "movement_feedback": "displacement"
+  },
+  "blocks": [
+    {
+      "run_id": "p8_completion_bench_20261108_1",
+      "world_seed": 6191208702409811051,
+      "layout_seeds": [
+        4872507858497432655,
+        8269441786693065059,
+        3855564193842984821,
+        3844914209559104248,
+        6492969148407837907
+      ]
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_2",
+      "world_seed": 7765724931027979657,
+      "layout_seeds": [
+        4771805819404282999,
+        5825188189416362583,
+        4912925724826214634,
+        1620031791343449616,
+        8385385739745770354
+      ]
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_3",
+      "world_seed": 21780877198072592,
+      "layout_seeds": [
+        6962978918732471597,
+        6391316494053904106,
+        573132969015125205,
+        2560160440362620968,
+        5004554011918216871
+      ]
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_4",
+      "world_seed": 7738585223056599067,
+      "layout_seeds": [
+        6017087778116965391,
+        3948916410388947522,
+        435038862346062533,
+        4252766614724630241,
+        7505344775710491094
+      ]
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_5",
+      "world_seed": 5543675280236462387,
+      "layout_seeds": [
+        8277381166664075803,
+        4057239413227064687,
+        4783691577882577677,
+        7842815175715031591,
+        6631487298524535379
+      ]
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_6",
+      "world_seed": 8959352852365576132,
+      "layout_seeds": [
+        1451756095530816931,
+        2667189880073894643,
+        6252636621188922742,
+        6355277130457530039,
+        9103856366666999941
+      ]
+    }
+  ],
+  "scoring": "Score independent server inventory and record terminal delivery. Keep partial blocks and recording repeats separate. Describe Wilson intervals across layouts, clustered by world.",
+  "recording": "Separate preselected repeats of the first held-out layout for each goal."
+}

@@ -1,8 +1,24 @@
-# FlyCraft Phase 7.5 reliability status
+# FlyCraft Phase 7.5 reliability report
 
-Date: 2026-10-28. Status: **in progress**. The strict-mode 30-trial live
-reliability requirement has not been met. This report does not declare either
-Phase 7.5 or Phase 8 complete.
+November 8, 2026. **The controlled Phase 7.5 validation is complete.**
+Strict live one-log collection reached 27/30 across 30 seed pairs, above
+the 80% point target. The 95% Wilson interval was 74.4%–96.5%. The tests
+used controlled flat survival fixtures, which produced seven relative
+layouts. The newer five-policy pilot, recorded fault recoveries, and
+historical baseline below remain separate evidence.
+
+Live tests verified inventory confirmation, bounded mining interruption
+recovery, recovery after a socket read timeout, and in-episode restoration
+after restarting Python. The last case preserved the running Minecraft
+server and accepted the original mining acknowledgment without replay.
+Phase 7 simulation regressions passed as part of the 113-test suite. The matched controls and retention
+work measured the requested comparisons, with learning and neural benefit
+still unestablished. Natural-terrain navigation, full Minecraft server
+restart, and stronger estimates of generalization remain open. Phase 8
+has separate resource and crafting targets.
+
+The dated entries below preserve the status and limits at the time of each
+increment.
 
 The original 139,255-neuron brain, earlier checkpoints, simulation experiments
 and working Fabric resource interactions remain preserved. Phase 8's historical

@@ -27,3 +27,69 @@ The empty-inventory crafting-table trial confirmed one table in 11 actions and
 it up within 500 ticks. It attempted no stick recipe. These three development
 episodes used the same controlled layout and kept structured logs.
 [Run manifest](../experiments/phase9/p8_craft_transactions_20261108_a/run.json)
+
+## Placement and the full chain
+
+The first prepared placement recording stopped at the RAM guard before
+gameplay. The original 3.3-second startup MP4 is preserved. A server-only
+diagnostic then showed two rejected placement attempts. At both attempts,
+the proposed table block overlapped the actor's body. The adapter now
+checks that collision before offering the action. The prepared retry has
+a stone support face one block farther away.
+[Startup recording metadata](../recordings/phase9/youtube/p8_place_pickaxe_recorded_20261108_a.json)
+[Placement failure trace manifest](../experiments/phase9/p8_place_pickaxe_probe_20261108_a/run.json)
+
+The prepared retry placed the owned table and crafted one wooden pickaxe in
+four actions and 31 game ticks. Minecraft acknowledged the changed block and
+consumed table item. The workbench then consumed three planks and two sticks.
+The server and controller independently confirmed the pickaxe in inventory.
+The 16.1-second Minecraft-only MP4 passed full decoding.
+[Verified placement and pickaxe recording](../recordings/phase9/youtube/p8_place_pickaxe_recorded_20261108_b.json)
+
+The first full pickaxe trial began with empty inventory. It confirmed three
+block breaks, then consumed three collected logs to make planks, sticks and
+a crafting table. The trial ended at 1,500 ticks with six planks, four sticks,
+one table and zero pickaxes after 110 actions. This flat layout offered few
+reachable placement faces at the actor's eye height after mining. The revised
+three-tree pickaxe fixture supplies a visible stone face and still begins with
+empty inventory. The bridge can report a visible placement surface through
+the current-pitch sight rays when the actor owns a table. Placement still
+requires the actor to put the actual crosshair on a valid face.
+[First full-chain run](../experiments/phase9/p8_pickaxe_from_empty_20261108_a/run.json)
+
+The recorded full-chain retry succeeded from empty inventory in **103 actions
+and 1,396 game ticks**. The server confirmed three log breaks, and the policy
+collected the logs, chose the plank, stick and table recipes, placed the table
+against the fixture's stone support, and selected the pickaxe recipe. Final
+inventory contained one wooden pickaxe, three planks and two sticks. The
+controller agreed with the independent server score and the terminal
+exchange was acknowledged. This verifies the full chain on one controlled
+layout. The 86.833-second original OBS MP4 passed full decoding and
+Minecraft-window verification on the RTX 4050.
+[Full-chain recording metadata](../recordings/phase9/youtube/p8_pickaxe_from_empty_recorded_20261108_a.json)
+
+## Memory probe
+
+The optional `--remember-mined-columns` flag remembers columns of confirmed
+log breaks for the current episode. It excludes only off-pitch standing log
+hits in those columns. Current-pitch log hits and visible drops still enter
+the normal selection. No new world data enter the sensor. Three development
+repeats at 700 ticks collected two logs each, matching the prior ranking
+variant's terminal inventories. In the first trial the actor found the third
+trunk again but only reached 4.15 blocks by its last sighting. The flag stays
+opt-in pending evidence of an improvement.
+[Memory trials](../experiments/phase9/p8_three_tree_memory_20261108_a/run.json)
+
+With the same memory flag and a 1,500-tick limit, the policy collected
+three logs on two of the same three development layouts. The successful
+episodes ended at 646 and 1,212 ticks. The other ended at 1,500 ticks with
+two logs. Changes in episode length and game RNG prevent attributing the
+result to the memory flag alone.
+[Extended trials](../experiments/phase9/p8_three_tree_extended_20261108_a/run.json)
+
+The fixed held-out plan pairs the two long goals on 30 layout seeds
+across six Minecraft worlds. It freezes the policy, uses a 1,500-tick
+limit and scores actual server inventory. The pickaxe layout includes
+the stone support and both goals begin with empty inventory. Results
+from development retries remain separate.
+[Held-out plan](../experiments/phase9/phase8_completion_bench_20261108/plan.json)

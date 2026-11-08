@@ -19,6 +19,7 @@ assistance, shared by trained, frozen, uniform and neural-ablation conditions.
 | Pose | Player's own client position, yaw and pitch; never an undiscovered resource position. Pitch telemetry is not a new learned feature in the preserved 63-feature readout. |
 | Inventory | Counts reconstructed from vanilla server container-content, container-slot and player-inventory packets; predicted client inventory is separately checked for consistency |
 | Crafting station | A crafting table found by the same visible rays within four blocks; strict modes require the actual crosshair to interact |
+| Headless placement surface | When the pickaxe goal has an owned table and no visible station, existing yaw rays at current pitch can report a visible support face. Placement uses the actual crosshair within three blocks and excludes destinations that intersect the actor. |
 | Placement affordance | Strict modes require the actual crosshair hit on a valid upward face; legacy mode uses a downward ray in front of the player. Both are collision-tested and within four blocks. |
 | Action outcome | Command identity, primitive action, server-confirmed block change, timeout/interruption and inventory revision |
 | Goal instruction | Externally supplied objective and episode identity; experiment condition and policy RNG seed are control parameters |
@@ -56,11 +57,17 @@ does not reproduce the exact pixels of the main Minecraft camera.
   The three-log objective removes recipe and placement actions from the
   policy mask so the agent retains the logs it needs. Every comparison
   condition receives this same mask.
+- The optional headless memory flag remembers the columns of confirmed log
+  breaks in the current episode. It omits off-pitch ray hits in those
+  columns. The existing visible drop and current-pitch observations remain
+  available.
 - Planks, sticks, crafting tables and pickaxes use normal container clicks:
   place exact ingredients, wait for the recipe result, transfer the output,
   and wait for server inventory confirmation. A pickaxe transaction can open
   an already-observed reachable table. Recipe slot placement is an explicit
   primitive abstraction, not learned mouse control.
+  The live stick, table and pickaxe objectives mask recipes outside the
+  active planner subgoal for every comparison policy.
 - Table placement selects an owned item and a visible ground hit, sends the
   normal use-item interaction, then waits for the echoed server block state
   and inventory update. No crafting or placement is performed without the
