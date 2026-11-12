@@ -43,6 +43,8 @@ public final class HeadlessAgent implements AutoCloseable {
     private final boolean verifyMovement;
     private final boolean rememberMinedColumns;
     private final boolean pitchActions;
+    private final boolean jumpOnBlockedForward;
+    private boolean blockedForward, assistedJump;
     private final Set<Long> minedColumns=new HashSet<>();
     private Vec3 movementStart=Vec3.ZERO;
     private final ExecutorService io=Executors.newSingleThreadExecutor(r -> {
@@ -82,6 +84,7 @@ public final class HeadlessAgent implements AutoCloseable {
         verifyMovement=Boolean.parseBoolean(properties.getProperty("motor.verifyMovement","true"));
         rememberMinedColumns=Boolean.parseBoolean(properties.getProperty("sensor.rememberMinedColumns","false"));
         pitchActions=Boolean.parseBoolean(properties.getProperty("camera.pitchActions","false"));
+        jumpOnBlockedForward=Boolean.parseBoolean(properties.getProperty("motor.jumpOnBlockedForward","false"));
         if(forwardTicks<1 || forwardTicks>10) throw new IllegalArgumentException("Invalid forward duration");
         properties.putIfAbsent("camera.mode","bounded"); camera=new CameraDriver(properties);
     }
@@ -89,6 +92,7 @@ public final class HeadlessAgent implements AutoCloseable {
     private static final class Actor extends ServerPlayer {
         private final MinecraftServer owner;
         int forwardTicks;
+        boolean jumpPulse;
         long lastPhysicsTick=-1,physicsTicks;
         Actor(MinecraftServer server,ServerLevel level,CommonListenerCookie cookie) {
             this(server,level,cookie.gameProfile(),cookie.clientInformation());
@@ -101,11 +105,16 @@ public final class HeadlessAgent implements AutoCloseable {
             lastPhysicsTick=owner.getTickCount(); physicsTicks++;
             zza=forwardTicks>0 ? 1F : 0F; xxa=0; yya=0;
             if(forwardTicks>0) forwardTicks--;
+            if(jumpPulse) setJumping(true);
             super.tick();
             // A normal client connection invokes doTick from its packet listener.
             // This embedded connection has no network listener tick; invoke it
             // once here, retaining Player's normal travel, gravity and item touch.
             doTick();
+            if(jumpPulse) {
+                setJumping(false);
+                jumpPulse=false;
+            }
             level().getChunkSource().move(this);
         }
     }
@@ -163,6 +172,7 @@ public final class HeadlessAgent implements AutoCloseable {
         String next=control.get("episode_id").getAsString();
         if(!episode.equals(next)) {
             cancel("episode_interrupted",tick); episode=next; ack=null; readyAt=tick+15;
+            blockedForward=false;
             replyLossSince=-1;
             minedColumns.clear();
             camera.reset(view,episode);
@@ -450,6 +460,7 @@ public final class HeadlessAgent implements AutoCloseable {
     private void start(String selected,long id,long observationTick,long observationNanos,long tick) {
         if(id<=commandId) return;
         commandId=id; action=selected; actionStarted=tick; readyAt=tick+10;
+        if(!action.equals("FORWARD")) blockedForward=false;
         event("action_start",Map.of("command_id",id,"action",action,"server_tick",tick,"position",position(),"inventory",inventory()));
         switch(action) {
             case "NO_OP" -> { }
@@ -464,7 +475,13 @@ public final class HeadlessAgent implements AutoCloseable {
                 var accepted=camera.relative(view,id,pitchTurn ? 0 : turn,pitchTurn ? turn : 0,observationTick,tick,observationNanos);
                 if(!accepted.accepted()) finish("failed",accepted.reason(),false,tick);
             }
-            case "FORWARD" -> { movementStart=player.position(); player.forwardTicks=forwardTicks; readyAt=tick+forwardTicks; }
+            case "FORWARD" -> {
+                movementStart=player.position();
+                assistedJump=jumpOnBlockedForward && blockedForward && player.onGround() && !player.isInWater();
+                player.jumpPulse=assistedJump;
+                int duration=assistedJump ? Math.max(forwardTicks,6) : forwardTicks;
+                player.forwardTicks=duration; readyAt=tick+duration;
+            }
             case "COLLECT_LOG" -> {
                 miningHit=crosshair();
                 if(miningHit.getType()!=HitResult.Type.BLOCK || !player.level().getBlockState(miningHit.getBlockPos()).is(BlockTags.LOGS)) {
@@ -592,12 +609,17 @@ public final class HeadlessAgent implements AutoCloseable {
         if(motion!=null) {
             ack.addProperty("movement_distance",motion.distance()); ack.addProperty("movement_confirmed",motion.moved());
             ack.addProperty("movement_feedback_enabled",verifyMovement);
+            if(jumpOnBlockedForward) {
+                ack.addProperty("jump_assisted",assistedJump);
+                ack.addProperty("vertical_displacement",player.getY()-movementStart.y);
+                blockedForward=error.equals("movement_blocked") && !assistedJump;
+            }
         }
         event("action_end",Map.of("ack",ack,"server_tick",tick,"position",position(),"inventory",inventory(),"physics_ticks",player.physicsTicks));
         action=""; player.forwardTicks=0; readyAt=tick+1;
     }
     private void cancel(String reason,long tick) {
-        player.forwardTicks=0;
+        player.forwardTicks=0; player.jumpPulse=false;
         if(camera.busy()) camera.cancel(reason,true);
         if(!action.isEmpty()) {
             if(action.equals("COLLECT_LOG") && miningHit!=null)

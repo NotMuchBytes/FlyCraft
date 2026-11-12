@@ -1,0 +1,123 @@
+{
+  "run_id": "p75_natural_jump_recorded_20261112_a",
+  "world_seed": 202611120101,
+  "layout_start": 202611122047,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 1,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 128.03941209999903,
+  "maximum_sampled_gpu_c": 45,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-12 16-21-01.mp4",
+  "recording_confirmed": true,
+  "milestone": 1,
+  "experiment_stage": "development",
+  "redo_of": "p75_natural_spawn_20261112_1",
+  "execution_kind": "new_execution_not_replay",
+  "headless": true,
+  "operator_fault": "none",
+  "operator_fault_events": [],
+  "spectator": true,
+  "spectator_view": "first_person",
+  "capture_requested_size": [
+    854,
+    480
+  ],
+  "client_fps_limit": 30,
+  "capture_content_proof": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.021945352214960058,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_natural_jump_recorded_20261112_a\\capture-proof-game.png",
+    "game_frame_sha256": "ccf5680d400eaf08e70577ffea550eaf38ff24635ff868622b751fe3c8903693",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_natural_jump_recorded_20261112_a\\capture-proof-obs.png",
+    "obs_frame_sha256": "33fa76dfa1553c1529f698dc7bd39ba211f7c9e5751a8bcfa96bf75442ff0e09",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "capture_content_proof_error": {
+    "matched": false,
+    "mean_absolute_rgb_error": 0.1923860748002905,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_natural_jump_recorded_20261112_a\\capture-proof-game.png",
+    "game_frame_sha256": "459ca82e39454c32905e9650706e0e2a7e3a48b18bc26f82e1c9ae042c1dee9b",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_natural_jump_recorded_20261112_a\\capture-proof-obs.png",
+    "obs_frame_sha256": "33fa76dfa1553c1529f698dc7bd39ba211f7c9e5751a8bcfa96bf75442ff0e09",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "recording_mode": "OBS_isolated_spectator",
+  "generated_world_instances": 1,
+  "episodes_in_generated_world": 1,
+  "environment_kind": "vanilla_overworld_spawn",
+  "unplaced_table_fixture": false,
+  "remember_mined_columns": false,
+  "server_heap_mib": 512,
+  "client_heap_mib": 512,
+  "trial_tick_limit": 1000,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "pitch_actions": true,
+  "forward_ticks": 2,
+  "movement_feedback": "displacement",
+  "jump_on_blocked_forward": true,
+  "experiment_kind": "policy_goal",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "launcher": "direct",
+  "minimum_sampled_available_ram_mib": 1704.0,
+  "available_ram_guard_mib": 768,
+  "peak_sampled_process_tree_rss_mib": {
+    "bridge": 113.2109375,
+    "server": 645.609375,
+    "client": 867.0703125
+  },
+  "exit_codes_before_cleanup": {
+    "prepare": 0,
+    "bridge": null,
+    "server": 0,
+    "client": 0
+  },
+  "client_exited_cleanly": true,
+  "server_exited_cleanly": true,
+  "actual_graphics": [
+    "Using graphics backend OpenGL, using drivers: 3.3.0 NVIDIA 617.42",
+    "Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU/PCIe/SSE2 (NVIDIA Corporation)"
+  ],
+  "policy_label": "six_live_log_episodes",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "implementation_sha256": "38b25edec74707e241ff9a19304989d1bf4cf7e80c7d91d57458f76f7aed2608",
+  "milestone_video_status": "verified",
+  "milestone_video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 1958,
+    "duration_seconds": 65.3,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "1959"
+    },
+    "bytes": 39034336,
+    "sha256": "1b2ff07b671c9ef7baf93b6c9a769f6328c7ef901062e2286e798d9eca1b0a71",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-12 16-21-01.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_p75_natural_jump_recorded_20261112_a.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": true,
+    "visual_content_preflight_verified": true
+  }
+}

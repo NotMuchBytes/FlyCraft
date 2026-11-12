@@ -95,6 +95,9 @@ overworld spawn. Supply one world seed per invocation and use
 `--layout-start` to seed the initial heading. The runner clears the
 actor's starting inventory and leaves the terrain as generated. Report
 these runs separately from the flat-fixture benchmark.
+Add `--jump-on-blocked-forward` to test an opt-in vanilla jump pulse on
+grounded forward retries. It requires displacement feedback and applies
+only when the policy selects consecutive forward actions after a block.
 
 ## Camera and NVIDIA graphics
 

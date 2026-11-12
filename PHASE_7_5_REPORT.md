@@ -428,3 +428,52 @@ The full 117-test automated suite passed, and the server and spectator
 compiled successfully.
 [Abrupt-exit run](experiments/phase9/p75_server_crash_recorded_20261112_a/run.json)
 [Recording metadata](recordings/phase9/youtube/p75_server_crash_recorded_20261112_a.json)
+
+## November 12 vanilla-overworld pilot
+
+Three disposable worlds used normal Minecraft generation and the game's
+adjusted spawn. The harness cleared starting inventory and set a seeded
+heading. It left terrain and entities as generated. The frozen checkpoint
+used the optional pitch interface, two-tick forward pulses and a 1,000-tick
+deadline. Starting headings spanned about 170–178 degrees.
+
+| World seed | Acknowledged actions | Visible-log observations | Blocked forward actions | Logs at deadline |
+| --- | ---: | ---: | ---: | ---: |
+| 202611120101 | 74 | 21 | 15 | 0 |
+| 202611120102 | 70 | 0 | 0 | 0 |
+| 202611120103 | 71 | 0 | 0 | 0 |
+
+All three terminal inventories matched and were acknowledged. None of the
+three trials offered a legal mining action or broke a block. The closest
+visible log in the first world was 6.09 blocks from the actor's eyes. This
+pilot found separate search and approach failures. The 0/3 score is
+separate from the original 27/30 in flat fixtures. These routine episodes
+used structured logs.
+[World 1](experiments/phase9/p75_natural_spawn_20261112_1/run.json)
+[World 2](experiments/phase9/p75_natural_spawn_20261112_2/run.json)
+[World 3](experiments/phase9/p75_natural_spawn_20261112_3/run.json)
+
+The opt-in forward recovery adds a single vanilla jump pulse when the
+policy selects forward immediately after a blocked forward action on dry
+ground. An assisted action uses at least six ticks of forward input.
+Subsequent actions still come from the policy. The adapter measures both
+horizontal and vertical displacement and records whether the jump was
+applied. This is engineered movement assistance. It does not change the
+checkpoint or select a target or a heading.
+
+The filmed repeat used world seed 202611120101 and the same heading.
+Minecraft's adjusted spawn differed by eight blocks in Z and two in
+height. The actor made 71 acknowledged actions, saw no log, and had no
+blocked forward action. It therefore never triggered the jump. The trial
+ended with zero logs. The 65.3-second first-person MP4 passed capture
+matching and full decoding. This is a fresh execution on the same seed.
+[Recorded natural-world repeat](experiments/phase9/p75_natural_jump_recorded_20261112_a/run.json)
+[Recording metadata](recordings/phase9/youtube/p75_natural_jump_recorded_20261112_a.json)
+
+In each of the three trials that saw no logs, the policy selected seven
+forward pulses and about 60 camera turns. Its farthest observed distance
+from spawn ranged from 0.62 to 2.43 blocks. The next comparisons need to
+test exploration when no target is visible and hold the absolute start
+pose fixed when measuring obstacle recovery. The jump's effect on
+movement and collection remains unverified in Minecraft. The full
+117-test suite and Fabric build passed after adding the opt-in recovery.

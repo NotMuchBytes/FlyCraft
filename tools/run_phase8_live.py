@@ -162,6 +162,8 @@ def run():
                         help="Use three separate trunks for the three-log or wooden-pickaxe goal")
     parser.add_argument("--natural-world", action="store_true",
                         help="Run one headless one-log trial from a vanilla overworld spawn without placing trees")
+    parser.add_argument("--jump-on-blocked-forward", action="store_true",
+                        help="Add one ordinary jump pulse to a policy-selected retry of blocked forward input")
     parser.add_argument("--unplaced-table-fixture", action="store_true",
                         help="Start a headless pickaxe transaction with an owned table and a visible support face")
     parser.add_argument("--remember-mined-columns", action="store_true",
@@ -229,6 +231,8 @@ def run():
     if args.natural_world and (not args.headless or goals != ["one_log"] or args.trials != 1 or len(conditions) != 1
                                or args.train or args.operator_fault != "none"):
         parser.error("natural-world requires one headless one-log evaluation episode without an operator fault")
+    if args.jump_on_blocked_forward and (not args.natural_world or args.movement_feedback != "displacement"):
+        parser.error("jump-on-blocked-forward requires natural-world and displacement feedback")
     if args.unplaced_table_fixture and (not args.headless or goals != ["pickaxe_transaction"]):
         parser.error("unplaced-table-fixture requires a headless pickaxe_transaction")
     if args.remember_mined_columns and (not args.headless or any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals)):
@@ -296,6 +300,7 @@ def run():
             f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\ncamera.traceFile={java_path(camera_trace)}\n"
             f"camera.pitchActions={str(args.pitch_actions).lower()}\n"
             f"motor.forwardTicks={args.forward_ticks}\nmotor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n"
+            f"motor.jumpOnBlockedForward={str(args.jump_on_blocked_forward).lower()}\n"
             f"sensor.rememberMinedColumns={str(args.remember_mined_columns).lower()}\n",encoding="utf-8")
     if args.spectator:
         (client_dir/"flycraft-spectator.properties").write_text(
@@ -662,6 +667,7 @@ def run():
         summary["pitch_actions"] = args.pitch_actions
         summary["forward_ticks"] = args.forward_ticks
         summary["movement_feedback"] = args.movement_feedback
+        summary["jump_on_blocked_forward"] = args.jump_on_blocked_forward
         summary["experiment_kind"] = ("scripted_camera_probe_not_policy" if args.camera_probe else
                                       "policy_goal_with_operator_fault" if args.operator_fault != "none" else "policy_goal")
         summary["interaction_assistance"] = "visible_target_aim_macro" if args.camera_mode=="legacy" else "crosshair_only_no_automatic_aim"
