@@ -17,26 +17,30 @@ def rows(folder, name):
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
 
 
-def placement_trace(folder):
+def bridge_trace(folder):
     offers = collections.Counter()
     selections = collections.Counter()
     outcomes = collections.defaultdict(collections.Counter)
+    terminal_inventories = {}
     for row in rows(folder, "bridge.jsonl"):
         request = json.loads(row["request"])
         control = request.get("control", {})
         episode = control.get("episode_id")
+        response = row.get("response") or {}
+        terminal = control.get("terminal")
+        if terminal and response.get("terminal_acknowledged"):
+            terminal_inventories[episode] = terminal["inventory"]
         if control.get("goal") != "wooden_pickaxe" or not control.get("active"):
             continue
         if "PLACE_TABLE" in request.get("telemetry", {}).get("allowed_actions", []):
             offers[episode] += 1
-        response = row.get("response") or {}
         if response.get("action") == "PLACE_TABLE" and response.get("command_id") is not None:
             selections[episode] += 1
     for row in rows(folder, "headless.jsonl"):
         ack = row["data"].get("ack", {})
         if ack.get("action") == "PLACE_TABLE":
             outcomes[row["episode_id"]][ack.get("error") or ack["status"]] += 1
-    return offers, selections, outcomes
+    return terminal_inventories, offers, selections, outcomes
 
 
 def main():
@@ -86,7 +90,7 @@ def main():
         expected = [(seed, goal) for seed in block["layout_seeds"] for goal in run_goals]
         scores = rows(folder, "server.jsonl")
         assert [(row["layout_seed"], row["goal"]) for row in scores] == expected[:len(scores)]
-        offers, selections, outcomes = placement_trace(folder) if "wooden_pickaxe" in run_goals else ({}, {}, {})
+        bridge_inventory, offers, selections, outcomes = bridge_trace(folder)
         blocks.append({"run_id": block["run_id"], "world_seed": block["world_seed"],
                        "requested": len(expected), "scored": len(scores), "stop_reason": run["stop_reason"]})
         for score in scores:
@@ -98,9 +102,13 @@ def main():
             threshold = own["log"] >= 3 if score["goal"] == "three_logs" else own["wooden_pickaxe"] >= 1
             assert score["success"] == threshold and score["condition"] == settings["condition"]
             recorded_inventory = ctrl.get("terminal_inventory")
+            inventory_evidence = "controller"
+            if recorded_inventory is None:
+                recorded_inventory = bridge_inventory.get(score["episode_id"])
+                inventory_evidence = "acknowledged_bridge_packet" if recorded_inventory is not None else None
             verified = (deliveries.get(score["episode_id"], {}).get("acknowledged", False)
-                        and (recorded_inventory is None
-                             or all(recorded_inventory.get(key) == value for key, value in own.items())))
+                        and recorded_inventory is not None
+                        and all(recorded_inventory.get(key) == value for key, value in own.items()))
             failure_stage = None
             if not threshold:
                 confirmed = completed_actions[score["episode_id"]]
@@ -110,6 +118,7 @@ def main():
                 failure_stage = next((stage for action, stage in stages if action in confirmed), "before_mining")
             episodes.append(score | {"run_id": block["run_id"], "verified": verified,
                                      "actions": ctrl.get("actions"),
+                                     "terminal_inventory_evidence": inventory_evidence,
                                      "failure_stage": failure_stage,
                                      "controller_success": ctrl.get("success"),
                                      "block_changes": ctrl.get("confirmed_block_changes")})

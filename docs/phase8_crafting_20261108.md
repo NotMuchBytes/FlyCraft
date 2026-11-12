@@ -180,3 +180,34 @@ only. The rerun did not reproduce that success, and the original success has
 no exact replay MP4. The earlier filmed development success remains available.
 [Preselected recording](../recordings/phase9/youtube/p8_pickaxe_completion_recorded_20261112_a.json)
 [World 3 recording](../recordings/phase9/youtube/p8_pickaxe_first_success_recorded_20261112_a.json)
+
+## Completed held-out sample
+
+| World block | Three logs | Wooden pickaxe from empty inventory |
+| --- | ---: | ---: |
+| 1 | 4/5 | 0/5 |
+| 2 | 3/5 | 0/5 |
+| 3 | 3/5 | 1/5 |
+| 4 | 4/5 | 0/5 |
+| 5 | 3/5 | 1/5 |
+| 6 | 3/5 | 1/5 |
+| **Total** | **20/30** | **3/30** |
+
+Every planned world, layout and goal combination appears once in the scored
+results, with acknowledged terminal delivery and matching inventories. In
+two episodes without a controller terminal inventory field, the acknowledged
+bridge packet provided the matching inventory. Two
+fresh instances of the third world seed supplied missing scores after the
+original RAM-guard stop. All 60 scored episodes terminated within the tick
+limit. The November 12 scored batches completed without hitting a guard,
+and the highest sampled GPU temperature during those batches was 51 °C.
+
+Three-log misses ended with two logs in nine cases and one log in one case.
+Seven misses had three confirmed breaks, which identifies pickup as a
+bottleneck even after successful mining. Pickaxe misses stopped after planks
+(two), sticks (seven), or crafting a table (eighteen). Only four of the
+eighteen table failures exposed placement to the policy. One selected it
+and Minecraft did not confirm a placement. The three successes finished at
+1,043, 1,153, and 1,318 game ticks, with a confirmed pickaxe in inventory.
+[Fixed plan](../experiments/phase9/phase8_completion_bench_20261108/plan.json)
+[Scores and placement telemetry](../experiments/phase9/phase8_completion_bench_20261108/results.json)

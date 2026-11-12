@@ -15,11 +15,11 @@ learning. The original 139,255-neuron graph is preserved. See
 [design](docs/phase7_design.md) and [commands](docs/phase7_usage.md).
 Phase 8 adds acknowledged survival mining, inventory observations, normal
 crafting transactions and a live resource-goal controller using the same learned
-readout. Real one-log collection and plank crafting have passed development
-pilots; the historical assisted one-log comparison scored 29/30 on held-out
-reset layouts. Longer goals and the new strict camera interface remain under
-evaluation. These controlled tree
-fixtures do not establish natural-world autonomy. See the
+readout. The historical assisted one-log comparison scored 29/30 on held-out
+reset layouts. The current crosshair-only trials scored 27/30 for one log,
+20/30 for three logs, 21/30 for four planks, and 3/30 for a wooden pickaxe
+from empty inventory. All four scores come from controlled Minecraft
+fixtures. Natural-world autonomy remains unverified. See the
 [observation contract](docs/phase8_observation_contract.md) and
 [recorded live-run commands](docs/phase8_usage.md). Phase 7's original results
 and checkpoints remain preserved.
@@ -57,8 +57,8 @@ need live validation. See [the evidence and limitations](docs/companion_follow_v
 Controlled [Phase 7.5 validation](PHASE_7_5_REPORT.md) reached 27/30
 inventory-confirmed one-log trials and recorded mining interruption,
 bridge timeout recovery and in-episode checkpoint restoration.
-[Phase 8](PHASE_8_REPORT.md) has live three-log and from-empty pickaxe
-development successes. Held-out long-goal reliability remains under evaluation.
+[Phase 8](PHASE_8_REPORT.md) completed the held-out long-goal evaluation.
+Three-log collection and pickaxe crafting remain below their reliability targets.
 
 ## Reproduce Phase 1 analysis
 

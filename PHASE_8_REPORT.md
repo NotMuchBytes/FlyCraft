@@ -7,10 +7,10 @@ collection. These small development checks reuse one fixture seed; they are
 not held-out benchmarks or learning gains. Phase 8 remains incomplete. See
 [the Phase 7.5 evidence](docs/phase75_reliability_20261106.md).
 
-The current crosshair-only interface has met the one-log and plank targets
-in controlled Minecraft fixtures. The earlier assisted one-log comparison
-and the current interface have separate results. See the November 12 section
-for the frozen three-log and wooden-pickaxe benchmark.
+November 12, 2026. The controlled Minecraft evaluations are complete. The
+crosshair-only interface met the one-log and four-plank targets and missed
+the three-log and wooden-pickaxe targets. The earlier assisted one-log
+comparison has its own results. See the final scorecard below.
 
 ## 1. Implemented features
 
@@ -397,22 +397,55 @@ interrupted pickaxe layout. The cumulative held-out results are **8/13
 for three logs and 0/13 for pickaxes**. Seventeen planned trials per goal
 remain. The retry's original and interrupted records are both preserved.
 
-## November 12 held-out evaluation
+## November 12 final controlled-fixture scorecard
 
 The remaining two layout pairs in world 3 produced two three-log successes
 and the first held-out from-empty pickaxe success. Minecraft confirmed
 the pickaxe in 72 actions and 1,043 ticks, with acknowledged terminal
 delivery and matching controller inventory.
 
-| Goal | Confirmed successes through world 3 | Descriptive 95% Wilson interval | Median actions |
+| Goal | Confirmed successes | Point target | Descriptive 95% Wilson interval |
 | --- | ---: | ---: | ---: |
-| Three logs | 10/15 (66.7%) | 41.7%–84.8% | 69 |
-| Wooden pickaxe | 1/15 (6.7%) | 1.2%–29.8% | 108 |
+| One log | 27/30 (90.0%) | 80%, met | 74.4%–96.5% |
+| Three logs | 20/30 (66.7%) | 70%, missed | 48.8%–80.8% |
+| Four planks | 21/30 (70.0%) | 70%, met | 52.1%–83.3% |
+| Wooden pickaxe from empty inventory | 3/30 (10.0%) | 50%, missed | 3.5%–25.6% |
 
-Five three-log failures ended with two logs. Nine of fourteen pickaxe
-failures crafted a table. Only two of those nine saw a legal table-placement
-affordance, and the only placement attempt among them failed to produce a
-confirmed block change. The successful episode placed its table and crafted
-the pickaxe through the actual workbench interaction. The layouts share
-worlds, so the intervals describe the layouts without adjusting for clustering.
+The long goals used the same 30 layout seeds across six world seeds, with the
+checkpoint frozen and a 1,500-game-tick limit. All 60 results have acknowledged
+terminal delivery and matching server and controller outcomes. The server's
+inventory matched the controller's terminal record in 58 episodes and the
+acknowledged bridge packet in the remaining two. The median
+was 86 actions and 1,193 ticks for three logs, and 110 actions and 1,500 ticks
+for pickaxes, including failures. One-log and four-plank scores come from
+earlier seed sets. The intervals describe layout outcomes without adjusting
+for shared worlds.
+
+Seven of the ten three-log failures broke three blocks but collected fewer
+than three logs. The other three broke two blocks. Eighteen of the 27 pickaxe
+failures reached a crafted table. Four of those eighteen saw a legal
+placement affordance, and the only selected placement produced no confirmed
+block change. The other failures stopped after sticks (seven) or planks
+(two). The three successful pickaxe episodes used the actual workbench and
+finished in 72–102 actions on three world seeds.
+
+The learned readout selected actions from engineered affordances, while the
+planner supplied recipe dependencies and bounded recovery. The long-goal
+sample evaluates the combined system with one frozen checkpoint. The earlier
+matched controls did not establish a causal benefit for the neural features
+or for the live updates. All 113 automated tests passed again, including the
+Phase 7 regression suite. Natural-terrain performance and full server restart
+recovery remain unverified.
+
+Two pickaxe repeats produced fully decoded Minecraft-only OBS recordings.
+Both timed out, including the fresh repeat of the first successful layout.
+The exact scored successes have action and inventory logs only. The earlier
+verified development MP4 shows a successful from-empty pickaxe.
 [Per-episode results](experiments/phase9/phase8_completion_bench_20261108/results.json)
+[World breakdown and recordings](docs/phase8_crafting_20261108.md)
+
+Phase 8 reliability remains open for the two longer goals. For Phase 9,
+prioritize pickup recovery after confirmed block breaks and add policy-selected
+pitch actions while retaining the existing checkpoints. Test approach,
+placement, and crafting separately on development layouts before repeating
+matched policy controls on fresh seeds.
