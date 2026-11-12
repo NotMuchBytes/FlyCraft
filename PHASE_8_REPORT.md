@@ -449,3 +449,49 @@ prioritize pickup recovery after confirmed block breaks and add policy-selected
 pitch actions while retaining the existing checkpoints. Test approach,
 placement, and crafting separately on development layouts before repeating
 matched policy controls on fresh seeds.
+
+## Experimental live pitch control
+
+The frozen benchmark traces show that all seven three-log failures with
+three confirmed breaks observed a dropped log after the final break. The
+nearest observed drop ranged from 1.66 to 3.71 blocks from the actor's
+eyes. A pickup remained unconfirmed in every case. This leaves a specific
+navigation problem after mining, alongside the low frequency of legal
+table-placement views.
+
+The opt-in headless readout adds `LOOK_UP` and `LOOK_DOWN` and three inputs
+for the observed pitch error and the two new previous-action indicators.
+Checkpoint transfer copies the original 63-by-10 weights into the
+66-by-12 readout and initializes the remaining weights to zero. Existing
+checkpoints and the default ten-action interface are preserved. The policy
+samples both new actions, and Fabric executes each as a fixed relative
+turn through the existing controller. Mining and table placement continue
+to require the actual crosshair and a server-confirmed result.
+[Observation and action contract](docs/phase8_observation_contract.md)
+
+The matched development pilot used three fresh layouts in one controlled
+Minecraft world, a shared checkpoint, 15-degree turns, two-tick forward
+input and a 1,500-tick deadline. Both configurations evaluated fixed
+weights. All 12 scores have acknowledged terminal inventory.
+
+| Goal | Yaw only | Pitch enabled | Median actions, yaw / pitch | Median game ticks, yaw / pitch |
+| --- | ---: | ---: | ---: | ---: |
+| Three logs | 1/3 | 1/3 | 107 / 105 | 1,500 / 1,500 |
+| Wooden pickaxe from empty inventory | 0/3 | 2/3 | 117 / 55 | 1,500 / 798 |
+
+The pitch-enabled pickaxes finished in 54 and 55 actions at 784 and 798
+ticks. Each mined three blocks, reached a legal table-placement view,
+placed a table and crafted through the workbench. The yaw-only policy saw
+a placement affordance in one trial and did not select it. The pitch-enabled
+policy's failed pickaxe trial mined one block. The two three-log conditions
+succeeded on different layouts.
+
+Minecraft acknowledged 175 policy-selected pitch actions across six
+episodes. All settled, with a median of ten ticks, a peak sampled pitch
+speed of 88.34 degrees per second, and zero recorded endpoint error or
+overshoot. The sample compares the whole optional interface, including the
+expanded surface rays. It does not isolate the effect of each change. The
+results leave the original 30-trial gates in place. All 115 automated tests
+passed and the Fabric live build succeeded.
+[Yaw reference](experiments/phase9/p8_pitch_dev_20261112_yaw/run.json)
+[Pitch-enabled pilot](experiments/phase9/p8_pitch_dev_20261112_pitch/run.json)
