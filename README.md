@@ -31,6 +31,9 @@ Read [camera validation](docs/camera_controller.md) before
 comparing it with earlier assisted runs. On this Windows laptop, FlyCraft's
 dedicated Java runtime uses the NVIDIA RTX 4050, verified by the selected
 renderer rather than a preference message; see [GPU evidence](docs/windows_gpu.md).
+An opt-in headless pitch readout completed two from-empty pickaxes in a
+three-layout development pilot, with one additional recorded success.
+See the [Phase 8 pitch experiment](PHASE_8_REPORT.md#experimental-live-pitch-control).
 
 Phase 9 is an ongoing development pilot with transactional checkpoint/resume,
 separate seed sets, a dashboard and Minecraft-only milestone recording. Three

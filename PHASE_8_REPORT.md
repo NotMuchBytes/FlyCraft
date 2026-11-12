@@ -495,3 +495,32 @@ results leave the original 30-trial gates in place. All 115 automated tests
 passed and the Fabric live build succeeded.
 [Yaw reference](experiments/phase9/p8_pitch_dev_20261112_yaw/run.json)
 [Pitch-enabled pilot](experiments/phase9/p8_pitch_dev_20261112_pitch/run.json)
+
+Two fresh OBS repeats used the successful pilot layouts. Layout 619126558
+timed out with six planks and four sticks. Layout 619126559 produced an
+inventory-confirmed wooden pickaxe from empty inventory in 80 actions and
+1,226 game ticks. The 88.833-second and 77.067-second Minecraft-only MP4s
+passed game-frame matching and full decoding. The spectator rendered on
+the RTX 4050. The recorded attempts are separate from the matched sample.
+[Timed-out repeat](recordings/phase9/youtube/p8_pitch_pickaxe_recorded_20261112_a.json)
+[Successful repeat](recordings/phase9/youtube/p8_pitch_pickaxe_recorded_20261112_b.json)
+
+### Placement training and transfer
+
+Three live development episodes started with an unplaced table, three
+planks and two sticks. Each placed the table and crafted the pickaxe in
+five actions, taking 42–49 game ticks. Each produced a restorable
+pitch-schema checkpoint with a nonzero REINFORCE update. The three
+weight-update norms ranged from 0.0258 to 0.0280.
+
+The final checkpoint and frozen expanded transfer then attempted the same
+three fresh layouts in a different world with 420 ticks per trial. Both
+scored 0/3. The trained policy placed one table and did not craft a pickaxe
+within the deadline. The frozen policy placed no tables. Median action
+counts were 38 and 36, respectively. All nine training and evaluation
+episodes had acknowledged, matching terminal inventory. This prepared
+fixture comparison provides no evidence that the three updates improved
+completion on new layouts. The checkpoint stays separate from the
+from-empty evaluation and earlier checkpoints.
+[Training metadata](experiments/phase9/p8_pitch_place_train_20261112_a/run.json)
+[Matched evaluation](experiments/phase9/p8_pitch_place_eval_20261112_a/run.json)
