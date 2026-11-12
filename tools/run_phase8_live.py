@@ -160,12 +160,14 @@ def run():
     parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
     parser.add_argument("--three-tree-fixture", action="store_true",
                         help="Use three separate trunks for the three-log or wooden-pickaxe goal")
+    parser.add_argument("--natural-world", action="store_true",
+                        help="Run one headless one-log trial from a vanilla overworld spawn without placing trees")
     parser.add_argument("--unplaced-table-fixture", action="store_true",
                         help="Start a headless pickaxe transaction with an owned table and a visible support face")
     parser.add_argument("--remember-mined-columns", action="store_true",
                         help="Ignore off-pitch log hits in previously mined columns during headless collection")
     parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall", "bridge_read_timeout",
-                        "bridge_checkpoint_restart", "server_restart"), default="none",
+                        "bridge_checkpoint_restart", "server_restart", "server_crash"), default="none",
                         help="One-shot disturbance during mining; reliability tests only")
     parser.add_argument("--graphics-backend", choices=("default","opengl","vulkan"),default="opengl")
     parser.add_argument("--minimum-available-ram-mib", type=int, default=768)
@@ -224,6 +226,9 @@ def run():
         parser.error("headless pilot requires direct launch, strict camera, and a resource goal")
     if args.three_tree_fixture and any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals):
         parser.error("three-tree-fixture requires the three_logs or wooden_pickaxe goal")
+    if args.natural_world and (not args.headless or goals != ["one_log"] or args.trials != 1 or len(conditions) != 1
+                               or args.train or args.operator_fault != "none"):
+        parser.error("natural-world requires one headless one-log evaluation episode without an operator fault")
     if args.unplaced_table_fixture and (not args.headless or goals != ["pickaxe_transaction"]):
         parser.error("unplaced-table-fixture requires a headless pickaxe_transaction")
     if args.remember_mined_columns and (not args.headless or any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals)):
@@ -240,6 +245,7 @@ def run():
                                          or len(goals) != 1 or len(conditions) != 1):
         parser.error("operator faults require one headless episode with learning disabled")
     checkpoint_restart = args.operator_fault == "bridge_checkpoint_restart"
+    server_restart = args.operator_fault in {"server_restart", "server_crash"}
     if checkpoint_restart and conditions != ["trained"]:
         parser.error("bridge checkpoint restart requires the trained evaluation condition")
     if listening(25567) or listening(8765):
@@ -270,6 +276,7 @@ def run():
         f"maxTrialTicks={args.trial_ticks}\nmaxSeconds={args.seconds}\npolicySeed={args.policy_seed}\n"
         f"fixture.threeTrees={str(args.three_tree_fixture).lower()}\n"
         f"fixture.unplacedTable={str(args.unplaced_table_fixture).lower()}\n"
+        f"fixture.naturalWorld={str(args.natural_world).lower()}\n"
         f"fixture.headless={str(args.headless).lower()}\n", encoding="utf-8")
     capture_title="FlyCraft Recording "+args.run_id
     (client_dir / "flycraft-phase8-client.properties").write_text(f"controlFile={java_path(control)}\ncapture.windowTitle={capture_title}\n", encoding="utf-8")
@@ -303,8 +310,10 @@ def run():
     (server_dir / "eula.txt").write_text("eula=true\n", encoding="utf-8")
     (server_dir / "server.properties").write_text(
         "server-ip=127.0.0.1\nserver-port=25567\nonline-mode=false\nenforce-secure-profile=false\n"
-        f"level-name=world\nlevel-seed={args.world_seed}\nlevel-type=minecraft:flat\n"
-        "gamemode=survival\nforce-gamemode=true\ndifficulty=peaceful\ngenerate-structures=false\n"
+        f"level-name=world\nlevel-seed={args.world_seed}\n"
+        f"level-type=minecraft:{'normal' if args.natural_world else 'flat'}\n"
+        "gamemode=survival\nforce-gamemode=true\ndifficulty=peaceful\n"
+        f"generate-structures={str(args.natural_world).lower()}\n"
         f"spawn-protection=0\nmax-players={2 if args.spectator else 1}\nview-distance=2\nsimulation-distance=2\nallow-flight=false\n", encoding="utf-8")
     (client_dir / "options.txt").write_text("maxFps:30\nrenderDistance:2\nsimulationDistance:5\nparticles:2\nfullscreen:false\npauseOnLostFocus:false\nsoundCategory_master:0.0\n", encoding="utf-8")
     java = ROOT / ".runtime/jdk-25/bin/java.exe"
@@ -471,19 +480,26 @@ def run():
                             checkpoint_sha256=hashlib.sha256(pending_checkpoint.read_bytes()).hexdigest(),
                             restored_controller_log=str(results / "controller-restored.jsonl"))
                         bridge_restart_at = time.perf_counter() + 5
-                    elif args.operator_fault == "server_restart":
-                        event.update(disturbance="owned_minecraft_server_gracefully_restarted",
+                    elif server_restart:
+                        abrupt = args.operator_fault == "server_crash"
+                        event.update(disturbance=("owned_minecraft_server_forcibly_terminated" if abrupt
+                                                 else "owned_minecraft_server_gracefully_restarted"),
                                      stopped_pid=server.pid, bridge_pid=bridge.pid)
                         fault_events.append(event)
                         atomic_json(results / "operator_fault.json", fault_events)
-                        server.stdin.write(b"stop\n")
-                        server.stdin.flush()
+                        if not (server_dir / "world/level.dat").is_file():
+                            raise RuntimeError("disposable world has no saved level metadata")
+                        if abrupt:
+                            server.kill()
+                        else:
+                            server.stdin.write(b"stop\n")
+                            server.stdin.flush()
                         try:
                             exit_code = server.wait(timeout=20)
                         except subprocess.TimeoutExpired as error:
                             raise RuntimeError("owned Minecraft server did not stop") from error
-                        if exit_code or listening(25567) or not (server_dir / "world/level.dat").is_file():
-                            raise RuntimeError("Minecraft did not close and save the disposable world")
+                        if bool(exit_code) != abrupt or listening(25567):
+                            raise RuntimeError("Minecraft did not exit with the requested shutdown mode")
                         if (results / "server.jsonl").exists():
                             raise RuntimeError("episode finished before the server restart")
                         event.update(stopped_unix=time.time(), exit_code=exit_code)
@@ -625,12 +641,13 @@ def run():
         summary["client_fps_limit"] = 30 if graphical else None
         summary["capture_content_proof"] = capture_proof
         summary["capture_content_proof_error"] = capture_proof_error
-        if args.operator_fault == "server_restart":
+        if server_restart:
             summary["capture_content_proof_before_restart"] = capture_proof_before_restart
         summary["recording_mode"] = "OBS_isolated_spectator" if args.spectator else "OBS_Minecraft_window" if graphical else "structured_event_logs_no_video"
         summary["generated_world_instances"] = int((server_dir/"world/level.dat").exists())
         summary["episodes_in_generated_world"] = last_rows
-        summary["environment_kind"] = ("controlled_flat_three_tree_fixture" if args.three_tree_fixture
+        summary["environment_kind"] = ("vanilla_overworld_spawn" if args.natural_world else
+                                       "controlled_flat_three_tree_fixture" if args.three_tree_fixture
                                        else "controlled_flat_survival_fixture")
         summary["unplaced_table_fixture"] = args.unplaced_table_fixture
         summary["remember_mined_columns"] = args.remember_mined_columns
@@ -689,7 +706,7 @@ def run():
                 minimum_seconds=sum(row["ticks"]/20 for row in scores)
                 verified=preserve_milestone(recording,destination,minimum_seconds=minimum_seconds)
                 complete=(last_rows==len(rows) and summary["stop_reason"]=="suite_complete" and capture_proof is not None
-                          and (args.operator_fault!="server_restart" or capture_proof_before_restart is not None))
+                          and (not server_restart or capture_proof_before_restart is not None))
                 verified["episode_coverage_complete"]=complete
                 verified["visual_content_preflight_verified"]=capture_proof is not None
                 summary["milestone_video_status"]="verified" if complete else "partial"

@@ -31,6 +31,12 @@ configuration and independent scoring logs remain outside the observation
 channel. The semantic sensor's field of view is an explicit abstraction and
 does not reproduce the exact pixels of the main Minecraft camera.
 
+The optional vanilla-overworld trial starts at the game's adjusted spawn.
+Its heading is chosen from an operator seed without surveying resources.
+The harness clears the actor's initial inventory. It leaves the generated
+terrain and entities in place, and provides the same observations and
+action interface as the selected headless policy configuration.
+
 ## Action transactions
 
 - The new runner defaults to `camera.mode=bounded`: explicit relative turns

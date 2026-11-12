@@ -408,3 +408,23 @@ inventory regressions. Fabric compiled for the server and spectator runs.
 [Server-only run](experiments/phase9/p75_server_restart_20261112_a/run.json)
 [Recorded run](experiments/phase9/p75_server_restart_recorded_20261112_a/run.json)
 [Recording metadata](recordings/phase9/youtube/p75_server_restart_recorded_20261112_a.json)
+
+## November 12 abrupt server exit
+
+The runner forcibly terminated its disposable Minecraft process while the
+actor was mining with command 1. The process returned exit code 1. A second
+Minecraft process opened the existing save, while the original Python
+bridge kept running. The bridge recorded the interrupted action as
+unconfirmed and issued fresh commands for the replacement episode.
+
+Minecraft confirmed one broken log and one log in inventory after 10
+acknowledged actions and 182 game ticks. The controller agreed and
+acknowledged the terminal snapshot. The 76.6-second OBS recording matched
+the Minecraft window before and after the restart and passed full decoding.
+The test used a single controlled fixture seed and a frozen checkpoint.
+It covers an abrupt process exit with a readable save. Recovery from save
+corruption and continuing the interrupted episode in place remain untested.
+The full 117-test automated suite passed, and the server and spectator
+compiled successfully.
+[Abrupt-exit run](experiments/phase9/p75_server_crash_recorded_20261112_a/run.json)
+[Recording metadata](recordings/phase9/youtube/p75_server_crash_recorded_20261112_a.json)

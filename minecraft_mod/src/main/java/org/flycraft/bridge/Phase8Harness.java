@@ -36,6 +36,7 @@ public final class Phase8Harness {
     private static boolean threeTrees;
     private static boolean headlessFixture;
     private static boolean unplacedTable;
+    private static boolean naturalWorld;
     private static JsonObject terminal;
     private static int terminalWait;
     private static String trialIdPrefix;
@@ -59,6 +60,7 @@ public final class Phase8Harness {
             threeTrees = Boolean.parseBoolean(config.getProperty("fixture.threeTrees", "false"));
             headlessFixture = Boolean.parseBoolean(config.getProperty("fixture.headless", "false"));
             unplacedTable = Boolean.parseBoolean(config.getProperty("fixture.unplacedTable", "false"));
+            naturalWorld = Boolean.parseBoolean(config.getProperty("fixture.naturalWorld", "false"));
             trials = new ArrayList<>();
             for (String line : Files.readAllLines(Path.of(config.getProperty("trialsFile")))) {
                 if (line.isBlank() || line.startsWith("#")) continue;
@@ -184,6 +186,14 @@ public final class Phase8Harness {
         var level = player.level();
         player.closeContainer(); player.setGameMode(GameType.SURVIVAL); player.getInventory().clearContent();
         player.inventoryMenu.getCraftSlots().clearContent(); player.inventoryMenu.setCarried(ItemStack.EMPTY);
+        if (naturalWorld) {
+            // Vary the starting heading without selecting or inspecting resources.
+            float yaw = new Random(trial.seed).nextFloat() * 360 - 180;
+            player.setYRot(yaw); player.setYHeadRot(yaw); player.setXRot(0);
+            player.inventoryMenu.sendAllDataToRemote();
+            initialState(player, trial);
+            return;
+        }
         for (int x = -7; x <= 7; x++) for (int z = -7; z <= 7; z++) for (int y = 0; y <= 5; y++)
             level.setBlock(BlockPos.containing(originX + x, groundY + y, originZ + z), Blocks.AIR.defaultBlockState(), 2);
         for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, new AABB(originX - 12, groundY - 2, originZ - 12, originX + 12, groundY + 8, originZ + 12))) item.discard();
@@ -243,14 +253,17 @@ public final class Phase8Harness {
         state.addProperty("game_mode",player.gameMode().name());
         state.add("position_xyz_yaw_pitch",new Gson().toJsonTree(new double[]{player.getX(),player.getY(),player.getZ(),player.getYRot(),player.getXRot()}));
         state.add("inventory",new Gson().toJsonTree(inventory(player)));
-        JsonArray blocks=new JsonArray();
-        for(int x=-7;x<=7;x++) for(int z=-7;z<=7;z++) for(int y=0;y<=5;y++) {
-            BlockPos position=BlockPos.containing(originX+x,groundY+y,originZ+z);
-            var block=player.level().getBlockState(position);
-            if(!block.isAir()) blocks.add(new Gson().toJsonTree(Map.of("position",List.of(position.getX(),position.getY(),position.getZ()),"state",block.toString())));
+        if (!naturalWorld) {
+            JsonArray blocks=new JsonArray();
+            for(int x=-7;x<=7;x++) for(int z=-7;z<=7;z++) for(int y=0;y<=5;y++) {
+                BlockPos position=BlockPos.containing(originX+x,groundY+y,originZ+z);
+                var block=player.level().getBlockState(position);
+                if(!block.isAir()) blocks.add(new Gson().toJsonTree(Map.of("position",List.of(position.getX(),position.getY(),position.getZ()),"state",block.toString())));
+            }
+            state.add("fixture_blocks",blocks);
         }
-        state.add("fixture_blocks",blocks);
-        state.addProperty("replay_fidelity","Initial fixture snapshot; complete world/entity RNG replay is unverified");
+        state.addProperty("replay_fidelity",naturalWorld ? "Vanilla spawn pose; exact world/entity replay is unverified"
+                : "Initial fixture snapshot; complete world/entity RNG replay is unverified");
         // Operator evidence only: this file is never part of agent observations.
         try { Files.writeString(Path.of(resultsFile.toString()+".initial.jsonl"),state+"\n",StandardOpenOption.CREATE,StandardOpenOption.APPEND); }
         catch(IOException error) { throw new IllegalStateException(error); }

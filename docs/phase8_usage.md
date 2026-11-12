@@ -86,6 +86,16 @@ usual spectator and OBS flags to capture both attempts. The recorder
 rechecks the Minecraft window after the spectator relaunches, before the
 replacement episode starts.
 
+`--operator-fault server_crash` uses the same recovery path after forcibly
+terminating the owned server process. It requires a disposable save with
+existing level metadata and a nonzero exit from the interrupted process.
+
+Use `--headless --natural-world --goals one_log --trials 1` for a vanilla
+overworld spawn. Supply one world seed per invocation and use
+`--layout-start` to seed the initial heading. The runner clears the
+actor's starting inventory and leaves the terrain as generated. Report
+these runs separately from the flat-fixture benchmark.
+
 ## Camera and NVIDIA graphics
 
 Add `--headless --pitch-actions` to enable the experimental 12-action
