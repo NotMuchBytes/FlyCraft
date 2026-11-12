@@ -163,3 +163,20 @@ the pickaxe. The run completed four episodes with a minimum of 2,401 MiB
 available RAM and a maximum sampled GPU temperature of 50 °C. Its scored
 episodes used structured logs. The milestone recording is a separate run.
 [Remaining third-world pairs](../experiments/phase9/p8_completion_bench_20261108_3_remaining/run.json)
+
+## Held-out pickaxe recording repeats
+
+| Recorded layout | Confirmed result at 1,500 ticks | OBS MP4 |
+| --- | --- | ---: |
+| Preselected first layout, world 1 | Six planks, four sticks and a table in inventory | 90.800 s |
+| First successful layout, world 3 | Four planks in inventory | 89.833 s |
+
+Both fresh repeats used the fixed checkpoint and the original world and layout
+seeds. Both MP4s passed independent game-frame matching and full decoding. The
+recording client rendered on the NVIDIA GeForce RTX 4050 Laptop GPU, while the
+server-side actor made its own decisions. Both repeats are outside the scored
+sample. The scored world 3 success has structured action and inventory logs
+only. The rerun did not reproduce that success, and the original success has
+no exact replay MP4. The earlier filmed development success remains available.
+[Preselected recording](../recordings/phase9/youtube/p8_pickaxe_completion_recorded_20261112_a.json)
+[World 3 recording](../recordings/phase9/youtube/p8_pickaxe_first_success_recorded_20261112_a.json)
