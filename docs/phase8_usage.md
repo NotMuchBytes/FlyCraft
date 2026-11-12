@@ -80,6 +80,12 @@ layout subsets in `retries.json` and keep their original run records.
 
 ## Camera and NVIDIA graphics
 
+Add `--headless --pitch-actions` to enable the experimental 12-action
+readout. Legacy checkpoints transfer their 63-by-10 weights into its
+66-by-12 matrix. The new weights start at zero. New pitch checkpoints
+use a distinct schema and require the flag to resume. Match this flag
+across policy conditions when comparing learned and uniform behavior.
+
 New runs use the bounded camera and crosshair-only interactions. Use explicit
 `--camera-mode legacy` to reproduce the historical assisted Phase 8 interface;
 those results must remain separate. `--camera-mode instant` is the strict

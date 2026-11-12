@@ -151,6 +151,8 @@ def run():
     parser.add_argument("--parent-created", type=float)
     parser.add_argument("--camera-mode", choices=("legacy","instant","bounded"), default="bounded")
     parser.add_argument("--turn-degrees", type=float, default=15)
+    parser.add_argument("--pitch-actions", action="store_true",
+                        help="Enable the experimental headless pitch readout and relative look actions")
     parser.add_argument("--forward-ticks", type=int, default=5,
                         help="Fixed forward input duration, 1-10 ticks; never target-dependent")
     parser.add_argument("--movement-feedback",choices=("input_only","displacement"),default="displacement",
@@ -206,6 +208,8 @@ def run():
         parser.error("graphical trials require --obs-control-dir")
     if args.spectator and not args.headless:
         parser.error("--spectator requires --headless")
+    if args.pitch_actions and not args.headless:
+        parser.error("--pitch-actions requires the headless adapter")
     if args.milestone is not None:
         if not 1<=args.milestone<=10000:
             parser.error("development recording number must be 1-10000")
@@ -282,6 +286,7 @@ def run():
         (server_dir/"flycraft-headless.properties").write_text(
             f"controlFile={java_path(control)}\ntraceFile={java_path(results/'headless.jsonl')}\n"
             f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\ncamera.traceFile={java_path(camera_trace)}\n"
+            f"camera.pitchActions={str(args.pitch_actions).lower()}\n"
             f"motor.forwardTicks={args.forward_ticks}\nmotor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n"
             f"sensor.rememberMinedColumns={str(args.remember_mined_columns).lower()}\n",encoding="utf-8")
     if args.spectator:
@@ -365,6 +370,8 @@ def run():
                           "--phase8-control", str(control)]
         if args.frozen_checkpoint:
             bridge_command += ["--phase8-frozen-checkpoint", str(args.frozen_checkpoint.resolve())]
+        if args.pitch_actions:
+            bridge_command += ["--phase8-pitch-actions"]
         if args.train:
             bridge_command += ["--phase8-save-dir", str(ROOT / "checkpoints" / phase / args.run_id)]
         pending_checkpoint = results / "pending_mining.npz"
@@ -585,6 +592,7 @@ def run():
         summary["policy_rng_seed"] = args.policy_seed
         summary["camera_mode"] = args.camera_mode
         summary["turn_degrees"] = args.turn_degrees
+        summary["pitch_actions"] = args.pitch_actions
         summary["forward_ticks"] = args.forward_ticks
         summary["movement_feedback"] = args.movement_feedback
         summary["experiment_kind"] = ("scripted_camera_probe_not_policy" if args.camera_probe else

@@ -9,12 +9,12 @@ import numpy as np
 from learning import LinearSoftmaxPolicy, NeuralFeatureTable, TrainingConfig
 
 from .curriculum import Curriculum
-from .features import FEATURE_COUNT, SCHEMA, encode, table_digest
+from .features import FEATURE_COUNT, PITCH_FEATURE_COUNT, PITCH_SCHEMA, SCHEMA, encode, table_digest
 from .goal_manager import GoalManager
 from .memory import PersistentMemory
 from .recovery import Recovery
 from .subgoal_planner import SubgoalPlanner
-from .world import ACTIONS, CRAFT_ACTIONS, ResourceWorld
+from .world import ACTIONS, CRAFT_ACTIONS, LIVE_PITCH_ACTIONS, ResourceWorld
 
 
 @dataclass(frozen=True)
@@ -48,7 +48,8 @@ class AutonomousAgent:
         self.table, self.seed = table, seed
         self.rng = np.random.default_rng(seed)
         self.policy = policy or LinearSoftmaxPolicy(FEATURE_COUNT, actions=ACTIONS)
-        if self.policy.actions != ACTIONS or self.policy.weights.shape != (FEATURE_COUNT, len(ACTIONS)):
+        expected = PITCH_FEATURE_COUNT if self.policy.actions == LIVE_PITCH_ACTIONS else FEATURE_COUNT
+        if self.policy.actions not in (ACTIONS, LIVE_PITCH_ACTIONS) or self.policy.weights.shape != (expected, len(self.policy.actions)):
             raise ValueError("Phase 7 readout schema mismatch; use transfer_phase65")
         self.config = config or AutonomyConfig()
         self.memory, self.curriculum = PersistentMemory(), Curriculum()
@@ -62,6 +63,13 @@ class AutonomousAgent:
     @classmethod
     def transfer_phase65(cls, table: NeuralFeatureTable, policy: LinearSoftmaxPolicy, **kwargs) -> "AutonomousAgent":
         return cls(table, policy=policy.expanded(FEATURE_COUNT, ACTIONS), **kwargs)
+
+    def enable_live_pitch(self) -> None:
+        if self.policy.actions == LIVE_PITCH_ACTIONS:
+            return
+        if self.session is not None and not self.session["done"]:
+            raise ValueError("cannot expand an in-flight checkpoint")
+        self.policy = self.policy.expanded(PITCH_FEATURE_COUNT, LIVE_PITCH_ACTIONS)
 
     def start(self, objective: str, observation: dict, *, train: bool = False, world_seed: int = 0) -> None:
         if self.session is not None and not self.session["done"]:
@@ -105,13 +113,15 @@ class AutonomousAgent:
             self._finish(False, "dependency_failure")
             return "NO_OP"
         neural = self.table.for_sector(observation["sector"]) if neural is None else neural
-        features = encode(neural, active.kind, observation, self.memory, self.recovery)
+        actions = self.policy.actions
+        features = encode(neural, active.kind, observation, self.memory, self.recovery,
+                          pitch=actions == LIVE_PITCH_ACTIONS)
         allowed = observation["allowed_actions"]
         if observation.get("restrict_recipes"):
             allowed = [action for action in allowed if action not in CRAFT_ACTIONS or CRAFT_ACTIONS[action] == active.item]
-        mask = np.array([action in allowed for action in ACTIONS])
-        if self.recovery.cooldown and self.recovery.cooldown_action in ACTIONS:
-            index = ACTIONS.index(self.recovery.cooldown_action)
+        mask = np.array([action in allowed for action in actions])
+        if self.recovery.cooldown and self.recovery.cooldown_action in actions:
+            index = actions.index(self.recovery.cooldown_action)
             if mask.sum() > 1:
                 mask[index] = False
         index, action, probabilities = self.policy.sample(features, self.rng, mask)
@@ -123,7 +133,7 @@ class AutonomousAgent:
             raise RuntimeError("no action awaits an outcome")
         features, index, probabilities, before = self.pending
         self.pending = None
-        action = ACTIONS[index]
+        action = self.policy.actions[index]
         self.session["actions"] += 1
         changed_world = after["world_id"] != before["world_id"]
         completed = [] if changed_world else self.manager.update(after)
@@ -133,9 +143,13 @@ class AutonomousAgent:
         # limited to the same visible resource; production and success are delayed.
         reward = -0.02 - 0.10 * bool(after["last_error"])
         geometric_progress = 0.0
+        pitch_progress = 0.0
         if not changed_world and before["visible"] and after["visible"] and before.get("target_id") == after.get("target_id"):
             geometric_progress = before["distance"] - after["distance"]
             reward += geometric_progress + 0.2 * (abs(before["angle"]) - abs(after["angle"]))
+            if self.policy.actions == LIVE_PITCH_ACTIONS:
+                pitch_progress = abs(before.get("pitch_error", 0.0)) - abs(after.get("pitch_error", 0.0))
+                reward += 0.2 * pitch_progress
         # Pay only production still required by the active subgoal. Rewarding
         # every craft allowed surplus-item farming to outweigh the root goal.
         item = before.get("active_goal_item", "")
@@ -153,7 +167,9 @@ class AutonomousAgent:
                                        and active is not None and active.kind in {"search", "navigate", "collect"},
                                        "environment_changed": after.get("environment_changed", False)
                                        or active is not None and active.kind == "objective"}
-        decision = None if changed_world else self.recovery.inspect(action, before, recovery_observation, progress=bool(completed or production or geometric_progress > 0.05), step=self.session["actions"])
+        progress = bool(completed or production or geometric_progress > 0.05 or pitch_progress > 0.05)
+        decision = None if changed_world else self.recovery.inspect(action, before, recovery_observation,
+                                                                    progress=progress, step=self.session["actions"])
         reason = None
         if changed_world:
             reason = "world_changed"
@@ -250,7 +266,8 @@ class AutonomousAgent:
         return self.result()
 
     def save(self, path: Path, *, world: ResourceWorld | None = None, extension: dict | None = None) -> None:
-        state = {"schema": SCHEMA, "table_digest": table_digest(self.table), "config": asdict(self.config),
+        schema = PITCH_SCHEMA if self.policy.actions == LIVE_PITCH_ACTIONS else SCHEMA
+        state = {"schema": schema, "table_digest": table_digest(self.table), "config": asdict(self.config),
                  "memory": self.memory.to_dict(), "curriculum": self.curriculum.to_dict(), "session": self.session,
                  "manager": self.manager.to_dict() if self.manager else None, "recovery": self.recovery.to_dict(),
                  "trajectory": [[f.tolist(), i, p.tolist(), r] for f, i, p, r in self.trajectory],
@@ -263,7 +280,8 @@ class AutonomousAgent:
     def load(cls, path: Path, table: NeuralFeatureTable) -> tuple["AutonomousAgent", ResourceWorld | None]:
         policy, metadata = LinearSoftmaxPolicy.load(path)
         state = metadata["extra"]
-        if state.get("schema") != SCHEMA or state.get("table_digest") != table_digest(table):
+        schema = PITCH_SCHEMA if policy.actions == LIVE_PITCH_ACTIONS else SCHEMA
+        if state.get("schema") != schema or state.get("table_digest") != table_digest(table):
             raise ValueError("checkpoint schema or connectome feature cache mismatch")
         result = cls(table, seed=metadata["training_seed"], policy=policy, config=AutonomyConfig(**state["config"]))
         result.rng.bit_generator.state = metadata["rng_state"]

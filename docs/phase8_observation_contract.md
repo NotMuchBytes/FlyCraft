@@ -2,8 +2,8 @@
 
 The policy and planner receive client-observable state through the existing
 local Fabric/Python TCP bridge. The sparse 139,255-neuron graph is unchanged.
-All live action decisions use its existing 18-step full-network observation
-window and the existing 63-by-10 learned readout. Recipe structure, semantic
+Live action decisions use its existing 18-step full-network observation
+window. The default learned readout has 63 features and 10 actions. Recipe structure, semantic
 perception, legal-action masking and transaction execution are engineered
 assistance, shared by trained, frozen, uniform and neural-ablation conditions.
 
@@ -20,6 +20,7 @@ assistance, shared by trained, frozen, uniform and neural-ablation conditions.
 | Inventory | Counts reconstructed from vanilla server container-content, container-slot and player-inventory packets; predicted client inventory is separately checked for consistency |
 | Crafting station | A crafting table found by the same visible rays within four blocks; strict modes require the actual crosshair to interact |
 | Headless placement surface | When the pickaxe goal has an owned table and no visible station, existing yaw rays at current pitch can report a visible support face. Placement uses the actual crosshair within three blocks and excludes destinations that intersect the actor. |
+| Optional relative pitch error | With the headless pitch readout enabled, the vertical angle in radians from the actor's current view to the selected visible hit or drop. The value is zero when no target is visible. Placement sensing also uses first-hit rays at pitch offsets −30° and +30° within the existing four-block range. |
 | Placement affordance | Strict modes require the actual crosshair hit on a valid upward face; legacy mode uses a downward ray in front of the player. Both are collision-tested and within four blocks. |
 | Action outcome | Command identity, primitive action, server-confirmed block change, timeout/interruption and inventory revision |
 | Goal instruction | Externally supplied objective and episode identity; experiment condition and policy RNG seed are control parameters |
@@ -41,8 +42,11 @@ does not reproduce the exact pixels of the main Minecraft camera.
   actual crosshair to hit the selected visible log within three blocks.
   It never aims at a block or tracks a target. Losing the hit interrupts mining.
   Crafting-table opening and placement similarly require real crosshair hits.
-  The retained ten-action policy has yaw turns but no pitch action: exposing a
-  generic pitch/velocity actuator for tests does not add learned pitch control.
+  The default ten-action policy turns in yaw. The experimental headless
+  `--pitch-actions` interface adds policy-selected `LOOK_UP` and `LOOK_DOWN`
+  using the same bounded or instant relative actuator. Each uses the configured
+  fixed turn magnitude. The actor can select either direction while away from
+  its pitch limit, including when the view contains no target.
 - Explicit `camera.mode=legacy` preserves the earlier Phase 8 evaluation
   interface. `COLLECT_LOG` aims at one already-visible, reachable log and sends normal
   survival mining interactions for at most 120 ticks. The server echoes the
@@ -93,7 +97,7 @@ matching slot updates, leaving an independent acknowledgment ledger stale.
 This echo contains the player's own inventory only. The same server component
 echoes blocks directly mined or placed; it supplies no hidden world map.
 
-New live runs require the companion OBS Lua recorder. A separate collection
+Recorded live runs require the companion OBS Lua recorder. A separate collection
 captures only the exact Minecraft window, with microphone and desktop audio
 sources absent. A local file handshake opens the trial gate only after OBS
 reports active recording. Lost confirmation aborts the run; a 60-second

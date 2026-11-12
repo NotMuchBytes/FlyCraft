@@ -8,7 +8,8 @@ import numpy as np
 
 from autonomy import AutonomousAgent, AutonomyConfig
 from autonomy.minecraft import LiveResourceController, ObservationError, TransactionLedger
-from autonomy.world import ACTIONS, ITEMS
+from autonomy.features import FEATURE_COUNT, PITCH_FEATURE_COUNT
+from autonomy.world import ACTIONS, ITEMS, LIVE_PITCH_ACTIONS
 from learning import NeuralFeatureTable
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,6 +58,53 @@ class Phase8Tests(unittest.TestCase):
         self.assertEqual(counts["log"], 0)
         self.assertEqual(ledger.produced["log"], 0)
         self.assertEqual(ledger.mined_blocks, 1)
+
+    def test_pitch_transfer_retains_original_weights_and_restores_new_checkpoint(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            agent = AutonomousAgent(self.table)
+            agent.policy.weights[:] = np.random.default_rng(7).normal(size=agent.policy.weights.shape)
+            initial = folder / "legacy.npz"
+            agent.save(initial)
+            original = agent.policy.weights.copy()
+            agent.enable_live_pitch()
+            self.assertEqual(agent.policy.actions, LIVE_PITCH_ACTIONS)
+            np.testing.assert_array_equal(agent.policy.weights[:FEATURE_COUNT, :len(ACTIONS)], original)
+            np.testing.assert_array_equal(agent.policy.weights[:, len(ACTIONS):], 0)
+            np.testing.assert_array_equal(agent.policy.weights[FEATURE_COUNT:, :], 0)
+            expanded = folder / "pitch.npz"
+            agent.save(expanded)
+            restored, _ = AutonomousAgent.load(expanded, self.table)
+            self.assertEqual(restored.policy.weights.shape, (PITCH_FEATURE_COUNT, len(LIVE_PITCH_ACTIONS)))
+            np.testing.assert_array_equal(restored.policy.weights, agent.policy.weights)
+            legacy, _ = AutonomousAgent.load(initial, self.table)
+            self.assertEqual(legacy.policy.actions, ACTIONS)
+            np.testing.assert_array_equal(legacy.policy.weights, original)
+
+    def test_live_pitch_selection_and_acknowledgment_use_expanded_readout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            checkpoint = folder / "initial.npz"
+            AutonomousAgent(self.table).save(checkpoint)
+            controller = LiveResourceController(FakeNeural(self.table), self.table, checkpoint,
+                                                result_log=folder / "results.jsonl", pitch_actions=True)
+            try:
+                seen = self.telemetry(target_pitch_error=0.6, allowed_actions=["LOOK_DOWN"])
+                first = controller.evaluate_request(self.request(10, telemetry=seen))
+                self.assertEqual(first["action"], "LOOK_DOWN")
+                self.assertEqual(first["action_probabilities"]["LOOK_DOWN"], 1.0)
+                ack = self.ack(first, action="LOOK_DOWN", changed=False)
+                malformed = controller.evaluate_request(self.request(20, telemetry=seen | {"target_pitch_error": 4.0}, ack=ack))
+                self.assertTrue(malformed["observe_only"])
+                self.assertEqual(controller.agent.session["actions"], 0)
+                second = controller.evaluate_request(self.request(20, telemetry=seen | {
+                    "target_pitch_error": 0.2, "allowed_actions": ["LOOK_UP"]}, ack=ack))
+                self.assertEqual(second["action"], "LOOK_UP")
+                self.assertEqual(controller.agent.session["actions"], 1)
+                self.assertGreater(controller.agent.session["total_reward"], 0)
+                np.testing.assert_allclose(controller.agent.pending[0][-3:], [0.2 / np.pi, 0, 1])
+            finally:
+                controller.close()
 
     def test_blocked_movement_feedback_replans_but_policy_selects_recovery_action(self):
         with tempfile.TemporaryDirectory() as directory:

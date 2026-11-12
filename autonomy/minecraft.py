@@ -11,7 +11,6 @@ import numpy as np
 
 from learning import LinearSoftmaxPolicy
 from .agent import AutonomousAgent
-from .features import FEATURE_COUNT
 from .world import ACTIONS, CRAFT_ACTIONS, ITEMS
 
 
@@ -86,13 +85,19 @@ class LiveResourceController:
     """
     def __init__(self, neural, table, checkpoint: Path, *, frozen_checkpoint: Path | None = None,
                  result_log: Path, checkpoint_dir: Path | None = None, control_file: Path | None = None,
-                 mining_checkpoint: Path | None = None):
+                 mining_checkpoint: Path | None = None, pitch_actions: bool = False):
         self.neural, self.table = neural, table
         self.agent, _ = AutonomousAgent.load(checkpoint, table)
-        self.trained = self.agent.policy
         frozen_agent, _ = AutonomousAgent.load(frozen_checkpoint or checkpoint, table)
+        self.pitch_actions = pitch_actions
+        if pitch_actions:
+            self.agent.enable_live_pitch()
+            frozen_agent.enable_live_pitch()
+        elif self.agent.policy.actions != ACTIONS or frozen_agent.policy.actions != ACTIONS:
+            raise ValueError("pitch checkpoint requires the live pitch adapter")
+        self.trained = self.agent.policy
         self.frozen = frozen_agent.policy
-        self.uniform = LinearSoftmaxPolicy(FEATURE_COUNT, actions=ACTIONS)
+        self.uniform = LinearSoftmaxPolicy(self.trained.weights.shape[0], actions=self.trained.actions)
         self.policy_source = "phase8_existing_learned_readout"
         self.lock = threading.Lock()
         result_log.parent.mkdir(parents=True, exist_ok=True)
@@ -254,6 +259,9 @@ class LiveResourceController:
                 angle = float(telemetry["target_angle"]) if visible else None
                 if visible and (not math.isfinite(distance) or not 0 <= distance <= 12 or not math.isfinite(angle)):
                     raise ObservationError("invalid_visible_geometry")
+                pitch_error = telemetry.get("target_pitch_error") if visible and self.pitch_actions else 0.0
+                if type(pitch_error) not in (int, float) or not math.isfinite(pitch_error) or abs(pitch_error) > math.pi:
+                    raise ObservationError("invalid_visible_pitch_error")
                 inventory = self.ledger.observe(telemetry, ack if self.pending_id is not None and ack.get("status") != "not_executed" else None,
                                                 terminal_tick=int(terminal["server_tick"]) if terminal else None)
                 self.inventory_waits = 0
@@ -264,13 +272,15 @@ class LiveResourceController:
                     self._record()
                     return self._reply("NO_OP", 0, started)
                 return self._reply("NO_OP", 0, started, observe_only=True)
-            allowed_actions = [action for action in telemetry["allowed_actions"] if action in ACTIONS]
+            actions = self.agent.policy.actions
+            allowed_actions = [action for action in telemetry["allowed_actions"] if action in actions]
             if control["goal"] == "three_logs":
                 # This objective needs logs in inventory. Recipes can consume them.
                 allowed_actions = [action for action in allowed_actions if action not in CRAFT_ACTIONS]
             observation = {"world_id": world_id, "position": position,
                 "visible": visible, "sector": request.get("sector") if visible else None,
                 "near": bool(telemetry["near"]), "distance": distance, "angle": angle,
+                "pitch_error": pitch_error,
                 "target_id": telemetry.get("target_id"), "inventory": inventory, "produced": dict(self.ledger.produced),
                 "allowed_actions": allowed_actions,
                 "restrict_recipes": control["goal"] in {"sticks", "crafting_table", "wooden_pickaxe", "pickaxe_transaction"},
@@ -287,7 +297,7 @@ class LiveResourceController:
                                  train=bool(control.get("train", False)) and self.condition == "trained")
                 self.needs_start = False
             elif not terminal and self.pending_id is not None and ack.get("status") == "not_executed":
-                if ack.get("action") != ACTIONS[self.agent.pending[1]]:
+                if ack.get("action") != actions[self.agent.pending[1]]:
                     self._abort("ack_action_mismatch")
                 else:
                     # The adapter rejected delivery, so there is no executed
@@ -306,7 +316,7 @@ class LiveResourceController:
                     if len(rejected) >= 5:
                         self._abort("command_delivery_rejected")
             elif self.agent.pending:
-                if ack.get("action") != ACTIONS[self.agent.pending[1]]:
+                if ack.get("action") != actions[self.agent.pending[1]]:
                     self._abort("ack_action_mismatch")
                 else:
                     self.agent.observe(observation)
@@ -356,7 +366,7 @@ class LiveResourceController:
         if (type(since) is not int or type(watermark) is not int
                 or not 0 <= since <= self.last_tick < tick or not 0 <= watermark < self.pending_id):
             return None
-        return {"command_id": self.pending_id, "action": ACTIONS[self.agent.pending[1]],
+        return {"command_id": self.pending_id, "action": self.agent.policy.actions[self.agent.pending[1]],
                 "status": "not_executed", "error": "bridge_reply_lost", "block_changed": False}
 
     def _ack_terminal(self, episode):
@@ -378,7 +388,7 @@ class LiveResourceController:
             neural = {name: float(value) for name, value in zip(
                 ("bias", "left_readout_div50", "right_readout_div50", "total_readout_div50"), raw)}
             inputs = dict(zip(("bias", "left_input", "right_input", "total_input"), map(float, features[:4])))
-            probabilities = dict(zip(ACTIONS, map(float, distribution)))
+            probabilities = dict(zip(self.agent.policy.actions, map(float, distribution)))
         return {"action": action, "command_id": command, "observe_only": observe_only,
                 "neural_features": neural, "action_probabilities": probabilities,
                 "policy_neural_inputs": inputs,

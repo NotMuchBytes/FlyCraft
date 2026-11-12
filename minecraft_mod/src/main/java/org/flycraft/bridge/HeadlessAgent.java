@@ -42,6 +42,7 @@ public final class HeadlessAgent implements AutoCloseable {
     private final int forwardTicks;
     private final boolean verifyMovement;
     private final boolean rememberMinedColumns;
+    private final boolean pitchActions;
     private final Set<Long> minedColumns=new HashSet<>();
     private Vec3 movementStart=Vec3.ZERO;
     private final ExecutorService io=Executors.newSingleThreadExecutor(r -> {
@@ -80,6 +81,7 @@ public final class HeadlessAgent implements AutoCloseable {
         forwardTicks=Integer.parseInt(properties.getProperty("motor.forwardTicks","5"));
         verifyMovement=Boolean.parseBoolean(properties.getProperty("motor.verifyMovement","true"));
         rememberMinedColumns=Boolean.parseBoolean(properties.getProperty("sensor.rememberMinedColumns","false"));
+        pitchActions=Boolean.parseBoolean(properties.getProperty("camera.pitchActions","false"));
         if(forwardTicks<1 || forwardTicks>10) throw new IllegalArgumentException("Invalid forward duration");
         properties.putIfAbsent("camera.mode","bounded"); camera=new CameraDriver(properties);
     }
@@ -308,6 +310,10 @@ public final class HeadlessAgent implements AutoCloseable {
     private double bearing(Vec3 point) {
         return Math.toRadians(CameraMotion.wrap(Math.toDegrees(Math.atan2(-(point.x-player.getX()),point.z-player.getZ()))-player.getYRot()));
     }
+    private double pitchError(Vec3 point) {
+        Vec3 delta=point.subtract(player.getEyePosition());
+        return -Math.atan2(delta.y,Math.hypot(delta.x,delta.z))-Math.toRadians(player.getXRot());
+    }
     private BlockHitResult ray(Vec3 end) {
         return player.level().clip(new ClipContext(player.getEyePosition(),end,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,player));
     }
@@ -336,8 +342,9 @@ public final class HeadlessAgent implements AutoCloseable {
     private Target visiblePlacementSurface() {
         Vec3 eye=player.getEyePosition();
         Target nearest=null;
-        for(double yaw:new double[]{-40,-20,0,20,40}) {
-            BlockHitResult hit=lookRay(eye,yaw,0,4);
+        double[] pitches=pitchActions ? new double[]{-30,0,30} : new double[]{0};
+        for(double yaw:new double[]{-40,-20,0,20,40}) for(double pitch:pitches) {
+            BlockHitResult hit=lookRay(eye,yaw,pitch,4);
             if(tablePlacement(hit)==null) continue;
             double distance=eye.distanceTo(hit.getLocation());
             if(nearest==null || distance<nearest.distance)
@@ -401,6 +408,10 @@ public final class HeadlessAgent implements AutoCloseable {
         boolean mineable=target!=null && target.kind.equals("block") && target.distance<=3 && center.getType()==HitResult.Type.BLOCK
             && center.getBlockPos().equals(target.hit.getBlockPos());
         List<String> allowed=new ArrayList<>(List.of("NO_OP","TURN_LEFT","TURN_RIGHT","FORWARD"));
+        if(pitchActions) {
+            if(player.getXRot()>-90) allowed.add("LOOK_UP");
+            if(player.getXRot()<90) allowed.add("LOOK_DOWN");
+        }
         if(mineable) allowed.add("COLLECT_LOG");
         if(items.get("log")>=1) allowed.add("CRAFT_PLANKS");
         if(pickaxeGoal || goal.equals("sticks") || goal.equals("crafting_table")) {
@@ -423,6 +434,7 @@ public final class HeadlessAgent implements AutoCloseable {
         telemetry.put("visible",target!=null); telemetry.put("near",mineable || placeable || target!=null && target.distance<=1 || pickaxeGoal && hitsTable(center));
         telemetry.put("target_distance",target==null ? -1 : target.distance); telemetry.put("target_angle",target==null ? 0 : target.angle);
         telemetry.put("target_id",target==null ? "" : target.id); telemetry.put("target_kind",target==null ? "none" : target.kind);
+        if(pitchActions) telemetry.put("target_pitch_error",target==null ? 0 : pitchError(target.point));
         telemetry.put("station_visible",station!=null); telemetry.put("allowed_actions",allowed);
         telemetry.put("view_yaw_degrees",player.getYRot()); telemetry.put("view_pitch_degrees",player.getXRot());
         String sector="not_visible";
@@ -441,10 +453,15 @@ public final class HeadlessAgent implements AutoCloseable {
         event("action_start",Map.of("command_id",id,"action",action,"server_tick",tick,"position",position(),"inventory",inventory()));
         switch(action) {
             case "NO_OP" -> { }
-            case "TURN_LEFT","TURN_RIGHT" -> {
+            case "TURN_LEFT","TURN_RIGHT","LOOK_UP","LOOK_DOWN" -> {
                 double degrees=Double.parseDouble(properties.getProperty("camera.turnDegrees","15"));
                 if(!Double.isFinite(degrees) || degrees<=0 || degrees>45) throw new IllegalArgumentException("Invalid turn magnitude");
-                var accepted=camera.relative(view,id,action.equals("TURN_LEFT") ? -degrees : degrees,0,observationTick,tick,observationNanos);
+                boolean pitchTurn=action.equals("LOOK_UP") || action.equals("LOOK_DOWN");
+                if(pitchTurn && !pitchActions) {
+                    finish("failed","pitch_actions_disabled",false,tick); return;
+                }
+                double turn=action.equals("TURN_LEFT") || action.equals("LOOK_UP") ? -degrees : degrees;
+                var accepted=camera.relative(view,id,pitchTurn ? 0 : turn,pitchTurn ? turn : 0,observationTick,tick,observationNanos);
                 if(!accepted.accepted()) finish("failed",accepted.reason(),false,tick);
             }
             case "FORWARD" -> { movementStart=player.position(); player.forwardTicks=forwardTicks; readyAt=tick+forwardTicks; }
@@ -547,7 +564,7 @@ public final class HeadlessAgent implements AutoCloseable {
         finish(confirmed ? "success" : "failed",confirmed ? "" : "table_placement_unconfirmed",placed,tick);
     }
     private void advance(long tick) {
-        if(action.equals("TURN_LEFT") || action.equals("TURN_RIGHT")) {
+        if(action.equals("TURN_LEFT") || action.equals("TURN_RIGHT") || action.equals("LOOK_UP") || action.equals("LOOK_DOWN")) {
             if(!camera.busy()) finish(camera.completion().equals("settled") ? "success" : "failed",camera.completion().equals("settled") ? "" : camera.completion(),false,tick);
         } else if(action.equals("COLLECT_LOG")) {
             BlockPos pos=miningHit.getBlockPos(); var state=player.level().getBlockState(pos);
