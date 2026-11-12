@@ -4,5 +4,11 @@
     "parent": "p8_completion_bench_20261108_3",
     "layout_seed": 573132969015125205,
     "goal": "wooden_pickaxe"
+  },
+  {
+    "run_id": "p8_completion_bench_20261108_3_remaining",
+    "parent": "p8_completion_bench_20261108_3",
+    "layout_seeds": [2560160440362620968, 5004554011918216871],
+    "goals": ["three_logs", "wooden_pickaxe"]
   }
 ]

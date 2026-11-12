@@ -147,3 +147,19 @@ recording is pending. These resumed scored trials used structured logs.
 [Interrupted block](../experiments/phase9/p8_completion_bench_20261108_3/run.json)
 [Same-layout retry](../experiments/phase9/p8_completion_bench_20261108_3_pair3_retry/run.json)
 [Per-episode held-out results](../experiments/phase9/phase8_completion_bench_20261108/results.json)
+
+## Completed third world
+
+The last two pairs ran in a fresh instance of world 3 under the original
+checkpoint, settings and layout seeds. Both three-log episodes succeeded.
+The fourth layout also produced the first held-out from-empty pickaxe
+success in 72 actions and 1,043 game ticks. Its terminal inventory had
+one wooden pickaxe, three planks and two sticks. Both the server and the
+controller confirmed the result. The fifth-layout pickaxe episode crafted
+a table but timed out before placement.
+
+Through world 3, the frozen policy scored 10/15 for three logs and 1/15 for
+the pickaxe. The run completed four episodes with a minimum of 2,401 MiB
+available RAM and a maximum sampled GPU temperature of 50 °C. Its scored
+episodes used structured logs. The milestone recording is a separate run.
+[Remaining third-world pairs](../experiments/phase9/p8_completion_bench_20261108_3_remaining/run.json)

@@ -396,3 +396,23 @@ interrupted that block after five scores, and a fresh run completed its
 interrupted pickaxe layout. The cumulative held-out results are **8/13
 for three logs and 0/13 for pickaxes**. Seventeen planned trials per goal
 remain. The retry's original and interrupted records are both preserved.
+
+## November 12 held-out evaluation
+
+The remaining two layout pairs in world 3 produced two three-log successes
+and the first held-out from-empty pickaxe success. Minecraft confirmed
+the pickaxe in 72 actions and 1,043 ticks, with acknowledged terminal
+delivery and matching controller inventory.
+
+| Goal | Confirmed successes through world 3 | Descriptive 95% Wilson interval | Median actions |
+| --- | ---: | ---: | ---: |
+| Three logs | 10/15 (66.7%) | 41.7%–84.8% | 69 |
+| Wooden pickaxe | 1/15 (6.7%) | 1.2%–29.8% | 108 |
+
+Five three-log failures ended with two logs. Nine of fourteen pickaxe
+failures crafted a table. Only two of those nine saw a legal table-placement
+affordance, and the only placement attempt among them failed to produce a
+confirmed block change. The successful episode placed its table and crafted
+the pickaxe through the actual workbench interaction. The layouts share
+worlds, so the intervals describe the layouts without adjusting for clustering.
+[Per-episode results](experiments/phase9/phase8_completion_bench_20261108/results.json)

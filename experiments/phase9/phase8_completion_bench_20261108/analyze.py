@@ -17,6 +17,28 @@ def rows(folder, name):
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
 
 
+def placement_trace(folder):
+    offers = collections.Counter()
+    selections = collections.Counter()
+    outcomes = collections.defaultdict(collections.Counter)
+    for row in rows(folder, "bridge.jsonl"):
+        request = json.loads(row["request"])
+        control = request.get("control", {})
+        episode = control.get("episode_id")
+        if control.get("goal") != "wooden_pickaxe" or not control.get("active"):
+            continue
+        if "PLACE_TABLE" in request.get("telemetry", {}).get("allowed_actions", []):
+            offers[episode] += 1
+        response = row.get("response") or {}
+        if response.get("action") == "PLACE_TABLE" and response.get("command_id") is not None:
+            selections[episode] += 1
+    for row in rows(folder, "headless.jsonl"):
+        ack = row["data"].get("ack", {})
+        if ack.get("action") == "PLACE_TABLE":
+            outcomes[row["episode_id"]][ack.get("error") or ack["status"]] += 1
+    return offers, selections, outcomes
+
+
 def main():
     plan = json.loads((FOLDER / "plan.json").read_text(encoding="utf-8"))
     goals = plan["settings"]["goals"]
@@ -27,9 +49,12 @@ def main():
     runs = plan["blocks"].copy()
     for retry in retries:
         parent = parents[retry["parent"]]
-        assert retry["layout_seed"] in parent["layout_seeds"] and retry["goal"] in goals
+        layout_seeds = retry["layout_seeds"] if "layout_seeds" in retry else [retry["layout_seed"]]
+        retry_goals = retry["goals"] if "goals" in retry else [retry["goal"]]
+        assert layout_seeds and set(layout_seeds) <= set(parent["layout_seeds"])
+        assert retry_goals and retry_goals == [goal for goal in goals if goal in retry_goals]
         runs.append({"run_id": retry["run_id"], "world_seed": parent["world_seed"],
-                     "layout_seeds": [retry["layout_seed"]], "goals": [retry["goal"]],
+                     "layout_seeds": layout_seeds, "goals": retry_goals,
                      "retry_of": parent["run_id"]})
     scored_pairs = set()
     for block in runs:
@@ -42,13 +67,16 @@ def main():
         assert run["checkpoint_sha256"] == plan["checkpoint"]["sha256"]
         assert run["world_seed"] == block["world_seed"] and run["layout_seeds"] == block["layout_seeds"]
         run_goals = block.get("goals", goals)
-        assert run["goals"] == run_goals and not run["train"]
+        settings = plan["settings"]
+        assert run["goals"] == run_goals and run["train"] == settings["training"]
+        assert run["conditions"] == [settings["condition"]] and run["headless"]
         if "retry_of" in block:
             assert run["redo_of"] == block["retry_of"]
-        assert run["trial_tick_limit"] == plan["settings"]["trial_ticks"]
-        assert run["policy_rng_seed"] == plan["settings"]["policy_seed"]
-        assert run["forward_ticks"] == plan["settings"]["forward_ticks"]
-        assert run["remember_mined_columns"] and run["environment_kind"] == "controlled_flat_three_tree_fixture"
+        assert run["trial_tick_limit"] == settings["trial_ticks"]
+        assert run["policy_rng_seed"] == settings["policy_seed"]
+        for key in ("forward_ticks", "camera_mode", "turn_degrees", "movement_feedback", "remember_mined_columns"):
+            assert run[key] == settings[key], (run["run_id"], key)
+        assert run["environment_kind"] == "controlled_flat_three_tree_fixture" and not run["unplaced_table_fixture"]
         deliveries = {row["episode_id"]: row for row in rows(folder, "server.jsonl.delivery.jsonl")}
         controller = {row["episode_id"]: row for row in rows(folder, "controller.jsonl")}
         completed_actions = collections.defaultdict(set)
@@ -58,6 +86,7 @@ def main():
         expected = [(seed, goal) for seed in block["layout_seeds"] for goal in run_goals]
         scores = rows(folder, "server.jsonl")
         assert [(row["layout_seed"], row["goal"]) for row in scores] == expected[:len(scores)]
+        offers, selections, outcomes = placement_trace(folder) if "wooden_pickaxe" in run_goals else ({}, {}, {})
         blocks.append({"run_id": block["run_id"], "world_seed": block["world_seed"],
                        "requested": len(expected), "scored": len(scores), "stop_reason": run["stop_reason"]})
         for score in scores:
@@ -67,7 +96,7 @@ def main():
             own = score["inventory"]
             ctrl = controller.get(score["episode_id"], {})
             threshold = own["log"] >= 3 if score["goal"] == "three_logs" else own["wooden_pickaxe"] >= 1
-            assert score["success"] == threshold and score["condition"] == "trained"
+            assert score["success"] == threshold and score["condition"] == settings["condition"]
             recorded_inventory = ctrl.get("terminal_inventory")
             verified = (deliveries.get(score["episode_id"], {}).get("acknowledged", False)
                         and (recorded_inventory is None
@@ -84,6 +113,12 @@ def main():
                                      "failure_stage": failure_stage,
                                      "controller_success": ctrl.get("success"),
                                      "block_changes": ctrl.get("confirmed_block_changes")})
+            if score["goal"] == "wooden_pickaxe":
+                episode = score["episode_id"]
+                episodes[-1]["table_placement"] = {
+                    "bridge_offers": offers[episode], "bridge_selections": selections[episode],
+                    "minecraft_outcomes": dict(outcomes[episode]),
+                }
     summary = {}
     for goal in goals:
         valid = [row for row in episodes if row["goal"] == goal and row["verified"]]
@@ -97,6 +132,7 @@ def main():
             "successes": successes, "verified_trials": len(valid),
             "wilson_95_descriptive": wilson(successes, len(valid)),
             "median_actions": statistics.median(actions) if actions else None,
+            "median_game_ticks": statistics.median(row["ticks"] for row in valid) if valid else None,
             "failed_terminal_log_or_table_counts": dict(sorted(failure_inventory.items())),
             "failed_stages": dict(collections.Counter(row["failure_stage"] for row in valid if not row["success"])),
         }
