@@ -35,13 +35,12 @@ Run from the repository root (paths below are placeholders):
 .\.venv\Scripts\python.exe tools/run_phase8_live.py --run-id unique_run --work-dir C:/scratch/live-runs --build-dir C:/scratch/mod-build --checkpoint checkpoints/phase8/live_train01/trial_0005.npz --frozen-checkpoint checkpoints/phase7/curriculum_v3_seed29.npz --goals one_log --conditions trained,frozen,uniform,no_neural --trials 10 --world-seed 82000 --layout-start 82000 --seconds 850 --trial-ticks 300 --obs-control-dir C:/scratch/obs-control
 ```
 
-Run identities and output paths must be new. At most 30 trials per goal/condition
-and 900 seconds per invocation are allowed. Supervise runs; do not leave them
-overnight. The supervisor samples NVIDIA GPU temperature and stops at 75 C.
-It does not have a CPU temperature sensor. Recording must be confirmed before
-the trial gate opens, and loss of confirmation aborts the suite. Each run's
-`run.json` records the resulting video path. Raw server scores, controller
-decisions and launcher/game logs are preserved under `experiments/phase8/`.
+Use new run identities and output paths. Each invocation allows up to 30 trials
+per goal/condition and 900 seconds. The supervisor samples NVIDIA GPU
+temperature and stops at 75 °C. CPU temperature is unavailable on this laptop.
+Recorded runs require OBS confirmation before the trial gate opens and stop if
+confirmation is lost. The `run.json` records the video path. The experiment
+folder retains the server scores, controller decisions and launcher/game logs.
 
 Use `--train` only for an explicitly separated development set. Checkpoints
 are written to a new run-specific directory; earlier checkpoints are retained.
@@ -64,6 +63,20 @@ first. Keep these diagnostics separate from `wooden_pickaxe` trials.
 For a fixed evaluation plan, `--layout-seeds` takes one distinct signed
 64-bit seed per `--trials` slot. Every goal and condition in that slot
 uses the same layout seed.
+
+For routine scored episodes, use the headless server with structured logs.
+For milestone footage, use `--headless --spectator --milestone 1` with the
+dedicated OBS control folder. The spectator client records the actor without
+supplying any policy observations. Record fresh repeats under new run IDs and
+keep their scores outside the original sample.
+
+The [fixed long-goal plan](../experiments/phase9/phase8_completion_bench_20261108/plan.json)
+records the exact checkpoint hash, world/layout seeds and controller settings.
+Use `--goals three_logs,wooden_pickaxe --three-tree-fixture --remember-mined-columns
+--policy-seed 9001 --forward-ticks 2 --trial-ticks 1500` for its two-goal blocks.
+The [scorer](../experiments/phase9/phase8_completion_bench_20261108/analyze.py)
+uses the corresponding local run and episode logs. Register interrupted
+layout subsets in `retries.json` and keep their original run records.
 
 ## Camera and NVIDIA graphics
 
