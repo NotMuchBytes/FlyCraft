@@ -22,6 +22,13 @@
       "stop_reason": "available_ram_guard"
     },
     {
+      "run_id": "p8_completion_bench_20261108_4",
+      "world_seed": 7738585223056599067,
+      "requested": 10,
+      "scored": 10,
+      "stop_reason": "suite_complete"
+    },
+    {
       "run_id": "p8_completion_bench_20261108_3_pair3_retry",
       "world_seed": 21780877198072592,
       "requested": 1,
@@ -38,38 +45,38 @@
   ],
   "goals": {
     "three_logs": {
-      "successes": 10,
-      "verified_trials": 15,
+      "successes": 14,
+      "verified_trials": 20,
       "wilson_95_descriptive": [
-        0.41713547738519774,
-        0.8482367556028526
+        0.4810271816464765,
+        0.8545227551323956
       ],
-      "median_actions": 69,
-      "median_game_ticks": 1029,
+      "median_actions": 71.5,
+      "median_game_ticks": 1066.0,
       "failed_terminal_log_or_table_counts": {
-        "2": 5
+        "2": 6
       },
       "failed_stages": {
-        "log_mined": 5
+        "log_mined": 6
       }
     },
     "wooden_pickaxe": {
       "successes": 1,
-      "verified_trials": 15,
+      "verified_trials": 20,
       "wilson_95_descriptive": [
-        0.011866895493268553,
-        0.2981652987378003
+        0.008881448800795402,
+        0.23613119344674205
       ],
-      "median_actions": 108,
-      "median_game_ticks": 1500,
+      "median_actions": 108.5,
+      "median_game_ticks": 1500.0,
       "failed_terminal_log_or_table_counts": {
-        "0": 5,
-        "1": 9
+        "0": 7,
+        "1": 12
       },
       "failed_stages": {
-        "table_crafted": 9,
+        "table_crafted": 12,
         "planks_crafted": 2,
-        "sticks_crafted": 3
+        "sticks_crafted": 5
       }
     }
   },
@@ -685,6 +692,251 @@
       "failure_stage": "log_mined",
       "controller_success": false,
       "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0000",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 6017087778116965391,
+      "success": true,
+      "ticks": 1212,
+      "train": false,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 85,
+      "failure_stage": null,
+      "controller_success": true,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0001",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 6017087778116965391,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 106,
+      "failure_stage": "sticks_crafted",
+      "controller_success": false,
+      "block_changes": 3,
+      "table_placement": {
+        "bridge_offers": 0,
+        "bridge_selections": 0,
+        "minecraft_outcomes": {}
+      }
+    },
+    {
+      "episode_id": "trial_0002",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 3948916410388947522,
+      "success": true,
+      "ticks": 1239,
+      "train": false,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 94,
+      "failure_stage": null,
+      "controller_success": true,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0003",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 3948916410388947522,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 1,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 113,
+      "failure_stage": "table_crafted",
+      "controller_success": false,
+      "block_changes": 3,
+      "table_placement": {
+        "bridge_offers": 0,
+        "bridge_selections": 0,
+        "minecraft_outcomes": {}
+      }
+    },
+    {
+      "episode_id": "trial_0004",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 435038862346062533,
+      "success": true,
+      "ticks": 873,
+      "train": false,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 62,
+      "failure_stage": null,
+      "controller_success": true,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0005",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 435038862346062533,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 1,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 109,
+      "failure_stage": "table_crafted",
+      "controller_success": false,
+      "block_changes": 3,
+      "table_placement": {
+        "bridge_offers": 0,
+        "bridge_selections": 0,
+        "minecraft_outcomes": {}
+      }
+    },
+    {
+      "episode_id": "trial_0006",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 4252766614724630241,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 2,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 108,
+      "failure_stage": "log_mined",
+      "controller_success": false,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0007",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 4252766614724630241,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 1,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 117,
+      "failure_stage": "table_crafted",
+      "controller_success": false,
+      "block_changes": 3,
+      "table_placement": {
+        "bridge_offers": 0,
+        "bridge_selections": 0,
+        "minecraft_outcomes": {}
+      }
+    },
+    {
+      "episode_id": "trial_0008",
+      "condition": "trained",
+      "goal": "three_logs",
+      "layout_seed": 7505344775710491094,
+      "success": true,
+      "ticks": 1075,
+      "train": false,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 76,
+      "failure_stage": null,
+      "controller_success": true,
+      "block_changes": 3
+    },
+    {
+      "episode_id": "trial_0009",
+      "condition": "trained",
+      "goal": "wooden_pickaxe",
+      "layout_seed": 7505344775710491094,
+      "success": false,
+      "ticks": 1500,
+      "train": false,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "run_id": "p8_completion_bench_20261108_4",
+      "verified": true,
+      "actions": 112,
+      "failure_stage": "sticks_crafted",
+      "controller_success": false,
+      "block_changes": 3,
+      "table_placement": {
+        "bridge_offers": 0,
+        "bridge_selections": 0,
+        "minecraft_outcomes": {}
+      }
     },
     {
       "episode_id": "trial_0000",

@@ -1,4 +1,4 @@
-# FlyCraft — Phase 8 progress report
+# FlyCraft — Phase 8 report
 
 November 6 reliability update: a recorded strict one-log smoke check and
 interrupted-mining recovery succeeded. A recorded bridge process-tree stall
@@ -7,10 +7,10 @@ collection. These small development checks reuse one fixture seed; they are
 not held-out benchmarks or learning gains. Phase 8 remains incomplete. See
 [the Phase 7.5 evidence](docs/phase75_reliability_20261106.md).
 
-Updated: 2026-10-28 (Asia/Amman). **Phase 8 is not complete.**
-The one-log target has been demonstrated in controlled real Minecraft fixtures:
-29/30 inventory-confirmed successes. Longer-goal evaluation remains underway.
-This report will be updated as those bounded evaluation batches finish.
+The current crosshair-only interface has met the one-log and plank targets
+in controlled Minecraft fixtures. The earlier assisted one-log comparison
+and the current interface have separate results. See the November 12 section
+for the frozen three-log and wooden-pickaxe benchmark.
 
 ## 1. Implemented features
 
@@ -63,12 +63,12 @@ inappropriate crafts during the three-log goal. The pickaxe pilot reached
 planks and sticks but did not finish within its 30-second trial limit. These
 are policy/planning failures, not successful longer goals.
 
-All new live runs now require OBS recording confirmation before trials start.
-The separate OBS collection captures only Minecraft; desktop/microphone audio
-sources are absent. The client opens without requesting keyboard focus. A
-local heartbeat controls recording without desktop input or a remote-control
-server. Bounded runs stop if recording confirmation disappears. Original
-recordings remain local, and each run records its video path.
+Milestone trials require OBS recording confirmation before gameplay starts.
+The separate OBS collection captures only Minecraft. A local heartbeat
+controls recording without desktop input or a remote-control server.
+Recording runs stop if confirmation disappears. Original MP4s remain local
+and the run metadata records their paths. Routine scored episodes use
+structured logs.
 
 ## 3. Learning and evaluation
 
@@ -314,7 +314,7 @@ seconds including failures. All game processes exited cleanly and terminal
 delivery was acknowledged. Milestones 1,10,25,30 have verified MP4s, including
 the genuine failure at milestone 1; 26 routine trials intentionally kept logs.
 
-| Current strict controlled-fixture goal | Actual result | Point target |
+| November 6 strict controlled-fixture goal | Actual result | Point target |
 | --- | --- | --- |
 | One log | 27/30 (90%) | Met |
 | Four planks | 21/30 (70%) | Met |
