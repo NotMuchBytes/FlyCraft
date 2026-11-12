@@ -38,6 +38,7 @@ public final class Phase8Harness {
     private static boolean unplacedTable;
     private static JsonObject terminal;
     private static int terminalWait;
+    private static String trialIdPrefix;
     private static final Map<ServerPlayer, BlockPos> placements = new HashMap<>();
 
     public static void initialize() {
@@ -52,6 +53,9 @@ public final class Phase8Harness {
             maxTicks = Integer.parseInt(config.getProperty("maxTrialTicks", "1200"));
             maxSeconds = Integer.parseInt(config.getProperty("maxSeconds", "600"));
             policySeed = Long.parseLong(config.getProperty("policySeed", "9001"));
+            trialIdPrefix = config.getProperty("trialIdPrefix", "trial_");
+            if (!trialIdPrefix.matches("[A-Za-z0-9_-]+"))
+                throw new IllegalArgumentException("Invalid trial identity prefix");
             threeTrees = Boolean.parseBoolean(config.getProperty("fixture.threeTrees", "false"));
             headlessFixture = Boolean.parseBoolean(config.getProperty("fixture.headless", "false"));
             unplacedTable = Boolean.parseBoolean(config.getProperty("fixture.unplacedTable", "false"));
@@ -66,9 +70,13 @@ public final class Phase8Harness {
         } catch (IOException error) { throw new IllegalStateException(error); }
     }
 
+    private static String episodeId() {
+        return trialIdPrefix + String.format(Locale.ROOT, "%04d", Math.max(index, 0));
+    }
+
     private static void instruction(boolean enabled, boolean done) {
         JsonObject control = new JsonObject();
-        control.addProperty("episode_id", String.format("trial_%04d", Math.max(index, 0)));
+        control.addProperty("episode_id", episodeId());
         Trial trial = trials.get(Math.clamp(index, 0, trials.size() - 1));
         control.addProperty("goal", trial.goal); control.addProperty("condition", trial.condition);
         control.addProperty("train", trial.train); control.addProperty("policy_seed", policySeed);
@@ -91,11 +99,11 @@ public final class Phase8Harness {
             Path acknowledgment=Path.of(controlFile.toString()+".ack");
             try {
                 if(Files.exists(acknowledgment)) acknowledged=JsonParser.parseString(Files.readString(acknowledgment))
-                    .getAsJsonObject().get("episode_id").getAsString().equals(String.format("trial_%04d",index));
+                    .getAsJsonObject().get("episode_id").getAsString().equals(episodeId());
             } catch(Exception ignored) { }
             if(!acknowledged && ++terminalWait<100) return;
             JsonObject delivery=new JsonObject();
-            delivery.addProperty("episode_id",String.format("trial_%04d",index));
+            delivery.addProperty("episode_id",episodeId());
             delivery.addProperty("acknowledged",acknowledged); delivery.addProperty("wait_ticks",terminalWait);
             try { Files.writeString(Path.of(resultsFile.toString()+".delivery.jsonl"),delivery+"\n",StandardOpenOption.CREATE,StandardOpenOption.APPEND); }
             catch(IOException error) { throw new IllegalStateException(error); }
@@ -139,7 +147,7 @@ public final class Phase8Harness {
         }
         if (success || probeComplete || elapsed >= maxTicks) {
             JsonObject result = new JsonObject();
-            result.addProperty("episode_id", String.format("trial_%04d", index));
+            result.addProperty("episode_id", episodeId());
             result.addProperty("condition", trial.condition); result.addProperty("goal", trial.goal);
             result.addProperty("layout_seed", trial.seed); result.addProperty("success", success);
             result.addProperty("ticks", elapsed); result.addProperty("train", trial.train);
@@ -229,7 +237,7 @@ public final class Phase8Harness {
 
     private static void initialState(ServerPlayer player,Trial trial) {
         JsonObject state=new JsonObject();
-        state.addProperty("episode_id",String.format("trial_%04d",index));
+        state.addProperty("episode_id",episodeId());
         state.addProperty("world_seed",player.level().getSeed()); state.addProperty("layout_seed",trial.seed);
         state.addProperty("goal",trial.goal); state.addProperty("server_tick",player.level().getServer().getTickCount());
         state.addProperty("game_mode",player.gameMode().name());

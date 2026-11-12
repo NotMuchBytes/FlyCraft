@@ -1,0 +1,18 @@
+[
+  {
+    "kind": "server_restart",
+    "requested_unix": 1794488418.1381693,
+    "mining_command_id": 1,
+    "mining_started_server_tick": 753,
+    "disturbance": "owned_minecraft_server_gracefully_restarted",
+    "stopped_pid": 19008,
+    "bridge_pid": 21180,
+    "stopped_unix": 1794488419.7257586,
+    "exit_code": 0,
+    "stopped_spectator_pid": 23060,
+    "restarted_unix": 1794488420.9647002,
+    "restarted_pid": 4580,
+    "replacement_episode": "restart_0000",
+    "replacement_action_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p75_server_restart_recorded_20261112_a\\headless-after-restart.jsonl"
+  }
+]

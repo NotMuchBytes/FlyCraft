@@ -1,5 +1,11 @@
 # FlyCraft Phase 7.5 reliability report
 
+November 12, 2026. The restart follow-up verified that FlyCraft could start
+a fresh trial after Minecraft reopened the same disposable save. The Python
+bridge retained the interrupted command as unconfirmed, and both live repeats
+collected one log after restart. The recorded repeat has a verified MP4.
+[Restart results](#november-12-minecraft-server-restart)
+
 November 8, 2026. **The controlled Phase 7.5 validation is complete.**
 Strict live one-log collection reached 27/30 across 30 seed pairs, above
 the 80% point target. The 95% Wilson interval was 74.4%–96.5%. The tests
@@ -363,3 +369,42 @@ for an aborted episode. Acknowledged gameplay failures still use the normal
 reward and recovery paths. This regression uses injected protocol packets.
 All 111 automated tests passed in 20.182 seconds. No checkpoint update was
 made and the fix has yet to be exercised by a new Minecraft run.
+
+## November 12 Minecraft server restart
+
+The bridge now binds each live episode to the Minecraft session and
+Fabric adapter that started it. A replacement adapter with the same episode
+name and command number cannot acknowledge the original action. The controller
+rejects that packet before applying inventory, action counts or rewards.
+When a supervised episode finishes early, the controller waits for the
+server's terminal inventory before writing its final result.
+
+The new `server_restart` diagnostic stopped Minecraft 26.2 during mining,
+reopened the same disposable save and began a fresh episode with the same
+policy checkpoint. The Python bridge stayed running. The interrupted
+episode logged command 1 as unconfirmed with zero credited actions or block
+breaks. The replacement adapter received a new transport identity and its
+first new command was 2. Each replacement broke a log, picked it up, and
+finished with matching server and controller inventory and acknowledged
+terminal delivery. The input checkpoint and 139,255-neuron graph were
+preserved. Learning was disabled.
+
+| Run | Confirmed replacement inventory | Acknowledged actions | Game ticks |
+| --- | --- | ---: | ---: |
+| Server-only diagnostic | One log | 2 | 79 |
+| OBS-recorded repeat | One log | 34 | 556 |
+
+The 102.8-second Minecraft-only MP4 includes the actual restart gap. OBS
+matched separate game frames before and after the spectator relaunched, and
+the complete MP4 decoded successfully. Both spectator processes rendered on
+the RTX 4050. The two trials used the same controlled fixture seed. They
+validate graceful restart and a fresh goal attempt. Abrupt server crashes,
+continuing an interrupted episode in place, and natural-terrain recovery
+remain unverified. These fault tests are separate from the original 27/30
+one-log benchmark.
+
+All 117 automated tests passed, including the new adapter identity and final
+inventory regressions. Fabric compiled for the server and spectator runs.
+[Server-only run](experiments/phase9/p75_server_restart_20261112_a/run.json)
+[Recorded run](experiments/phase9/p75_server_restart_recorded_20261112_a/run.json)
+[Recording metadata](recordings/phase9/youtube/p75_server_restart_recorded_20261112_a.json)

@@ -78,6 +78,14 @@ The [scorer](../experiments/phase9/phase8_completion_bench_20261108/analyze.py)
 uses the corresponding local run and episode logs. Register interrupted
 layout subsets in `retries.json` and keep their original run records.
 
+The one-shot `--headless --operator-fault server_restart` diagnostic stops
+the runner-owned Minecraft server during a mining action. It reopens the
+same disposable save with a fresh episode identity and keeps the Python
+bridge running. Use one evaluation trial with learning disabled. Add the
+usual spectator and OBS flags to capture both attempts. The recorder
+rechecks the Minecraft window after the spectator relaunches, before the
+replacement episode starts.
+
 ## Camera and NVIDIA graphics
 
 Add `--headless --pitch-actions` to enable the experimental 12-action

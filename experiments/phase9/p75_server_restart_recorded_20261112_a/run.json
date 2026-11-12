@@ -1,0 +1,141 @@
+{
+  "run_id": "p75_server_restart_recorded_20261112_a",
+  "world_seed": 2026110601,
+  "layout_start": 2026110601,
+  "goals": [
+    "one_log"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 1,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 161.98085359999823,
+  "maximum_sampled_gpu_c": 45,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-12 16-00-02.mp4",
+  "recording_confirmed": true,
+  "milestone": 1,
+  "experiment_stage": "development",
+  "redo_of": "p75_server_restart_20261112_a",
+  "execution_kind": "new_execution_not_replay",
+  "headless": true,
+  "operator_fault": "server_restart",
+  "operator_fault_events": [
+    {
+      "kind": "server_restart",
+      "requested_unix": 1794488418.1381693,
+      "mining_command_id": 1,
+      "mining_started_server_tick": 753,
+      "disturbance": "owned_minecraft_server_gracefully_restarted",
+      "stopped_pid": 19008,
+      "bridge_pid": 21180,
+      "stopped_unix": 1794488419.7257586,
+      "exit_code": 0,
+      "stopped_spectator_pid": 23060,
+      "restarted_unix": 1794488420.9647002,
+      "restarted_pid": 4580,
+      "replacement_episode": "restart_0000",
+      "replacement_action_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p75_server_restart_recorded_20261112_a\\headless-after-restart.jsonl"
+    }
+  ],
+  "spectator": true,
+  "spectator_view": "third_person",
+  "capture_requested_size": [
+    854,
+    480
+  ],
+  "client_fps_limit": 30,
+  "capture_content_proof": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.008664669571532316,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_server_restart_recorded_20261112_a\\capture-proof-game-restarted.png",
+    "game_frame_sha256": "df0d0507c0e7dfc44add3d7f3f25c393a25df2f81133f346cfed1737269b9f91",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_server_restart_recorded_20261112_a\\capture-proof-obs-restarted.png",
+    "obs_frame_sha256": "50be3349ea1cb8c9e2db3dd68e525c5ba994f562070540a8f587b4def4f8d515",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "capture_content_proof_error": null,
+  "capture_content_proof_before_restart": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.005385348583877995,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_server_restart_recorded_20261112_a\\capture-proof-game.png",
+    "game_frame_sha256": "9bf41c3805a4705eca1a06a564d772971e48d4c64967131730301cdb15f87fcf",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\work\\phase8-runs\\p75_server_restart_recorded_20261112_a\\capture-proof-obs.png",
+    "obs_frame_sha256": "ac9c6f7ce40f4247c5a95a284f6224f673b18721b07b33c206c4cac1dac2fb2e",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "recording_mode": "OBS_isolated_spectator",
+  "generated_world_instances": 1,
+  "episodes_in_generated_world": 1,
+  "environment_kind": "controlled_flat_survival_fixture",
+  "unplaced_table_fixture": false,
+  "remember_mined_columns": false,
+  "server_heap_mib": 384,
+  "client_heap_mib": 512,
+  "trial_tick_limit": 600,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "pitch_actions": false,
+  "forward_ticks": 2,
+  "movement_feedback": "displacement",
+  "experiment_kind": "policy_goal_with_operator_fault",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "launcher": "direct",
+  "minimum_sampled_available_ram_mib": 1823.78515625,
+  "available_ram_guard_mib": 768,
+  "peak_sampled_process_tree_rss_mib": {
+    "bridge": 137.96484375,
+    "server": 535.19140625,
+    "client": 900.9140625
+  },
+  "exit_codes_before_cleanup": {
+    "prepare": 0,
+    "bridge": null,
+    "server": 0,
+    "client": 0
+  },
+  "client_exited_cleanly": true,
+  "server_exited_cleanly": true,
+  "actual_graphics": [
+    "Using graphics backend OpenGL, using drivers: 3.3.0 NVIDIA 617.42",
+    "Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU/PCIe/SSE2 (NVIDIA Corporation)"
+  ],
+  "policy_label": "six_live_log_episodes",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "implementation_sha256": "e634624e5e45f9765b41c3b71fc769d477a4227ac025fb157b02f83c33ad765b",
+  "milestone_video_status": "verified",
+  "milestone_video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 3083,
+    "duration_seconds": 102.8,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "3084"
+    },
+    "bytes": 30091200,
+    "sha256": "d531c904d923dccea93a2acbe4fb9807e6db1b8aa7bc44cb5fc5a7559a1e8cf9",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-12 16-00-02.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_p75_server_restart_recorded_20261112_a.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": true,
+    "visual_content_preflight_verified": true
+  },
+  "milestone_video_export": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\FlyCraft_Development_Milestone_00001_p75_server_restart_recorded_20261112_a.mp4"
+}

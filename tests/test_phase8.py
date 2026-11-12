@@ -400,6 +400,35 @@ class Phase8Tests(unittest.TestCase):
             finally:
                 restored.close()
 
+    def test_replacement_adapter_cannot_acknowledge_same_episode_command(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            controller = self.controller(folder)
+            try:
+                first = controller.evaluate_request(self.request(10, train=True))
+                original_ledger = copy.deepcopy(controller.ledger.to_dict())
+                inventory = self.telemetry()["inventory"] | {"log": 1}
+                claimed = self.telemetry(inventory_revision=2, inventory=inventory)
+                for different_world, transport in ((False, "replacement"), (True, "unit_transport")):
+                    telemetry = claimed | {"session_id": "replacement_world"} if different_world else claimed
+                    packet = self.request(20, telemetry=telemetry, ack=self.ack(first))
+                    response = controller.evaluate_request(packet | {"transport_id": transport})
+                    self.assertTrue(response["observe_only"])
+                    self.assertEqual(response["command_id"], 0)
+                    self.assertEqual(controller.ledger.to_dict(), original_ledger)
+                    self.assertEqual(controller.agent.session["actions"], 0)
+                fresh = self.request(2, episode="restart_0000")
+                replacement = controller.evaluate_request(fresh | {"transport_id": "replacement"})
+                self.assertGreater(replacement["command_id"], first["command_id"])
+                self.assertEqual(controller.ledger.mined_blocks, 0)
+                row, = map(json.loads, (folder / "results.jsonl").read_text().splitlines())
+                self.assertEqual(row["unconfirmed_command_id"], first["command_id"])
+                self.assertEqual(row["termination"], "minecraft_episode_interrupted")
+                self.assertEqual(row["actions"], 0)
+                self.assertEqual(row["update"]["weight_delta_norm"], 0.0)
+            finally:
+                controller.close()
+
     def test_neural_removal_keeps_context_and_changes_neural_inputs(self):
         from unittest import mock
         with tempfile.TemporaryDirectory() as directory:
@@ -475,6 +504,33 @@ class Phase8Tests(unittest.TestCase):
                 self.assertEqual(result["autonomy_status"],"success")
                 self.assertEqual(controller.agent.session["terminal_inventory"]["log"],1)
                 self.assertEqual(controller.agent.session["actions"],1)
+            finally:
+                controller.close()
+
+    def test_supervised_early_completion_waits_for_terminal_inventory_record(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            controller = self.controller(folder)
+            control = folder / "control.json"
+            control.write_text(json.dumps(self.request(10)["control"] | {"active": True}))
+            controller.control_file = control
+            try:
+                first = controller.evaluate_request(self.request(10))
+                counts = self.telemetry()["inventory"] | {"log": 1}
+                after = self.telemetry(inventory_revision=2, inventory=counts)
+                done = controller.evaluate_request(self.request(20, telemetry=after, ack=self.ack(first)))
+                self.assertEqual(done["autonomy_status"], "success")
+                self.assertEqual((folder / "results.jsonl").read_text(), "")
+                self.boundary(folder, controller, logs=1)
+                foreign = self.request(25, telemetry=after) | {"transport_id": "replacement"}
+                self.assertFalse(controller.evaluate_request(foreign)["terminal_acknowledged"])
+                terminal = self.request(30, telemetry=after)
+                self.assertTrue(controller.evaluate_request(terminal)["terminal_acknowledged"])
+                self.assertTrue(controller.evaluate_request(terminal)["terminal_acknowledged"])
+                row, = map(json.loads, (folder / "results.jsonl").read_text().splitlines())
+                self.assertEqual(row["terminal_inventory"]["log"], 1)
+                self.assertEqual(row["terminal_server_tick"], 400)
+                self.assertEqual(row["actions"], 1)
             finally:
                 controller.close()
 

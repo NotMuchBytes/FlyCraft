@@ -88,6 +88,11 @@ does not reproduce the exact pixels of the main Minecraft camera.
   from a fresh observation, and the
   affected episode is excluded from training. These are transport fields,
   separate from policy inputs.
+- A live episode binds to its Minecraft session and Fabric adapter instance.
+  A different instance cannot acknowledge a pending command for that
+  episode, even if its numeric ID matches. A deliberate server restart uses
+  a new episode identity and starts from fresh observations. Supervised
+  completions wait for the final server inventory before writing the result.
 
 ## Evaluation boundary
 

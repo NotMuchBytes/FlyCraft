@@ -165,8 +165,8 @@ def run():
     parser.add_argument("--remember-mined-columns", action="store_true",
                         help="Ignore off-pitch log hits in previously mined columns during headless collection")
     parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall", "bridge_read_timeout",
-                        "bridge_checkpoint_restart"), default="none",
-                        help="One-shot mining interruption, bridge stall or checkpoint restart; reliability tests only")
+                        "bridge_checkpoint_restart", "server_restart"), default="none",
+                        help="One-shot disturbance during mining; reliability tests only")
     parser.add_argument("--graphics-backend", choices=("default","opengl","vulkan"),default="opengl")
     parser.add_argument("--minimum-available-ram-mib", type=int, default=768)
     parser.add_argument("--minimum-free-disk-mib", type=int, default=2048)
@@ -256,8 +256,9 @@ def run():
     implementation_sha256=manifest["implementation_sha256"]
     atomic_json(results/"source_manifest.json",manifest)
     control = runtime / "control.json"
-    control.write_text(json.dumps({"episode_id": "initial", "goal": goals[0], "condition": conditions[0],
-                                  "train": False, "active": False, "suite_complete": False}), encoding="utf-8")
+    initial_control = {"episode_id": "initial", "goal": goals[0], "condition": conditions[0],
+                       "train": False, "active": False, "suite_complete": False}
+    atomic_json(control, initial_control)
     trials = runtime / "trials.csv"
     rows = [f"{condition},{goal},{seed},{str(args.train and condition == 'trained').lower()}"
             for seed in layout_seeds for goal in goals for condition in conditions]
@@ -327,6 +328,8 @@ def run():
     fault_events=[]
     bridge_resume_at=None
     bridge_restart_at=None
+    client_restarted = False
+    capture_proof_before_restart = None
     suspended_bridge_processes=[]
     def ownership_check():
         if args.stop_file is not None and args.stop_file.exists():
@@ -339,8 +342,8 @@ def run():
             except psutil.NoSuchProcess:
                 raise SupervisorStop("coordinator_lost")
     try:
-        def launch(command, name, cwd):
-            handle = (results / (name + "_launcher.log")).open("x", encoding="utf-8")
+        def launch(command, name, cwd, *, log_name=None):
+            handle = (results / ((log_name or name) + "_launcher.log")).open("x", encoding="utf-8")
             handles.append(handle)
             process = subprocess.Popen(command, cwd=cwd, stdout=handle, stderr=subprocess.STDOUT,
                                        stdin=subprocess.PIPE, env=environment, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
@@ -404,7 +407,7 @@ def run():
                 "server_alive":server.poll() is None,"client_alive":client is not None and client.poll() is None,
                 "recording_active":recording_active,"completed_episodes":last_rows,"peak_process_rss_mib":peak_process_rss})
             graphics_ready=not graphical
-            client_launcher=results / "client_launcher.log"
+            client_launcher=results / ("client-restarted_launcher.log" if client_restarted else "client_launcher.log")
             if graphical and client_launcher.exists():
                 graphics_log=client_launcher.read_text(encoding="utf-8",errors="replace")
                 graphics_ready, graphics_error = graphics_readiness(graphics_log,args.graphics_backend)
@@ -420,8 +423,9 @@ def run():
                     try:
                         # Freeze the exact compared bytes; repeated GPU readbacks
                         # may replace the live screenshot until this gate opens.
-                        frozen_game=runtime/"capture-proof-game.png"
-                        frozen_obs=runtime/"capture-proof-obs.png"
+                        suffix = "-restarted" if client_restarted else ""
+                        frozen_game=runtime/f"capture-proof-game{suffix}.png"
+                        frozen_obs=runtime/f"capture-proof-obs{suffix}.png"
                         shutil.copyfile(game_frame,frozen_game)
                         shutil.copyfile(obs_frame,frozen_obs)
                         proof=compare_capture_frames(frozen_game,frozen_obs)
@@ -440,7 +444,8 @@ def run():
                 client = launch(direct_commands["client"] if direct_commands else
                     gradle + ["-PflycraftRunDir=" + java_path(client_dir), "-PflycraftAutotest", "-PflycraftServer=127.0.0.1:25567",
                     "-PflycraftGraphicsBackend="+args.graphics_backend, "runClient"],
-                    "client", client_dir if direct_commands else ROOT / "minecraft_mod")
+                    "client", client_dir if direct_commands else ROOT / "minecraft_mod",
+                    log_name="client-restarted" if client_restarted else None)
             if args.operator_fault != "none" and not fault_events:
                 mining = pending_mining_command(results / "headless.jsonl")
                 if mining is not None:
@@ -466,6 +471,48 @@ def run():
                             checkpoint_sha256=hashlib.sha256(pending_checkpoint.read_bytes()).hexdigest(),
                             restored_controller_log=str(results / "controller-restored.jsonl"))
                         bridge_restart_at = time.perf_counter() + 5
+                    elif args.operator_fault == "server_restart":
+                        event.update(disturbance="owned_minecraft_server_gracefully_restarted",
+                                     stopped_pid=server.pid, bridge_pid=bridge.pid)
+                        fault_events.append(event)
+                        atomic_json(results / "operator_fault.json", fault_events)
+                        server.stdin.write(b"stop\n")
+                        server.stdin.flush()
+                        try:
+                            exit_code = server.wait(timeout=20)
+                        except subprocess.TimeoutExpired as error:
+                            raise RuntimeError("owned Minecraft server did not stop") from error
+                        if exit_code or listening(25567) or not (server_dir / "world/level.dat").is_file():
+                            raise RuntimeError("Minecraft did not close and save the disposable world")
+                        if (results / "server.jsonl").exists():
+                            raise RuntimeError("episode finished before the server restart")
+                        event.update(stopped_unix=time.time(), exit_code=exit_code)
+                        shutil.copy2(server_dir / "logs/latest.log", results / "server-before-restart.log")
+                        if graphical:
+                            event["stopped_spectator_pid"] = client.pid
+                            stop(client)
+                            if client.poll() is None:
+                                raise RuntimeError("owned spectator did not stop for server restart")
+                            for name in ("start.enabled", "spectator.ready", "spectator-frame.png"):
+                                marker = runtime / name
+                                if marker.exists():
+                                    marker.rename(marker.with_name(name + ".before-restart"))
+                            shutil.copy2(client_dir / "logs/latest.log", results / "client-before-restart.log")
+                            capture_proof_before_restart, capture_proof = capture_proof, None
+                            capture_proof_error = None
+                            recorder.capture_verified = False
+                            client, client_restarted = None, True
+                        with (server_dir / "flycraft-phase8.properties").open("a", encoding="utf-8") as handle:
+                            handle.write("trialIdPrefix=restart_\n")
+                        with (server_dir / "flycraft-headless.properties").open("a", encoding="utf-8") as handle:
+                            handle.write(f"traceFile={java_path(results / 'headless-after-restart.jsonl')}\n"
+                                         f"camera.traceFile={java_path(results / 'camera-after-restart.jsonl')}\n")
+                        atomic_json(control, initial_control | {"episode_id": "initial_restarted"})
+                        ownership_check()
+                        server = launch(direct_commands["server"], "server", server_dir, log_name="server-restarted")
+                        event.update(restarted_unix=time.time(), restarted_pid=server.pid,
+                                     replacement_episode="restart_0000",
+                                     replacement_action_log=str(results / "headless-after-restart.jsonl"))
                     else:
                         # Only this supervisor's owned Python process is paused.
                         # Minecraft continues; actual socket timeouts are logged.
@@ -480,7 +527,8 @@ def run():
                         event.update(disturbance="owned_bridge_process_tree_suspended", requested_stall_seconds=stall_seconds,
                             suspended_processes=[{"pid": owned.pid, "created": owned.create_time(), "name": owned.name()}
                                                  for owned in suspended_bridge_processes])
-                    fault_events.append(event)
+                    if not fault_events:
+                        fault_events.append(event)
                     atomic_json(results / "operator_fault.json", fault_events)
             if bridge_restart_at is not None and time.perf_counter() >= bridge_restart_at:
                 restored = bridge_command.copy()
@@ -577,6 +625,8 @@ def run():
         summary["client_fps_limit"] = 30 if graphical else None
         summary["capture_content_proof"] = capture_proof
         summary["capture_content_proof_error"] = capture_proof_error
+        if args.operator_fault == "server_restart":
+            summary["capture_content_proof_before_restart"] = capture_proof_before_restart
         summary["recording_mode"] = "OBS_isolated_spectator" if args.spectator else "OBS_Minecraft_window" if graphical else "structured_event_logs_no_video"
         summary["generated_world_instances"] = int((server_dir/"world/level.dat").exists())
         summary["episodes_in_generated_world"] = last_rows
@@ -606,7 +656,7 @@ def run():
         summary["exit_codes_before_cleanup"] = natural_exits
         summary["client_exited_cleanly"] = natural_exits.get("client")==0 if graphical else None
         summary["server_exited_cleanly"] = natural_exits.get("server")==0
-        client_log=results / "client_launcher.log"
+        client_log=results / ("client-restarted_launcher.log" if client_restarted else "client_launcher.log")
         client_log_text=client_log.read_text(encoding="utf-8",errors="replace") if client_log.exists() else ""
         if natural_exits.get("client") in (-1073741819,3221225477) or any(marker in client_log_text for marker in ("0xC0000005", "exit value -1073741819", "exit value 3221225477")):
             summary["native_client_crash"] = True
@@ -638,7 +688,8 @@ def run():
                 scores=[json.loads(line) for line in score_file.read_text().splitlines()] if score_file.is_file() else []
                 minimum_seconds=sum(row["ticks"]/20 for row in scores)
                 verified=preserve_milestone(recording,destination,minimum_seconds=minimum_seconds)
-                complete=last_rows==len(rows) and summary["stop_reason"]=="suite_complete" and capture_proof is not None
+                complete=(last_rows==len(rows) and summary["stop_reason"]=="suite_complete" and capture_proof is not None
+                          and (args.operator_fault!="server_restart" or capture_proof_before_restart is not None))
                 verified["episode_coverage_complete"]=complete
                 verified["visual_content_preflight_verified"]=capture_proof is not None
                 summary["milestone_video_status"]="verified" if complete else "partial"

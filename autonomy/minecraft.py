@@ -108,6 +108,7 @@ class LiveResourceController:
         self.terminal_ack_episode = None
         self.raw_neural_features = None
         self.episode_id = None
+        self.episode_transport_id = None
         self.condition = "trained"
         self.pending_id = None
         self.pending_transport_id = None
@@ -125,6 +126,7 @@ class LiveResourceController:
         if state and self.agent.session and not self.agent.session["done"]:
             self.episode_id, self.pending_id = state["episode_id"], state["pending_id"]
             self.pending_transport_id = state.get("pending_transport_id")
+            self.episode_transport_id = state.get("episode_transport_id", self.pending_transport_id)
             self.command_id, self.last_tick = state["command_id"], state["last_tick"]
             self.ledger = TransactionLedger.from_dict(state["ledger"])
 
@@ -154,16 +156,17 @@ class LiveResourceController:
         self.agent.session["elapsed_seconds"] = time.perf_counter() - self.started
         row = self.agent.result() | {"episode_id": self.episode_id, "condition": self.condition,
                                      "confirmed_block_changes": self.ledger.mined_blocks}
-        import json
         self.results.write(json.dumps(row, separators=(",", ":")) + "\n")
         self.results.flush()
         self.recorded = True
-        if self.checkpoint_dir and self.condition == "trained" and self.agent.session["train"]:
+        if (self.checkpoint_dir and self.condition == "trained" and self.agent.session["train"]
+                and (self.control_file is None or self.ledger.terminal_tick is not None)):
             self.save_state(self.checkpoint_dir / (self.episode_id + ".npz"))
 
     def save_state(self, path):
         self.agent.save(path, extension={"phase8": {"episode_id": self.episode_id, "pending_id": self.pending_id,
                          "command_id": self.command_id, "last_tick": self.last_tick, "ledger": self.ledger.to_dict(),
+                         "episode_transport_id": self.episode_transport_id,
                          "pending_transport_id": self.pending_transport_id if self.pending_id is not None else None}})
 
     def evaluate_request(self, request):
@@ -186,6 +189,15 @@ class LiveResourceController:
             if not episode or any(char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for char in episode):
                 raise ValueError("invalid episode identity")
             tick = int(request["tick_id"])
+            world_id = telemetry["session_id"] + ":" + episode
+            transport_id = request.get("transport_id")
+            if episode == self.episode_id and (
+                self.episode_transport_id is not None and transport_id != self.episode_transport_id
+                or not self.needs_start and self.agent.session and world_id != self.agent.session["world_id"]
+            ):
+                # A replacement world/adapter needs a fresh episode identity.
+                # A reused numeric command ID cannot acknowledge the old action.
+                return self._reply("NO_OP", 0, started, observe_only=True) | {"terminal_acknowledged": False}
             if terminal and episode == self.episode_id and self.recorded:
                 self._ack_terminal(episode)
                 return self._reply("NO_OP", 0, started)
@@ -196,6 +208,7 @@ class LiveResourceController:
                 self._abort("minecraft_episode_interrupted")
                 self._record()
                 self.episode_id, self.last_tick = episode, -1
+                self.episode_transport_id = transport_id
                 self.terminal_ack_episode = None
                 self.condition = control.get("condition", "trained")
                 if self.condition not in CONDITIONS or control["goal"] not in OBJECTIVES:
@@ -203,12 +216,10 @@ class LiveResourceController:
                 self.agent.policy = self.uniform if self.condition == "uniform" else self.frozen if self.condition == "frozen" else self.trained
                 self.agent.rng = np.random.default_rng(int(control.get("policy_seed", 9001)))
                 self.ledger, self.recorded = TransactionLedger(), False
-                self.pending_id, self.inventory_waits = None, 0
+                self.pending_id, self.inventory_waits, self.ack_waits = None, 0, 0
                 self.started = started
                 self.needs_start = True
             ack = request.get("ack")
-            world_id = telemetry["session_id"] + ":" + episode
-            transport_id = request.get("transport_id")
             if self.pending_id is not None and (not ack or int(ack["command_id"]) < self.pending_id):
                 ack = self._reconcile_lost_reply(request.get("reply_loss"), tick, world_id, transport_id) or ack
             if self.pending_id is not None and (not ack or int(ack["command_id"]) != self.pending_id):
@@ -331,7 +342,8 @@ class LiveResourceController:
                 self._ack_terminal(episode)
                 return self._reply("NO_OP", 0, started)
             if self.agent.session["done"]:
-                self._record()
+                if self.control_file is None:
+                    self._record()
                 return self._reply("NO_OP", 0, started)
             neural, _, peak = self.neural.neural_observation(request.get("sector"))
             self.raw_neural_features = np.array(neural, copy=True)
@@ -343,7 +355,8 @@ class LiveResourceController:
                 neural = neural[[0, 3, 1, 2]]
             action = self.agent.choose_action(observation, neural=neural)
             if self.agent.session["done"]:
-                self._record()
+                if self.control_file is None:
+                    self._record()
                 return self._reply("NO_OP", 0, started)
             self.command_id += 1
             self.pending_id = self.command_id
