@@ -1,0 +1,9 @@
+{
+  "run_id": "p75_step_20261117_recorded_c",
+  "video_status": "partial",
+  "full_decode_verified": true,
+  "minecraft_window_preflight_matched": true,
+  "episode_score_valid": true,
+  "issue": "The third-person spectator stayed below the raised platform after fixture setup. The scored jump and break are out of frame.",
+  "disposition": "Original run and recording retained. First-person capture will be a separate fresh execution."
+}

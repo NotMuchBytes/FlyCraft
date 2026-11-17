@@ -571,3 +571,15 @@ run with cleanup of its owned processes. The sparse graph SHA-256 remains
 `37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d`.
 Fabric assembly and the three standalone Java test mains passed.
 Gradle's default `test` task did not discover the standalone mains.
+
+### Milestone capture attempts
+
+The first OBS attempt stopped before game launch at the RAM guard. A
+fresh third-person attempt collected one log in 18 actions and 289
+ticks. Its 30.5-second MP4 decoded completely and passed the Minecraft
+window match on the RTX 4050. Frame review found that the spectator
+lagged below the raised platform, so it missed the jump and break.
+The original MP4 and episode logs are retained with partial visual
+coverage. The recorded attempt is separate from the matched pair.
+[RAM-guard attempt](experiments/phase9/p75_step_20261117_recorded/run.json)
+[Third-person visual review](experiments/phase9/p75_step_20261117_recorded_c/visual_review.json)
