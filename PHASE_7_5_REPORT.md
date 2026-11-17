@@ -482,7 +482,7 @@ movement and collection remains unverified in Minecraft. The full
 
 Two fresh headless Fabric saves used world seed 202611170701, layout seed
 813294051, start pose (0.5, 100, 0.7, 0°, 0°), policy RNG seed 9001, the
-same frozen evaluation checkpoint, and a 700-tick deadline. The flat
+same frozen evaluation checkpoint, a 120-action limit and a 700-tick deadline. The flat
 platform held a one-block step in the forward path and a visible oak
 trunk behind it. The server recorded an identical pose and fixture on
 both sides. The policy selected the same first six actions, including
@@ -534,3 +534,40 @@ policies on the same strict pitch interface. It treats the forward prior
 as an additional trained-policy comparison so the uniform control can
 remain uniform over the legal mask.
 [Held-out plan](experiments/phase9/phase75_reliability_20261117/heldout_plan.json)
+
+### Fresh held-out vanilla comparison
+
+The 12 scored trials used fresh saves on world seeds 202611170811 and
+202611170812. Within each seed, the five conditions and the trained
+forward-prior repeat matched the trained reference's absolute
+post-warmup pose, 120-action policy cap, 1,000-tick deadline, RNG and
+interface. The trained and ablation weights were fixed. Frozen uses
+the Phase 7 transfer, uniform samples the legal mask, no-neural zeroes
+the activity inputs, and shuffled permutes the activity inputs.
+All terminal inventories matched and were acknowledged.
+
+| Condition | Confirmed pickups | Median actions | Median episode wall time | Failure modes |
+| --- | ---: | ---: | ---: | --- |
+| Trained | 0/2 | 66 | 50.00 s | One unseen, one visible outside mining affordance |
+| Frozen transfer | 0/2 | 70.5 | 49.57 s | One unseen, one visible outside mining affordance |
+| Uniform | 0/2 | 70.5 | 49.70 s | Two unseen |
+| No-neural | 0/2 | 66 | 49.80 s | One unseen, one visible outside mining affordance |
+| Shuffled-neural | 0/2 | 70.5 | 49.98 s | One unseen, one visible outside mining affordance |
+| Trained with forward prior | 0/2 | 67 | 49.82 s | One unseen, one confirmed break without pickup |
+
+The descriptive 95% Wilson interval was 0%–65.8% for every condition.
+On seed 202611170812, the prior reached the first legal mining offer
+at decision 61 and sampled mining. Minecraft confirmed the block
+change at tick 1037, three ticks before the deadline, with an empty
+terminal inventory. It was the only break in the held-out set.
+The data do not establish a collection gain, a learning advantage
+or one-log reliability in vanilla terrain.
+[Matched per-episode audit](experiments/phase9/phase75_reliability_20261117/heldout_results.json)
+
+The Python suite passed all 118 tests. It covers the forward prior
+with and without a visible target and a legal forward action. It also
+checks that low RAM aborts before Minecraft starts and during a live
+run with cleanup of its owned processes. The sparse graph SHA-256 remains
+`37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d`.
+Fabric assembly and the three standalone Java test mains passed.
+Gradle's default `test` task did not discover the standalone mains.

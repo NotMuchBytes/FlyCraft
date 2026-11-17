@@ -25,10 +25,16 @@ def audit(run):
     delivered = {row["episode_id"] for row in rows(path / "server.jsonl.delivery.jsonl") if row["acknowledged"]}
     controllers = {row["episode_id"]: row for row in rows(path / "controller.jsonl")}
     observations = []
+    terminal_packets = {}
     for event in rows(path / "bridge.jsonl"):
         request = json.loads(event["request"])
         response = event.get("response", {})
-        if isinstance(response, dict) and response.get("command_id") and "telemetry" in request:
+        if not isinstance(response, dict):
+            continue
+        terminal = request.get("control", {}).get("terminal")
+        if terminal and response.get("terminal_acknowledged"):
+            terminal_packets[response["episode_id"]] = terminal["inventory"]
+        if response.get("command_id") and "telemetry" in request:
             observations.append((request, response))
     headless = rows(path / "headless.jsonl")
     episodes = []
@@ -46,7 +52,7 @@ def audit(run):
         legal_mine = sum("COLLECT_LOG" in obs["allowed_actions"] for obs, _ in decisions)
         breaks = [event for event in events if event["ack"]["action"] == "COLLECT_LOG"
                   and event["ack"]["status"] == "success" and event["ack"]["block_changed"]]
-        terminal = controller.get("terminal_inventory", {})
+        terminal = controller.get("terminal_inventory") or terminal_packets.get(episode, {})
         inventory_matches = all(terminal.get(item) == count for item, count in score["inventory"].items())
         verified = (episode in delivered and inventory_matches
                     and controller.get("success") == score["success"]
@@ -64,7 +70,8 @@ def audit(run):
             outcome = "visible_outside_mining_affordance" if visible else "no_log_visible"
         x, _, z, *_ = start["position_xyz_yaw_pitch"]
         episodes.append(score | {
-            "verified": verified, "outcome": outcome, "initial": start,
+            "verified": verified, "strict_success": verified and score["success"] and bool(breaks),
+            "outcome": outcome, "initial": start,
             "actions": controller.get("actions"), "game_seconds": score["ticks"] / 20,
             "elapsed_seconds": controller.get("elapsed_seconds"),
             "decisions": len(decisions), "visible_block_decisions": len(visible),
@@ -87,13 +94,17 @@ def audit(run):
         "environment_kind", "world_seed", "policy_rng_seed", "trial_tick_limit", "checkpoint_sha256",
         "frozen_checkpoint_sha256", "implementation_sha256", "forward_ticks", "turn_degrees",
         "movement_feedback", "pitch_actions", "camera_mode", "jump_on_blocked_forward", "explore_forward")}
-    verified = [episode for episode in episodes if episode["verified"]]
-    successes = sum(episode["success"] for episode in verified)
     return {"run": run, "settings": configuration, "requested": meta["requested"], "stop_reason": meta["stop_reason"],
-            "verified_trials": len(verified), "successes": successes, "wilson_95": wilson(successes, len(verified)),
+            **summarize(episodes), "episodes": episodes}
+
+
+def summarize(episodes):
+    verified = [episode for episode in episodes if episode["verified"]]
+    successes = sum(episode["strict_success"] for episode in verified)
+    return {"verified_trials": len(verified), "successes": successes, "wilson_95": wilson(successes, len(verified)),
             "median_actions": statistics.median(e["actions"] for e in verified) if verified else None,
             "median_elapsed_seconds": statistics.median(e["elapsed_seconds"] for e in verified) if verified else None,
-            "outcomes": dict(Counter(episode["outcome"] for episode in episodes)), "episodes": episodes}
+            "outcomes": dict(Counter(episode["outcome"] for episode in episodes))}
 
 
 def matched(reference, comparison, factor):
@@ -104,6 +115,8 @@ def matched(reference, comparison, factor):
     if len(a) != 1 or len(b) != 1:
         differences.append("missing_or_ambiguous_episode")
     else:
+        if not a[0]["verified"] or not b[0]["verified"]:
+            differences.append("unverified_episode")
         for key in ("goal", "layout_seed", "game_mode", "position_xyz_yaw_pitch", "inventory", "fixture_blocks"):
             if a[0]["initial"].get(key) != b[0]["initial"].get(key):
                 differences.append(key)
@@ -118,7 +131,17 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     reports = {run: audit(run) for run in args.runs}
-    result = {"runs": list(reports.values()), "pairs": [
+    groups = {}
+    for report in reports.values():
+        for episode in report["episodes"]:
+            condition = episode["condition"]
+            if report["settings"]["explore_forward"]:
+                condition += "_forward_prior"
+            if report["settings"]["jump_on_blocked_forward"]:
+                condition += "_jump"
+            groups.setdefault(f"{episode['goal']}/{condition}", []).append(episode)
+    result = {"groups": {name: summarize(episodes) for name, episodes in groups.items()},
+              "runs": list(reports.values()), "pairs": [
         matched(reports[ref], reports[comp], factor) for ref, comp, factor in args.pair]}
     with args.output.open("x", encoding="utf-8", newline="\n") as handle:
         json.dump(result, handle, indent=2, allow_nan=False)

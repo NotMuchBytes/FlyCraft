@@ -540,7 +540,10 @@ found that each sampled forward at least once with a visible drop after
 the final break. In two episodes the drop appeared in only one decision
 and was lost immediately after forward input. In five episodes there were
 2–41 drop-visible decisions and 2–19 forward selections while a drop
-was selected. In the earlier pitch pilot, a failed three-log episode
+was selected. Among the 43 forward selections with a following decision,
+six had blocked movement, all in the same episode. The same drop remained
+selected after 35 forward inputs, and its distance fell by at least
+0.02 blocks after 22 of those. In the earlier pitch pilot, a failed three-log episode
 broke three logs, finished with two, and never saw a drop in the six
 decisions remaining after its final break. These traces identify both
 brief loss of visibility and failed approach while the sensor still

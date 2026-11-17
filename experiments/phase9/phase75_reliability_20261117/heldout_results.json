@@ -1,0 +1,1265 @@
+{
+  "groups": {
+    "one_log/trained": {
+      "verified_trials": 2,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.6576197724933469
+      ],
+      "median_actions": 66.0,
+      "median_elapsed_seconds": 50.00170694998815,
+      "outcomes": {
+        "no_log_visible": 1,
+        "visible_outside_mining_affordance": 1
+      }
+    },
+    "one_log/frozen": {
+      "verified_trials": 2,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.6576197724933469
+      ],
+      "median_actions": 70.5,
+      "median_elapsed_seconds": 49.56538275000639,
+      "outcomes": {
+        "no_log_visible": 1,
+        "visible_outside_mining_affordance": 1
+      }
+    },
+    "one_log/uniform": {
+      "verified_trials": 2,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.6576197724933469
+      ],
+      "median_actions": 70.5,
+      "median_elapsed_seconds": 49.697787750017596,
+      "outcomes": {
+        "no_log_visible": 2
+      }
+    },
+    "one_log/no_neural": {
+      "verified_trials": 2,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.6576197724933469
+      ],
+      "median_actions": 66.0,
+      "median_elapsed_seconds": 49.804874749999726,
+      "outcomes": {
+        "no_log_visible": 1,
+        "visible_outside_mining_affordance": 1
+      }
+    },
+    "one_log/shuffled": {
+      "verified_trials": 2,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.6576197724933469
+      ],
+      "median_actions": 70.5,
+      "median_elapsed_seconds": 49.97700410001562,
+      "outcomes": {
+        "no_log_visible": 1,
+        "visible_outside_mining_affordance": 1
+      }
+    },
+    "one_log/trained_forward_prior": {
+      "verified_trials": 2,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.6576197724933469
+      ],
+      "median_actions": 67.0,
+      "median_elapsed_seconds": 49.82267240001238,
+      "outcomes": {
+        "no_log_visible": 1,
+        "break_with_partial_or_no_pickup": 1
+      }
+    }
+  },
+  "runs": [
+    {
+      "run": "p75_holdout_20261117_s1_trained",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170811,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 68,
+      "median_elapsed_seconds": 49.99249219999183,
+      "outcomes": {
+        "no_log_visible": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 4117568137,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "no_log_visible",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170811,
+            "layout_seed": 4117568137,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              -2.5,
+              136.0,
+              6.5,
+              -26.888153076171875,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 68,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.99249219999183,
+          "decisions": 69,
+          "visible_block_decisions": 0,
+          "closest_visible_log": null,
+          "first_visible_log_decision": null,
+          "farthest_observed_from_start": 2.3587429843884604,
+          "blind_forward_decisions": 7,
+          "blind_decisions": 69,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 0,
+          "jump_actions": [],
+          "max_observed_z": 8.568638709245944
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s1_frozen",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170811,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 68,
+      "median_elapsed_seconds": 49.232863800018094,
+      "outcomes": {
+        "no_log_visible": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "frozen",
+          "goal": "one_log",
+          "layout_seed": 4117568137,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "no_log_visible",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170811,
+            "layout_seed": 4117568137,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              -2.5,
+              136.0,
+              6.5,
+              -26.888153076171875,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 68,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.232863800018094,
+          "decisions": 69,
+          "visible_block_decisions": 0,
+          "closest_visible_log": null,
+          "first_visible_log_decision": null,
+          "farthest_observed_from_start": 2.3633193030010986,
+          "blind_forward_decisions": 7,
+          "blind_decisions": 69,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 0,
+          "jump_actions": [],
+          "max_observed_z": 8.572137526393558
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s1_uniform",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170811,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 70,
+      "median_elapsed_seconds": 49.465681400033645,
+      "outcomes": {
+        "no_log_visible": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "uniform",
+          "goal": "one_log",
+          "layout_seed": 4117568137,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "no_log_visible",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170811,
+            "layout_seed": 4117568137,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              -2.5,
+              136.0,
+              6.5,
+              -26.888153076171875,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 70,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.465681400033645,
+          "decisions": 70,
+          "visible_block_decisions": 0,
+          "closest_visible_log": null,
+          "first_visible_log_decision": null,
+          "farthest_observed_from_start": 2.980550934183035,
+          "blind_forward_decisions": 10,
+          "blind_decisions": 70,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 0,
+          "jump_actions": [],
+          "max_observed_z": 7.5792588131710374
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s1_no_neural",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170811,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 69,
+      "median_elapsed_seconds": 49.65649040002609,
+      "outcomes": {
+        "no_log_visible": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "no_neural",
+          "goal": "one_log",
+          "layout_seed": 4117568137,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "no_log_visible",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170811,
+            "layout_seed": 4117568137,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              -2.5,
+              136.0,
+              6.5,
+              -26.888153076171875,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 69,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.65649040002609,
+          "decisions": 69,
+          "visible_block_decisions": 0,
+          "closest_visible_log": null,
+          "first_visible_log_decision": null,
+          "farthest_observed_from_start": 2.3587429843884604,
+          "blind_forward_decisions": 7,
+          "blind_decisions": 69,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 0,
+          "jump_actions": [],
+          "max_observed_z": 8.568638709245944
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s1_shuffled",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170811,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 70,
+      "median_elapsed_seconds": 49.95677260000957,
+      "outcomes": {
+        "no_log_visible": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "shuffled",
+          "goal": "one_log",
+          "layout_seed": 4117568137,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "no_log_visible",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170811,
+            "layout_seed": 4117568137,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              -2.5,
+              136.0,
+              6.5,
+              -26.888153076171875,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 70,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.95677260000957,
+          "decisions": 71,
+          "visible_block_decisions": 0,
+          "closest_visible_log": null,
+          "first_visible_log_decision": null,
+          "farthest_observed_from_start": 2.3587429843884604,
+          "blind_forward_decisions": 7,
+          "blind_decisions": 71,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 0,
+          "jump_actions": [],
+          "max_observed_z": 8.568638709245944
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s1_prior",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170811,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": true
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 73,
+      "median_elapsed_seconds": 49.655011700000614,
+      "outcomes": {
+        "no_log_visible": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 4117568137,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "no_log_visible",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170811,
+            "layout_seed": 4117568137,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              -2.5,
+              136.0,
+              6.5,
+              -26.888153076171875,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 73,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.655011700000614,
+          "decisions": 73,
+          "visible_block_decisions": 0,
+          "closest_visible_log": null,
+          "first_visible_log_decision": null,
+          "farthest_observed_from_start": 3.428338017818409,
+          "blind_forward_decisions": 16,
+          "blind_decisions": 73,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 0,
+          "jump_actions": [],
+          "max_observed_z": 9.899604122923874
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s2_trained",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170812,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 64,
+      "median_elapsed_seconds": 50.010921699984465,
+      "outcomes": {
+        "visible_outside_mining_affordance": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 7057742971,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "visible_outside_mining_affordance",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170812,
+            "layout_seed": 7057742971,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              55.5,
+              78.0,
+              -177.5,
+              -169.47726440429688,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 64,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 50.010921699984465,
+          "decisions": 64,
+          "visible_block_decisions": 5,
+          "closest_visible_log": 8.90991627669224,
+          "first_visible_log_decision": 36,
+          "farthest_observed_from_start": 1.2165524923411235,
+          "blind_forward_decisions": 7,
+          "blind_decisions": 59,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 2,
+          "jump_actions": [],
+          "max_observed_z": -177.5
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s2_frozen",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170812,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 73,
+      "median_elapsed_seconds": 49.89790169999469,
+      "outcomes": {
+        "visible_outside_mining_affordance": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "frozen",
+          "goal": "one_log",
+          "layout_seed": 7057742971,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "visible_outside_mining_affordance",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170812,
+            "layout_seed": 7057742971,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              55.5,
+              78.0,
+              -177.5,
+              -169.47726440429688,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 73,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.89790169999469,
+          "decisions": 73,
+          "visible_block_decisions": 22,
+          "closest_visible_log": 1.7865376110505462,
+          "first_visible_log_decision": 36,
+          "farthest_observed_from_start": 4.937151010925361,
+          "blind_forward_decisions": 7,
+          "blind_decisions": 51,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 0,
+          "jump_actions": [],
+          "max_observed_z": -177.5
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s2_uniform",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170812,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 71,
+      "median_elapsed_seconds": 49.92989410000155,
+      "outcomes": {
+        "no_log_visible": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "uniform",
+          "goal": "one_log",
+          "layout_seed": 7057742971,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "no_log_visible",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170812,
+            "layout_seed": 7057742971,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              55.5,
+              78.0,
+              -177.5,
+              -169.47726440429688,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 71,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.92989410000155,
+          "decisions": 71,
+          "visible_block_decisions": 0,
+          "closest_visible_log": null,
+          "first_visible_log_decision": null,
+          "farthest_observed_from_start": 1.2165524923411235,
+          "blind_forward_decisions": 10,
+          "blind_decisions": 71,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 4,
+          "jump_actions": [],
+          "max_observed_z": -177.5
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s2_no_neural",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170812,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 63,
+      "median_elapsed_seconds": 49.953259099973366,
+      "outcomes": {
+        "visible_outside_mining_affordance": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "no_neural",
+          "goal": "one_log",
+          "layout_seed": 7057742971,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "visible_outside_mining_affordance",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170812,
+            "layout_seed": 7057742971,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              55.5,
+              78.0,
+              -177.5,
+              -169.47726440429688,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 63,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.953259099973366,
+          "decisions": 64,
+          "visible_block_decisions": 4,
+          "closest_visible_log": 9.082489950778545,
+          "first_visible_log_decision": 36,
+          "farthest_observed_from_start": 1.2165524923411235,
+          "blind_forward_decisions": 7,
+          "blind_decisions": 60,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 2,
+          "jump_actions": [],
+          "max_observed_z": -177.5
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s2_shuffled",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170812,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": false
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 71,
+      "median_elapsed_seconds": 49.99723560002167,
+      "outcomes": {
+        "visible_outside_mining_affordance": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "shuffled",
+          "goal": "one_log",
+          "layout_seed": 7057742971,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "visible_outside_mining_affordance",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170812,
+            "layout_seed": 7057742971,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              55.5,
+              78.0,
+              -177.5,
+              -169.47726440429688,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 71,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.99723560002167,
+          "decisions": 72,
+          "visible_block_decisions": 18,
+          "closest_visible_log": 2.0864939374921225,
+          "first_visible_log_decision": 36,
+          "farthest_observed_from_start": 4.213089290159186,
+          "blind_forward_decisions": 4,
+          "blind_decisions": 54,
+          "legal_mine_decisions": 0,
+          "confirmed_breaks": 0,
+          "first_legal_mine_decision": null,
+          "blocked_forward_actions": 0,
+          "jump_actions": [],
+          "max_observed_z": -177.5
+        }
+      ]
+    },
+    {
+      "run": "p75_holdout_20261117_s2_prior",
+      "settings": {
+        "environment_kind": "vanilla_overworld_spawn",
+        "world_seed": 202611170812,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 1000,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6",
+        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+        "forward_ticks": 2,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": true
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 61,
+      "median_elapsed_seconds": 49.990333100024145,
+      "outcomes": {
+        "break_with_partial_or_no_pickup": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 7057742971,
+          "success": false,
+          "ticks": 1000,
+          "train": false,
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "strict_success": false,
+          "outcome": "break_with_partial_or_no_pickup",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170812,
+            "layout_seed": 7057742971,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              55.5,
+              78.0,
+              -177.5,
+              -169.47726440429688,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "replay_fidelity": "Vanilla spawn pose; exact world/entity replay is unverified"
+          },
+          "actions": 61,
+          "game_seconds": 50.0,
+          "elapsed_seconds": 49.990333100024145,
+          "decisions": 62,
+          "visible_block_decisions": 11,
+          "closest_visible_log": 1.4226128848968813,
+          "first_visible_log_decision": 38,
+          "farthest_observed_from_start": 2.296260656841153,
+          "blind_forward_decisions": 7,
+          "blind_decisions": 50,
+          "legal_mine_decisions": 1,
+          "confirmed_breaks": 1,
+          "first_legal_mine_decision": 61,
+          "blocked_forward_actions": 1,
+          "jump_actions": [],
+          "max_observed_z": -177.5
+        }
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "reference": "p75_holdout_20261117_s1_trained",
+      "comparison": "p75_holdout_20261117_s1_frozen",
+      "factor": "condition",
+      "matched": true,
+      "differences": []
+    },
+    {
+      "reference": "p75_holdout_20261117_s1_trained",
+      "comparison": "p75_holdout_20261117_s1_uniform",
+      "factor": "condition",
+      "matched": true,
+      "differences": []
+    },
+    {
+      "reference": "p75_holdout_20261117_s1_trained",
+      "comparison": "p75_holdout_20261117_s1_no_neural",
+      "factor": "condition",
+      "matched": true,
+      "differences": []
+    },
+    {
+      "reference": "p75_holdout_20261117_s1_trained",
+      "comparison": "p75_holdout_20261117_s1_shuffled",
+      "factor": "condition",
+      "matched": true,
+      "differences": []
+    },
+    {
+      "reference": "p75_holdout_20261117_s1_trained",
+      "comparison": "p75_holdout_20261117_s1_prior",
+      "factor": "explore_forward",
+      "matched": true,
+      "differences": []
+    },
+    {
+      "reference": "p75_holdout_20261117_s2_trained",
+      "comparison": "p75_holdout_20261117_s2_frozen",
+      "factor": "condition",
+      "matched": true,
+      "differences": []
+    },
+    {
+      "reference": "p75_holdout_20261117_s2_trained",
+      "comparison": "p75_holdout_20261117_s2_uniform",
+      "factor": "condition",
+      "matched": true,
+      "differences": []
+    },
+    {
+      "reference": "p75_holdout_20261117_s2_trained",
+      "comparison": "p75_holdout_20261117_s2_no_neural",
+      "factor": "condition",
+      "matched": true,
+      "differences": []
+    },
+    {
+      "reference": "p75_holdout_20261117_s2_trained",
+      "comparison": "p75_holdout_20261117_s2_shuffled",
+      "factor": "condition",
+      "matched": true,
+      "differences": []
+    },
+    {
+      "reference": "p75_holdout_20261117_s2_trained",
+      "comparison": "p75_holdout_20261117_s2_prior",
+      "factor": "explore_forward",
+      "matched": true,
+      "differences": []
+    }
+  ]
+}

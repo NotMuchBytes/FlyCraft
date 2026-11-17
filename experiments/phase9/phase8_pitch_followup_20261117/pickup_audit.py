@@ -20,14 +20,14 @@ def failed_pickups(episodes):
             continue
         folder = PHASE / episode["run_id"]
         episode_id = episode["episode_id"]
-        breaks = [row["data"] for row in rows(folder / "headless.jsonl")
-                  if row["episode_id"] == episode_id and row["event"] == "action_end"
-                  and row["data"]["ack"]["action"] == "COLLECT_LOG"
-                  and row["data"]["ack"]["status"] == "success" and row["data"]["ack"]["block_changed"]]
+        acknowledgments = {row["data"]["ack"]["command_id"]: row["data"]["ack"]
+                           for row in rows(folder / "headless.jsonl")
+                           if row["episode_id"] == episode_id and row["event"] == "action_end"}
+        breaks = [ack for ack in acknowledgments.values()
+                  if ack["action"] == "COLLECT_LOG" and ack["status"] == "success" and ack["block_changed"]]
         if len(breaks) < 3:
             continue
-        final_break = breaks[-1]
-        final_command = final_break["ack"]["command_id"]
+        final_command = breaks[-1]["command_id"]
         decisions = []
         for reply in rows(folder / "bridge.jsonl"):
             response = reply.get("response") or {}
@@ -36,13 +36,23 @@ def failed_pickups(episodes):
             request = json.loads(reply["request"])
             seen = request["telemetry"]
             decisions.append({
-                "tick": request["tick_id"], "action": response["action"], "target_id": seen["target_id"],
+                "tick": request["tick_id"], "command_id": response["command_id"],
+                "action": response["action"], "target_id": seen["target_id"],
                 "target_kind": seen["target_kind"], "distance": seen["target_distance"],
                 "pitch_error": seen.get("target_pitch_error"),
             })
         drops = [decision for decision in decisions if decision["target_kind"] == "drop"]
         first = drops[0] if drops else None
         after_first = decisions[decisions.index(first)+1:] if first else []
+        forward_errors = Counter()
+        comparable = closer = 0
+        for before, after in zip(decisions, decisions[1:]):
+            if before["target_kind"] == "drop" and before["action"] == "FORWARD":
+                ack = acknowledgments.get(before["command_id"])
+                forward_errors[(ack["error"] or ack["status"]) if ack else "unacknowledged"] += 1
+                if before["target_id"] == after["target_id"]:
+                    comparable += 1
+                    closer += int(after["distance"] < before["distance"] - 0.02)
         result.append({
             "run_id": episode["run_id"], "episode_id": episode_id, "layout_seed": episode["layout_seed"],
             "log_inventory": episode["inventory"]["log"], "confirmed_breaks": len(breaks),
@@ -52,6 +62,9 @@ def failed_pickups(episodes):
             "first_drop_decision": first,
             "next_target_after_first_seen_drop": after_first[0] if after_first else None,
             "actions_while_drop_selected": dict(Counter(row["action"] for row in drops)),
+            "forward_outcomes_before_next_decision": dict(forward_errors),
+            "forward_with_same_drop_in_next_decision": comparable,
+            "forward_with_same_drop_at_least_0_02_blocks_closer": closer,
         })
     return result
 
