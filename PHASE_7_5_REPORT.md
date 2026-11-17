@@ -502,3 +502,35 @@ engineered motor assistance. This single matched pair establishes that
 it fired, cleared the step and shortened the approach in this fixture.
 It gives no estimate of success on vanilla spawns.
 [Matched audit and run IDs](experiments/phase9/phase75_reliability_20261117/obstacle_pair.json)
+
+### Target-absent exploration development
+
+The prior vanilla failures selected seven forward actions per no-log
+episode. The single new intervention multiplies the odds of a legal
+forward action by three during target-absent search or collection.
+The policy still samples from all legal actions. The readout weights,
+observations, forward duration, action budget, jump setting and world
+are fixed between variants. The prior is engineered assistance.
+
+Two reruns on development seeds reused the exact post-warmup pose across
+variants. They used the same 120-action policy limit, 1,000-tick live
+deadline and RNG seed 9001.
+
+| World seed | Variant | Confirmed logs | Acknowledged actions | Blind forward decisions | Max distance from spawn | Episode wall time |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 202611120102 | Reference | 0 | 70 | 7 | 0.62 blocks | 50.00 s |
+| 202611120102 | Forward odds ×3 | 0 | 73 | 17 | 1.83 blocks | 49.98 s |
+| 202611120103 | Reference | 0 | 69 | 7 | 2.36 blocks | 49.74 s |
+| 202611120103 | Forward odds ×3 | 0 | 73 | 17 | 3.32 blocks | 49.98 s |
+
+All four reached the 50-second game deadline with acknowledged,
+matching inventory. No log became visible, no mining action was
+available and no block broke. Increased travel alone failed to resolve
+search on these two seeds. The forward prior remains opt-in.
+[Development trace audit](experiments/phase9/phase75_reliability_20261117/search_development.json)
+
+The fresh held-out plan fixes two new world seeds and compares the five
+policies on the same strict pitch interface. It treats the forward prior
+as an additional trained-policy comparison so the uniform control can
+remain uniform over the legal mask.
+[Held-out plan](experiments/phase9/phase75_reliability_20261117/heldout_plan.json)

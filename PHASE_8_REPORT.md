@@ -524,3 +524,34 @@ completion on new layouts. The checkpoint stays separate from the
 from-empty evaluation and earlier checkpoints.
 [Training metadata](experiments/phase9/p8_pitch_place_train_20261112_a/run.json)
 [Matched evaluation](experiments/phase9/p8_pitch_place_eval_20261112_a/run.json)
+
+## November 17 pickup audit and pitch evaluation plan
+
+The historical baselines remain 27/30 one-log, 20/30 three-log, 21/30
+planks and 3/30 from-empty pickaxe. The Phase 7.5 fixed-pose diagnostic
+verified that a policy-selected forward retry could jump over a
+one-block step and shorten the approach to a visible trunk. Natural
+exploration trials did not demonstrate a collection gain from a
+separate forward prior, so the pitch plan leaves that prior off.
+[Phase 7.5 live evidence](PHASE_7_5_REPORT.md#november-17-fixed-pose-blocked-forward-diagnostic)
+
+Reanalysis of the seven historical yaw-only failures with three breaks
+found that each sampled forward at least once with a visible drop after
+the final break. In two episodes the drop appeared in only one decision
+and was lost immediately after forward input. In five episodes there were
+2–41 drop-visible decisions and 2–19 forward selections while a drop
+was selected. In the earlier pitch pilot, a failed three-log episode
+broke three logs, finished with two, and never saw a drop in the six
+decisions remaining after its final break. These traces identify both
+brief loss of visibility and failed approach while the sensor still
+selects a drop. A forward prior for target-absent exploration would
+leave the latter decisions untouched.
+[Post-break trace audit](experiments/phase9/phase8_pitch_followup_20261117/pickup_audit.json)
+
+The pitch follow-up fixes 30 fresh layout seeds across six disposable
+worlds, with the preserved checkpoint and a separate 24/30 controlled
+one-log gate before the longer goals. It requires server-confirmed
+inventory, terminal acknowledgment and explicit block or recipe
+evidence. The planned scoring retains drop visibility after mining
+and legal placement offers before workbench use.
+[Fresh 30-trial-per-goal plan](experiments/phase9/phase8_pitch_followup_20261117/heldout_plan.json)
