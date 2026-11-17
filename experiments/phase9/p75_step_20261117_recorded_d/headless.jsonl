@@ -1,0 +1,2 @@
+{"event":"spawn","data":{"mode":"SURVIVAL","position_xyz":[10.5,-60.0,-8.5],"graphical_client":false,"player":"6ac76b78-1129-318a-91b5-601a41063724"},"episode_id":"","wall_time_unix_ms":1794927592115}
+{"event":"episode_observed","data":{"inventory":{"log":0,"planks":0,"sticks":0,"crafting_table":0,"table_placed":0,"wooden_pickaxe":0},"episode_id":"initial","position":[10.5,-8.5,0.0]},"episode_id":"initial","wall_time_unix_ms":1794927592240}

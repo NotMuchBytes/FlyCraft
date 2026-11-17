@@ -22,12 +22,13 @@ def score(run_ids):
     implementations = set()
     for run_id in run_ids:
         meta = json.loads((FOLDER.parent / run_id / "run.json").read_text(encoding="utf-8"))
-        if len(meta["goals"]) != 1 or meta["goals"][0] not in goal_specs:
-            raise ValueError(f"{run_id}: expected one planned goal")
-        goal = meta["goals"][0]
+        goals = meta["goals"]
+        if (not goals or not set(goals) <= goal_specs.keys()
+                or len(goals) != 1 and goals != ["three_logs", "wooden_pickaxe"]):
+            raise ValueError(f"{run_id}: incompatible goals in one run")
         world = meta["world_seed"]
         layouts = meta["layout_seeds"]
-        long_goal = goal in ("three_logs", "wooden_pickaxe")
+        long_goal = goals[0] in ("three_logs", "wooden_pickaxe")
         if not layouts or not set(layouts) <= expected_layouts.get(world, set()):
             raise ValueError(f"{run_id}: unexpected seed block")
         expected = {key: policy[key] for key in ("pitch_actions", "camera_mode", "turn_degrees",
@@ -37,16 +38,18 @@ def score(run_ids):
                         spectator=False, environment_kind=("controlled_flat_three_tree_fixture" if long_goal
                                                            else "controlled_flat_survival_fixture"),
                         remember_mined_columns=long_goal, unplaced_table_fixture=False,
-                        checkpoint_sha256=policy["sha256"], trial_tick_limit=goal_specs[goal]["trial_ticks"])
+                        checkpoint_sha256=policy["sha256"], trial_tick_limit=goal_specs[goals[0]]["trial_ticks"])
         for setting, value in expected.items():
             if meta.get(setting) != value:
                 raise ValueError(f"{run_id}: {setting} differs from the plan")
         implementations.add(meta["implementation_sha256"])
         report = audit(run_id)
-        if [row["layout_seed"] for row in report["episodes"]] != layouts[:len(report["episodes"])]:
+        order = [(seed, goal) for seed in layouts for goal in goals]
+        if [(row["layout_seed"], row["goal"]) for row in report["episodes"]] != order[:len(report["episodes"])]:
             raise ValueError(f"{run_id}: episode order differs from requested layouts")
         run_records.append({key: report[key] for key in ("run", "stop_reason", "requested", "verified_trials")})
         for row in report["episodes"]:
+            goal = row["goal"]
             identity = (goal, world, row["layout_seed"])
             if identity in identities:
                 raise ValueError(f"{run_id}: duplicate scored trial {identity}")

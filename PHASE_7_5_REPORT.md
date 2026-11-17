@@ -583,3 +583,12 @@ The original MP4 and episode logs are retained with partial visual
 coverage. The recorded attempt is separate from the matched pair.
 [RAM-guard attempt](experiments/phase9/p75_step_20261117_recorded/run.json)
 [Third-person visual review](experiments/phase9/p75_step_20261117_recorded_c/visual_review.json)
+
+An initial first-person retry stopped below the RAM reserve with no scored
+episode. A fresh retry with smaller heaps captured the approach and break
+on the RTX 4050. The actor triggered the jump on command 6, broke two logs
+and finished with one log in inventory after 18 actions and 332 ticks.
+The Minecraft-window match and full decode passed for its 29.0-second,
+869-frame MP4. Frame review confirmed coverage of the obstacle scene.
+The recording is a fresh execution kept outside the matched scores.
+[First-person milestone and file path](recordings/phase9/youtube/p75_step_20261117_recorded_e.json)
