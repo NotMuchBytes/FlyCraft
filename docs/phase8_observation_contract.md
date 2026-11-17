@@ -36,6 +36,8 @@ Its heading is chosen from an operator seed without surveying resources.
 The harness clears the actor's initial inventory. It leaves the generated
 terrain and entities in place, and provides the same observations and
 action interface as the selected headless policy configuration.
+A matched repeat may reuse the reference's recorded absolute spawn pose
+without modifying terrain. The start pose is recorded after warmup.
 
 ## Action transactions
 
@@ -44,6 +46,15 @@ action interface as the selected headless policy configuration.
   step. Forward holds the normal movement key for five ticks and never resets
   pitch. Each action is followed by an observed outcome. The `instant`
   reference applies the same relative requests in a single write.
+- The optional forward-retry jump adds one vanilla jump pulse and at least
+  six ticks of forward input after the policy selects a grounded dry-land
+  forward retry. Its triggering input is the preceding blocked-movement
+  acknowledgment. The separate fixed-pose obstacle fixture tests this motor
+  assistance with policy-selected actions.
+- The optional headless search prior multiplies forward odds by three during
+  search or collection with no visible target. The legal-action mask still
+  applies. The readout samples the action, including turns and camera pitch.
+  The prior uses current semantic visibility and subgoal context.
 - In both strict modes (`bounded` and `instant`), `COLLECT_LOG` requires the
   actual crosshair to hit the selected visible log within three blocks.
   It never aims at a block or tracks a target. Losing the hit interrupts mining.

@@ -98,6 +98,20 @@ these runs separately from the flat-fixture benchmark.
 Add `--jump-on-blocked-forward` to test an opt-in vanilla jump pulse on
 grounded forward retries. It requires displacement feedback and applies
 only when the policy selects consecutive forward actions after a block.
+The separate `--blocked-forward-fixture` places one step and one visible
+trunk on a flat platform. It resets the actor to `(0.5, 100, 0.7)` at
+zero yaw and pitch before starting. Compare two fresh saves with the same
+world and layout seeds, checkpoint, policy seed and tick limit. Enable
+`--jump-on-blocked-forward` on one side. The post-warmup start pose,
+fixture blocks, jump displacement and independent inventory are in the logs.
+
+For matched natural-terrain runs, obtain the adjusted spawn from a fresh
+reference run's `server.jsonl.initial.jsonl`. Pass its five recorded pose
+values to `--natural-start X Y Z YAW PITCH` in a separate save with the
+same seed. Compare the post-warmup pose and report these repeats alongside
+the reference. For the optional `--explore-forward` evaluation, the policy
+assigns three times the odds to legal forward input during target-absent
+search or collection. The policy samples from the resulting distribution.
 
 ## Camera and NVIDIA graphics
 

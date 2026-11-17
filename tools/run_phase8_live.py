@@ -162,6 +162,12 @@ def run():
                         help="Use three separate trunks for the three-log or wooden-pickaxe goal")
     parser.add_argument("--natural-world", action="store_true",
                         help="Run one headless one-log trial from a vanilla overworld spawn without placing trees")
+    parser.add_argument("--natural-start", nargs=5, type=float, metavar=("X", "Y", "Z", "YAW", "PITCH"),
+                        help="Reuse an observed vanilla spawn pose for a matched comparison")
+    parser.add_argument("--blocked-forward-fixture", action="store_true",
+                        help="Fixed absolute pose and one-block step before a visible log; diagnostic only")
+    parser.add_argument("--explore-forward", action="store_true",
+                        help="Evaluation ablation: triple legal forward odds when searching without a visible target")
     parser.add_argument("--jump-on-blocked-forward", action="store_true",
                         help="Add one ordinary jump pulse to a policy-selected retry of blocked forward input")
     parser.add_argument("--unplaced-table-fixture", action="store_true",
@@ -231,8 +237,21 @@ def run():
     if args.natural_world and (not args.headless or goals != ["one_log"] or args.trials != 1 or len(conditions) != 1
                                or args.train or args.operator_fault != "none"):
         parser.error("natural-world requires one headless one-log evaluation episode without an operator fault")
-    if args.jump_on_blocked_forward and (not args.natural_world or args.movement_feedback != "displacement"):
-        parser.error("jump-on-blocked-forward requires natural-world and displacement feedback")
+    if args.natural_start is not None:
+        x, y, z, yaw, pitch = args.natural_start
+        if (not args.natural_world or not all(map(math.isfinite, args.natural_start))
+                or max(abs(x), abs(z)) >= 30_000_000 or not -64 <= y < 320
+                or abs(yaw) > 360 or abs(pitch) > 90):
+            parser.error("natural-start requires natural-world and a valid X Y Z YAW PITCH")
+    if args.blocked_forward_fixture and (not args.headless or args.natural_world or goals != ["one_log"]
+                                         or args.trials != 1 or len(conditions) != 1 or args.train
+                                         or args.operator_fault != "none"):
+        parser.error("blocked-forward-fixture requires one headless one-log evaluation in a flat world")
+    if args.jump_on_blocked_forward and (not (args.natural_world or args.blocked_forward_fixture)
+                                         or args.movement_feedback != "displacement"):
+        parser.error("jump-on-blocked-forward requires natural-world or blocked-forward-fixture and displacement feedback")
+    if args.explore_forward and (not args.headless or args.train or args.operator_fault != "none"):
+        parser.error("explore-forward requires headless evaluation without an operator fault")
     if args.unplaced_table_fixture and (not args.headless or goals != ["pickaxe_transaction"]):
         parser.error("unplaced-table-fixture requires a headless pickaxe_transaction")
     if args.remember_mined_columns and (not args.headless or any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals)):
@@ -281,6 +300,8 @@ def run():
         f"fixture.threeTrees={str(args.three_tree_fixture).lower()}\n"
         f"fixture.unplacedTable={str(args.unplaced_table_fixture).lower()}\n"
         f"fixture.naturalWorld={str(args.natural_world).lower()}\n"
+        f"fixture.naturalStart={','.join(map(str, args.natural_start or []))}\n"
+        f"fixture.blockedForward={str(args.blocked_forward_fixture).lower()}\n"
         f"fixture.headless={str(args.headless).lower()}\n", encoding="utf-8")
     capture_title="FlyCraft Recording "+args.run_id
     (client_dir / "flycraft-phase8-client.properties").write_text(f"controlFile={java_path(control)}\ncapture.windowTitle={capture_title}\n", encoding="utf-8")
@@ -382,6 +403,10 @@ def run():
             for name in (("server", "client") if graphical else ("server",)):
                 direct_commands[name]=command_from_export(export_dir / ("run"+name.title()+".json"),
                     export_dir / (name+".args"), expected_java=java)
+        if shutil.disk_usage(runtime).free / 1024**2 < args.minimum_free_disk_mib:
+            raise SupervisorStop("free_disk_guard")
+        if psutil.virtual_memory().available / 1024**2 < args.minimum_available_ram_mib:
+            raise SupervisorStop("available_ram_guard")
         bridge_command = [sys.executable, str(ROOT / "minecraft_bridge.py"), "--phase8-checkpoint", str(args.checkpoint.resolve()),
                           "--phase8-results", str(results / "controller.jsonl"), "--log", str(results / "bridge.jsonl"),
                           "--phase8-control", str(control)]
@@ -389,6 +414,8 @@ def run():
             bridge_command += ["--phase8-frozen-checkpoint", str(args.frozen_checkpoint.resolve())]
         if args.pitch_actions:
             bridge_command += ["--phase8-pitch-actions"]
+        if args.explore_forward:
+            bridge_command += ["--phase8-explore-forward"]
         if args.train:
             bridge_command += ["--phase8-save-dir", str(ROOT / "checkpoints" / phase / args.run_id)]
         pending_checkpoint = results / "pending_mining.npz"
@@ -652,8 +679,10 @@ def run():
         summary["generated_world_instances"] = int((server_dir/"world/level.dat").exists())
         summary["episodes_in_generated_world"] = last_rows
         summary["environment_kind"] = ("vanilla_overworld_spawn" if args.natural_world else
+                                       "controlled_blocked_forward_diagnostic" if args.blocked_forward_fixture else
                                        "controlled_flat_three_tree_fixture" if args.three_tree_fixture
                                        else "controlled_flat_survival_fixture")
+        summary["natural_start_requested"] = args.natural_start
         summary["unplaced_table_fixture"] = args.unplaced_table_fixture
         summary["remember_mined_columns"] = args.remember_mined_columns
         if args.layout_seeds is not None:
@@ -668,6 +697,8 @@ def run():
         summary["forward_ticks"] = args.forward_ticks
         summary["movement_feedback"] = args.movement_feedback
         summary["jump_on_blocked_forward"] = args.jump_on_blocked_forward
+        summary["explore_forward"] = args.explore_forward
+        summary["free_disk_guard_mib"] = args.minimum_free_disk_mib
         summary["experiment_kind"] = ("scripted_camera_probe_not_policy" if args.camera_probe else
                                       "policy_goal_with_operator_fault" if args.operator_fault != "none" else "policy_goal")
         summary["interaction_assistance"] = "visible_target_aim_macro" if args.camera_mode=="legacy" else "crosshair_only_no_automatic_aim"

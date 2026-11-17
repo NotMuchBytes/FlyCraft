@@ -477,3 +477,28 @@ test exploration when no target is visible and hold the absolute start
 pose fixed when measuring obstacle recovery. The jump's effect on
 movement and collection remains unverified in Minecraft. The full
 117-test suite and Fabric build passed after adding the opt-in recovery.
+
+## November 17 fixed-pose blocked-forward diagnostic
+
+Two fresh headless Fabric saves used world seed 202611170701, layout seed
+813294051, start pose (0.5, 100, 0.7, 0°, 0°), policy RNG seed 9001, the
+same frozen evaluation checkpoint, and a 700-tick deadline. The flat
+platform held a one-block step in the forward path and a visible oak
+trunk behind it. The server recorded an identical pose and fixture on
+both sides. The policy selected the same first six actions, including
+the blocked fifth forward action and its immediate retry.
+
+| Motor | Logs | Actions | Game seconds | Blocked forward | First legal mine decision | Confirmed log breaks |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Reference | 1 | 26 | 19.2 | 5 | 24 | 1 |
+| Forward-retry jump | 1 | 17 | 16.2 | 3 | 8 | 2 |
+
+The sixth action raised the actor 1.252 blocks and began motion in the
+original heading. The next two policy-selected forward actions took the
+actor to Z=1.983 and Z=2.821, beyond the step at Z=1 to 2. The reference
+walked around the step. The server and controller agreed on terminal log
+inventory and both terminal deliveries were acknowledged. The jump is
+engineered motor assistance. This single matched pair establishes that
+it fired, cleared the step and shortened the approach in this fixture.
+It gives no estimate of success on vanilla spawns.
+[Matched audit and run IDs](experiments/phase9/phase75_reliability_20261117/obstacle_pair.json)

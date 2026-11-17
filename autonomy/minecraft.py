@@ -85,11 +85,13 @@ class LiveResourceController:
     """
     def __init__(self, neural, table, checkpoint: Path, *, frozen_checkpoint: Path | None = None,
                  result_log: Path, checkpoint_dir: Path | None = None, control_file: Path | None = None,
-                 mining_checkpoint: Path | None = None, pitch_actions: bool = False):
+                 mining_checkpoint: Path | None = None, pitch_actions: bool = False,
+                 explore_forward: bool = False):
         self.neural, self.table = neural, table
         self.agent, _ = AutonomousAgent.load(checkpoint, table)
         frozen_agent, _ = AutonomousAgent.load(frozen_checkpoint or checkpoint, table)
         self.pitch_actions = pitch_actions
+        self.explore_forward = explore_forward
         if pitch_actions:
             self.agent.enable_live_pitch()
             frozen_agent.enable_live_pitch()
@@ -353,7 +355,7 @@ class LiveResourceController:
                 # Fixed column permutation of the actual neural window. Bias
                 # stays fixed; even centered observations receive the intervention.
                 neural = neural[[0, 3, 1, 2]]
-            action = self.agent.choose_action(observation, neural=neural)
+            action = self.agent.choose_action(observation, neural=neural, explore_forward=self.explore_forward)
             if self.agent.session["done"]:
                 if self.control_file is None:
                     self._record()

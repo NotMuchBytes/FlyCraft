@@ -130,6 +130,33 @@ class Phase8Tests(unittest.TestCase):
             finally:
                 controller.close()
 
+    def test_target_absent_forward_prior_preserves_sampling_and_masks(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            checkpoint = folder / "initial.npz"
+            AutonomousAgent(self.table).save(checkpoint)
+            allowed = ["NO_OP", "TURN_LEFT", "FORWARD"]
+            unseen = self.telemetry(visible=False, near=False, target_distance=-1, allowed_actions=allowed)
+            seen = self.telemetry(near=False, allowed_actions=allowed)
+            masked = unseen | {"allowed_actions": ["NO_OP", "TURN_LEFT"]}
+
+            for name, telemetry, expected in (
+                ("unseen", unseen, [0.2, 0.2, 0.6]),
+                ("seen", seen, [1/3, 1/3, 1/3]),
+                ("masked", masked, [0.5, 0.5, 0.0]),
+            ):
+                with self.subTest(name=name):
+                    controller = LiveResourceController(FakeNeural(self.table), self.table, checkpoint,
+                        result_log=folder / (name + ".jsonl"), explore_forward=True)
+                    try:
+                        response = controller.evaluate_request(self.request(10, telemetry=telemetry))
+                        probabilities = response["action_probabilities"]
+                        np.testing.assert_allclose([probabilities[action] for action in allowed], expected)
+                        self.assertIn(response["action"], telemetry["allowed_actions"])
+                        np.testing.assert_array_equal(controller.agent.policy.weights, 0)
+                    finally:
+                        controller.close()
+
     def test_inventory_requires_server_revision_and_consistency(self):
         ledger = TransactionLedger()
         before = self.telemetry()
@@ -436,9 +463,9 @@ class Phase8Tests(unittest.TestCase):
             try:
                 original = controller.agent.choose_action
                 inputs = []
-                def choose(observation, *, neural):
+                def choose(observation, *, neural, explore_forward):
                     inputs.append(neural.copy())
-                    return original(observation, neural=neural)
+                    return original(observation, neural=neural, explore_forward=explore_forward)
                 with mock.patch.object(controller.agent, "choose_action", side_effect=choose):
                     controller.evaluate_request(self.request(10, condition="no_neural"))
                 np.testing.assert_array_equal(inputs[0], [1., 0., 0., 0.])
