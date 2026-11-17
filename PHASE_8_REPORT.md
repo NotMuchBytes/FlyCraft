@@ -558,3 +558,19 @@ inventory, terminal acknowledgment and explicit block or recipe
 evidence. The planned scoring retains drop visibility after mining
 and legal placement offers before workbench use.
 [Fresh 30-trial-per-goal plan](experiments/phase9/phase8_pitch_followup_20261117/heldout_plan.json)
+
+### Controlled one-log gate for the pitch candidate
+
+The candidate collected a log in **26/30 trials (86.7%)**, passing the
+24/30 point gate. The descriptive 95% Wilson interval was 70.3%–94.7%.
+The five-layout blocks scored 4/5, 3/5, 4/5, 5/5, 5/5 and 5/5 across
+six fresh world seeds. Each run used the frozen readout with pitch
+actions enabled, two-tick forward input and a 400-tick limit.
+All 30 inventories matched at the acknowledged terminal boundary.
+
+Across successes and failures the median was 10 actions and 8.76
+episode-wall seconds. Three misses broke a log without pickup. The
+fourth saw a log and did not reach a legal mining view. This controlled
+result clears the one-log prerequisite for the longer pitch trials.
+The Phase 7.5 matched vanilla-terrain set remains at 0/2 per condition.
+[Verified per-episode scores](experiments/phase9/phase8_pitch_followup_20261117/one_log_results.json)

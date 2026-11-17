@@ -44,14 +44,21 @@ def audit(run):
         controller = controllers.get(episode, {})
         events = [event["data"] for event in headless
                   if event["episode_id"] == episode and event["event"] == "action_end"]
-        decisions = [(request["telemetry"], response["action"]) for request, response in observations
-                     if response["episode_id"] == episode]
+        episode_observations = [(request["telemetry"], response) for request, response in observations
+                                if response["episode_id"] == episode]
+        decisions = [(obs, response["action"]) for obs, response in episode_observations]
         forward = [event for event in events if event["ack"]["action"] == "FORWARD"]
         jumps = [event for event in forward if event["ack"].get("jump_assisted")]
         visible = [obs for obs, _ in decisions if obs["target_kind"] == "block"]
         legal_mine = sum("COLLECT_LOG" in obs["allowed_actions"] for obs, _ in decisions)
         breaks = [event for event in events if event["ack"]["action"] == "COLLECT_LOG"
                   and event["ack"]["status"] == "success" and event["ack"]["block_changed"]]
+        completed_crafting = Counter(event["ack"]["action"] for event in events
+                                     if event["ack"]["status"] == "success"
+                                     and (event["ack"]["action"].startswith("CRAFT_")
+                                          or event["ack"]["action"] == "PLACE_TABLE"))
+        after_break = [(obs, response["action"]) for obs, response in episode_observations
+                       if breaks and response["command_id"] > breaks[-1]["ack"]["command_id"]]
         terminal = controller.get("terminal_inventory") or terminal_packets.get(episode, {})
         inventory_matches = all(terminal.get(item) == count for item, count in score["inventory"].items())
         verified = (episode in delivered and inventory_matches
@@ -63,7 +70,17 @@ def audit(run):
         elif score["success"]:
             outcome = "success" if breaks else "success_without_confirmed_break"
         elif breaks:
-            outcome = "break_with_partial_or_no_pickup" if score["goal"] in {"one_log", "three_logs"} else "craft_goal_unmet"
+            outcome = "break_with_partial_or_no_pickup"
+            if score["goal"] == "wooden_pickaxe":
+                for action, failure in (("PLACE_TABLE", "table_placed_pickaxe_unconfirmed"),
+                                        ("CRAFT_TABLE", "table_crafted_placement_unconfirmed"),
+                                        ("CRAFT_STICKS", "sticks_crafted_table_unconfirmed"),
+                                        ("CRAFT_PLANKS", "planks_crafted_sticks_unconfirmed")):
+                    if completed_crafting[action]:
+                        outcome = failure
+                        break
+            elif score["goal"] == "planks" and score["inventory"]["log"]:
+                outcome = "log_picked_up_planks_unconfirmed"
         elif legal_mine:
             outcome = "mineable_without_confirmed_break"
         else:
@@ -89,6 +106,14 @@ def audit(run):
             "jump_actions": [{"ack": event["ack"], "end_position_x_z_yaw": event["position"]}
                              for event in jumps],
             "max_observed_z": max((obs["position"][1] for obs, _ in decisions), default=z),
+            "after_final_break_decisions": len(after_break),
+            "after_final_break_visible_drop_decisions": sum(obs["target_kind"] == "drop" for obs, _ in after_break),
+            "after_final_break_forward_with_drop": sum(obs["target_kind"] == "drop" and action == "FORWARD"
+                                                       for obs, action in after_break),
+            "confirmed_crafting_and_placement": dict(completed_crafting),
+            "legal_placement_decisions": sum("PLACE_TABLE" in obs["allowed_actions"] for obs, _ in decisions),
+            "placement_outcomes": dict(Counter(event["ack"]["error"] or event["ack"]["status"] for event in events
+                                               if event["ack"]["action"] == "PLACE_TABLE")),
         })
     configuration = {key: meta.get(key) for key in (
         "environment_kind", "world_seed", "policy_rng_seed", "trial_tick_limit", "checkpoint_sha256",
