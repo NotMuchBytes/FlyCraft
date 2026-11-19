@@ -574,3 +574,30 @@ fourth saw a log and did not reach a legal mining view. This controlled
 result clears the one-log prerequisite for the longer pitch trials.
 The Phase 7.5 matched vanilla-terrain set remains at 0/2 per condition.
 [Verified per-episode scores](experiments/phase9/phase8_pitch_followup_20261117/one_log_results.json)
+
+### November 19 continuation
+
+The saved evaluation contains 5/7 three-log successes, 3/7 pickaxe
+successes and 5/5 plank successes. These counts are interim. All scored
+episodes passed the independent inventory and terminal-delivery audit.
+The second longer-goal batch reached its wall limit during an unscored
+three-log episode. Its four earlier scored episodes remain included.
+The interrupted episode is preserved and its layout receives a fresh
+attempt. The remaining cells use the same checkpoint, observations,
+policy RNG, action cap, tick deadline and actuator settings.
+[Audited continuation baseline](experiments/phase9/phase8_pitch_followup_20261117/progress_20261119_initial.json)
+
+A fresh first-person repeat of the first pickaxe layout started with
+empty inventory and confirmed one wooden pickaxe in 55 actions and
+846 game ticks. It broke four log blocks, placed a table and completed
+the recipe through the normal workbench transaction. The recorded
+repeat stays outside the 30-trial sample.
+
+The 55.867-second Minecraft-only MP4 uses the RTX 4050 spectator.
+Its original verification and November 19 recheck both decoded all
+1,676 frames, with matching SHA-256. Frame review shows mining,
+approach and table placement. The spectator view does not display
+the actor's inventory menu, so the inventory and recipe logs provide
+the crafting outcome.
+[Milestone metadata](recordings/phase9/youtube/p8_pitch_20261117_pickaxe_milestone.json)
+[Playback recheck](experiments/phase9/p8_pitch_20261117_pickaxe_milestone/verification_20261119.json)

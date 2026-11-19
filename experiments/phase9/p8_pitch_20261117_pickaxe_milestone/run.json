@@ -1,0 +1,130 @@
+{
+  "run_id": "p8_pitch_20261117_pickaxe_milestone",
+  "world_seed": 6978360908223285953,
+  "layout_start": 81001,
+  "goals": [
+    "wooden_pickaxe"
+  ],
+  "conditions": [
+    "trained"
+  ],
+  "trials_per_goal_condition": 1,
+  "requested": 1,
+  "completed": 1,
+  "stop_reason": "suite_complete",
+  "elapsed_seconds": 98.0491262000287,
+  "maximum_sampled_gpu_c": 50,
+  "train": false,
+  "recording": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-17 18-16-45.mp4",
+  "recording_confirmed": true,
+  "milestone": 2,
+  "experiment_stage": "development",
+  "redo_of": "p8_pitch_20261117_long_goals_1",
+  "execution_kind": "new_execution_not_replay",
+  "headless": true,
+  "operator_fault": "none",
+  "operator_fault_events": [],
+  "spectator": true,
+  "spectator_view": "first_person",
+  "capture_requested_size": [
+    1280,
+    720
+  ],
+  "client_fps_limit": 30,
+  "capture_content_proof": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.014331427015250545,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\game\\p8_pitch_20261117_pickaxe_milestone\\capture-proof-game.png",
+    "game_frame_sha256": "f078cc960d5e32dae79b6e086279da47cbb1cfd2d887f5af872c900c60f0963b",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\game\\p8_pitch_20261117_pickaxe_milestone\\capture-proof-obs.png",
+    "obs_frame_sha256": "9108704acc3071251b8d8d11d465b88a99a73fd01430c99aa9ae551693abe4bd",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "capture_content_proof_error": {
+    "matched": false,
+    "mean_absolute_rgb_error": 0.22322076978939723,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\game\\p8_pitch_20261117_pickaxe_milestone\\capture-proof-game.png",
+    "game_frame_sha256": "c1975641ded47df64c3d2460a95d5c3a8aecb8cdfc9123098cc8b24be369e6a5",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\game\\p8_pitch_20261117_pickaxe_milestone\\capture-proof-obs.png",
+    "obs_frame_sha256": "9108704acc3071251b8d8d11d465b88a99a73fd01430c99aa9ae551693abe4bd",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "recording_mode": "OBS_isolated_spectator",
+  "generated_world_instances": 1,
+  "episodes_in_generated_world": 1,
+  "environment_kind": "controlled_flat_three_tree_fixture",
+  "natural_start_requested": null,
+  "unplaced_table_fixture": false,
+  "remember_mined_columns": true,
+  "layout_seeds": [
+    1607390377484670270
+  ],
+  "server_heap_mib": 384,
+  "client_heap_mib": 640,
+  "trial_tick_limit": 1500,
+  "policy_rng_seed": 9001,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "pitch_actions": true,
+  "forward_ticks": 2,
+  "movement_feedback": "displacement",
+  "jump_on_blocked_forward": false,
+  "explore_forward": false,
+  "free_disk_guard_mib": 2048,
+  "experiment_kind": "policy_goal",
+  "interaction_assistance": "crosshair_only_no_automatic_aim",
+  "requested_graphics_backend": "opengl",
+  "launcher": "direct",
+  "minimum_sampled_available_ram_mib": 2258.69921875,
+  "available_ram_guard_mib": 768,
+  "peak_sampled_process_tree_rss_mib": {
+    "bridge": 334.30859375,
+    "server": 621.51171875,
+    "client": 991.0078125
+  },
+  "exit_codes_before_cleanup": {
+    "prepare": 0,
+    "bridge": null,
+    "server": 0,
+    "client": 0
+  },
+  "client_exited_cleanly": true,
+  "server_exited_cleanly": true,
+  "actual_graphics": [
+    "Using graphics backend OpenGL, using drivers: 3.3.0 NVIDIA 617.42",
+    "Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU/PCIe/SSE2 (NVIDIA Corporation)"
+  ],
+  "policy_label": "six_live_log_episodes",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+  "milestone_video_status": "verified",
+  "milestone_video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 1676,
+    "duration_seconds": 55.866667,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "1676"
+    },
+    "bytes": 17094498,
+    "sha256": "4c4ac6a3df1af7074ad26cd3642b9d7713d1164102061bc570755431b72d6278",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-17 18-16-45.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00002_p8_pitch_20261117_pickaxe_milestone.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": true,
+    "visual_content_preflight_verified": true
+  },
+  "milestone_video_export": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_Development_Milestone_00002_p8_pitch_20261117_pickaxe_milestone.mp4"
+}

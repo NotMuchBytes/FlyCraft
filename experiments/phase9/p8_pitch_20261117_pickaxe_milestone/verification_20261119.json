@@ -1,0 +1,18 @@
+{
+  "playable_verified": true,
+  "full_decode_verified": true,
+  "decoded_frames": 1676,
+  "duration_seconds": 55.866667,
+  "video_stream": {
+    "index": 0,
+    "codec_name": "h264",
+    "codec_type": "video",
+    "width": 1920,
+    "height": 1080,
+    "avg_frame_rate": "30/1",
+    "nb_frames": "1676"
+  },
+  "bytes": 17094498,
+  "sha256": "4c4ac6a3df1af7074ad26cd3642b9d7713d1164102061bc570755431b72d6278",
+  "verified_export_path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_Development_Milestone_00002_p8_pitch_20261117_pickaxe_milestone.mp4"
+}
