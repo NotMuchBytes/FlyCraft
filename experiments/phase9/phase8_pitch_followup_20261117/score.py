@@ -1,7 +1,9 @@
 """Score explicit pitch-candidate runs against the frozen Phase 8 plan."""
 
 import argparse
+import hashlib
 import json
+import math
 from pathlib import Path
 import statistics
 import sys
@@ -77,6 +79,13 @@ def score(run_ids):
                         or any(not row["confirmed_crafting_and_placement"].get(action) for action in recipe_actions)):
                     raise ValueError(f"{run_id}: successful inventory lacks required transaction evidence")
             evidence = {key: value for key, value in row.items() if key != "initial"}
+            initial = row["initial"]
+            if initial["world_seed"] != world:
+                raise ValueError(f"{run_id}: initial world seed disagrees with run metadata")
+            origin = [math.floor(value) for value in initial["position_xyz_yaw_pitch"][:3]]
+            blocks = sorted((tuple(value - offset for value, offset in zip(block["position"], origin)),
+                             block["state"]) for block in initial["fixture_blocks"])
+            evidence["relative_fixture_sha256"] = hashlib.sha256(json.dumps(blocks).encode()).hexdigest()
             episodes[goal].append(evidence | {"run_id": run_id, "world_seed": world})
     if len(implementations) > 1:
         raise ValueError("Run set contains more than one implementation hash")
@@ -90,6 +99,8 @@ def score(run_ids):
                                   "target_met": complete and summary["successes"] >= spec["success_target"],
                                   "complete": complete,
                                   "median_game_seconds": statistics.median(row["game_seconds"] for row in verified) if verified else None,
+                                  "distinct_world_seeds": len({row["world_seed"] for row in verified}),
+                                  "distinct_relative_fixtures": len({row["relative_fixture_sha256"] for row in verified}),
                                   "failed_after_at_least_three_breaks": sum(
                                       not row["success"] and row["confirmed_breaks"] >= 3 for row in verified)}
     return {"implementation_sha256": next(iter(implementations), None),

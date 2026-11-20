@@ -623,3 +623,10 @@ names. The scan was corrected, the extra repeat was designated for
 exclusion before its outcome, and it stopped at the RAM guard without
 a score. The scorer now rejects its run ID explicitly.
 [Exclusion record](experiments/phase9/phase8_pitch_followup_20261117/excluded_runs.json)
+
+The midpoint audit has 10/15 three-log, 14/15 plank and 6/15 pickaxe
+successes. Every scored episode has acknowledged, matching terminal
+inventory. Each successful crafting episode also has the required
+confirmed mining, recipe and placement actions. Source and checkpoint
+hashes remain fixed. The remaining 15 layouts per goal stay scheduled.
+[Midpoint scores and failure modes](experiments/phase9/phase8_pitch_followup_20261117/midpoint_results_20261120.json)
