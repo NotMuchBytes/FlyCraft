@@ -1,5 +1,11 @@
 # FlyCraft — Phase 8 report
 
+November 20, 2026. The pitch-enabled candidate completed 30 live trials
+per goal, scoring **26/30 one-log, 18/30 three-log, 27/30 four-plank and
+12/30 from-empty wooden pickaxe**. The one-log and plank point targets
+were met. Three-log and pickaxe reliability remain below target.
+[Completed pitch evaluation](#november-20-completed-pitch-evaluation)
+
 November 6 reliability update: a recorded strict one-log smoke check and
 interrupted-mining recovery succeeded. A recorded bridge process-tree stall
 exposed an unresolved stale-command rejection/acknowledgment defect and failed
@@ -630,3 +636,117 @@ inventory. Each successful crafting episode also has the required
 confirmed mining, recipe and placement actions. Source and checkpoint
 hashes remain fixed. The remaining 15 layouts per goal stay scheduled.
 [Midpoint scores and failure modes](experiments/phase9/phase8_pitch_followup_20261117/midpoint_results_20261120.json)
+
+## November 20 completed pitch evaluation
+
+All 120 planned episodes have independent server inventory scores,
+matching controller terminal inventory and acknowledged terminal delivery.
+Every success has confirmed log breaks. Crafting successes also have the
+required confirmed recipe and table-placement actions. All 120 scored
+controller records have learning disabled and zero weight updates.
+
+| Goal | Verified successes | Point target | Result | Descriptive 95% Wilson interval |
+| --- | ---: | ---: | --- | --- |
+| One log | 26/30 (86.7%) | 80% | Met | 70.3%–94.7% |
+| Three logs | 18/30 (60.0%) | 70% | Missed | 42.3%–75.4% |
+| Four planks | 27/30 (90.0%) | 70% | Met | 74.4%–96.5% |
+| Wooden pickaxe from empty inventory | 12/30 (40.0%) | 50% | Missed | 24.6%–57.7% |
+
+The action and time medians include successes and failures. Wall time is
+the controller-recorded episode duration, excluding process launch.
+Game time is the server scoring tick count divided by twenty.
+
+| Goal | Median acknowledged actions | Median wall seconds | Median game seconds |
+| --- | ---: | ---: | ---: |
+| One log | 10 | 8.76 | 8.90 |
+| Three logs | 96 | 70.12 | 70.23 |
+| Four planks | 14 | 10.51 | 10.65 |
+| Wooden pickaxe | 108 | 74.99 | 75.00 |
+
+The fixed plan uses 30 layout/world-seed pairs per goal across six world
+seeds. Relative fixture snapshots contain nine distinct arrangements for
+the one-log and plank goals and fourteen for the longer goals. These are
+controlled flat survival fixtures with semantic sensing, recipe macros,
+planner masks and a supplied placement support face for pickaxes.
+The Wilson intervals describe these layout outcomes without adjusting
+for shared seeds or repeated geometry.
+[Per-episode scores, settings, transaction evidence and failure modes](experiments/phase9/phase8_pitch_followup_20261117/final_results.json)
+
+### Failure modes
+
+Three one-log misses broke a log without pickup. The fourth never
+reached a legal mining view. Two plank misses broke a log without
+pickup, and the third never reached a legal mining view.
+
+The twelve three-log failures finished with one log in two episodes
+and two logs in ten episodes. Three failures confirmed at least three
+breaks, and one of those saw no dropped-log target after its final
+break. The other nine failures confirmed fewer than three breaks.
+The pitch candidate therefore retains both mining/approach failures
+and pickup failures.
+
+Of the eighteen pickaxe failures, twelve stopped after confirmed
+stick crafting, four reached a confirmed crafted table, and two
+stopped after mining. All four failures with a crafted table received
+at least one legal placement offer and selected no placement action.
+Every successful pickaxe episode confirmed its own table recipe,
+placement and pickaxe transaction from an empty starting inventory.
+
+### Provenance, assistance and remaining gaps
+
+The checkpoint SHA-256 is
+`acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5`.
+The live implementation SHA-256 is
+`797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce`.
+The sparse graph SHA-256 was reverified as
+`37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d`.
+The original 139,255-neuron graph and earlier checkpoints are preserved.
+
+The candidate uses the optional 66-feature, twelve-action pitch interface,
+bounded 15-degree camera turns, two-tick forward input, displacement
+feedback and the preserved 120-action policy limit. Long goals use
+1,500 ticks. One-log and plank goals use 400 ticks. Mined-column tracking
+and the three-tree fixture apply to the longer goals. The fixed plan
+leaves the forward-retry jump and target-absent forward prior disabled.
+Those features have separate Phase 7.5 diagnostics and ablations.
+
+The trained readout samples actions. Semantic resource sensing, legal
+affordances, recipe execution, goal dependencies and the optional motor
+assistance are engineered components. This evaluation used fixed
+weights. The five-policy held-out vanilla comparison scored 0/2 in each
+condition, with a separate 0/2 forward-prior result. The new goal scores
+establish no learning advantage or neural contribution. The older
+yaw-only scores and the small pitch development pilot remain separate
+evidence on their recorded seed sets.
+[Matched policy comparison and exploration evidence](PHASE_7_5_REPORT.md#fresh-held-out-vanilla-comparison)
+
+The finalized evaluation records include one wall-budget interruption
+and four RAM-guard stops. Their scored episodes remain included,
+and unscored episodes were repeated in fresh disposable saves.
+A user-paused attempt and the explicitly excluded extra repeat are
+preserved separately. Fresh attempts retain their own run identities.
+The RAM reserve remained 768 MiB, the GPU temperature cutoff remained
+75°C, and the disk guard remained 2,048 MiB. Peak sampled GPU temperature
+in the finalized evaluation runs was 56°C. CPU temperature telemetry
+was unavailable. Earlier runs used a 512 MiB server heap, and resumed
+runs used the supported 384 MiB heap.
+
+The Python suite passed all 118 tests on November 20. The same frozen
+Fabric source had passed assembly and the three standalone Java test
+mains. Gradle's default test task did not discover those standalone
+mains. All runner-owned Minecraft and bridge processes exited or were
+cleaned up. The final supervisor completed all 120 unique scored cells.
+[Resume ledger](experiments/phase9/phase8_pitch_followup_20261117/resume_runs.json)
+
+Two accepted development milestone exports show the first-person
+obstacle recovery and a from-empty pickaxe. They are separate fresh
+executions outside the benchmark. The Minecraft-only RTX 4050 captures
+passed window matching and visual review. November 20 full decoding
+reverified all 869 frames of the 29.0-second jump video and all
+1,676 frames of the 55.867-second pickaxe video. Earlier partial
+captures retain their original evidence and explicit coverage labels.
+[Playback and checksum verification](experiments/phase9/phase8_pitch_followup_20261117/milestone_verification_20261120.json)
+
+Phase 8 remains open for the three-log and pickaxe reliability targets.
+Natural-terrain search and collection remain unestablished. The
+10,000-world Phase 9 campaign remains pending separate authorization.

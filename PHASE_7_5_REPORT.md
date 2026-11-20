@@ -1,5 +1,12 @@
 # FlyCraft Phase 7.5 reliability report
 
+November 20, 2026. The fixed-pose obstacle diagnostic verified a
+policy-selected forward retry with a vanilla jump pulse, followed by
+inventory-confirmed collection. The pitch-enabled controlled one-log
+follow-up scored 26/30. The five-policy held-out vanilla comparison
+scored 0/2 per condition, so natural-terrain reliability remains open.
+[Latest reliability status](#november-20-reliability-status)
+
 November 12, 2026. The restart follow-up verified that FlyCraft could start
 a fresh trial after Minecraft reopened the same disposable save. The Python
 bridge retained the interrupted command as unconfirmed, and both live repeats
@@ -592,3 +599,36 @@ The Minecraft-window match and full decode passed for its 29.0-second,
 869-frame MP4. Frame review confirmed coverage of the obstacle scene.
 The recording is a fresh execution kept outside the matched scores.
 [First-person milestone and file path](recordings/phase9/youtube/p75_step_20261117_recorded_e.json)
+
+## November 20 reliability status
+
+The matched diagnostic holds the world seed, absolute starting pose,
+checkpoint, policy RNG and budgets constant. Its jump variant cleared
+the step and collected a log in 17 actions, compared with 26 for the
+reference. The recorded first-person repeat is a separate successful
+execution in 18 actions. The jump is engineered motor assistance.
+Its effect on vanilla-spawn success remains unestablished.
+
+The forward prior increased movement on the development seeds. On the
+two held-out worlds it produced one confirmed block break but no
+inventory-confirmed collection. Trained, frozen transfer, uniform,
+no-neural and shuffled-neural each scored 0/2 with the same strict
+pitch interface and matched post-warmup starting pose. These results
+leave exploration, approach and pickup reliability as separate gaps.
+[Matched held-out results](experiments/phase9/phase75_reliability_20261117/heldout_results.json)
+
+The Phase 8 pitch candidate completed 30 trials per goal. It scored
+26/30 one-log, 18/30 three-log, 27/30 planks and 12/30 wooden pickaxe
+from empty inventory. All 120 scores have matching terminal inventory
+and acknowledged delivery. One-log and plank point targets were met,
+while the two longer-goal targets were missed. These controlled
+fixture outcomes retain the original semantic sensing, recipe
+transactions and engineered goal masks.
+[Completed Phase 8 evaluation](PHASE_8_REPORT.md#november-20-completed-pitch-evaluation)
+
+All 118 Python tests passed on November 20. The graph hash and frozen
+checkpoint hash matched their preserved values. The accepted jump and
+pickaxe milestone MP4s were fully decoded again, with unchanged
+checksums. Partial captures, interrupted episodes, the user pause and
+the unscored duplicate-scheduling mistake remain documented.
+[Milestone playback verification](experiments/phase9/phase8_pitch_followup_20261117/milestone_verification_20261120.json)

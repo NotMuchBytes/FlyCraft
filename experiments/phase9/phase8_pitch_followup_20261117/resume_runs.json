@@ -23,7 +23,13 @@
     "p8_pitch_20261120_b2_l5_planks_a1",
     "p8_pitch_20261120_b3_l1_long_a1",
     "p8_pitch_20261120_b3_batchlong_a1",
-    "p8_pitch_20261120_b3_batchplanks_a1"
+    "p8_pitch_20261120_b3_batchplanks_a1",
+    "p8_pitch_20261120_b4_batchlong_a1",
+    "p8_pitch_20261120_b4_batchplanks_a1",
+    "p8_pitch_20261120_b5_batchlong_a1",
+    "p8_pitch_20261120_b5_batchplanks_a1",
+    "p8_pitch_20261120_b6_batchlong_a1",
+    "p8_pitch_20261120_b6_batchplanks_a1"
   ],
-  "scored_cells": 75
+  "scored_cells": 120
 }
