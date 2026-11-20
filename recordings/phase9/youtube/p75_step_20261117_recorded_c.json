@@ -2,7 +2,7 @@
   "run_id": "p75_step_20261117_recorded_c",
   "milestone": 1,
   "stage": "development",
-  "status": "verified",
+  "status": "partial",
   "video": {
     "playable_verified": true,
     "full_decode_verified": true,
@@ -26,7 +26,8 @@
       "verified_original"
     ],
     "episode_coverage_complete": true,
-    "visual_content_preflight_verified": true
+    "visual_content_preflight_verified": true,
+    "visual_episode_coverage_complete": false
   },
   "error": null,
   "episode_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p75_step_20261117_recorded_c\\server.jsonl",
@@ -39,5 +40,6 @@
   "recording_kind": "synchronized_spectator_capture",
   "redo_of": "p75_step_20261117_jump",
   "replay": false,
-  "actions_altered_for_video": false
+  "actions_altered_for_video": false,
+  "visual_review": "Third-person camera lagged below the raised platform. The jump and break are outside the recorded view."
 }

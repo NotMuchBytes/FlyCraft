@@ -88,7 +88,7 @@
   "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
   "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
   "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
-  "milestone_video_status": "verified",
+  "milestone_video_status": "partial",
   "milestone_video": {
     "playable_verified": true,
     "full_decode_verified": true,
@@ -112,7 +112,9 @@
       "verified_original"
     ],
     "episode_coverage_complete": true,
-    "visual_content_preflight_verified": true
+    "visual_content_preflight_verified": true,
+    "visual_episode_coverage_complete": false
   },
-  "milestone_video_export": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_Development_Milestone_00001_p75_step_20261117_recorded_c.mp4"
+  "milestone_video_export": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_Development_Milestone_00001_p75_step_20261117_recorded_c.mp4",
+  "visual_review": "Third-person camera lagged below the raised platform. The jump and break are outside the recorded view."
 }
