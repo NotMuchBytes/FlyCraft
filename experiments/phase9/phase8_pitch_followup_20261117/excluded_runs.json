@@ -1,0 +1,7 @@
+{
+  "p8_pitch_20261119_b2_l1_planks_a2": {
+    "reason": "Unintended duplicate scheduling during the smaller-heap resume. The scheduler initially scanned only November 17 run names and omitted the already scored November 19 attempt.",
+    "included_run": "p8_pitch_20261119_b2_l1_planks_a1",
+    "disposition": "Preserve all evidence and exclude this repeat regardless of outcome."
+  }
+}

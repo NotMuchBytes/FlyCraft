@@ -1,0 +1,7 @@
+{
+  "reason": "Explicit user pause on November 19, 2026",
+  "episode_disposition": "Interrupted and unscored",
+  "server_score_file_present_at_resume": false,
+  "run_manifest_finalized": false,
+  "evidence_disposition": "Preserve partial action, observation and launcher logs. Resume the missing seed and goal in a fresh disposable save."
+}

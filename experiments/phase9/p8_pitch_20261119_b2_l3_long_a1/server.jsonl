@@ -1,0 +1,2 @@
+{"episode_id":"trial_0000","condition":"trained","goal":"three_logs","layout_seed":3713405992518041186,"success":true,"ticks":1033,"train":false,"inventory":{"log":3,"planks":0,"sticks":0,"crafting_table":0,"wooden_pickaxe":0}}
+{"episode_id":"trial_0001","condition":"trained","goal":"wooden_pickaxe","layout_seed":3713405992518041186,"success":false,"ticks":1500,"train":false,"inventory":{"log":0,"planks":0,"sticks":0,"crafting_table":0,"wooden_pickaxe":0}}

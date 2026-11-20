@@ -601,3 +601,25 @@ the actor's inventory menu, so the inventory and recipe logs provide
 the crafting outcome.
 [Milestone metadata](recordings/phase9/youtube/p8_pitch_20261117_pickaxe_milestone.json)
 [Playback recheck](experiments/phase9/p8_pitch_20261117_pickaxe_milestone/verification_20261119.json)
+
+### November 20 resumed evaluation
+
+After the November 19 user-requested pause, the implementation and
+checkpoint hashes still matched the frozen evaluation. All 118 Python
+tests passed again. The first two seed blocks now contain 7/10
+three-log, 10/10 plank and 4/10 pickaxe successes. These remain
+interim scores alongside the completed 26/30 one-log result.
+[Audited first two blocks](experiments/phase9/phase8_pitch_followup_20261117/progress_20261120_first_two_worlds.json)
+
+The November 19 continuation repeatedly reached the 768 MiB RAM reserve.
+Unscored attempts and partial episodes are preserved. The smaller
+384 MiB server heap uses the runner's supported range, with the same
+policy settings, observations and action deadlines. Available memory
+recovered before the November 20 continuation.
+
+One unintended extra plank repeat was queued during the smaller-heap
+resume because the first schedule scan omitted the November 19 run
+names. The scan was corrected, the extra repeat was designated for
+exclusion before its outcome, and it stopped at the RAM guard without
+a score. The scorer now rejects its run ID explicitly.
+[Exclusion record](experiments/phase9/phase8_pitch_followup_20261117/excluded_runs.json)
