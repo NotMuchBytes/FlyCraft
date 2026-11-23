@@ -41,10 +41,20 @@ def main():
             assert meta["checkpoint_sha256"] == CHECKPOINT_SHA
             assert meta["world_seed"] == 202611230801
             assert meta["forward_ticks"] == args.forward_ticks
+            expected = {"headless": True, "train": False, "conditions": ["trained"],
+                        "pitch_actions": True, "camera_mode": "bounded", "turn_degrees": 15,
+                        "policy_rng_seed": 9001, "trial_tick_limit": 1500,
+                        "movement_feedback": "displacement", "remember_mined_columns": True,
+                        "jump_on_blocked_forward": False, "explore_forward": False,
+                        "environment_kind": "controlled_flat_three_tree_fixture",
+                        "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce"}
+            assert all(meta.get(key) == value for key, value in expected.items())
             scores = directory / "server.jsonl"
             for line in scores.read_text().splitlines() if scores.exists() else []:
                 score = json.loads(line)
                 identity = score["layout_seed"], score["goal"]
+                assert identity[0] in LAYOUTS and identity[1] in GOALS
+                assert score["condition"] == "trained"
                 assert identity not in completed, f"Duplicate scored cell: {identity}"
                 completed.add(identity)
         pending = {}

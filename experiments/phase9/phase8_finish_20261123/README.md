@@ -77,6 +77,11 @@ The new checkpoints are under `checkpoints/phase8/finish_20261123/`.
 `artifact_integrity.json` verifies both embedded fit records, both preserved
 checkpoint hashes, the original 139,255-by-139,255 graph, the unchanged live
 implementation and checksums of all 189 source log files.
+An independent repeat with the committed training utility reconstructed all
+120 source episodes again and verified action/acknowledgment alignment. It
+produced the exact same NPZ SHA-256 and zero weight difference. The record
+is `mining_fit_reproduction.json`. This verifies reproducibility of fitting,
+and is separate from live performance evidence.
 Loss reduction is training evidence only. The corrected candidate has not
 yet completed live development validation or any fresh held-out evaluation.
 

@@ -17,7 +17,9 @@
   "conditions": [
     {"run_id": "p8_stride_20261123_two", "forward_ticks": 2, "checkpoint": "preserved acdde37f checkpoint"},
     {"run_id": "p8_stride_20261123_five", "forward_ticks": 5, "checkpoint": "preserved acdde37f checkpoint"},
-    {"run_id": "p8_progress_20261123_two", "forward_ticks": 2, "checkpoint": "offline progress-trained readout"}
+    {"run_id": "p8_progress_20261123_two", "forward_ticks": 2, "checkpoint": "offline progress-trained readout"},
+    {"run_id": "p8_progress_20261123_five_b", "forward_ticks": 5, "checkpoint": "offline progress-trained readout"},
+    {"run_prefix": "p8_mining_20261123_stride2_", "forward_ticks": 2, "checkpoint_sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4", "status": "awaiting sufficient RAM for live development"}
   ],
   "comparison": "Match seed pairs, relative fixture blocks, empty starting inventory, observation schema and budgets. Each run uses a fresh save. Absolute spawn positions and full Minecraft RNG replay are not controlled.",
   "learning_candidate": {

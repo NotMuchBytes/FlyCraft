@@ -65,6 +65,7 @@ def main():
             assert confirmed_breaks == score["confirmed_breaks"]
             for (vector, action, probabilities, reward), acknowledgment in zip(
                     episode["trajectory"], episode["acknowledgments"], strict=True):
+                assert acknowledgment["action"] == base.policy.actions[action]
                 example_weight = reward
                 if (args.confirmed_break_labels and acknowledgment["action"] == "COLLECT_LOG"
                         and acknowledgment["status"] == "success" and acknowledgment["block_changed"]):

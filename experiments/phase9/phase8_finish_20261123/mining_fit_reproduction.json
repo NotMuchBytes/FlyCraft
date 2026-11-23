@@ -1,0 +1,18 @@
+{
+  "all_checkpoint_payload_arrays_identical": {
+    "weights": true,
+    "actions": true,
+    "baseline": true,
+    "episodes_trained": true,
+    "training_seed": true,
+    "rng_state_json": true,
+    "extra_metadata_json": true
+  },
+  "maximum_absolute_weight_difference": 0.0,
+  "original_sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4",
+  "reproduced_sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4",
+  "source_action_acknowledgments_aligned": true,
+  "original_rewards_and_probabilities_reverified": true,
+  "training_examples": 1913,
+  "confirmed_mining_examples": 246
+}

@@ -43,12 +43,16 @@ def analyze():
         expected = {"world_seed": plan["world_seed"], "pitch_actions": True, "train": False,
                     "camera_mode": "bounded", "turn_degrees": 15, "movement_feedback": "displacement",
                     "policy_rng_seed": 9001, "trial_tick_limit": 1500, "remember_mined_columns": True,
-                    "environment_kind": "controlled_flat_three_tree_fixture"}
+                    "environment_kind": "controlled_flat_three_tree_fixture", "headless": True,
+                    "conditions": ["trained"], "jump_on_blocked_forward": False, "explore_forward": False,
+                    "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce"}
         for key, value in expected.items():
             if meta.get(key) != value:
                 raise ValueError(f"{directory.name}: unexpected {key}")
         if not set(meta["layout_seeds"]) <= set(plan["layout_seeds"]):
             raise ValueError(f"{directory.name}: unexpected development layout")
+        if meta["forward_ticks"] not in (2, 5) or not set(meta["goals"]) <= set(plan["goals"]):
+            raise ValueError(f"{directory.name}: unexpected motor duration or goal")
         kind = CANDIDATES[meta["checkpoint_sha256"]]
         variant = f"{kind}_forward{meta['forward_ticks']}"
         report = audit(directory.name)
