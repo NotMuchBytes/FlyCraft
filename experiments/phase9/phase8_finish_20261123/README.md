@@ -74,6 +74,9 @@ break counts match the archived actor evidence.
 The new checkpoints are under `checkpoints/phase8/finish_20261123/`.
 `progress_readout_training.json` and `mining_readout_training.json` list all
 120 source episodes, optimization settings and retained action counts.
+`artifact_integrity.json` verifies both embedded fit records, both preserved
+checkpoint hashes, the original 139,255-by-139,255 graph, the unchanged live
+implementation and checksums of all 189 source log files.
 Loss reduction is training evidence only. The corrected candidate has not
 yet completed live development validation or any fresh held-out evaluation.
 
@@ -98,6 +101,13 @@ differences with nontrivial legal masks. One OBS cleanup unit test previously
 depended on the host's actual free RAM and stopped early during memory
 pressure. Its mocked RAM and disk inputs are now deterministic. Separate
 tests still verify the live/preflight low-RAM guard and process cleanup.
+
+Both existing accepted milestone MP4s were decoded completely again on
+November 23: 869 frames for obstacle recovery and 1,676 for the pickaxe.
+Checksums match the November 20 verification. These recordings demonstrate
+their original separate executions, and supply no evidence for the newly
+trained readouts. See `milestones_reverified_20261123.json` for paths and
+playback verification.
 
 Select the candidate only after development. Then freeze its checkpoint
 and motor configuration before drawing a fresh held-out seed catalog.
