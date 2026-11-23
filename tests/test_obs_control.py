@@ -58,6 +58,8 @@ class ObsControlTests(unittest.TestCase):
             with mock.patch.object(runner, "ROOT", folder), mock.patch("sys.argv", arguments), \
                  mock.patch.object(runner, "ObsRecorder", return_value=recorder), \
                  mock.patch.object(runner, "listening", return_value=False), \
+                 mock.patch.object(runner.psutil, "virtual_memory", return_value=mock.Mock(available=4096*1024**2)), \
+                 mock.patch.object(runner.shutil, "disk_usage", return_value=mock.Mock(free=4096*1024**2)), \
                  mock.patch.object(runner.subprocess, "Popen") as process_factory, \
                  mock.patch.object(runner.socket, "create_connection", side_effect=OSError("closed")), \
                  mock.patch.object(runner, "stop") as cleanup, mock.patch("sys.stdout", new=io.StringIO()):

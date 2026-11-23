@@ -1,0 +1,749 @@
+{
+  "method": "Weighted behavioral cloning of recorded actions with positive operational transition reward",
+  "source_checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+  "source_episodes": [
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 19
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 22
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0002",
+      "success": false,
+      "retained_progress_transitions": 26
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 27
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0004",
+      "success": false,
+      "retained_progress_transitions": 10
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0005",
+      "success": false,
+      "retained_progress_transitions": 25
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0006",
+      "success": true,
+      "retained_progress_transitions": 12
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0007",
+      "success": false,
+      "retained_progress_transitions": 18
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0008",
+      "success": true,
+      "retained_progress_transitions": 26
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_1",
+      "episode_id": "trial_0009",
+      "success": false,
+      "retained_progress_transitions": 28
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_2",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 20
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_2",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 27
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_2",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 17
+    },
+    {
+      "run_id": "p8_pitch_20261117_long_goals_2",
+      "episode_id": "trial_0003",
+      "success": false,
+      "retained_progress_transitions": 30
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 1
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_1",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 3
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_1",
+      "episode_id": "trial_0002",
+      "success": false,
+      "retained_progress_transitions": 10
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_1",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 3
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_1",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 7
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_2",
+      "episode_id": "trial_0000",
+      "success": false,
+      "retained_progress_transitions": 7
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_2",
+      "episode_id": "trial_0001",
+      "success": false,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_2",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 5
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_2",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 4
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_2",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 4
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_3",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 4
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_3",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 7
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_3",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 7
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_3",
+      "episode_id": "trial_0003",
+      "success": false,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_3",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 4
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_4",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 3
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_4",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 6
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_4",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 6
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_4",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 11
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_4",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 7
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_5",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 6
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_5",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 4
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_5",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 6
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_5",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 15
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_5",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 6
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_6",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 6
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_6",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 6
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_6",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 12
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_6",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 13
+    },
+    {
+      "run_id": "p8_pitch_20261117_one_log_6",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 14
+    },
+    {
+      "run_id": "p8_pitch_20261117_planks_1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 8
+    },
+    {
+      "run_id": "p8_pitch_20261117_planks_1",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 3
+    },
+    {
+      "run_id": "p8_pitch_20261117_planks_1",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 5
+    },
+    {
+      "run_id": "p8_pitch_20261117_planks_1",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 3
+    },
+    {
+      "run_id": "p8_pitch_20261117_planks_1",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261119_b2_l1_planks_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 7
+    },
+    {
+      "run_id": "p8_pitch_20261119_b2_l2_planks_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 8
+    },
+    {
+      "run_id": "p8_pitch_20261119_b2_l3_long_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 22
+    },
+    {
+      "run_id": "p8_pitch_20261119_b2_l3_long_a1",
+      "episode_id": "trial_0001",
+      "success": false,
+      "retained_progress_transitions": 12
+    },
+    {
+      "run_id": "p8_pitch_20261119_b2_l3_planks_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 10
+    },
+    {
+      "run_id": "p8_pitch_20261119_b2_l4_long_a2",
+      "episode_id": "trial_0000",
+      "success": false,
+      "retained_progress_transitions": 18
+    },
+    {
+      "run_id": "p8_pitch_20261120_b2_l4_long_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 37
+    },
+    {
+      "run_id": "p8_pitch_20261120_b2_l4_planks_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 2
+    },
+    {
+      "run_id": "p8_pitch_20261120_b2_l5_long_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 12
+    },
+    {
+      "run_id": "p8_pitch_20261120_b2_l5_long_a1",
+      "episode_id": "trial_0001",
+      "success": false,
+      "retained_progress_transitions": 16
+    },
+    {
+      "run_id": "p8_pitch_20261120_b2_l5_planks_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 6
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchlong_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 19
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchlong_a1",
+      "episode_id": "trial_0001",
+      "success": false,
+      "retained_progress_transitions": 22
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchlong_a1",
+      "episode_id": "trial_0002",
+      "success": false,
+      "retained_progress_transitions": 22
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchlong_a1",
+      "episode_id": "trial_0003",
+      "success": false,
+      "retained_progress_transitions": 30
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchlong_a1",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 15
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchlong_a1",
+      "episode_id": "trial_0005",
+      "success": true,
+      "retained_progress_transitions": 30
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchlong_a1",
+      "episode_id": "trial_0006",
+      "success": false,
+      "retained_progress_transitions": 10
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchlong_a1",
+      "episode_id": "trial_0007",
+      "success": true,
+      "retained_progress_transitions": 24
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchplanks_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 12
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchplanks_a1",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchplanks_a1",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchplanks_a1",
+      "episode_id": "trial_0003",
+      "success": false,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_batchplanks_a1",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 5
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_l1_long_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 22
+    },
+    {
+      "run_id": "p8_pitch_20261120_b3_l1_long_a1",
+      "episode_id": "trial_0001",
+      "success": false,
+      "retained_progress_transitions": 12
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 29
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 25
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0002",
+      "success": false,
+      "retained_progress_transitions": 29
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0003",
+      "success": false,
+      "retained_progress_transitions": 17
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 22
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0005",
+      "success": true,
+      "retained_progress_transitions": 25
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0006",
+      "success": false,
+      "retained_progress_transitions": 14
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0007",
+      "success": false,
+      "retained_progress_transitions": 16
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0008",
+      "success": true,
+      "retained_progress_transitions": 13
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchlong_a1",
+      "episode_id": "trial_0009",
+      "success": false,
+      "retained_progress_transitions": 10
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchplanks_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 4
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchplanks_a1",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 5
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchplanks_a1",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchplanks_a1",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 13
+    },
+    {
+      "run_id": "p8_pitch_20261120_b4_batchplanks_a1",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 10
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0000",
+      "success": false,
+      "retained_progress_transitions": 23
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0001",
+      "success": false,
+      "retained_progress_transitions": 17
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 14
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 27
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0004",
+      "success": false,
+      "retained_progress_transitions": 12
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0005",
+      "success": false,
+      "retained_progress_transitions": 16
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0006",
+      "success": false,
+      "retained_progress_transitions": 10
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0007",
+      "success": false,
+      "retained_progress_transitions": 18
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0008",
+      "success": true,
+      "retained_progress_transitions": 12
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchlong_a1",
+      "episode_id": "trial_0009",
+      "success": true,
+      "retained_progress_transitions": 26
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchplanks_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchplanks_a1",
+      "episode_id": "trial_0001",
+      "success": false,
+      "retained_progress_transitions": 14
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchplanks_a1",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchplanks_a1",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 17
+    },
+    {
+      "run_id": "p8_pitch_20261120_b5_batchplanks_a1",
+      "episode_id": "trial_0004",
+      "success": true,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 24
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0001",
+      "success": false,
+      "retained_progress_transitions": 17
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 27
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 23
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0004",
+      "success": false,
+      "retained_progress_transitions": 26
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0005",
+      "success": true,
+      "retained_progress_transitions": 28
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0006",
+      "success": false,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0007",
+      "success": false,
+      "retained_progress_transitions": 20
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0008",
+      "success": true,
+      "retained_progress_transitions": 12
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchlong_a1",
+      "episode_id": "trial_0009",
+      "success": false,
+      "retained_progress_transitions": 16
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchplanks_a1",
+      "episode_id": "trial_0000",
+      "success": true,
+      "retained_progress_transitions": 6
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchplanks_a1",
+      "episode_id": "trial_0001",
+      "success": true,
+      "retained_progress_transitions": 9
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchplanks_a1",
+      "episode_id": "trial_0002",
+      "success": true,
+      "retained_progress_transitions": 13
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchplanks_a1",
+      "episode_id": "trial_0003",
+      "success": true,
+      "retained_progress_transitions": 10
+    },
+    {
+      "run_id": "p8_pitch_20261120_b6_batchplanks_a1",
+      "episode_id": "trial_0004",
+      "success": false,
+      "retained_progress_transitions": 16
+    }
+  ],
+  "source_probabilities_rewards_and_action_counts_verified": true,
+  "prior_evaluation_reclassified_as_development": true,
+  "sample_count": 1670,
+  "action_counts": {
+    "NO_OP": 0,
+    "TURN_LEFT": 268,
+    "TURN_RIGHT": 198,
+    "FORWARD": 681,
+    "COLLECT_LOG": 3,
+    "CRAFT_PLANKS": 100,
+    "CRAFT_STICKS": 28,
+    "CRAFT_TABLE": 16,
+    "PLACE_TABLE": 12,
+    "CRAFT_PICKAXE": 12,
+    "LOOK_UP": 168,
+    "LOOK_DOWN": 184
+  },
+  "regularization": 0.0001,
+  "loss": 0.5114071787477301,
+  "iterations": 284,
+  "weight_delta_norm": 21.360740448439035,
+  "teacher": "Original policy's recorded actions and observed progress, with no new action labels",
+  "policy_inputs": "Preserved 66-feature live pitch interface"
+}

@@ -632,3 +632,22 @@ pickaxe milestone MP4s were fully decoded again, with unchanged
 checksums. Partial captures, interrupted episodes, the user pause and
 the unscored duplicate-scheduling mistake remain documented.
 [Milestone playback verification](experiments/phase9/phase8_pitch_followup_20261117/milestone_verification_20261120.json)
+
+## November 23 reliability follow-through
+
+The Phase 8 follow-up preserves the strict operational sensor/action
+contract and the original graph and checkpoints. Its new readouts learn
+only from recorded policy actions and observed progress, including actual
+block-change acknowledgments. Prepared tree fixtures and motor durations
+remain engineered assistance. The small development comparison supplies
+no new vanilla-spawn reliability evidence and no neural-benefit claim.
+[Partial pilot, fitting provenance and remaining gates](experiments/phase9/phase8_finish_20261123/README.md)
+
+RAM pressure interrupted several new attempts. Scored episodes retain
+their terminal inventory and block/crafting confirmation audits. Unscored
+technical interruptions remain distinct from scored policy failures. The
+new coordinator requires two samples with at least 2,400 MiB available
+before launching. The existing 768 MiB live reserve, 2,048 MiB disk guard
+and 75-degree GPU cutoff remain in force. All 119 Python tests pass,
+including preflight/live RAM-guard cleanup and the offline fit's independent
+gradient check. Phase 7.5 natural exploration and collection remain open.

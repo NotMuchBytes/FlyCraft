@@ -750,3 +750,37 @@ captures retain their original evidence and explicit coverage labels.
 Phase 8 remains open for the three-log and pickaxe reliability targets.
 Natural-terrain search and collection remain unestablished. The
 10,000-world Phase 9 campaign remains pending separate authorization.
+
+## November 23 development toward the remaining gates
+
+The unchanged baseline passed 118 tests. The new development comparison
+uses three fresh layouts with fixed world/layout seeds, policy RNG,
+observation interface and budgets. Increasing forward input from two to
+five ticks changed the preserved readout's three-log and pickaxe results
+from 1/3 each to 2/3 each. This is a small motor-duration pilot. Relative
+fixture geometry matches, but absolute spawn poses can differ across saves.
+
+An offline self-imitation fit uses the prior 120 recorded pitch episodes.
+Every reconstructed probability vector, action count, reward and outcome
+matches the original logs. The first trained readout scored three-log 3/3
+and pickaxe 1/2 with two-tick forward input, and 1/2 and 2/2 respectively
+with five ticks. Other cells stopped before scoring. These partial results
+do not establish a reliability gain. They are development results, and the
+old 120 episodes are now training/development data for this candidate.
+
+Positive-reward filtering retained only three mining examples. A corrected
+fit includes all 246 acknowledged successful log block changes, without
+altering the original episode reward or inventory-success labels. It has
+not yet completed live validation. The original brain, original checkpoints
+and Fabric/policy interface remain unchanged. The next evaluation requires
+fresh held-out seeds after candidate selection.
+[Method, checkpoint hashes, scored pilot and remaining work](experiments/phase9/phase8_finish_20261123/README.md)
+
+The updated Python suite passed 119 tests. A cleanup test now mocks RAM and
+disk availability so host memory pressure cannot prevent it reaching the
+intended OBS failure. Dedicated guard tests remain active. Recent live
+attempts hit the RAM guard. A replacement development coordinator waits
+for at least 2,400 MiB on two samples before launching, while preserving
+the 768 MiB live reserve, temperature and disk guards. No new milestone
+video or fresh held-out score is claimed for the unvalidated readout.
+Phase 8 remains open, and Phase 9 remains pending discussion.
