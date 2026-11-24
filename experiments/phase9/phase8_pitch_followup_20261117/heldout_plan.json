@@ -1,0 +1,108 @@
+{
+  "state": "planned; no scores from this seed set",
+  "policy": {
+    "checkpoint": "checkpoints/phase9/dev_pilot_20261029_b_pilot_trained_00002_a0003/trial_0000.npz",
+    "sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+    "policy_rng_seed": 9001,
+    "policy_action_limit": 120,
+    "condition": "trained",
+    "training": false,
+    "pitch_actions": true,
+    "camera_mode": "bounded",
+    "turn_degrees": 15,
+    "forward_ticks": 2,
+    "movement_feedback": "displacement",
+    "jump_on_blocked_forward": false,
+    "explore_forward": false
+  },
+  "goals": {
+    "one_log": {
+      "trials": 30,
+      "success_target": 24,
+      "trial_ticks": 400
+    },
+    "three_logs": {
+      "trials": 30,
+      "success_target": 21,
+      "trial_ticks": 1500
+    },
+    "planks": {
+      "trials": 30,
+      "success_target": 21,
+      "trial_ticks": 400
+    },
+    "wooden_pickaxe": {
+      "trials": 30,
+      "success_target": 15,
+      "trial_ticks": 1500
+    }
+  },
+  "environment": "Headless disposable flat survival fixtures. Three-tree fixture and mined-column tracking for three_logs and wooden_pickaxe. Empty starting inventory for every goal.",
+  "dependence": "Five layout seeds share each generated flat world. Report Wilson intervals descriptively and keep natural-terrain evidence separate.",
+  "gate": "Run the one-log set on the pitch-enabled candidate before the long-goal sets. Release the long-goal sets at 24 verified successes out of 30.",
+  "scoring": "Match server and acknowledged controller terminal inventory. Independently audit block changes and successful recipe actions. Record drop visibility, policy actions after the final confirmed break, and table placement opportunities and outcomes.",
+  "recording": "A separately labeled fresh repeat on a preselected layout, once that live goal is running reliably enough to record. Routine trials are event-only.",
+  "seed_master": 2026111708,
+  "blocks": [
+    {
+      "world_seed": 6978360908223285953,
+      "layout_seeds": [
+        1607390377484670270,
+        9213471846726019890,
+        3984495919579435161,
+        4820630653260048925,
+        7470364270573673954
+      ]
+    },
+    {
+      "world_seed": 6360251283457058950,
+      "layout_seeds": [
+        5803887519099238658,
+        1155054437588995623,
+        3713405992518041186,
+        1557975987282486989,
+        3038835475943638815
+      ]
+    },
+    {
+      "world_seed": 6382699041457439779,
+      "layout_seeds": [
+        3583331091123119641,
+        747613274102151364,
+        6943563367150294874,
+        7099259314690975381,
+        7856877656010772477
+      ]
+    },
+    {
+      "world_seed": 7913180023003623383,
+      "layout_seeds": [
+        5162944875181230226,
+        1377092451239297271,
+        7522921552496168040,
+        246085092640676297,
+        2961236907201698899
+      ]
+    },
+    {
+      "world_seed": 2334119608066877611,
+      "layout_seeds": [
+        6236069981617652371,
+        3440700975895013612,
+        6448866774918872764,
+        7097488226217715205,
+        6163960239167197578
+      ]
+    },
+    {
+      "world_seed": 7298949898260188342,
+      "layout_seeds": [
+        7639207245024079841,
+        6233139738268188049,
+        8211087988183380781,
+        7193815914703498209,
+        4568153177629867326
+      ]
+    }
+  ]
+}

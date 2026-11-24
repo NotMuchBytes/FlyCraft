@@ -1,0 +1,22 @@
+{
+  "sample_count": 1913,
+  "action_counts": {
+    "NO_OP": 0,
+    "TURN_LEFT": 268,
+    "TURN_RIGHT": 198,
+    "FORWARD": 681,
+    "COLLECT_LOG": 246,
+    "CRAFT_PLANKS": 100,
+    "CRAFT_STICKS": 28,
+    "CRAFT_TABLE": 16,
+    "PLACE_TABLE": 12,
+    "CRAFT_PICKAXE": 12,
+    "LOOK_UP": 168,
+    "LOOK_DOWN": 184
+  },
+  "loss": 0.5343430032362462,
+  "iterations": 278,
+  "weight_delta_norm": 21.121298272419935
+}
+Pitch error weights {'NO_OP': 0.019676251748960864, 'TURN_LEFT': -2.7222981716084136, 'TURN_RIGHT': -4.118449005502767, 'FORWARD': 0.4323971291821453, 'COLLECT_LOG': -0.7332229744688297, 'CRAFT_PLANKS': 3.2805904371790064, 'CRAFT_STICKS': 0.6519501073616606, 'CRAFT_TABLE': 0.08804081479701728, 'PLACE_TABLE': -0.06057162754794999, 'CRAFT_PICKAXE': 2.056235225310442, 'LOOK_UP': -0.3232232804230595, 'LOOK_DOWN': 1.4288750939717785}
+Saved C:\Users\anass\Documents\Codex\2026-11-17\continue-developing-the-actual-flycraft-minecraft\work\mining_fit_reproduction.npz

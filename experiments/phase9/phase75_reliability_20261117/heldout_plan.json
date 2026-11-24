@@ -1,0 +1,22 @@
+{
+  "goal": "one_log",
+  "environment": "vanilla overworld, fresh disposable save per condition",
+  "seeds": [
+    {"world": 202611170811, "heading": 4117568137},
+    {"world": 202611170812, "heading": 7057742971}
+  ],
+  "conditions": ["trained", "frozen", "uniform", "no_neural", "shuffled"],
+  "additional_pair": "trained with the 3× target-absent forward odds prior",
+  "matched_pose_rule": "Reuse the trained reference's absolute post-warmup spawn pose for every repeat on the seed.",
+  "trial_ticks": 1000,
+  "policy_action_limit": 120,
+  "policy_rng_seed": 9001,
+  "checkpoint": "checkpoints/phase9/dev_pilot_20261029_b_pilot_trained_00002_a0003/trial_0000.npz",
+  "frozen_checkpoint": "checkpoints/phase7/curriculum_v3_seed29.npz",
+  "camera": "bounded, 15-degree yaw and pitch",
+  "forward_ticks": 2,
+  "movement_feedback": "displacement",
+  "jump_on_blocked_forward": false,
+  "training_enabled": false,
+  "target": "Inventory-confirmed log and acknowledged terminal delivery. Report block break independently."
+}

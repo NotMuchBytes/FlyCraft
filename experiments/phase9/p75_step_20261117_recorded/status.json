@@ -1,0 +1,8 @@
+{
+  "lifecycle_updated_unix": 1794925187.6863008,
+  "finalized": true,
+  "recording_active": false,
+  "server_alive": false,
+  "client_alive": false,
+  "stop_reason": "available_ram_guard"
+}

@@ -1,0 +1,92 @@
+{
+  "copied_tracked_files": 21,
+  "no_raw_data_or_private_runtime": true,
+  "dependencies": "Existing pinned Python environment; no fresh dependency installation claimed",
+  "commands": [
+    {
+      "arguments": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_learning.py",
+        "-v"
+      ],
+      "returncode": 0
+    },
+    {
+      "arguments": [
+        "tools/train_phase5.py",
+        "--episodes",
+        "100",
+        "--seed",
+        "42",
+        "--checkpoint",
+        "checkpoints/phase5/first_run.npz",
+        "--output",
+        "work/first_run_train.jsonl"
+      ],
+      "returncode": 0
+    },
+    {
+      "arguments": [
+        "tools/evaluate_phase5.py",
+        "--checkpoint",
+        "checkpoints/phase5/first_run.npz",
+        "--episodes",
+        "200",
+        "--seed",
+        "10042",
+        "--output",
+        "work/first_run_eval.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "arguments": [
+        "tools/train_phase5.py",
+        "--episodes",
+        "100",
+        "--checkpoint",
+        "checkpoints/phase5/first_run.npz",
+        "--resume",
+        "--output",
+        "work/first_run_resume.jsonl"
+      ],
+      "returncode": 0
+    }
+  ],
+  "evaluation": {
+    "checkpoint": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\readme_smoke_20261124\\checkpoints\\phase5\\first_run.npz",
+    "checkpoint_training_seed": 42,
+    "checkpoint_episodes": 100,
+    "evaluation_seed": 10042,
+    "max_steps": 24,
+    "baseline": {
+      "episodes": 200,
+      "successes": 1,
+      "success_rate": 0.005,
+      "mean_reward": 0.7228833547405484,
+      "median_reward": 0.8553252765339245,
+      "mean_final_distance": 4.820288709847186,
+      "mean_episode_length": 23.98,
+      "mean_steps_to_success": 20.0
+    },
+    "trained": {
+      "episodes": 200,
+      "successes": 9,
+      "success_rate": 0.045,
+      "mean_reward": 1.0811996710916152,
+      "median_reward": 1.0869731137269065,
+      "mean_final_distance": 4.507063995999518,
+      "mean_episode_length": 23.815,
+      "mean_steps_to_success": 19.88888888888889
+    },
+    "raw_logs": {
+      "baseline": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\readme_smoke_20261124\\work\\first_run_eval_baseline.jsonl",
+      "trained": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\readme_smoke_20261124\\work\\first_run_eval_trained.jsonl"
+    }
+  }
+}

@@ -58,6 +58,8 @@ class ObsControlTests(unittest.TestCase):
             with mock.patch.object(runner, "ROOT", folder), mock.patch("sys.argv", arguments), \
                  mock.patch.object(runner, "ObsRecorder", return_value=recorder), \
                  mock.patch.object(runner, "listening", return_value=False), \
+                 mock.patch.object(runner.psutil, "virtual_memory", return_value=mock.Mock(available=4096*1024**2)), \
+                 mock.patch.object(runner.shutil, "disk_usage", return_value=mock.Mock(free=4096*1024**2)), \
                  mock.patch.object(runner.subprocess, "Popen") as process_factory, \
                  mock.patch.object(runner.socket, "create_connection", side_effect=OSError("closed")), \
                  mock.patch.object(runner, "stop") as cleanup, mock.patch("sys.stdout", new=io.StringIO()):
@@ -108,27 +110,36 @@ class ObsControlTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             folder=Path(directory)
             (folder/"initial.npz").write_bytes(b"mocked model")
-            args=["run_phase8_live.py", "--run-id", "ram_guard", "--work-dir", str(folder/"runtime"),
-                  "--build-dir", str(folder/"build"), "--checkpoint", str(folder/"initial.npz"), "--obs-control-dir", str(folder), "--launcher", "gradle"]
-            recorder=mock.Mock(started=False)
-            recorder.pulse.return_value=False
-            recorder.stop.return_value=None
-            with mock.patch.object(runner,"ROOT",folder),mock.patch("sys.argv",args), \
-                 mock.patch.object(runner,"ObsRecorder",return_value=recorder), \
-                 mock.patch.object(runner,"listening",return_value=False), \
-                 mock.patch.object(runner.psutil,"virtual_memory",return_value=mock.Mock(available=128*1024**2)), \
-                 mock.patch.object(runner.subprocess,"Popen") as factory, \
-                 mock.patch.object(runner.subprocess,"run",return_value=mock.Mock(stdout="45\n")), \
-                 mock.patch.object(runner.time,"sleep"), \
-                 mock.patch.object(runner.socket,"create_connection",side_effect=OSError("closed")), \
-                 mock.patch.object(runner,"stop") as cleanup,mock.patch("sys.stdout",new=io.StringIO()):
-                factory.return_value.poll.return_value=None
-                runner.main()
-            self.assertEqual(cleanup.call_count,2)
-            metadata=json.loads((folder/"experiments/phase8/ram_guard/run.json").read_text())
-            self.assertEqual(metadata["stop_reason"],"available_ram_guard")
-            self.assertEqual(metadata["minimum_sampled_available_ram_mib"],128)
-            self.assertFalse((folder/"runtime/ram_guard/start.enabled").exists())
+            for run_id, samples, launched, minimum in (
+                ("ram_preflight", (128,), 0, None),
+                ("ram_live", (1024, 128, 128, 128), 2, 128),
+            ):
+                with self.subTest(run_id=run_id):
+                    args=["run_phase8_live.py", "--run-id", run_id, "--work-dir", str(folder/"runtime"),
+                          "--build-dir", str(folder/"build"), "--checkpoint", str(folder/"initial.npz"),
+                          "--obs-control-dir", str(folder), "--launcher", "gradle"]
+                    recorder=mock.Mock(started=False)
+                    recorder.pulse.return_value=False
+                    recorder.stop.return_value=None
+                    memory_samples = [mock.Mock(available=mib*1024**2) for mib in samples]
+                    with mock.patch.object(runner,"ROOT",folder),mock.patch("sys.argv",args), \
+                         mock.patch.object(runner,"ObsRecorder",return_value=recorder), \
+                         mock.patch.object(runner,"listening",return_value=False), \
+                         mock.patch.object(runner.shutil,"disk_usage",return_value=mock.Mock(free=4096*1024**2)), \
+                         mock.patch.object(runner.psutil,"virtual_memory",side_effect=memory_samples), \
+                         mock.patch.object(runner.subprocess,"Popen") as factory, \
+                         mock.patch.object(runner.subprocess,"run",return_value=mock.Mock(stdout="45\n")), \
+                         mock.patch.object(runner.time,"sleep"), \
+                         mock.patch.object(runner.socket,"create_connection",side_effect=OSError("closed")), \
+                         mock.patch.object(runner,"stop") as cleanup,mock.patch("sys.stdout",new=io.StringIO()):
+                        factory.return_value.poll.return_value=None
+                        runner.main()
+                    self.assertEqual(factory.call_count,launched)
+                    self.assertEqual(cleanup.call_count,launched)
+                    metadata=json.loads((folder/"experiments/phase8"/run_id/"run.json").read_text())
+                    self.assertEqual(metadata["stop_reason"],"available_ram_guard")
+                    self.assertEqual(metadata["minimum_sampled_available_ram_mib"],minimum)
+                    self.assertFalse((folder/"runtime"/run_id/"start.enabled").exists())
 
 
 if __name__ == "__main__":

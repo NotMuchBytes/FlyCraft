@@ -1,5 +1,12 @@
 # FlyCraft Phase 7.5 reliability report
 
+November 20, 2026. The fixed-pose obstacle diagnostic verified a
+policy-selected forward retry with a vanilla jump pulse, followed by
+inventory-confirmed collection. The pitch-enabled controlled one-log
+follow-up scored 26/30. The five-policy held-out vanilla comparison
+scored 0/2 per condition, so natural-terrain reliability remains open.
+[Latest reliability status](#november-20-reliability-status)
+
 November 12, 2026. The restart follow-up verified that FlyCraft could start
 a fresh trial after Minecraft reopened the same disposable save. The Python
 bridge retained the interrupted command as unconfirmed, and both live repeats
@@ -477,3 +484,170 @@ test exploration when no target is visible and hold the absolute start
 pose fixed when measuring obstacle recovery. The jump's effect on
 movement and collection remains unverified in Minecraft. The full
 117-test suite and Fabric build passed after adding the opt-in recovery.
+
+## November 17 fixed-pose blocked-forward diagnostic
+
+Two fresh headless Fabric saves used world seed 202611170701, layout seed
+813294051, start pose (0.5, 100, 0.7, 0°, 0°), policy RNG seed 9001, the
+same frozen evaluation checkpoint, a 120-action limit and a 700-tick deadline. The flat
+platform held a one-block step in the forward path and a visible oak
+trunk behind it. The server recorded an identical pose and fixture on
+both sides. The policy selected the same first six actions, including
+the blocked fifth forward action and its immediate retry.
+
+| Motor | Logs | Actions | Game seconds | Blocked forward | First legal mine decision | Confirmed log breaks |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Reference | 1 | 26 | 19.2 | 5 | 24 | 1 |
+| Forward-retry jump | 1 | 17 | 16.2 | 3 | 8 | 2 |
+
+The sixth action raised the actor 1.252 blocks and began motion in the
+original heading. The next two policy-selected forward actions took the
+actor to Z=1.983 and Z=2.821, beyond the step at Z=1 to 2. The reference
+walked around the step. The server and controller agreed on terminal log
+inventory and both terminal deliveries were acknowledged. The jump is
+engineered motor assistance. This single matched pair establishes that
+it fired, cleared the step and shortened the approach in this fixture.
+It gives no estimate of success on vanilla spawns.
+[Matched audit and run IDs](experiments/phase9/phase75_reliability_20261117/obstacle_pair.json)
+
+### Target-absent exploration development
+
+The prior vanilla failures selected seven forward actions per no-log
+episode. The single new intervention multiplies the odds of a legal
+forward action by three during target-absent search or collection.
+The policy still samples from all legal actions. The readout weights,
+observations, forward duration, action budget, jump setting and world
+are fixed between variants. The prior is engineered assistance.
+
+Two reruns on development seeds reused the exact post-warmup pose across
+variants. They used the same 120-action policy limit, 1,000-tick live
+deadline and RNG seed 9001.
+
+| World seed | Variant | Confirmed logs | Acknowledged actions | Blind forward decisions | Max distance from spawn | Episode wall time |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 202611120102 | Reference | 0 | 70 | 7 | 0.62 blocks | 50.00 s |
+| 202611120102 | Forward odds ×3 | 0 | 73 | 17 | 1.83 blocks | 49.98 s |
+| 202611120103 | Reference | 0 | 69 | 7 | 2.36 blocks | 49.74 s |
+| 202611120103 | Forward odds ×3 | 0 | 73 | 17 | 3.32 blocks | 49.98 s |
+
+All four reached the 50-second game deadline with acknowledged,
+matching inventory. No log became visible, no mining action was
+available and no block broke. Increased travel alone failed to resolve
+search on these two seeds. The forward prior remains opt-in.
+[Development trace audit](experiments/phase9/phase75_reliability_20261117/search_development.json)
+
+The fresh held-out plan fixes two new world seeds and compares the five
+policies on the same strict pitch interface. It treats the forward prior
+as an additional trained-policy comparison so the uniform control can
+remain uniform over the legal mask.
+[Held-out plan](experiments/phase9/phase75_reliability_20261117/heldout_plan.json)
+
+### Fresh held-out vanilla comparison
+
+The 12 scored trials used fresh saves on world seeds 202611170811 and
+202611170812. Within each seed, the five conditions and the trained
+forward-prior repeat matched the trained reference's absolute
+post-warmup pose, 120-action policy cap, 1,000-tick deadline, RNG and
+interface. The trained and ablation weights were fixed. Frozen uses
+the Phase 7 transfer, uniform samples the legal mask, no-neural zeroes
+the activity inputs, and shuffled permutes the activity inputs.
+All terminal inventories matched and were acknowledged.
+
+| Condition | Confirmed pickups | Median actions | Median episode wall time | Failure modes |
+| --- | ---: | ---: | ---: | --- |
+| Trained | 0/2 | 66 | 50.00 s | One unseen, one visible outside mining affordance |
+| Frozen transfer | 0/2 | 70.5 | 49.57 s | One unseen, one visible outside mining affordance |
+| Uniform | 0/2 | 70.5 | 49.70 s | Two unseen |
+| No-neural | 0/2 | 66 | 49.80 s | One unseen, one visible outside mining affordance |
+| Shuffled-neural | 0/2 | 70.5 | 49.98 s | One unseen, one visible outside mining affordance |
+| Trained with forward prior | 0/2 | 67 | 49.82 s | One unseen, one confirmed break without pickup |
+
+The descriptive 95% Wilson interval was 0%–65.8% for every condition.
+On seed 202611170812, the prior reached the first legal mining offer
+at decision 61 and sampled mining. Minecraft confirmed the block
+change at tick 1037, three ticks before the deadline, with an empty
+terminal inventory. It was the only break in the held-out set.
+The data do not establish a collection gain, a learning advantage
+or one-log reliability in vanilla terrain.
+[Matched per-episode audit](experiments/phase9/phase75_reliability_20261117/heldout_results.json)
+
+The Python suite passed all 118 tests. It covers the forward prior
+with and without a visible target and a legal forward action. It also
+checks that low RAM aborts before Minecraft starts and during a live
+run with cleanup of its owned processes. The sparse graph SHA-256 remains
+`37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d`.
+Fabric assembly and the three standalone Java test mains passed.
+Gradle's default `test` task did not discover the standalone mains.
+
+### Milestone capture attempts
+
+The first OBS attempt stopped before game launch at the RAM guard. A
+fresh third-person attempt collected one log in 18 actions and 289
+ticks. Its 30.5-second MP4 decoded completely and passed the Minecraft
+window match on the RTX 4050. Frame review found that the spectator
+lagged below the raised platform, so it missed the jump and break.
+The original MP4 and episode logs are retained with partial visual
+coverage. The recorded attempt is separate from the matched pair.
+[RAM-guard attempt](experiments/phase9/p75_step_20261117_recorded/run.json)
+[Third-person visual review](experiments/phase9/p75_step_20261117_recorded_c/visual_review.json)
+
+An initial first-person retry stopped below the RAM reserve with no scored
+episode. A fresh retry with smaller heaps captured the approach and break
+on the RTX 4050. The actor triggered the jump on command 6, broke two logs
+and finished with one log in inventory after 18 actions and 332 ticks.
+The Minecraft-window match and full decode passed for its 29.0-second,
+869-frame MP4. Frame review confirmed coverage of the obstacle scene.
+The recording is a fresh execution kept outside the matched scores.
+[First-person milestone and file path](recordings/phase9/youtube/p75_step_20261117_recorded_e.json)
+
+## November 20 reliability status
+
+The matched diagnostic holds the world seed, absolute starting pose,
+checkpoint, policy RNG and budgets constant. Its jump variant cleared
+the step and collected a log in 17 actions, compared with 26 for the
+reference. The recorded first-person repeat is a separate successful
+execution in 18 actions. The jump is engineered motor assistance.
+Its effect on vanilla-spawn success remains unestablished.
+
+The forward prior increased movement on the development seeds. On the
+two held-out worlds it produced one confirmed block break but no
+inventory-confirmed collection. Trained, frozen transfer, uniform,
+no-neural and shuffled-neural each scored 0/2 with the same strict
+pitch interface and matched post-warmup starting pose. These results
+leave exploration, approach and pickup reliability as separate gaps.
+[Matched held-out results](experiments/phase9/phase75_reliability_20261117/heldout_results.json)
+
+The Phase 8 pitch candidate completed 30 trials per goal. It scored
+26/30 one-log, 18/30 three-log, 27/30 planks and 12/30 wooden pickaxe
+from empty inventory. All 120 scores have matching terminal inventory
+and acknowledged delivery. One-log and plank point targets were met,
+while the two longer-goal targets were missed. These controlled
+fixture outcomes retain the original semantic sensing, recipe
+transactions and engineered goal masks.
+[Completed Phase 8 evaluation](PHASE_8_REPORT.md#november-20-completed-pitch-evaluation)
+
+All 118 Python tests passed on November 20. The graph hash and frozen
+checkpoint hash matched their preserved values. The accepted jump and
+pickaxe milestone MP4s were fully decoded again, with unchanged
+checksums. Partial captures, interrupted episodes, the user pause and
+the unscored duplicate-scheduling mistake remain documented.
+[Milestone playback verification](experiments/phase9/phase8_pitch_followup_20261117/milestone_verification_20261120.json)
+
+## November 23 reliability follow-through
+
+The Phase 8 follow-up preserves the strict operational sensor/action
+contract and the original graph and checkpoints. Its new readouts learn
+only from recorded policy actions and observed progress, including actual
+block-change acknowledgments. Prepared tree fixtures and motor durations
+remain engineered assistance. The small development comparison supplies
+no new vanilla-spawn reliability evidence and no neural-benefit claim.
+[Partial pilot, fitting provenance and remaining gates](experiments/phase9/phase8_finish_20261123/README.md)
+
+RAM pressure interrupted several new attempts. Scored episodes retain
+their terminal inventory and block/crafting confirmation audits. Unscored
+technical interruptions remain distinct from scored policy failures. The
+new coordinator requires two samples with at least 2,400 MiB available
+before launching. The existing 768 MiB live reserve, 2,048 MiB disk guard
+and 75-degree GPU cutoff remain in force. All 119 Python tests pass,
+including preflight/live RAM-guard cleanup and the offline fit's independent
+gradient check. Phase 7.5 natural exploration and collection remain open.

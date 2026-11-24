@@ -30,8 +30,14 @@ class LinearSoftmaxPolicy:
         self.baseline = 0.0
         self.episodes_trained = 0
 
-    def probabilities(self, features: np.ndarray, mask: np.ndarray | None = None) -> np.ndarray:
+    def probabilities(self, features: np.ndarray, mask: np.ndarray | None = None, *,
+                      logit_offsets: np.ndarray | None = None) -> np.ndarray:
         logits = np.asarray(features, dtype=np.float64) @ self.weights
+        if logit_offsets is not None:
+            logit_offsets = np.asarray(logit_offsets, dtype=np.float64)
+            if logit_offsets.shape != logits.shape:
+                raise ValueError("logit offsets must match the action space")
+            logits += logit_offsets
         if not np.isfinite(logits).all():
             raise ValueError("nonfinite policy logits")
         if mask is not None:
@@ -43,8 +49,9 @@ class LinearSoftmaxPolicy:
         probabilities = np.exp(logits)
         return probabilities / probabilities.sum()
 
-    def sample(self, features: np.ndarray, rng: np.random.Generator, mask: np.ndarray | None = None) -> tuple[int, str, np.ndarray]:
-        probabilities = self.probabilities(features, mask)
+    def sample(self, features: np.ndarray, rng: np.random.Generator, mask: np.ndarray | None = None, *,
+               logit_offsets: np.ndarray | None = None) -> tuple[int, str, np.ndarray]:
+        probabilities = self.probabilities(features, mask, logit_offsets=logit_offsets)
         index = int(rng.choice(len(self.actions), p=probabilities))
         return index, self.actions[index], probabilities
 

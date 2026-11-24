@@ -1,0 +1,284 @@
+{
+  "historical_yaw_trials": [
+    {
+      "run_id": "p8_completion_bench_20261108_2",
+      "episode_id": "trial_0002",
+      "layout_seed": 5825188189416362583,
+      "log_inventory": 2,
+      "confirmed_breaks": 3,
+      "decisions_after_final_break": 32,
+      "drop_visible_decisions": 12,
+      "closest_visible_drop": 1.7500170547756724,
+      "first_drop_decision": {
+        "tick": 3485,
+        "command_id": 228,
+        "action": "FORWARD",
+        "target_id": "item:22",
+        "target_kind": "drop",
+        "distance": 2.956437991134477,
+        "pitch_error": null
+      },
+      "next_target_after_first_seen_drop": {
+        "tick": 3495,
+        "command_id": 229,
+        "action": "FORWARD",
+        "target_id": "item:22",
+        "target_kind": "drop",
+        "distance": 2.173461277461055,
+        "pitch_error": null
+      },
+      "actions_while_drop_selected": {
+        "FORWARD": 7,
+        "TURN_RIGHT": 3,
+        "TURN_LEFT": 2
+      },
+      "forward_outcomes_before_next_decision": {
+        "success": 7
+      },
+      "forward_with_same_drop_in_next_decision": 6,
+      "forward_with_same_drop_at_least_0_02_blocks_closer": 6
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_2",
+      "episode_id": "trial_0006",
+      "layout_seed": 1620031791343449616,
+      "log_inventory": 2,
+      "confirmed_breaks": 3,
+      "decisions_after_final_break": 62,
+      "drop_visible_decisions": 10,
+      "closest_visible_drop": 1.6550204642504187,
+      "first_drop_decision": {
+        "tick": 8650,
+        "command_id": 574,
+        "action": "TURN_LEFT",
+        "target_id": "item:35",
+        "target_kind": "drop",
+        "distance": 2.85705190013881,
+        "pitch_error": null
+      },
+      "next_target_after_first_seen_drop": {
+        "tick": 8665,
+        "command_id": 575,
+        "action": "FORWARD",
+        "target_id": "item:35",
+        "target_kind": "drop",
+        "distance": 3.267480352192004,
+        "pitch_error": null
+      },
+      "actions_while_drop_selected": {
+        "TURN_LEFT": 1,
+        "FORWARD": 5,
+        "TURN_RIGHT": 3,
+        "NO_OP": 1
+      },
+      "forward_outcomes_before_next_decision": {
+        "success": 5
+      },
+      "forward_with_same_drop_in_next_decision": 4,
+      "forward_with_same_drop_at_least_0_02_blocks_closer": 4
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_3",
+      "episode_id": "trial_0000",
+      "layout_seed": 6962978918732471597,
+      "log_inventory": 2,
+      "confirmed_breaks": 3,
+      "decisions_after_final_break": 5,
+      "drop_visible_decisions": 1,
+      "closest_visible_drop": 3.7104805519108064,
+      "first_drop_decision": {
+        "tick": 1490,
+        "command_id": 104,
+        "action": "FORWARD",
+        "target_id": "item:18",
+        "target_kind": "drop",
+        "distance": 3.7104805519108064,
+        "pitch_error": null
+      },
+      "next_target_after_first_seen_drop": {
+        "tick": 1500,
+        "command_id": 105,
+        "action": "FORWARD",
+        "target_id": "",
+        "target_kind": "none",
+        "distance": -1.0,
+        "pitch_error": null
+      },
+      "actions_while_drop_selected": {
+        "FORWARD": 1
+      },
+      "forward_outcomes_before_next_decision": {
+        "success": 1
+      },
+      "forward_with_same_drop_in_next_decision": 0,
+      "forward_with_same_drop_at_least_0_02_blocks_closer": 0
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_3",
+      "episode_id": "trial_0004",
+      "layout_seed": 573132969015125205,
+      "log_inventory": 2,
+      "confirmed_breaks": 3,
+      "decisions_after_final_break": 43,
+      "drop_visible_decisions": 20,
+      "closest_visible_drop": 2.368599727492776,
+      "first_drop_decision": {
+        "tick": 6705,
+        "command_id": 458,
+        "action": "TURN_RIGHT",
+        "target_id": "item:29",
+        "target_kind": "drop",
+        "distance": 3.2314383255110615,
+        "pitch_error": null
+      },
+      "next_target_after_first_seen_drop": {
+        "tick": 6720,
+        "command_id": 459,
+        "action": "TURN_RIGHT",
+        "target_id": "item:29",
+        "target_kind": "drop",
+        "distance": 2.686942381053508,
+        "pitch_error": null
+      },
+      "actions_while_drop_selected": {
+        "TURN_RIGHT": 4,
+        "FORWARD": 8,
+        "TURN_LEFT": 8
+      },
+      "forward_outcomes_before_next_decision": {
+        "success": 8
+      },
+      "forward_with_same_drop_in_next_decision": 6,
+      "forward_with_same_drop_at_least_0_02_blocks_closer": 6
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_4",
+      "episode_id": "trial_0006",
+      "layout_seed": 4252766614724630241,
+      "log_inventory": 2,
+      "confirmed_breaks": 3,
+      "decisions_after_final_break": 28,
+      "drop_visible_decisions": 1,
+      "closest_visible_drop": 3.645281496044674,
+      "first_drop_decision": {
+        "tick": 9365,
+        "command_id": 652,
+        "action": "FORWARD",
+        "target_id": "item:37",
+        "target_kind": "drop",
+        "distance": 3.645281496044674,
+        "pitch_error": null
+      },
+      "next_target_after_first_seen_drop": {
+        "tick": 9375,
+        "command_id": 653,
+        "action": "TURN_LEFT",
+        "target_id": "",
+        "target_kind": "none",
+        "distance": -1.0,
+        "pitch_error": null
+      },
+      "actions_while_drop_selected": {
+        "FORWARD": 1
+      },
+      "forward_outcomes_before_next_decision": {
+        "success": 1
+      },
+      "forward_with_same_drop_in_next_decision": 0,
+      "forward_with_same_drop_at_least_0_02_blocks_closer": 0
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_5",
+      "episode_id": "trial_0004",
+      "layout_seed": 4783691577882577677,
+      "log_inventory": 2,
+      "confirmed_breaks": 3,
+      "decisions_after_final_break": 53,
+      "drop_visible_decisions": 41,
+      "closest_visible_drop": 1.8470033436916853,
+      "first_drop_decision": {
+        "tick": 6260,
+        "command_id": 437,
+        "action": "FORWARD",
+        "target_id": "item:28",
+        "target_kind": "drop",
+        "distance": 2.6849546845231416,
+        "pitch_error": null
+      },
+      "next_target_after_first_seen_drop": {
+        "tick": 6265,
+        "command_id": 438,
+        "action": "TURN_RIGHT",
+        "target_id": "item:28",
+        "target_kind": "drop",
+        "distance": 2.498876822821858,
+        "pitch_error": null
+      },
+      "actions_while_drop_selected": {
+        "FORWARD": 19,
+        "TURN_RIGHT": 9,
+        "TURN_LEFT": 13
+      },
+      "forward_outcomes_before_next_decision": {
+        "success": 13,
+        "movement_blocked": 6
+      },
+      "forward_with_same_drop_in_next_decision": 18,
+      "forward_with_same_drop_at_least_0_02_blocks_closer": 5
+    },
+    {
+      "run_id": "p8_completion_bench_20261108_5",
+      "episode_id": "trial_0008",
+      "layout_seed": 6631487298524535379,
+      "log_inventory": 1,
+      "confirmed_breaks": 3,
+      "decisions_after_final_break": 9,
+      "drop_visible_decisions": 2,
+      "closest_visible_drop": 2.25621244247303,
+      "first_drop_decision": {
+        "tick": 12375,
+        "command_id": 890,
+        "action": "FORWARD",
+        "target_id": "item:40",
+        "target_kind": "drop",
+        "distance": 2.3073459021847937,
+        "pitch_error": null
+      },
+      "next_target_after_first_seen_drop": {
+        "tick": 12380,
+        "command_id": 891,
+        "action": "FORWARD",
+        "target_id": "item:40",
+        "target_kind": "drop",
+        "distance": 2.25621244247303,
+        "pitch_error": null
+      },
+      "actions_while_drop_selected": {
+        "FORWARD": 2
+      },
+      "forward_outcomes_before_next_decision": {
+        "success": 2
+      },
+      "forward_with_same_drop_in_next_decision": 1,
+      "forward_with_same_drop_at_least_0_02_blocks_closer": 1
+    }
+  ],
+  "pitch_development_pilot": [
+    {
+      "run_id": "p8_pitch_dev_20261112_pitch",
+      "episode_id": "trial_0002",
+      "layout_seed": 619126558,
+      "log_inventory": 2,
+      "confirmed_breaks": 3,
+      "decisions_after_final_break": 6,
+      "drop_visible_decisions": 0,
+      "closest_visible_drop": null,
+      "first_drop_decision": null,
+      "next_target_after_first_seen_drop": null,
+      "actions_while_drop_selected": {},
+      "forward_outcomes_before_next_decision": {},
+      "forward_with_same_drop_in_next_decision": 0,
+      "forward_with_same_drop_at_least_0_02_blocks_closer": 0
+    }
+  ]
+}

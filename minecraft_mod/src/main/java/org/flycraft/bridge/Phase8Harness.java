@@ -37,6 +37,8 @@ public final class Phase8Harness {
     private static boolean headlessFixture;
     private static boolean unplacedTable;
     private static boolean naturalWorld;
+    private static boolean blockedForwardFixture;
+    private static double[] naturalStart;
     private static JsonObject terminal;
     private static int terminalWait;
     private static String trialIdPrefix;
@@ -61,6 +63,9 @@ public final class Phase8Harness {
             headlessFixture = Boolean.parseBoolean(config.getProperty("fixture.headless", "false"));
             unplacedTable = Boolean.parseBoolean(config.getProperty("fixture.unplacedTable", "false"));
             naturalWorld = Boolean.parseBoolean(config.getProperty("fixture.naturalWorld", "false"));
+            blockedForwardFixture = Boolean.parseBoolean(config.getProperty("fixture.blockedForward", "false"));
+            String pose = config.getProperty("fixture.naturalStart", "");
+            if (!pose.isBlank()) naturalStart = Arrays.stream(pose.split(",")).mapToDouble(Double::parseDouble).toArray();
             trials = new ArrayList<>();
             for (String line : Files.readAllLines(Path.of(config.getProperty("trialsFile")))) {
                 if (line.isBlank() || line.startsWith("#")) continue;
@@ -119,7 +124,10 @@ public final class Phase8Harness {
             groundY = (int)Math.floor(player.getY()); initialized = true; between = 20;
         }
         if (warmup > 0) {
-            if (--warmup == 0) { active = true; started = server.getTickCount(); instruction(true, false); }
+            if (--warmup == 0) {
+                if (naturalWorld || blockedForwardFixture) initialState(player, trials.get(index));
+                active = true; started = server.getTickCount(); instruction(true, false);
+            }
             return;
         }
         if (!active) {
@@ -189,9 +197,27 @@ public final class Phase8Harness {
         if (naturalWorld) {
             // Vary the starting heading without selecting or inspecting resources.
             float yaw = new Random(trial.seed).nextFloat() * 360 - 180;
-            player.setYRot(yaw); player.setYHeadRot(yaw); player.setXRot(0);
+            if (naturalStart == null) {
+                player.setYRot(yaw); player.setYHeadRot(yaw); player.setXRot(0);
+            } else {
+                player.teleportTo(level, naturalStart[0], naturalStart[1], naturalStart[2], Set.of(),
+                    (float)naturalStart[3], (float)naturalStart[4], true);
+                player.setYHeadRot((float)naturalStart[3]);
+                player.setDeltaMovement(0, 0, 0);
+            }
             player.inventoryMenu.sendAllDataToRemote();
-            initialState(player, trial);
+            return;
+        }
+        if (blockedForwardFixture) {
+            // A flat elevated platform makes the absolute pose independent of adjusted spawn.
+            originX = 0.5; originZ = 0.5; groundY = 100;
+            for (int x = -7; x <= 7; x++) for (int z = -7; z <= 7; z++)
+                level.setBlockAndUpdate(new BlockPos(x, groundY - 1, z), Blocks.STONE.defaultBlockState());
+            level.setBlockAndUpdate(new BlockPos(0, groundY, 1), Blocks.STONE.defaultBlockState());
+            placeTree(level, 0, 4);
+            player.teleportTo(level, originX, groundY, 0.7, Set.of(), 0, 0, true);
+            player.setDeltaMovement(0, 0, 0);
+            player.inventoryMenu.sendAllDataToRemote();
             return;
         }
         for (int x = -7; x <= 7; x++) for (int z = -7; z <= 7; z++) for (int y = 0; y <= 5; y++)

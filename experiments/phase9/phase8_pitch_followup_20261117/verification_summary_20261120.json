@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-20",
+  "python_suite": {
+    "command": ".venv/Scripts/python.exe -m unittest discover -s tests -q",
+    "tests": 118,
+    "result": "passed",
+    "elapsed_seconds": 18.056
+  },
+  "fabric_assembly": "passed earlier against the same frozen source",
+  "java_standalone_mains": "MovementFeedbackTest, FollowSteeringTest and CameraMotionTest passed",
+  "gradle_default_test_discovery": "Standalone main tests were not discovered by the default test task",
+  "verified_scored_episodes": 120,
+  "controller_server_inventory_agreement": 120,
+  "acknowledged_terminal_deliveries": 120,
+  "scored_episodes_with_zero_weight_updates": 120,
+  "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+  "graph_sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d",
+  "owned_live_processes": [],
+  "phase9_10000_world_campaign": "pending separate authorization"
+}

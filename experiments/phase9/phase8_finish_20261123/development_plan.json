@@ -1,0 +1,39 @@
+{
+  "purpose": "Finish the remaining Phase 8 controlled reliability gates and then pause for the user's Phase 9 checker discussion.",
+  "stage": "Phase 8 development",
+  "phase9_campaign_authorized": false,
+  "world_seed": 202611230801,
+  "layout_seeds": [728310449, 461992637, 890173251],
+  "policy_rng_seed": 9001,
+  "goals": ["three_logs", "wooden_pickaxe"],
+  "policy_action_budget": 120,
+  "game_tick_budget": 1500,
+  "pitch_actions": true,
+  "camera_mode": "bounded",
+  "turn_degrees": 15,
+  "movement_feedback": "displacement",
+  "three_tree_fixture": true,
+  "remember_mined_columns": true,
+  "conditions": [
+    {"run_id": "p8_stride_20261123_two", "forward_ticks": 2, "checkpoint": "preserved acdde37f checkpoint"},
+    {"run_id": "p8_stride_20261123_five", "forward_ticks": 5, "checkpoint": "preserved acdde37f checkpoint"},
+    {"run_id": "p8_progress_20261123_two", "forward_ticks": 2, "checkpoint": "offline progress-trained readout"},
+    {"run_id": "p8_progress_20261123_five_b", "forward_ticks": 5, "checkpoint": "offline progress-trained readout"},
+    {"run_prefix": "p8_mining_20261123_stride2_", "forward_ticks": 2, "checkpoint_sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4", "status": "awaiting sufficient RAM for live development"}
+  ],
+  "comparison": "Match seed pairs, relative fixture blocks, empty starting inventory, observation schema and budgets. Each run uses a fresh save. Absolute spawn positions and full Minecraft RNG replay are not controlled.",
+  "learning_candidate": {
+    "method": "Regularized weighted behavioral cloning of the original policy's recorded actions with positive operational transition reward",
+    "source": "The prior 120 frozen pitch evaluation episodes, now development data for the trained candidate",
+    "verification": "Reconstructed action probabilities, action counts, outcomes and rewards must match the recorded originals.",
+    "new_expert_action_labels": false,
+    "original_graph_modified": false,
+    "original_checkpoint_overwritten": false
+  },
+  "final_gate": {
+    "trials_per_goal": 30,
+    "targets": {"one_log": 24, "three_logs": 21, "planks": 21, "wooden_pickaxe": 15},
+    "seeds": "Generate a fresh catalog after development selection. Freeze the candidate and configuration before launching.",
+    "stop_condition": "After Phase 8 gates and required evidence are complete, stop live processes and pause for discussion."
+  }
+}

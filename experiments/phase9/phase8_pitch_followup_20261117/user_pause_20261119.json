@@ -1,0 +1,14 @@
+{
+  "pending_changes_preserved": true,
+  "live_ports_listening": false,
+  "latest_commit": "d9d4c92",
+  "latest_verified_scores": {
+    "planks": "8/8",
+    "one_log": "26/30",
+    "wooden_pickaxe": "3/8",
+    "three_logs": "6/9"
+  },
+  "status": "paused_by_user",
+  "date": "2026-11-19",
+  "last_run": "p8_pitch_20261119_b2_l4_long_a5"
+}

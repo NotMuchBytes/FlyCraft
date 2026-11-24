@@ -1,0 +1,43 @@
+{
+  "run_id": "p75_step_20261117_recorded_e",
+  "milestone": 1,
+  "stage": "development",
+  "status": "verified",
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 869,
+    "duration_seconds": 29.0,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "870"
+    },
+    "bytes": 8499987,
+    "sha256": "369757cff5de0a664e90982cf3fdd8f7ba353bb5ce3dab5c13e7c42c2b8e2ed8",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-17 18-02-01.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_p75_step_20261117_recorded_e.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": true,
+    "visual_content_preflight_verified": true
+  },
+  "error": null,
+  "episode_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p75_step_20261117_recorded_e\\server.jsonl",
+  "action_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p75_step_20261117_recorded_e\\headless.jsonl",
+  "observation_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p75_step_20261117_recorded_e\\bridge.jsonl",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\dev_pilot_20261029_b_pilot_trained_00002_a0003\\trial_0000.npz",
+  "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+  "checkpoint_timing": "before_episode_update",
+  "camera_role": "recording_only",
+  "recording_kind": "synchronized_spectator_capture",
+  "redo_of": "p75_step_20261117_jump",
+  "replay": false,
+  "actions_altered_for_video": false
+}

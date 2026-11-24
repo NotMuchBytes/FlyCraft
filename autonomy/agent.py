@@ -1,5 +1,6 @@
 """Sense, plan, sample the neural readout, learn, remember, and recover."""
 
+import math
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -88,7 +89,8 @@ class AutonomousAgent:
         if self.manager.success:
             self._finish(True, "already_complete")
 
-    def choose_action(self, observation: dict, *, neural: np.ndarray | None = None) -> str:
+    def choose_action(self, observation: dict, *, neural: np.ndarray | None = None,
+                      explore_forward: bool = False) -> str:
         if self.session is None or self.session["done"]:
             return "NO_OP"
         if self.pending is not None:
@@ -124,7 +126,11 @@ class AutonomousAgent:
             index = actions.index(self.recovery.cooldown_action)
             if mask.sum() > 1:
                 mask[index] = False
-        index, action, probabilities = self.policy.sample(features, self.rng, mask)
+        offsets = None
+        if explore_forward and not observation["visible"] and active.kind in {"search", "collect"}:
+            offsets = np.zeros(len(actions))
+            offsets[actions.index("FORWARD")] = math.log(3)
+        index, action, probabilities = self.policy.sample(features, self.rng, mask, logit_offsets=offsets)
         self.pending = (features, index, probabilities, observation | {"active_goal_item": active.item, "active_goal_count": active.count})
         return action
 

@@ -1,0 +1,429 @@
+{
+  "runs": [
+    {
+      "run": "p75_step_20261117_ref",
+      "settings": {
+        "environment_kind": "controlled_blocked_forward_diagnostic",
+        "world_seed": 202611170701,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 700,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": null,
+        "implementation_sha256": "2d7e3be8940e613981d26a289c77fc6214a09ea2820231975adec9728c6408b0",
+        "forward_ticks": 5,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": false,
+        "explore_forward": null
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 1,
+      "wilson_95": [
+        0.20654931437723745,
+        1
+      ],
+      "median_actions": 26,
+      "median_elapsed_seconds": 18.972940300009213,
+      "outcomes": {
+        "success": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 813294051,
+          "success": true,
+          "ticks": 384,
+          "train": false,
+          "inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "outcome": "success",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170701,
+            "layout_seed": 813294051,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              0.5,
+              100.0,
+              0.7,
+              0.0,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "fixture_blocks": [
+              {
+                "state": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]",
+                "position": [
+                  -1,
+                  103,
+                  3
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_leaves}[distance=2,persistent=false,waterlogged=false]",
+                "position": [
+                  -1,
+                  103,
+                  4
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]",
+                "position": [
+                  -1,
+                  103,
+                  5
+                ]
+              },
+              {
+                "state": "Block{minecraft:stone}",
+                "position": [
+                  0,
+                  100,
+                  1
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_leaves}[distance=2,persistent=false,waterlogged=false]",
+                "position": [
+                  0,
+                  103,
+                  3
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_log}[axis=y]",
+                "position": [
+                  0,
+                  100,
+                  4
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_log}[axis=y]",
+                "position": [
+                  0,
+                  101,
+                  4
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_log}[axis=y]",
+                "position": [
+                  0,
+                  102,
+                  4
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_leaves}[distance=1,persistent=false,waterlogged=false]",
+                "position": [
+                  0,
+                  103,
+                  4
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_leaves}[distance=2,persistent=false,waterlogged=false]",
+                "position": [
+                  0,
+                  103,
+                  5
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]",
+                "position": [
+                  1,
+                  103,
+                  3
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_leaves}[distance=2,persistent=false,waterlogged=false]",
+                "position": [
+                  1,
+                  103,
+                  4
+                ]
+              },
+              {
+                "state": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]",
+                "position": [
+                  1,
+                  103,
+                  5
+                ]
+              }
+            ],
+            "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+          },
+          "actions": 26,
+          "game_seconds": 19.2,
+          "elapsed_seconds": 18.972940300009213,
+          "decisions": 26,
+          "visible_block_decisions": 25,
+          "closest_visible_log": 0.32153904369416153,
+          "first_visible_log_decision": 1,
+          "farthest_observed_from_start": 3.05162032801616,
+          "blind_forward_decisions": 0,
+          "blind_decisions": 1,
+          "legal_mine_decisions": 3,
+          "confirmed_breaks": 1,
+          "first_legal_mine_decision": 24,
+          "blocked_forward_actions": 5,
+          "jump_actions": [],
+          "max_observed_z": 3.699999988079071
+        }
+      ]
+    },
+    {
+      "run": "p75_step_20261117_jump",
+      "settings": {
+        "environment_kind": "controlled_blocked_forward_diagnostic",
+        "world_seed": 202611170701,
+        "policy_rng_seed": 9001,
+        "trial_tick_limit": 700,
+        "checkpoint_sha256": "acdde37f8d3288764bcaad9dc9eea7c4f916c9894f54a019684fc3f555dd37f5",
+        "frozen_checkpoint_sha256": null,
+        "implementation_sha256": "2d7e3be8940e613981d26a289c77fc6214a09ea2820231975adec9728c6408b0",
+        "forward_ticks": 5,
+        "turn_degrees": 15,
+        "movement_feedback": "displacement",
+        "pitch_actions": true,
+        "camera_mode": "bounded",
+        "jump_on_blocked_forward": true,
+        "explore_forward": null
+      },
+      "requested": 1,
+      "stop_reason": "suite_complete",
+      "verified_trials": 1,
+      "successes": 1,
+      "wilson_95": [
+        0.20654931437723745,
+        1
+      ],
+      "median_actions": 17,
+      "median_elapsed_seconds": 16.01032619999023,
+      "outcomes": {
+        "success": 1
+      },
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "condition": "trained",
+          "goal": "one_log",
+          "layout_seed": 813294051,
+          "success": true,
+          "ticks": 324,
+          "train": false,
+          "inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "verified": true,
+          "outcome": "success",
+          "initial": {
+            "episode_id": "trial_0000",
+            "world_seed": 202611170701,
+            "layout_seed": 813294051,
+            "goal": "one_log",
+            "server_tick": 40,
+            "game_mode": "SURVIVAL",
+            "position_xyz_yaw_pitch": [
+              0.5,
+              100.0,
+              0.7,
+              0.0,
+              0.0
+            ],
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "fixture_blocks": [
+              {
+                "position": [
+                  -1,
+                  103,
+                  3
+                ],
+                "state": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]"
+              },
+              {
+                "position": [
+                  -1,
+                  103,
+                  4
+                ],
+                "state": "Block{minecraft:oak_leaves}[distance=2,persistent=false,waterlogged=false]"
+              },
+              {
+                "position": [
+                  -1,
+                  103,
+                  5
+                ],
+                "state": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]"
+              },
+              {
+                "position": [
+                  0,
+                  100,
+                  1
+                ],
+                "state": "Block{minecraft:stone}"
+              },
+              {
+                "position": [
+                  0,
+                  103,
+                  3
+                ],
+                "state": "Block{minecraft:oak_leaves}[distance=2,persistent=false,waterlogged=false]"
+              },
+              {
+                "position": [
+                  0,
+                  100,
+                  4
+                ],
+                "state": "Block{minecraft:oak_log}[axis=y]"
+              },
+              {
+                "position": [
+                  0,
+                  101,
+                  4
+                ],
+                "state": "Block{minecraft:oak_log}[axis=y]"
+              },
+              {
+                "position": [
+                  0,
+                  102,
+                  4
+                ],
+                "state": "Block{minecraft:oak_log}[axis=y]"
+              },
+              {
+                "position": [
+                  0,
+                  103,
+                  4
+                ],
+                "state": "Block{minecraft:oak_leaves}[distance=1,persistent=false,waterlogged=false]"
+              },
+              {
+                "position": [
+                  0,
+                  103,
+                  5
+                ],
+                "state": "Block{minecraft:oak_leaves}[distance=2,persistent=false,waterlogged=false]"
+              },
+              {
+                "position": [
+                  1,
+                  103,
+                  3
+                ],
+                "state": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]"
+              },
+              {
+                "position": [
+                  1,
+                  103,
+                  4
+                ],
+                "state": "Block{minecraft:oak_leaves}[distance=2,persistent=false,waterlogged=false]"
+              },
+              {
+                "position": [
+                  1,
+                  103,
+                  5
+                ],
+                "state": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]"
+              }
+            ],
+            "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+          },
+          "actions": 17,
+          "game_seconds": 16.2,
+          "elapsed_seconds": 16.01032619999023,
+          "decisions": 17,
+          "visible_block_decisions": 15,
+          "closest_visible_log": 0.9063174327185579,
+          "first_visible_log_decision": 1,
+          "farthest_observed_from_start": 2.4554429736419268,
+          "blind_forward_decisions": 0,
+          "blind_decisions": 0,
+          "legal_mine_decisions": 4,
+          "confirmed_breaks": 2,
+          "first_legal_mine_decision": 8,
+          "blocked_forward_actions": 3,
+          "jump_actions": [
+            {
+              "ack": {
+                "status": "success",
+                "action": "FORWARD",
+                "block_changed": false,
+                "error": "",
+                "ticks": 6,
+                "inventory_revision": 2,
+                "command_id": 6,
+                "movement_distance": 0.17913950385170496,
+                "movement_confirmed": true,
+                "movement_feedback_enabled": true,
+                "jump_assisted": true,
+                "vertical_displacement": 1.252203340253729
+              },
+              "end_position_x_z_yaw": [
+                0.5,
+                0.8791395038517049,
+                0.0
+              ]
+            }
+          ],
+          "max_observed_z": 3.155442973641927
+        }
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "reference": "p75_step_20261117_ref",
+      "comparison": "p75_step_20261117_jump",
+      "factor": "jump_on_blocked_forward",
+      "matched": true,
+      "differences": []
+    }
+  ]
+}
