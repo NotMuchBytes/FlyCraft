@@ -16,7 +16,7 @@ The planner, semantic sensors, legal-action masks and crafting transactions are 
 
 ## 1. Quick start: Python demo
 
-These commands are tested on **Windows PowerShell with Python 3.14**. Install [Git](https://git-scm.com/downloads) and [Python 3.14](https://www.python.org/downloads/), then open PowerShell where you want the project:
+These commands were tested on **Windows PowerShell with Python 3.14.7**. Install [Git](https://git-scm.com/downloads) and a **64-bit Python 3.14** release from the [Python 3.14 download page](https://www.python.org/downloads/release/python-31410/), then open PowerShell where you want the project:
 
 ```powershell
 git clone --depth 1 --branch phase8-real-minecraft https://github.com/NotMuchBytes/FlyCraft.git
@@ -117,7 +117,7 @@ This creates a disposable survival world with a prepared tree. The actor selects
   --trial-ticks 400 --seconds 180 --server-heap-mib 384
 ```
 
-This checkpoint is an experimental candidate included on the development branch. Its fresh 30-trial evaluation is pending; an individual attempt may fail. Use a new `--run-id` for each fresh attempt. Existing player worlds are not used.
+This checkpoint is an experimental candidate included on the development branch. Its fresh four-goal evaluation is in progress; an individual attempt may fail. Use a new `--run-id` for each fresh attempt. Existing player worlds are not used.
 
 Look in `experiments/phase9/my_first_one_log/` for `run.json`, `server.jsonl`, `controller.jsonl` and bridge/action logs. That historical output folder also contains Phase 8 tests; it does not start the Phase 9 campaign. Success requires the item in the actual server inventory.
 
@@ -127,7 +127,7 @@ For longer goals, comparisons, recovery diagnostics and Minecraft-only OBS recor
 
 ## Current results — November 24, 2026
 
-The last completed 30-trial pitch evaluation used a fixed earlier readout:
+The last completed four-goal, 30-trial-per-goal pitch evaluation used a fixed earlier readout:
 
 | Goal, from empty inventory | Confirmed successes | Target |
 | --- | ---: | ---: |
@@ -136,7 +136,9 @@ The last completed 30-trial pitch evaluation used a fixed earlier readout:
 | Four planks | 27/30 | 21/30 |
 | Wooden pickaxe | 12/30 | 15/30 |
 
-These are controlled flat-world fixtures and establish no natural-terrain reliability or neural contribution. Those 120 episodes are now development data for an updated readout. The updated candidate completed a separate three-layout pilot with **3/3 three-log pickups and 3/3 pickaxes**. Its new held-out evaluation uses fresh seeds; the small pilot does not replace the 30-trial results above.
+These are controlled flat-world fixtures and establish no natural-terrain reliability or neural contribution. Those 120 episodes are now development data for an updated readout. The updated candidate completed a separate three-layout pilot with **3/3 three-log pickups and 3/3 pickaxes**. Its fresh one-log set has now scored **27/30**, meeting the 80% point target; the remaining goal sets are being evaluated under the frozen plan.
+
+The new seed identities are separate from development, but the small fixture generator repeats block arrangements: 28/30 new one-log trials reuse development geometry. These scores test held-out-seed reliability and do not establish unseen-layout generalization.
 
 **Phase 8 remains open. The Phase 9 10,000-world campaign has not started.** The latest full baseline passed **119 automated tests**. See [Phase 7.5 reliability](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/PHASE_7_5_REPORT.md), the [Phase 8 report](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/PHASE_8_REPORT.md) and [current development evidence](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/experiments/phase9/phase8_finish_20261124/README.md) for settings, intervals, failed attempts and remaining gaps.
 
