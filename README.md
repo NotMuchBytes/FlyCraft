@@ -1,135 +1,167 @@
 # FlyCraft
 
-Local project location: `C:\Users\anass\Documents\FlyCraft` (moved out of OneDrive).
+FlyCraft connects a **139,255-neuron fruit-fly connectome** to a small learned action readout and an experimental Minecraft controller. It runs locally. The neural graph stays fixed while the action readout learns.
 
-FlyCraft connects published FAFB v783 fruit-fly connectome structure to a small
-Minecraft control interface. Phases 1–4 prepare and stabilize a sparse neural
-model and bridge it to Minecraft 26.2/Fabric. Phase 5 learns a deliberately
-small action readout while leaving the graph and neural dynamics fixed. Phases
-6/6.5 exercise that readout in reproducible Minecraft tasks.
+Start with the Python demo below. Full-network inference and real Minecraft require the additional data and Java setup.
 
-Phase 7 adds hierarchical goals, persistent checkpointed memory, bounded
-recovery, performance-gated curriculum training and longer-horizon readout
-learning. The original 139,255-neuron graph is preserved. See
-[`PHASE_7_REPORT.md`](PHASE_7_REPORT.md), the
-[design](docs/phase7_design.md) and [commands](docs/phase7_usage.md).
-Phase 8 adds acknowledged survival mining, inventory observations, normal
-crafting transactions and a live resource-goal controller using the same learned
-readout. The historical assisted one-log comparison scored 29/30 on held-out
-reset layouts. The current crosshair-only trials scored 27/30 for one log,
-20/30 for three logs, 21/30 for four planks, and 3/30 for a wooden pickaxe
-from empty inventory. All four scores come from controlled Minecraft
-fixtures. Natural-world autonomy remains unverified. See the
-[observation contract](docs/phase8_observation_contract.md) and
-[recorded live-run commands](docs/phase8_usage.md). Phase 7's original results
-and checkpoints remain preserved.
+**Active development: [`phase8-real-minecraft`](https://github.com/NotMuchBytes/FlyCraft/tree/phase8-real-minecraft).** The commands below clone this branch. GitHub's `main` branch contains an older code snapshot.
 
-The current runner uses bounded camera movement and crosshair-only block
-interactions. Own-pose feedback now reports stalled forward pulses; a small
-paired pilot established no collection gain. See [movement validation](docs/movement_validation.md).
-Read [camera validation](docs/camera_controller.md) before
-comparing it with earlier assisted runs. On this Windows laptop, FlyCraft's
-dedicated Java runtime uses the NVIDIA RTX 4050, verified by the selected
-renderer rather than a preference message; see [GPU evidence](docs/windows_gpu.md).
-An opt-in headless pitch readout completed two from-empty pickaxes in a
-three-layout development pilot, with one additional recorded success.
-See the [Phase 8 pitch experiment](PHASE_8_REPORT.md#experimental-live-pitch-control).
+## What works today?
 
-Phase 9 is an ongoing development pilot with transactional checkpoint/resume,
-separate seed sets, a dashboard and Minecraft-only milestone recording. Three
-real training episodes have committed readout updates. A matched two-seed,
-five-policy comparison establishes no learning or neural benefit. A later strict
-one-log evaluation scored 27/30 and a separate four-plank evaluation scored
-21/30 from empty inventory, both with fixed two-tick movement. These controlled
-fixtures establish no natural-terrain or learning-gain claim. The supplied local actor skin is
-installed. The 10,000-world campaign has not started, and broader reliability
-targets remain pending. See the
-[current report](PHASE_9_REPORT.md) and [architecture](docs/phase9_architecture.md).
+- Python training and evaluation with saved checkpoints and reproducible seeds.
+- Real survival mining, inventory-confirmed pickups, planks, sticks, crafting tables and wooden pickaxes in controlled Minecraft scenes.
+- Policy-selected movement and camera actions, crosshair-only mining, episode logs and interrupted-action handling.
 
-A connectome supplies structural connectivity and annotations. It does not by
-itself supply exact neuron or synapse dynamics, learning rules, consciousness,
-or Minecraft knowledge. Later engineering assumptions must be documented.
+The planner, semantic sensors, legal-action masks and crafting transactions are engineered components. Reliable exploration and collection in natural terrain remain under development. The optional companion's follow mode uses engineered navigation.
 
-For playing alongside a separate NPC, an opt-in Minecraft 26.3
-[companion preview](docs/companion_play.md) supports `/flycraft follow`,
-`/flycraft stop`, and the existing neural resource mode. Following is engineered
-vanilla navigation, separately from learned-policy evaluation. A recorded
-interactive follow demonstration exists; stop/resume and death recovery still
-need live validation. See [the evidence and limitations](docs/companion_follow_validation.md).
+## 1. Quick start: Python demo
 
-Controlled [Phase 7.5 validation](PHASE_7_5_REPORT.md) reached 27/30
-inventory-confirmed one-log trials and recorded mining interruption,
-bridge timeout recovery and in-episode checkpoint restoration.
-[Phase 8](PHASE_8_REPORT.md) completed the held-out long-goal evaluation.
-Three-log collection and pickaxe crafting remain below their reliability targets.
-
-## Reproduce Phase 1 analysis
+These commands are tested on **Windows PowerShell with Python 3.14**. Install [Git](https://git-scm.com/downloads) and [Python 3.14](https://www.python.org/downloads/), then open PowerShell where you want the project:
 
 ```powershell
-python tools/analyze_codex_data.py
+git clone --depth 1 --branch phase8-real-minecraft https://github.com/NotMuchBytes/FlyCraft.git
+cd FlyCraft
+py -3.14 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-The program discovers tables by schema, streams compressed CSV data, performs
-bounded-memory exact duplicate checks, and writes
-`docs/initial_data_report.md`.
+Use the virtual environment's Python directly as shown. Activation and changes to PowerShell's execution policy are unnecessary. Run the remaining commands from the `FlyCraft` repository root.
 
-## Reproduce Phase 2
-
-Create/activate a virtual environment and install `requirements.txt`, then run:
+### Check the installation
 
 ```powershell
-python -m unittest discover -s tests -v
-python tools/investigate_missing_neurons.py
-python tools/prepare_connectome.py
-python experiments/phase2_signal_propagation.py
+.\.venv\Scripts\python.exe -m unittest discover -s tests -p test_learning.py -v
 ```
 
-The preparation command creates a deterministic ascending-root-ID index and an
-aggregate raw-count CSR matrix in `data/processed/`. The experiment uses 50
-deterministically selected visual annotations, runs seven documented stability
-configurations, saves complete JSON metrics, writes an SVG plot, and generates
-`docs/phase2_report.md`.
+These tests use the neural-feature table included in the repository. Minecraft and the large source dataset are unnecessary for this demo.
 
-The default model uses unsigned connections and a conservative `log1p` weight
-transform. These are engineering assumptions, not claims about receptor-level
-biology. See `docs/data_semantics.md` for the data/model boundary.
-
-Do not commit or redistribute the source tables until their upstream license
-and redistribution terms have been verified.
-
-## Reproduce Phase 3
-
-Phase 3 adds metadata-grounded photoreceptor and descending-neuron populations,
-a deterministic five-sector visual sensor, a minimal 2D world, an artificial
-output decoder, and reproducible open- and closed-loop experiments.
+### Train and evaluate your first readout
 
 ```powershell
-.\.venv\Scripts\python.exe tools\prepare_phase3_metadata.py
-.\.venv\Scripts\python.exe experiments\phase3\run_open_loop.py
-.\.venv\Scripts\python.exe experiments\phase3\run_closed_loop.py
+.\.venv\Scripts\python.exe tools/train_phase5.py --episodes 100 --seed 42 --checkpoint checkpoints/phase5/first_run.npz --output work/first_run_train.jsonl
+.\.venv\Scripts\python.exe tools/evaluate_phase5.py --checkpoint checkpoints/phase5/first_run.npz --episodes 200 --seed 10042 --output work/first_run_eval.json
+```
+
+The console prints a summary. Your checkpoint is under `checkpoints/phase5/`, and detailed results are under `work/`. This demo is a small 2D simulator using cached features measured from the neural model.
+
+Commands refuse to overwrite existing artifacts. Choose new filenames for another fresh run. To continue training the same readout:
+
+```powershell
+.\.venv\Scripts\python.exe tools/train_phase5.py --episodes 100 --checkpoint checkpoints/phase5/first_run.npz --resume --output work/first_run_resume.jsonl
+```
+
+Resume restores the saved RNG state and writes a new checkpoint ending in `_resumed_to_N.npz`. See the [Phase 5 report](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase5_report.md).
+
+## 2. Prepare the full connectome
+
+Skip this section for the demo. Full-network inference and Minecraft control require source data and a generated graph, which are not included in a clone.
+
+Obtain the **FAFB v783** exports from [FlyWire Codex](https://codex.flywire.ai/fafb), following the publisher's access and usage terms. Save these five files in `data/` and keep them compressed:
+
+```text
+data/
+  neurons.csv.gz
+  connections_princeton_no_threshold.csv.gz
+  visual_neuron_types.csv.gz
+  classification.csv.gz
+  consolidated_cell_types.csv.gz
+```
+
+Use `connections_princeton_no_threshold.csv.gz`; the smaller filtered `connections.csv.gz` is a different input. The five exports total about 267 MiB compressed. [Data details and source location](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/data/README.md) document the expected files. Download directly from the publisher rather than committing source data to this repository.
+
+Prepare the generated graph and interface:
+
+```powershell
+.\.venv\Scripts\python.exe tools/prepare_connectome.py
+.\.venv\Scripts\python.exe tools/prepare_phase3_metadata.py
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-The main result is negative: stable parameters propagated activity locally but
-not to the selected descending neurons. Repeated closed-loop drive reached them
-only after near-global runaway recruitment, producing a non-useful turning
-bias. See `docs/phase3_report.md`. No Minecraft/Fabric integration, learning,
-rewards, or behavior training was started.
+Preparation writes `data/processed/`, including the 139,255-by-139,255 sparse graph, neuron index and interface metadata. It validates expected neuron/connection counts and leaves the compressed exports unchanged. Some tests require optional local Java, OBS or FFmpeg tools and are skipped when those tools are absent.
 
-## Train and evaluate the Phase 5 readout
+Read [data semantics](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/data_semantics.md) for biological assumptions, filtering and matrix orientation.
 
-From the project root in PowerShell:
+## 3. Run a real Minecraft test
+
+The standard development target is **Minecraft 26.2**, **Java JDK 25**, Fabric Loader **0.19.5** and Fabric API **0.161.0+26.2**, pinned in [`minecraft_mod/gradle.properties`](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/minecraft_mod/gradle.properties). The current supervised launcher uses Windows executable paths. Complete sections 1 and 2 first.
+
+### Prepare Java and game dependencies
+
+1. Download a Windows x64 **JDK 25 ZIP**, for example from [Eclipse Temurin](https://adoptium.net/temurin/releases/?version=25&os=windows&arch=x64). Extract its contents into `.runtime/jdk-25/`. Both `.runtime/jdk-25/bin/java.exe` and `bin/javac.exe` must exist there.
+2. Read and agree to the [Minecraft EULA](https://www.minecraft.net/en-us/eula) before using the local server harness. It writes acceptance into its disposable server folder.
+3. Build the mod and fetch dependencies once with an internet connection:
 
 ```powershell
-.\.venv\Scripts\python.exe tools\train_phase5.py --episodes 100 --seed 42 --checkpoint checkpoints\phase5\my_seed42.npz --output experiments\phase5\runs\my_seed42.jsonl
-.\.venv\Scripts\python.exe tools\evaluate_phase5.py --checkpoint checkpoints\phase5\my_seed42.npz --episodes 200 --seed 10042 --output experiments\phase5\runs\my_seed42_eval.json
-.\.venv\Scripts\python.exe tools\train_phase5.py --episodes 100 --checkpoint checkpoints\phase5\my_seed42.npz --resume --output experiments\phase5\runs\my_seed42_resume.jsonl
+$env:JAVA_HOME = (Resolve-Path ".runtime/jdk-25").Path
+Push-Location minecraft_mod
+& "$env:JAVA_HOME/bin/java.exe" -Xmx64m -classpath gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain --no-daemon --max-workers=2 assemble downloadAssets
+Pop-Location
 ```
 
-Fresh training and evaluation refuse to overwrite existing artifacts. Resume
-restores the checkpoint RNG state and writes a new checkpoint whose name ends
-in `_resumed_to_N.npz`.
+The wrapper supplies Gradle. The live runner subsequently uses offline launch preparation, so the initial download matters. Leave several GiB of RAM free and room for Java/Minecraft caches and run logs.
 
-See `docs/phase5_report.md` for the deterministic learning evidence and
-`docs/phase6_report.md` for the matched live Minecraft evaluation. Graphs are
-under `docs/figures/`; raw metrics and logs remain under `experiments/`.
+### Start one headless collection attempt
+
+This creates a disposable survival world with a prepared tree. The actor selects its own actions. A spectator window and OBS are unnecessary for this event-log test.
+
+```powershell
+.\.venv\Scripts\python.exe tools/run_phase8_live.py `
+  --run-id my_first_one_log `
+  --work-dir .runtime/live `
+  --build-dir .runtime/mod-build `
+  --checkpoint checkpoints/phase8/finish_20261123/progress_readout_mining.npz `
+  --headless --pitch-actions `
+  --goals one_log --trials 1 `
+  --world-seed 2026112401 --layout-start 30101 `
+  --policy-seed 9001 --forward-ticks 2 `
+  --trial-ticks 400 --seconds 180 --server-heap-mib 384
+```
+
+This checkpoint is an experimental candidate included on the development branch. Its fresh 30-trial evaluation is pending; an individual attempt may fail. Use a new `--run-id` for each fresh attempt. Existing player worlds are not used.
+
+Look in `experiments/phase9/my_first_one_log/` for `run.json`, `server.jsonl`, `controller.jsonl` and bridge/action logs. That historical output folder also contains Phase 8 tests; it does not start the Phase 9 campaign. Success requires the item in the actual server inventory.
+
+The supervisor keeps a **768 MiB available-RAM reserve**, **2 GiB free-disk reserve** and **75°C NVIDIA GPU cutoff** when that telemetry is available. Guard stops are recorded in `run.json`. Free resources and start a fresh attempt rather than reducing the live reserve.
+
+For longer goals, comparisons, recovery diagnostics and Minecraft-only OBS recording, follow the [live-trial guide](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase8_usage.md). The [observation/action contract](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase8_observation_contract.md) explains policy inputs and interface assistance.
+
+## Current results — November 24, 2026
+
+The last completed 30-trial pitch evaluation used a fixed earlier readout:
+
+| Goal, from empty inventory | Confirmed successes | Target |
+| --- | ---: | ---: |
+| One log | 26/30 | 24/30 |
+| Three logs | 18/30 | 21/30 |
+| Four planks | 27/30 | 21/30 |
+| Wooden pickaxe | 12/30 | 15/30 |
+
+These are controlled flat-world fixtures and establish no natural-terrain reliability or neural contribution. Those 120 episodes are now development data for an updated readout. The updated candidate completed a separate three-layout pilot with **3/3 three-log pickups and 3/3 pickaxes**. Its new held-out evaluation uses fresh seeds; the small pilot does not replace the 30-trial results above.
+
+**Phase 8 remains open. The Phase 9 10,000-world campaign has not started.** The latest full baseline passed **119 automated tests**. See [Phase 7.5 reliability](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/PHASE_7_5_REPORT.md), the [Phase 8 report](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/PHASE_8_REPORT.md) and [current development evidence](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/experiments/phase9/phase8_finish_20261124/README.md) for settings, intervals, failed attempts and remaining gaps.
+
+## More ways to explore
+
+| You want to… | Start here |
+| --- | --- |
+| Understand goals, memory and checkpoints | [Phase 7 design](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase7_design.md) and [commands](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase7_usage.md) |
+| Inspect camera and movement behavior | [Camera validation](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/camera_controller.md) and [movement validation](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/movement_validation.md) |
+| Play alongside the NPC | [Minecraft 26.3 companion preview](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/companion_play.md) and [validation limits](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/companion_follow_validation.md) |
+| Reproduce earlier neural experiments | [Phase 2](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase2_report.md), [Phase 3](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase3_report.md) and [Phase 3.5](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase35_report.md) |
+| Read historical campaign tooling | [Phase 9 report](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/PHASE_9_REPORT.md) |
+
+The companion has separate version/build instructions. Its engineered follow mode and interactive demonstrations remain separate from autonomous scores. The connectome supplies structural connectivity and annotations; the project documents its additional neural dynamics and control assumptions.
+
+## Troubleshooting
+
+| Problem | What to check |
+| --- | --- |
+| `py` is not recognized | Install Python 3.14 with its Windows launcher, or use that installation's full `python.exe` path to create `.venv`. |
+| Missing Python module | Install requirements using `.\.venv\Scripts\python.exe -m pip install -r requirements.txt`. |
+| Missing data or `data/processed` | Complete section 2. A clone includes demo features, not the full dataset. |
+| Graph count/schema mismatch | Check FAFB v783 filenames and the unthresholded connection table. Keep validation checks enabled. |
+| `java.exe` missing | Check `.runtime/jdk-25/bin/java.exe`; an extra nested JDK ZIP folder is a common cause. |
+| Offline Gradle dependency error | Complete the online build/download step in section 3 first. |
+| Output already exists | Choose a fresh name, or use explicit training `--resume`. |
+| Port 25567 or 8765 occupied | Let the existing FlyCraft run finish or stop your own previous test before launching another. |
+| Resource guard stops a test | Read `run.json`, free resources and preserve the interrupted logs. |
