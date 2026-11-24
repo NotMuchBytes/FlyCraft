@@ -1,10 +1,13 @@
 # Phase 9 pilot operation
 
 The serial development coordinator is `tools/run_phase9.py`; official training
-is disabled. Each invocation permits at most five episodes and 900 seconds,
-with at most 300 seconds per worker. Do not start overnight or extended
-unattended training. Stop new development around 55% weekly usage, with a 60%
-maximum; obtain actual account measurements.
+is disabled. Its legacy `run` invocation permits at most five episodes and
+900 seconds, with at most 300 seconds per worker. The new
+[checked supervisor](phase9_checker.md) adds bounded automatic development
+batches, four-goal pitch support, independent evidence checks and Codex repair
+handoffs. It permits at most 100 launches and one hour, with all live resource
+guards retained. No earlier user-set Codex usage cap is applied. These commands
+do not authorize the 10,000-world experiment.
 
 Development reliability checks can use the live worker's
 `--operator-fault mining_interrupt` or `--operator-fault bridge_stall` with one

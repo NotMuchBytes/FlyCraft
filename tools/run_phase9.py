@@ -105,6 +105,14 @@ def worker_command(campaign, attempt, args, seconds):
         "--parent-created",str(psutil.Process().create_time())]
     if attempt.get("video_required", True):
         command += ["--spectator", "--milestone", str(attempt["episode_number"])]
+    if profile.get("pitch_actions"):
+        command += ["--pitch-actions", "--turn-degrees", str(profile["turn_degrees"]),
+                    "--spectator-view", "first_person"]
+        command[command.index("--trial-ticks") + 1] = str(profile["trial_ticks"])
+    if profile.get("three_tree_fixture"):
+        command.append("--three-tree-fixture")
+    if profile.get("remember_mined_columns"):
+        command.append("--remember-mined-columns")
     if args.video_export_dir:
         command += ["--video-export-dir",str(args.video_export_dir)]
     if attempt["train"]:
@@ -123,6 +131,7 @@ def main():
     init.add_argument("--worlds",type=int,default=3)
     init.add_argument("--master-seed",type=int,default=20261029)
     init.add_argument("--compact",action="store_true",help="Development profile: 384/512 MiB server/client heaps, 854x480 capture")
+    init.add_argument("--checked",action="store_true",help="Independent evidence gate and validated pitch/four-goal interface; development only")
     init.add_argument("--forward-ticks",type=int,default=5,choices=range(1,11),help="Fixed input duration; freeze before paired evaluation")
     init.add_argument("--recording-policy",choices=("milestones","all"),default="milestones")
     init.add_argument("--recording-milestones",help="Optional comma-separated episode numbers; default Phase 9 schedule")
@@ -149,7 +158,7 @@ def main():
                 parser.error("recording-milestones must be comma-separated integers")
         campaign=Campaign.create(ROOT/"experiments/phase9"/args.name, project_root=ROOT,name=args.name,
             checkpoint=args.checkpoint,master=args.master_seed,worlds=args.worlds,compact=args.compact,frozen_checkpoint=args.frozen_checkpoint,
-            forward_ticks=args.forward_ticks,recording_policy=args.recording_policy,recording_milestones=milestones,goal=args.goal)
+            forward_ticks=args.forward_ticks,recording_policy=args.recording_policy,recording_milestones=milestones,goal=args.goal,checked=args.checked)
         campaign.save(); dashboard(campaign)
         print(campaign.folder)
         return

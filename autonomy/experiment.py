@@ -15,7 +15,8 @@ from tools.milestone_video import MILESTONES
 
 SPLITS = ("pilot", "training", "eval_a", "eval_b")
 CONDITIONS = ("trained", "frozen", "uniform", "no_neural", "shuffled")
-RESOURCE_GOALS = {"one_log": ("log", 1), "planks": ("planks", 4)}
+RESOURCE_GOALS = {"one_log": ("log", 1), "three_logs": ("log", 3),
+                  "planks": ("planks", 4), "wooden_pickaxe": ("wooden_pickaxe", 1)}
 
 
 def digest(path):
@@ -55,10 +56,13 @@ def atomic_json(path, data):
     replace_file(temporary, path)
 
 
-def seed_catalog(master, *, training=10000, pilot=100, evaluation=100):
+def seed_catalog(master, *, training=10000, pilot=100, evaluation=100, exclude=()):
     """Versioned SHA256 derivation, not dependent on Python RNG implementation."""
-    used = {44556777, 44556778, 44556779}  # historical development worlds
+    exclude = set(exclude)
+    used = {44556777, 44556778, 44556779} | exclude
     result = {"schema": 1, "master": int(master), "derivation": "sha256-v1-signed63"}
+    if exclude:
+        result["excluded_prior_seed_ids"] = sorted(set(exclude))
     for split, count in (("pilot", pilot), ("training", training), ("eval_a", evaluation), ("eval_b", evaluation)):
         if count < 1:
             raise ValueError("seed partitions must be nonempty")
@@ -167,13 +171,13 @@ class Campaign:
         self.check_current()
 
     @classmethod
-    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None, forward_ticks=5, recording_policy="all", recording_milestones=None, goal="one_log"):
+    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None, forward_ticks=5, recording_policy="all", recording_milestones=None, goal="one_log", checked=False):
         if not name or len(name) > 36 or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in name):
             raise ValueError("campaign name must be a simple identifier up to 36 characters")
         if not 1 <= worlds <= 100:
             raise ValueError("development campaigns permit 1-100 worlds; official launch is not enabled")
         if goal not in RESOURCE_GOALS:
-            raise ValueError("only the implemented one-log and plank interactions are enabled")
+            raise ValueError("unknown resource goal")
         if not isinstance(forward_ticks, int) or isinstance(forward_ticks, bool) or not 1 <= forward_ticks <= 10:
             raise ValueError("forward duration must be an integer from 1 to 10 ticks")
         if recording_policy not in ("all", "milestones"):
@@ -185,11 +189,26 @@ class Campaign:
         table = table or NeuralFeatureTable.from_phase35(root / "experiments/phase35/results/rate_decoder_evaluation.json")
         initial, _ = checkpoint_info(checkpoint, table)
         frozen, _ = checkpoint_info(frozen_checkpoint or checkpoint, table)
+        graph = None
+        if checked:
+            from .evidence import file_sha256
+            graph_path = root / "data/processed/connectome_raw_csr.npz"
+            graph = {"path": str(graph_path), "sha256": file_sha256(graph_path)}
         folder.mkdir(parents=True, exist_ok=False)
-        atomic_json(folder / "seeds.json", seed_catalog(master))
+        excluded = set()
+        if checked:
+            for phase in ("phase8", "phase9"):
+                for metadata in (root / "experiments" / phase).glob("*/run.json"):
+                    previous = json.loads(metadata.read_text(encoding="utf-8"))
+                    if type(previous.get("world_seed")) is int:
+                        excluded.add(previous["world_seed"])
+                    excluded.update(previous.get("layout_seeds") or [])
+                    if type(previous.get("layout_start")) is int:
+                        excluded.update(range(previous["layout_start"], previous["layout_start"] + previous.get("trials_per_goal_condition", 1)))
+        atomic_json(folder / "seeds.json", seed_catalog(master, exclude=excluded))
         manifest = source_manifest(root)
         atomic_json(folder / "source_manifest.json", manifest)
-        config = {"schema": 1, "name": name, "stage": "development", "world_limit": worlds,
+        config = {"schema": 2 if checked else 1, "name": name, "stage": "development", "world_limit": worlds,
                   "goal": goal, "curriculum_level": 1, "initial_checkpoint": initial,
                   "frozen_checkpoint": frozen,
                   "catalog_sha256": digest(folder / "seeds.json"), "created_unix": time.time(),
@@ -200,6 +219,15 @@ class Campaign:
                                       "forward_ticks": forward_ticks,
                                       "width": 854 if compact else 1280, "height": 480 if compact else 720},
                   "final_policy": None, "official_experiment_authorized": False}
+        if checked:
+            long_goal = goal in ("three_logs", "wooden_pickaxe")
+            config["runtime_profile"].update(pitch_actions=True, turn_degrees=15,
+                trial_ticks=1500 if long_goal else 400, three_tree_fixture=long_goal,
+                remember_mined_columns=long_goal, forward_ticks=forward_ticks)
+            config["checker"] = {"schema": 1, "graph": graph, "technical_retries": 2,
+                                 "launch_ram_mib": 1800, "launch_ready_samples": 2,
+                                 "failure_window": 10, "failure_limit": 9,
+                                 "reviewer": "Codex", "automatic_code_changes": False}
         atomic_json(folder / "config.json", config)
         atomic_json(folder / "state.json", {"schema": 1, "config_sha256": digest(folder / "config.json"),
                     "current_checkpoint": initial, "active_attempt": None, "attempts": [], "final_policy": None})
@@ -213,6 +241,14 @@ class Campaign:
         expected = self.state["current_checkpoint"]
         if digest(expected["path"]) != expected["sha256"]:
             raise ValueError("committed checkpoint integrity mismatch")
+        if self.config.get("checker"):
+            from .evidence import file_sha256
+            graph = self.config["checker"]["graph"]
+            if file_sha256(graph["path"]) != graph["sha256"]:
+                raise ValueError("original connectome integrity mismatch")
+            frozen = self.config["frozen_checkpoint"]
+            if digest(frozen["path"]) != frozen["sha256"]:
+                raise ValueError("frozen reference checkpoint integrity mismatch")
 
     def begin(self, split="pilot", condition="trained", *, runtime_root=None):
         if self.state["active_attempt"] is not None:
@@ -221,6 +257,8 @@ class Campaign:
             raise ValueError("unsupported development split/condition")
         if split == "pilot" and condition != "trained":
             raise ValueError("pilot training must use the trained policy")
+        if self.config.get("checker") and sum(a.get("generated_world_instances") or 0 for a in self.state["attempts"]) >= self.config["world_limit"]:
+            raise ValueError("checked development world-instance limit reached")
         if split == "pilot" and sum(a["generated_world_instances"] or 0 for a in self.state["attempts"] if a["split"] == "pilot") >= self.config["world_limit"]:
             raise ValueError("development world-instance limit reached, including interrupted worlds")
         if self.state["final_policy"] is not None and split == "pilot":
@@ -273,10 +311,38 @@ class Campaign:
         try:
             run = json.loads((results / "run.json").read_text())
             attempt["generated_world_instances"] = run.get("generated_world_instances", 0)
-            if run["stop_reason"] != "suite_complete" or run["completed"] != 1:
+            checked = self.config.get("checker")
+            if checked:
+                from .evidence import audit_run, EvidenceError
+                profile = self.config["runtime_profile"]
+                expected = {"world_seed": attempt["world_seed"], "train": attempt["train"],
+                    "implementation_sha256": self.config["implementation_sha256"],
+                    "checkpoint_sha256": attempt["checkpoint"]["sha256"],
+                    "frozen_checkpoint_sha256": self.config["frozen_checkpoint"]["sha256"],
+                    "goals": [attempt["goal"]], "conditions": [attempt["condition"]],
+                    "policy_rng_seed": attempt["policy_seed"], "headless": True,
+                    "spectator": attempt["video_required"], "camera_mode": "bounded",
+                    "turn_degrees": profile["turn_degrees"], "forward_ticks": profile["forward_ticks"],
+                    "pitch_actions": True, "movement_feedback": "displacement",
+                    "jump_on_blocked_forward": False, "explore_forward": False,
+                    "trial_tick_limit": profile["trial_ticks"],
+                    "remember_mined_columns": profile["remember_mined_columns"],
+                    "environment_kind": "controlled_flat_three_tree_fixture" if profile["three_tree_fixture"]
+                                        else "controlled_flat_survival_fixture"}
+                report = audit_run(results, expected=expected)
+                audit_path = self.folder / "checks" / (attempt["run_id"] + ".json")
+                audit_path.parent.mkdir(exist_ok=True)
+                atomic_json(audit_path, report)
+                attempt.update(checker_status=report["status"], checker_report=str(audit_path))
+                if report["status"] != "verified":
+                    raise EvidenceError("technical_stop" if report["status"] == "technical_stop" else "worker_failure", run["stop_reason"])
+                if len(report["episodes"]) != 1:
+                    raise EvidenceError("episode_count", "checked worker must score exactly one episode")
+                attempt["technical_stop_after_terminal"] = run["stop_reason"] != "suite_complete"
+            if (not checked and run["stop_reason"] != "suite_complete") or run["completed"] != 1:
                 raise ValueError("worker did not complete exactly one episode")
             video_required = attempt.get("video_required", True)
-            if not run.get("server_exited_cleanly") or video_required and not run.get("client_exited_cleanly"):
+            if (not run.get("server_exited_cleanly") or video_required and not run.get("client_exited_cleanly")) and not (checked and run["stop_reason"] != "suite_complete"):
                 raise ValueError("game process did not exit cleanly")
             if run["checkpoint_sha256"] != attempt["checkpoint"]["sha256"] or digest(attempt["checkpoint"]["path"]) != attempt["checkpoint"]["sha256"]:
                 raise ValueError("input checkpoint changed")
@@ -321,6 +387,11 @@ class Campaign:
                 next_checkpoint, restored = checkpoint_info(path, self.table)
                 if not restored.session["done"] or restored.session["success"] != score["success"]:
                     raise ValueError("checkpoint session differs from scored episode")
+                if checked:
+                    from learning import LinearSoftmaxPolicy
+                    _, metadata = LinearSoftmaxPolicy.load(path)
+                    if metadata["extra"].get("extension", {}).get("phase8", {}).get("episode_id") != score["episode_id"]:
+                        raise ValueError("training checkpoint belongs to a different episode")
                 previous, _ = checkpoint_info(attempt["checkpoint"]["path"], self.table)
                 before_agent, _ = AutonomousAgent.load(previous["path"], self.table)
                 delta = float(np.linalg.norm(restored.policy.weights-before_agent.policy.weights))
@@ -338,6 +409,10 @@ class Campaign:
             self.state["current_checkpoint"] = next_checkpoint
         except (OSError, ValueError, KeyError) as error:
             attempt.update(status="interrupted", finished_unix=time.time(), error=str(error), results=str(results))
+            if self.config.get("checker"):
+                attempt["checker_error_code"] = getattr(error, "code", "validation_error")
+                if attempt.get("checker_status") != "technical_stop":
+                    attempt["checker_status"] = "needs_attention"
         self.state["active_attempt"] = None
         self.save()
         return dict(attempt)
