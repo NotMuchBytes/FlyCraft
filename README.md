@@ -118,34 +118,34 @@ This creates a disposable survival world with a prepared tree. The actor selects
   --trial-ticks 400 --seconds 180 --server-heap-mib 384
 ```
 
-This checkpoint is an experimental candidate included on the development branch. Its fresh four-goal evaluation is in progress; an individual attempt may fail. Use a new `--run-id` for each fresh attempt. Existing player worlds are not used.
+This experimental checkpoint is included on the development branch. It met all four controlled reliability point targets in the evaluation below; an individual attempt may fail. Use a new `--run-id` for each fresh attempt. Existing player worlds are not used.
 
 Look in `experiments/phase9/my_first_one_log/` for `run.json`, `server.jsonl`, `controller.jsonl` and bridge/action logs. That historical output folder also contains Phase 8 tests; it does not start the Phase 9 campaign. Success requires the item in the actual server inventory.
 
-The supervisor keeps a **768 MiB available-RAM reserve**, **2 GiB free-disk reserve** and **75°C NVIDIA GPU cutoff** when that telemetry is available. Guard stops are recorded in `run.json`. Free resources and start a fresh attempt rather than reducing the live reserve.
+The supervisor keeps a **768 MiB available-RAM reserve**, **2 GiB free-disk reserve** and **75Â°C NVIDIA GPU cutoff** when that telemetry is available. Guard stops are recorded in `run.json`. Free resources and start a fresh attempt rather than reducing the live reserve.
 
 For longer goals, comparisons, recovery diagnostics and Minecraft-only OBS recording, follow the [live-trial guide](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase8_usage.md). The [observation/action contract](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase8_observation_contract.md) explains policy inputs and interface assistance.
 
-## Current results — November 24, 2026
+## Current results â€” November 24, 2026
 
-The last completed four-goal, 30-trial-per-goal pitch evaluation used a fixed earlier readout:
+The selected pitch-enabled readout completed a frozen **30 live trials per goal**, each from empty inventory:
 
 | Goal, from empty inventory | Confirmed successes | Target |
 | --- | ---: | ---: |
-| One log | 26/30 | 24/30 |
-| Three logs | 18/30 | 21/30 |
-| Four planks | 27/30 | 21/30 |
-| Wooden pickaxe | 12/30 | 15/30 |
+| One log | 27/30 (90%) | 24/30 |
+| Three logs | 27/30 (90%) | 21/30 |
+| Four planks | 27/30 (90%) | 21/30 |
+| Wooden pickaxe | 19/30 (63.3%) | 15/30 |
 
-These are controlled flat-world fixtures and establish no natural-terrain reliability or neural contribution. Those 120 episodes are now development data for an updated readout. The updated candidate completed a separate three-layout pilot with **3/3 three-log pickups and 3/3 pickaxes**. Its fresh one-log set has now scored **27/30**, meeting the 80% point target; the remaining goal sets are being evaluated under the frozen plan.
+All four point targets are met. The descriptive 95% Wilson intervals are 74.4%â€“96.5% for the three 27/30 results and 45.5%â€“78.1% for pickaxes. They do not adjust for shared worlds/fixtures. All results have matching terminal inventory and block/crafting acknowledgments, with zero evaluation weight updates. The original sparse brain and earlier checkpoints remain unchanged.
 
-The new seed identities are separate from development, but the small fixture generator repeats block arrangements: 28/30 new one-log trials reuse development geometry. These scores test held-out-seed reliability and do not establish unseen-layout generalization.
+These are controlled flat-world fixtures. The earlier evaluation (26/30 one-log, 18/30 three-log, 27/30 planks, 12/30 pickaxes) is now training/development data for this readout and is excluded from the new scores. New seed identities are separate from development, but the small fixture generator repeats block arrangements: 28/30 single-tree trials and 27/30 longer-goal trials reuse development geometry. These scores test held-out-seed reliability and establish no natural-terrain reliability, unseen-layout generalization or neural contribution.
 
-**Phase 8 remains open. The Phase 9 10,000-world campaign has not started.** The latest full baseline passed **119 automated tests**. See [Phase 7.5 reliability](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/PHASE_7_5_REPORT.md), the [Phase 8 report](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/PHASE_8_REPORT.md) and [current development evidence](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/experiments/phase9/phase8_finish_20261124/README.md) for settings, intervals, failed attempts and remaining gaps.
+**Phase 8 controlled validation is complete.** All 30 matched control repeats and the selected-readout Minecraft-only milestone video are verified. In the small controls, trained and shuffled-neural tie at 3/3 one log and 2/3 pickaxes, so neural advantage remains unestablished. **The Phase 9 10,000-world campaign has not started; its AI checker and authorization remain pending discussion.** The latest full baseline passed **119 automated tests**. See [Phase 7.5 reliability](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/PHASE_7_5_REPORT.md), the [Phase 8 report](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/PHASE_8_REPORT.md) and [complete evaluation evidence](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/experiments/phase9/phase8_finish_20261124/README.md) for settings, intervals, failed attempts and remaining gaps.
 
 ## More ways to explore
 
-| You want to… | Start here |
+| You want toâ€¦ | Start here |
 | --- | --- |
 | Understand goals, memory and checkpoints | [Phase 7 design](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase7_design.md) and [commands](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase7_usage.md) |
 | Inspect camera and movement behavior | [Camera validation](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/camera_controller.md) and [movement validation](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/movement_validation.md) |
