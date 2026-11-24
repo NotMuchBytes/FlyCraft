@@ -651,3 +651,23 @@ before launching. The existing 768 MiB live reserve, 2,048 MiB disk guard
 and 75-degree GPU cutoff remain in force. All 119 Python tests pass,
 including preflight/live RAM-guard cleanup and the offline fit's independent
 gradient check. Phase 7.5 natural exploration and collection remain open.
+
+## November 24 controlled one-log gate
+
+The new readout's fresh frozen evaluation scored 27/30 inventory-confirmed
+one-log trials, with a descriptive 95% Wilson interval of 74.4%–96.5%.
+Median actions were 9 and median wall time 8.864 seconds. One failure
+broke logs without collecting a drop; two saw logs but never reached the
+strict mining affordance. All terminal results are independently audited.
+The six world seeds yielded ten distinct relative single-tree scenes;
+the interval is not adjusted for shared fixtures/worlds. This controlled
+result does not close the separate vanilla exploration gap. The same
+candidate is now undergoing the longer Phase 8 evaluation.
+[Fresh evaluation evidence](experiments/phase9/phase8_finish_20261124/one_log_results.json)
+
+The seed identities are disjoint from development, but 28/30 trials reuse
+relative block arrangements already present in development. Only one of
+the ten distinct arrangements is new. This limited fixture generator
+provides held-out-seed reliability evidence, not novel-terrain or unseen
+layout generalization.
+[Fixture overlap audit](experiments/phase9/phase8_finish_20261124/layout_overlap_one_log.json)

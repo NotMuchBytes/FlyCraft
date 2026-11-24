@@ -803,3 +803,28 @@ launch hold produced an unscored technical stop, preserved separately.
 The live RAM reserve stays 768 MiB; the configurable pre-launch margin
 defaults to 1,800 MiB on two samples. The scored pilot sampled at least
 770.49 MiB available RAM and at most 52 degrees Celsius GPU temperature.
+
+### Fresh frozen one-log gate
+
+The new mining-supervised readout scored **27/30 (90%)** on the frozen
+November 24 seed catalog, meeting the 24/30 point target. The descriptive
+95% Wilson interval is 74.4%–96.5%. Median episode actions were 9 and median
+wall time 8.864 seconds. All 30 scores have matching acknowledged terminal
+inventory and independent block-change evidence. One failure broke logs
+without pickup; two saw logs but never obtained the mining affordance.
+
+Six generated world seeds contain five requested layouts each, with ten
+distinct relative single-tree fixtures in the recorded snapshots. These
+intervals are not adjusted for shared-world/fixture dependence. The longer
+goals are now released on the same frozen checkpoint and configuration.
+This is controlled-fixture evidence, and supplies no neural-benefit or
+natural-terrain claim. The earlier 120 episodes remain development data
+for this new readout, outside this fresh evaluation.
+[Frozen plan and complete one-log audit](experiments/phase9/phase8_finish_20261124/one_log_results.json)
+
+Seed disjointness does not imply geometric novelty in this small fixture
+generator. Twenty-eight of the 30 new one-log trials reuse nine relative
+block arrangements present in development; two trials use one new
+arrangement. The result tests reliability on held-out seed identities,
+and does not establish generalization to unseen layouts or terrain.
+[Translation-normalized fixture overlap audit](experiments/phase9/phase8_finish_20261124/layout_overlap_one_log.json)
