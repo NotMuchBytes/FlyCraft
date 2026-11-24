@@ -3,8 +3,8 @@
 **November 24, 2026:** the selected Phase 8 readout completed its new frozen
 one-log set at **27/30 (90%)**, and all four controlled Phase 8 point targets
 are now met: 27/30 three logs, 27/30 four planks and 19/30 wooden pickaxes.
-Matched control repeats and the selected-readout milestone are undergoing
-final verification. The earlier fixed-pose obstacle diagnostic and recorded
+All 30 matched control repeats and the selected-readout milestone are verified.
+Phase 8 controlled validation is complete. The earlier fixed-pose obstacle diagnostic and recorded
 jump success remain separate evidence; this candidate uses no jump retry
 or exploration-forward prior. Vanilla exploration/approach remains open.
 [Latest scores and limits](PHASE_8_REPORT.md),
@@ -17,6 +17,18 @@ unseen-layout or neural-benefit claim follows. Original graph/checkpoints
 remain intact, evaluation performs no weight updates, and all live resource
 guards stay enabled. Phase 9 is pending separate authorization and AI-checker
 discussion. Dated sections below retain the historical evidence.
+
+Matched one-log control scores are trained 3/3, frozen transfer 2/3, uniform
+0/3, no-neural 1/3 and shuffled-neural 3/3. The pickaxe controls scored 2/3,
+1/3, 0/3, 0/3 and 2/3 respectively. All 24 relative-to-trained absolute-pose
+and fixture pairs match; the small sample supplies no neural advantage claim.
+One additional trained success from a RAM-stop attempt is retained unpaired.
+The new development milestone collected resources and crafted a pickaxe in
+45 actions; its 44.267-second Minecraft-only RTX 4050 MP4 passed full decoding
+and visual/transaction review. Earlier milestone checksums remain unchanged.
+The original graph/checkpoints and all resource guards are preserved.
+[Control audit](experiments/phase9/phase8_finish_20261124/control_completion_audit.json),
+[new milestone verification](experiments/phase9/phase8_finish_20261124/milestone_verification.json)
 
 November 20, 2026. The fixed-pose obstacle diagnostic verified a
 policy-selected forward retry with a vanilla jump pulse, followed by

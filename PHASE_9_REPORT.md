@@ -1,5 +1,14 @@
 # FlyCraft Phase 9 development report
 
+**November 24, 2026:** [Phase 8 controlled validation](PHASE_8_REPORT.md)
+is complete at 27/30 one-log, 27/30 three-log, 27/30 four-plank and 19/30
+wooden pickaxe, with matched controls and verified milestone footage.
+Natural-terrain generalization and neural advantage remain unestablished.
+Work is paused for the user's AI-checker discussion. The 10,000-world Phase 9
+campaign remains pending separate authorization; no new campaign or checker
+implementation was started during this closeout. Historical development
+evidence below is preserved.
+
 November 6: the Phase 7.5 reliability increment passed 104 automated tests and
 recorded successful strict collection/mining-interruption recovery. A real
 bridge process-tree stall exposed a command-rejection acknowledgment defect

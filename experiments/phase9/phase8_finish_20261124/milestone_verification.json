@@ -1,0 +1,455 @@
+{
+  "run_id": "p8_mining_20261124_pickaxe_milestone",
+  "execution_kind": "Fresh development execution, not a replay or primary score",
+  "video_path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_Development_Milestone_00003_p8_mining_20261124_pickaxe_milestone.mp4",
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 1328,
+    "duration_seconds": 44.266667,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "1328"
+    },
+    "bytes": 14549191,
+    "sha256": "ebaf25d007055c6d40c27d8a6705ed3450ab285d98c28d3d6944e4cf9dcc6d6a"
+  },
+  "actual_graphics": [
+    "Using graphics backend OpenGL, using drivers: 3.3.0 NVIDIA 617.42",
+    "Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU/PCIe/SSE2 (NVIDIA Corporation)"
+  ],
+  "capture_content_proof": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.05548293391430646,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\game\\p8_mining_20261124_pickaxe_milestone\\capture-proof-game.png",
+    "game_frame_sha256": "6a02cfda0bdf8bd63e2bf73190a841a6af1a05bd2aee099e21e19573bf8a2e5c",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\game\\p8_mining_20261124_pickaxe_milestone\\capture-proof-obs.png",
+    "obs_frame_sha256": "f56365a6b7631bfc60a462d3e55ec007354c48f4153977360c9d9cf3c1171224",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "episode": {
+    "episode_id": "trial_0000",
+    "condition": "trained",
+    "goal": "wooden_pickaxe",
+    "layout_seed": 728310449,
+    "success": true,
+    "ticks": 644,
+    "train": false,
+    "inventory": {
+      "log": 0,
+      "planks": 3,
+      "sticks": 2,
+      "crafting_table": 0,
+      "wooden_pickaxe": 1
+    },
+    "verified": true,
+    "strict_success": true,
+    "outcome": "success",
+    "initial": {
+      "episode_id": "trial_0000",
+      "world_seed": 202611230801,
+      "layout_seed": 728310449,
+      "goal": "wooden_pickaxe",
+      "server_tick": 499,
+      "game_mode": "SURVIVAL",
+      "position_xyz_yaw_pitch": [
+        -6.5,
+        -60.0,
+        -5.5,
+        0.0,
+        0.0
+      ],
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "fixture_blocks": [
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -11,
+            -57,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -11,
+            -57,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -11,
+            -57,
+            -2
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -10,
+            -57,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_log}[axis=y]",
+          "position": [
+            -10,
+            -60,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_log}[axis=y]",
+          "position": [
+            -10,
+            -59,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_log}[axis=y]",
+          "position": [
+            -10,
+            -58,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -10,
+            -57,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -10,
+            -57,
+            -2
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -9,
+            -57,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -9,
+            -57,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -9,
+            -57,
+            -2
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -8,
+            -57,
+            -5
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -8,
+            -57,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -8,
+            -57,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -7,
+            -57,
+            -5
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_log}[axis=y]",
+          "position": [
+            -7,
+            -60,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_log}[axis=y]",
+          "position": [
+            -7,
+            -59,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_log}[axis=y]",
+          "position": [
+            -7,
+            -58,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -7,
+            -57,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -7,
+            -57,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:stone}",
+          "position": [
+            -7,
+            -60,
+            -1
+          ]
+        },
+        {
+          "state": "Block{minecraft:stone}",
+          "position": [
+            -7,
+            -59,
+            -1
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -6,
+            -57,
+            -5
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -6,
+            -57,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -6,
+            -57,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -5,
+            -57,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -5,
+            -57,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -5,
+            -57,
+            -2
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -4,
+            -57,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_log}[axis=y]",
+          "position": [
+            -4,
+            -60,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_log}[axis=y]",
+          "position": [
+            -4,
+            -59,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_log}[axis=y]",
+          "position": [
+            -4,
+            -58,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -4,
+            -57,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -4,
+            -57,
+            -2
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -3,
+            -57,
+            -4
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -3,
+            -57,
+            -3
+          ]
+        },
+        {
+          "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+          "position": [
+            -3,
+            -57,
+            -2
+          ]
+        }
+      ],
+      "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+    },
+    "actions": 45,
+    "game_seconds": 32.2,
+    "elapsed_seconds": 32.241942199878395,
+    "decisions": 45,
+    "visible_block_decisions": 22,
+    "closest_visible_log": 0.8768124154148148,
+    "first_visible_log_decision": 1,
+    "farthest_observed_from_start": 2.8672643746359894,
+    "blind_forward_decisions": 0,
+    "blind_decisions": 11,
+    "legal_mine_decisions": 3,
+    "confirmed_breaks": 3,
+    "first_legal_mine_decision": 1,
+    "blocked_forward_actions": 1,
+    "jump_actions": [],
+    "max_observed_z": -3.2426434313127968,
+    "after_final_break_decisions": 5,
+    "after_final_break_visible_drop_decisions": 0,
+    "after_final_break_forward_with_drop": 0,
+    "confirmed_crafting_and_placement": {
+      "CRAFT_PLANKS": 3,
+      "CRAFT_STICKS": 1,
+      "CRAFT_TABLE": 1,
+      "PLACE_TABLE": 1,
+      "CRAFT_PICKAXE": 1
+    },
+    "legal_placement_decisions": 1,
+    "placement_outcomes": {
+      "success": 1
+    }
+  },
+  "preserved_capture_frames": {
+    "game": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p8_mining_20261124_pickaxe_milestone\\capture_game.png",
+      "sha256": "6a02cfda0bdf8bd63e2bf73190a841a6af1a05bd2aee099e21e19573bf8a2e5c"
+    },
+    "obs": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p8_mining_20261124_pickaxe_milestone\\capture_obs.png",
+      "sha256": "f56365a6b7631bfc60a462d3e55ec007354c48f4153977360c9d9cf3c1171224"
+    }
+  },
+  "frames": [
+    {
+      "seconds": 1.3280000099999998,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\milestone3_review\\frame_0_1.328s.png"
+    },
+    {
+      "seconds": 8.8533334,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\milestone3_review\\frame_1_8.853s.png"
+    },
+    {
+      "seconds": 17.7066668,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\milestone3_review\\frame_2_17.707s.png"
+    },
+    {
+      "seconds": 26.560000199999998,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\milestone3_review\\frame_3_26.560s.png"
+    },
+    {
+      "seconds": 35.4133336,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\milestone3_review\\frame_4_35.413s.png"
+    },
+    {
+      "seconds": 42.938666989999994,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\milestone3_review\\frame_5_42.939s.png"
+    }
+  ],
+  "contact_sheet": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\milestone3_review\\contact_sheet.png",
+  "manual_visual_review": {
+    "completed": true,
+    "record": "milestone_visual_review.json"
+  }
+}

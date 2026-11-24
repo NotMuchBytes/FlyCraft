@@ -22,8 +22,43 @@ Seed identities are disjoint from development. Geometry is not: 28/30
 single-tree trials and 27/30 longer-goal trials reuse development arrangements
 (`layout_overlap_final.json`). This establishes controlled held-out-seed
 reliability, not unseen-terrain generalization or a neural contribution.
-The predeclared control repeats and milestone capture are still being
-verified; they remain outside the primary 30-trial denominators.
+The 30 predeclared matched control repeats and selected-readout milestone
+are verified. Both remain outside the primary denominators. Phase 8's
+controlled point-target validation is complete; Phase 9 remains paused
+pending AI-checker discussion and separate campaign authorization.
+
+| Condition | One log | Wooden pickaxe |
+| --- | ---: | ---: |
+| Trained | 3/3 | 2/3 |
+| Frozen transfer | 2/3 | 1/3 |
+| Uniform | 0/3 | 0/3 |
+| No-neural inputs | 1/3 | 0/3 |
+| Shuffled-neural inputs | 3/3 | 2/3 |
+
+`control_results.json` preserves every episode, median action/time summaries,
+failure modes and descriptive Wilson intervals. All 24 control-to-trained
+absolute-pose/fixture pairs match. The actual neural interventions and uniform
+probabilities pass checks on 1,716 unique decision commands; all 31 scored
+episodes have zero evaluation updates. The additional scored episode is an
+unpaired technical-stop result retained separately, as described below.
+Trained and shuffled tie on both goals. With only three layouts in one world,
+these data establish no neural or learned superiority.
+
+Milestone 3 is a fresh from-empty pickaxe success on the first development
+layout: 45 actions, 32.242 wall seconds / 32.2 game seconds. Its original
+Minecraft-only RTX 4050/NVENC MP4 passed all 1,328 frames of a full decode
+(44.267 seconds), independent capture matching and manual frame review.
+See `milestone_verification.json`, `milestone_visual_review.json` and
+`milestone_review/`. The HUD is spectator-only; inventory/recipes are verified
+independently from server/actor logs. Startup/end menus and tutorial overlays
+remain in the unedited footage. An OBS startup-only failure before Minecraft
+is preserved separately, together with reversible stale-session-marker
+recovery. No episode was scored in that failed preflight.
+
+The final artifact audit (`artifact_integrity_closeout.json`) preserves the
+original brain, original checkpoints, selected checkpoint and implementation
+hashes after all live runs. `control_completion_audit.json` reproduces all
+control scores exactly, including the retained unpaired result.
 
 ## Development and frozen protocol
 

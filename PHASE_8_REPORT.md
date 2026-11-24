@@ -1,10 +1,11 @@
 # FlyCraft — Phase 8 report
 
-**November 24, 2026: all four controlled reliability point targets are met.**
+**November 24, 2026: Phase 8 controlled reliability validation is complete.**
 The frozen mining-supervised readout completed all 120 new scored episodes:
 27/30 one-log, 27/30 three-log, 27/30 four-plank and 19/30 wooden pickaxe,
-each from empty inventory. Matched control repeats and the selected-readout
-milestone recording are being verified before the Phase 8 closeout.
+each from empty inventory. All four point targets are met, all 30 matched
+control repeats are verified, and the selected-readout milestone MP4 passed
+full decoding, visual review and the independent Minecraft transaction audit.
 
 | Goal | Success | Target | Descriptive 95% Wilson CI | Median actions | Median wall / game seconds |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -49,6 +50,123 @@ readout is fitted from actual logged policy actions and progress, including
 acknowledged log breaks; the original 139,255-neuron sparse brain is fixed.
 [Fixture overlap](experiments/phase9/phase8_finish_20261124/layout_overlap_final.json),
 [frozen protocol and engineered assistance](experiments/phase9/phase8_finish_20261124/README.md)
+
+### November 24 matched policy controls
+
+The predeclared controls use the first three layouts of the first frozen
+seed block, kept outside the primary 30-trial goal scores. Within each layout,
+all five conditions share the absolute starting pose, full fixture snapshot,
+policy RNG, action/tick budgets, motor settings and operational interface.
+The frozen condition transfers the preserved Phase 7 readout. The others use
+the selected readout; uniform samples equally over legal actions, no-neural
+zeros its three activity inputs while retaining bias/context, and shuffled
+permutes those three inputs. The original brain still computes diagnostic
+features. Every scored decision's actual inputs/probabilities are checked.
+
+| Goal | Condition | Success | Median actions | Median wall seconds |
+| --- | --- | ---: | ---: | ---: |
+| One log | Trained | 3/3 | 16 | 14.734 |
+| One log | Frozen transfer | 2/3 | 7 | 6.254 |
+| One log | Uniform | 0/3 | 20 | 20.000 |
+| One log | No-neural inputs | 1/3 | 26 | 19.990 |
+| One log | Shuffled-neural inputs | 3/3 | 9 | 7.759 |
+| Wooden pickaxe | Trained | 2/3 | 92 | 70.009 |
+| Wooden pickaxe | Frozen transfer | 1/3 | 108 | 75.002 |
+| Wooden pickaxe | Uniform | 0/3 | 110 | 75.011 |
+| Wooden pickaxe | No-neural inputs | 0/3 | 104 | 74.998 |
+| Wooden pickaxe | Shuffled-neural inputs | 2/3 | 77 | 53.239 |
+
+All 24 control-to-trained pose/fixture pairs match exactly. The one-log failures comprise one
+break-without-pickup for frozen transfer, two breaks without pickup and one
+mineable-without-break for uniform, and two breaks without pickup for
+no-neural. Pickaxe failures stopped after sticks for trained and shuffled
+(one each); after planks for frozen (two); after planks twice and sticks once
+for uniform; and after uncollected breaks twice and sticks once for no-neural.
+These three-layout samples in one world are descriptive. Shuffled matches
+trained on both goals, so neural or learned superiority remains unestablished.
+The fixed condition order and full entity/drop RNG are not a verified exact
+replay. Descriptive Wilson intervals and complete per-episode evidence are
+preserved in the control JSON. The three-trial intervals are 43.9%–100% for
+3/3, 20.8%–93.9% for 2/3, 6.1%–79.2% for 1/3 and 0%–56.1% for 0/3.
+The audit verifies 1,716 unique decision commands' neural intervention inputs
+(including seven from the unpaired episode), uniform legal-action
+probabilities and zero evaluation updates in all 31 scored control episodes.
+
+The first control launch hit the RAM guard after a separate Minecraft client
+started. Its one verified trained success is retained as an unpaired episode,
+outside the complete matched groups. The incomplete group was repeated in a
+new, separately identified disposable save; completed groups are never
+repeated. This technical-stop rule does not depend on success or failure.
+[All 30 paired episodes and the retained unpaired result](experiments/phase9/phase8_finish_20261124/control_results.json)
+
+The complete control runs sampled at least 1,051.78 MiB available RAM and a
+maximum GPU temperature of 61°C. The separate RAM-stop attempt reached
+319.90 MiB available and was stopped by the unchanged guard; its completed
+episode and unfinished next episode remain preserved. Final rescoring exactly
+reproduces the control artifact.
+[Control completion and evidence hashes](experiments/phase9/phase8_finish_20261124/control_completion_audit.json)
+
+### November 24 selected-readout milestone and closeout
+
+Milestone 3 is a fresh execution on the first predeclared development layout,
+outside both the primary and control samples. The selected readout crafted a
+wooden pickaxe from empty inventory in **45 actions, 32.242 controller wall
+seconds and 32.2 game seconds**. All three log breaks, three plank crafts,
+stick craft, table craft, table placement and pickaxe craft have actual
+acknowledgments; terminal inventory contains one wooden pickaxe. This is not
+an exact replay, and no policy actions were changed for the video.
+
+The first-person spectator used the actual NVIDIA GeForce RTX 4050 renderer;
+OBS used NVENC H.264 and only the exact Minecraft window. The 1,920×1,080,
+30 fps MP4 contains **1,328 fully decoded frames over 44.267 seconds**, SHA-256
+`ebaf25d007055c6d40c27d8a6705ed3450ab285d98c28d3d6944e4cf9dcc6d6a`.
+It includes Minecraft loading/menu frames and the ordinary tutorial overlay.
+Manual review confirms mining particles/removal and the placed table; the
+spectator HUD does not display the actor inventory, which is verified from
+server/actor evidence instead. Independent capture comparison passed before
+policy actions (RGB error 0.05548 after an earlier 0.19331 comparison retry).
+The recording sampled at least 1,009.37 MiB available RAM and at most 55°C GPU.
+[Playback/goal audit](experiments/phase9/phase8_finish_20261124/milestone_verification.json),
+[visual review](experiments/phase9/phase8_finish_20261124/milestone_visual_review.json),
+[original-frame contact sheet](experiments/phase9/phase8_finish_20261124/milestone_review/contact_sheet.png),
+[recording metadata](recordings/phase9/youtube/p8_mining_20261124_pickaxe_milestone.json)
+
+An earlier OBS startup failed before Minecraft launched, so it produced no
+episode or policy score. Its log is preserved. With OBS confirmed stopped,
+two stale empty session markers were reversibly archived; profiles, logs and
+footage were preserved. The dedicated recorder then started normally. Its
+own leftover marker was archived after recording/cleanup. This follows the
+[OBS 33 session-marker implementation](https://github.com/obsproject/obs-studio/blob/33.0.0/frontend/utility/CrashHandler.cpp),
+without changing FlyCraft or disabling its guards.
+[Startup failure](experiments/phase9/phase8_finish_20261124/milestone_obs_preflight_failure.json),
+[recovery evidence](experiments/phase9/phase8_finish_20261124/obs_sentinel_recovery.json)
+
+All three accepted local milestone exports were fully decoded again:
+
+| Development milestone | Export filename | Seconds | Decoded frames |
+| --- | --- | ---: | ---: |
+| 1: earlier jump recovery | `FlyCraft_Development_Milestone_00001_p75_step_20261117_recorded_e.mp4` | 29.000 | 869 |
+| 2: earlier-readout pickaxe | `FlyCraft_Development_Milestone_00002_p8_pitch_20261117_pickaxe_milestone.mp4` | 55.867 | 1,676 |
+| 3: selected-readout pickaxe | `FlyCraft_Development_Milestone_00003_p8_mining_20261124_pickaxe_milestone.mp4` | 44.267 | 1,328 |
+
+Export directory:
+`C:\Users\anass\Documents\Codex\2026-11-17\continue-developing-the-actual-flycraft-minecraft\outputs`.
+The earlier files retain their original checksums and readouts; they are not
+presented as demonstrations of the selected checkpoint.
+[Earlier playback verification](experiments/phase9/phase8_finish_20261124/prior_milestone_verification.json)
+
+All **119 automated baseline tests passed**. The documented isolated Minecraft
+build/download-assets check also succeeded. Final graph/checkpoint/source
+verification after the live runs matches the preserved artifacts.
+[Post-run artifact audit](experiments/phase9/phase8_finish_20261124/artifact_integrity_closeout.json)
+
+The remaining scientific gaps are natural-terrain exploration/approach/pickup,
+genuinely unseen fixture/terrain generalization, stronger neural/learning
+controls, and the observed pickup/crafting failures. Engineered semantic
+sensing, dependency/legality masks, normal recipe-click primitives, prepared
+trees/support face, two-tick motor duration and mined-column memory remain
+explicit assistance. Meeting the controlled point targets closes this Phase
+8 validation, not those broader claims.
 
 The Phase 9 campaign remains pending separate authorization and discussion
 of an AI checker. The dated sections below preserve prior results and gaps.

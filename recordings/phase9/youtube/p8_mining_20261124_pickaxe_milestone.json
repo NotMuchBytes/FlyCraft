@@ -1,0 +1,43 @@
+{
+  "run_id": "p8_mining_20261124_pickaxe_milestone",
+  "milestone": 3,
+  "stage": "development",
+  "status": "verified",
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 1328,
+    "duration_seconds": 44.266667,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "1328"
+    },
+    "bytes": 14549191,
+    "sha256": "ebaf25d007055c6d40c27d8a6705ed3450ab285d98c28d3d6944e4cf9dcc6d6a",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-24 20-38-17.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00003_p8_mining_20261124_pickaxe_milestone.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": true,
+    "visual_content_preflight_verified": true
+  },
+  "error": null,
+  "episode_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p8_mining_20261124_pickaxe_milestone\\server.jsonl",
+  "action_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p8_mining_20261124_pickaxe_milestone\\headless.jsonl",
+  "observation_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\p8_mining_20261124_pickaxe_milestone\\bridge.jsonl",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+  "checkpoint_sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4",
+  "checkpoint_timing": "before_episode_update",
+  "camera_role": "recording_only",
+  "recording_kind": "synchronized_spectator_capture",
+  "redo_of": "p8_mining_20261123_stride2_a2",
+  "replay": false,
+  "actions_altered_for_video": false
+}

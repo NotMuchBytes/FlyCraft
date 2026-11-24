@@ -1,0 +1,24 @@
+{
+  "obs_processes_running": 0,
+  "version": "33.0.0",
+  "operation": "Reversibly archive two empty stale session markers; preserve all logs, profiles and recordings",
+  "files": [
+    {
+      "source": "C:\\Users\\anass\\AppData\\Roaming\\obs-studio\\.sentinel\\run_35174127-4247-40e7-8ba9-85fd7cc432b3",
+      "archived": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\obs_sentinel_backup_20261124\\run_35174127-4247-40e7-8ba9-85fd7cc432b3",
+      "bytes": 0
+    },
+    {
+      "source": "C:\\Users\\anass\\AppData\\Roaming\\obs-studio\\.sentinel\\run_8f961844-e89c-4658-850e-9eddd4af1b19",
+      "archived": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\obs_sentinel_backup_20261124\\run_8f961844-e89c-4658-850e-9eddd4af1b19",
+      "bytes": 0
+    }
+  ],
+  "source_reference": "https://github.com/obsproject/obs-studio/blob/33.0.0/frontend/utility/CrashHandler.cpp",
+  "after_owned_recorder_cleanup": {
+    "source": "C:\\Users\\anass\\AppData\\Roaming\\obs-studio\\.sentinel\\run_079e14d4-4572-45ff-90c2-2ea246528f22",
+    "archived": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\obs_sentinel_backup_20261124\\run_079e14d4-4572-45ff-90c2-2ea246528f22",
+    "bytes": 0,
+    "obs_processes_running": 0
+  }
+}
