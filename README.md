@@ -93,8 +93,9 @@ The standard development target is **Minecraft 26.2**, **Java JDK 25**, Fabric L
 
 ```powershell
 $env:JAVA_HOME = (Resolve-Path ".runtime/jdk-25").Path
+$modBuildDirectory = Join-Path (Get-Location) ".runtime/mod-build"
 Push-Location minecraft_mod
-& "$env:JAVA_HOME/bin/java.exe" -Xmx64m -classpath gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain --no-daemon --max-workers=2 assemble downloadAssets
+& "$env:JAVA_HOME/bin/java.exe" -Xmx64m -classpath gradle/wrapper/gradle-wrapper.jar org.gradle.wrapper.GradleWrapperMain --no-daemon --max-workers=2 "-PflycraftBuildDir=$modBuildDirectory" assemble downloadAssets
 Pop-Location
 ```
 
@@ -164,6 +165,7 @@ The companion has separate version/build instructions. Its engineered follow mod
 | Graph count/schema mismatch | Check FAFB v783 filenames and the unthresholded connection table. Keep validation checks enabled. |
 | `java.exe` missing | Check `.runtime/jdk-25/bin/java.exe`; an extra nested JDK ZIP folder is a common cause. |
 | Offline Gradle dependency error | Complete the online build/download step in section 3 first. |
+| Windows reports a locked build directory | Use the separate `.runtime/mod-build` path shown above and let any earlier build finish. |
 | Output already exists | Choose a fresh name, or use explicit training `--resume`. |
 | Port 25567 or 8765 occupied | Let the existing FlyCraft run finish or stop your own previous test before launching another. |
 | Resource guard stops a test | Read `run.json`, free resources and preserve the interrupted logs. |
