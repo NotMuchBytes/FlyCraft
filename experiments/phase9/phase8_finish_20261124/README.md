@@ -59,6 +59,15 @@ interface and the same goal-specific motor settings, budgets and fixtures.
 Control repeats stay outside the primary 30-trial goal scores. Report these
 small paired samples descriptively and identify engineered assistance.
 
+The first control launch stopped at the RAM guard after one verified trained
+one-log success when another Minecraft client consumed available memory.
+That scored episode remains in `unpaired_episodes`, outside the matched sample
+because its five-condition group was incomplete. A separately identified fresh
+execution repeats the incomplete group in a new disposable save. Any fully
+completed five-condition group is retained and never repeated. This recovery
+rule is independent of the observed success/failure outcome; no scored data
+is deleted. Counts include both the paired sample and technical-stop episodes.
+
 The full baseline suite passed 119 tests in 25.684 seconds. The generalized
 scorer reproduces all 120 historical episode records and goal summaries
 exactly when compared by episode identity. Prior data and the live source

@@ -38,14 +38,17 @@ def main():
         for batch_index, layouts in enumerate(batches, 1):
             if args.stop_file.exists():
                 return
-            run_id = f"p8_control_20261124_{goal}_b{batch_index}"
-            directory = FOLDER.parent / run_id
-            if directory.exists():
-                result = score()
-                meta = json.loads((directory / "run.json").read_text())
-                if meta["completed"] != len(layouts) * len(CONDITIONS):
-                    raise RuntimeError(f"Partial control block needs inspection: {run_id}")
+            result = score()
+            completed = {(row["goal"], row["layout_seed"]) for rows in result["episodes"].values() for row in rows}
+            layouts = [seed for seed in layouts if (goal, seed) not in completed]
+            if not layouts:
                 continue
+            base_id = f"p8_control_20261124_{goal}_b{batch_index}"
+            run_id, attempt = base_id, 1
+            while (FOLDER.parent / run_id).exists():
+                attempt += 1
+                run_id = f"{base_id}_a{attempt}"
+            directory = FOLDER.parent / run_id
             ready = 0
             while ready < 2:
                 if args.stop_file.exists():

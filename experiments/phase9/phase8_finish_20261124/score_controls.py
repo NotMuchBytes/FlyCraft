@@ -19,6 +19,7 @@ def score():
     block = plan["blocks"][0]
     layouts = set(block["layout_seeds"][:3])
     groups, indexed, runs = defaultdict(list), {}, []
+    candidates, unpaired = defaultdict(list), []
     intervention_decisions = defaultdict(int)
     for directory in sorted(FOLDER.parent.glob("p8_control_20261124_*")):
         if not (directory / "run.json").exists():
@@ -69,7 +70,6 @@ def score():
                      "scored": len(report["episodes"]), "requested": report["requested"]})
         for row in report["episodes"]:
             key = row["goal"], row["layout_seed"], row["condition"]
-            assert key not in indexed, f"Duplicate control cell: {key}"
             assert row["verified"] and row["actions"] <= 120
             controller = controller_rows[row["episode_id"]]
             assert controller["condition"] == row["condition"] and controller["train"] is False
@@ -81,7 +81,18 @@ def score():
                 if goal == "wooden_pickaxe":
                     assert all(row["confirmed_crafting_and_placement"].get(action) for action in
                                ("CRAFT_PLANKS", "CRAFT_STICKS", "CRAFT_TABLE", "PLACE_TABLE", "CRAFT_PICKAXE"))
-            row = row | {"run_id": directory.name}
+            row = row | {"run_id": directory.name, "run_stop_reason": meta["stop_reason"]}
+            candidates[(row["goal"], row["layout_seed"], directory.name)].append(row)
+    for (goal, seed, run_id), rows in candidates.items():
+        conditions = [row["condition"] for row in rows]
+        assert len(conditions) == len(set(conditions))
+        if set(conditions) != set(CONDITIONS):
+            assert rows[0]["run_stop_reason"] in ("available_ram_guard", "wall_budget", "manual_stop")
+            unpaired.extend(row | {"exclusion_reason": "Incomplete five-condition group after a technical stop; preserve separately from the matched sample"} for row in rows)
+            continue
+        for row in rows:
+            key = goal, seed, row["condition"]
+            assert key not in indexed, f"Duplicate complete control cell: {key}"
             indexed[key] = row
             groups[f"{goal}/{row['condition']}"].append(row)
     pairs = []
@@ -98,7 +109,9 @@ def score():
                 and len(pairs) == 24 and all(pair["absolute_pose_matched"] and pair["fixture_matched"] for pair in pairs))
     return {"sample_kind": "predeclared control repeats, excluded from primary 30-trial scores",
             "interval_note": "Descriptive Wilson intervals for three layouts in one world seed; no neural-benefit claim",
-            "complete": complete, "scheduled_episodes": 30, "scored_episodes": len(indexed),
+            "complete": complete, "scheduled_paired_episodes": 30,
+            "scored_episodes": len(indexed) + len(unpaired), "paired_sample_episodes": len(indexed),
+            "unpaired_episodes": unpaired,
             "neural_intervention_decisions_verified": dict(intervention_decisions),
             "groups": {key: summarize(value) for key, value in groups.items()},
             "pairs": pairs, "runs": runs, "episodes": dict(groups)}
