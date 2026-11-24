@@ -1,0 +1,4840 @@
+{
+  "sample_kind": "predeclared control repeats, excluded from primary 30-trial scores",
+  "interval_note": "Descriptive Wilson intervals for three layouts in one world seed; no neural-benefit claim",
+  "complete": false,
+  "scheduled_paired_episodes": 30,
+  "scored_episodes": 21,
+  "paired_sample_episodes": 20,
+  "unpaired_episodes": [
+    {
+      "episode_id": "trial_0000",
+      "condition": "trained",
+      "goal": "one_log",
+      "layout_seed": 7520578824115535931,
+      "success": true,
+      "ticks": 128,
+      "train": false,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "verified": true,
+      "strict_success": true,
+      "outcome": "success",
+      "initial": {
+        "episode_id": "trial_0000",
+        "world_seed": 7958542629895453475,
+        "layout_seed": 7520578824115535931,
+        "goal": "one_log",
+        "server_tick": 20,
+        "game_mode": "SURVIVAL",
+        "position_xyz_yaw_pitch": [
+          -5.5,
+          -60.0,
+          3.5,
+          0.0,
+          0.0
+        ],
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "fixture_blocks": [
+          {
+            "position": [
+              -7,
+              -57,
+              4
+            ],
+            "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          },
+          {
+            "position": [
+              -7,
+              -57,
+              5
+            ],
+            "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          },
+          {
+            "position": [
+              -7,
+              -57,
+              6
+            ],
+            "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          },
+          {
+            "position": [
+              -6,
+              -57,
+              4
+            ],
+            "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          },
+          {
+            "position": [
+              -6,
+              -60,
+              5
+            ],
+            "state": "Block{minecraft:oak_log}[axis=y]"
+          },
+          {
+            "position": [
+              -6,
+              -59,
+              5
+            ],
+            "state": "Block{minecraft:oak_log}[axis=y]"
+          },
+          {
+            "position": [
+              -6,
+              -58,
+              5
+            ],
+            "state": "Block{minecraft:oak_log}[axis=y]"
+          },
+          {
+            "position": [
+              -6,
+              -57,
+              5
+            ],
+            "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          },
+          {
+            "position": [
+              -6,
+              -57,
+              6
+            ],
+            "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          },
+          {
+            "position": [
+              -5,
+              -57,
+              4
+            ],
+            "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          },
+          {
+            "position": [
+              -5,
+              -57,
+              5
+            ],
+            "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          },
+          {
+            "position": [
+              -5,
+              -57,
+              6
+            ],
+            "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          }
+        ],
+        "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+      },
+      "actions": 7,
+      "game_seconds": 6.4,
+      "elapsed_seconds": 6.260746400104836,
+      "decisions": 7,
+      "visible_block_decisions": 1,
+      "closest_visible_log": 1.5,
+      "first_visible_log_decision": 1,
+      "farthest_observed_from_start": 0.7591219735817206,
+      "blind_forward_decisions": 0,
+      "blind_decisions": 0,
+      "legal_mine_decisions": 1,
+      "confirmed_breaks": 1,
+      "first_legal_mine_decision": 1,
+      "blocked_forward_actions": 0,
+      "jump_actions": [],
+      "max_observed_z": 4.233268079313861,
+      "after_final_break_decisions": 6,
+      "after_final_break_visible_drop_decisions": 6,
+      "after_final_break_forward_with_drop": 3,
+      "confirmed_crafting_and_placement": {},
+      "legal_placement_decisions": 0,
+      "placement_outcomes": {},
+      "run_id": "p8_control_20261124_one_log_b1",
+      "run_stop_reason": "available_ram_guard",
+      "exclusion_reason": "Incomplete five-condition group after a technical stop; preserve separately from the matched sample"
+    }
+  ],
+  "neural_intervention_decisions_verified": {
+    "trained": 141,
+    "frozen": 143,
+    "uniform": 184,
+    "no_neural": 161,
+    "shuffled": 102
+  },
+  "groups": {
+    "one_log/trained": {
+      "verified_trials": 3,
+      "successes": 3,
+      "wilson_95": [
+        0.4385029682449546,
+        1
+      ],
+      "median_actions": 16,
+      "median_elapsed_seconds": 14.733858700143173,
+      "outcomes": {
+        "success": 3
+      }
+    },
+    "one_log/frozen": {
+      "verified_trials": 3,
+      "successes": 2,
+      "wilson_95": [
+        0.2076596008020477,
+        0.9385080552796037
+      ],
+      "median_actions": 7,
+      "median_elapsed_seconds": 6.254315000027418,
+      "outcomes": {
+        "success": 2,
+        "break_with_partial_or_no_pickup": 1
+      }
+    },
+    "one_log/uniform": {
+      "verified_trials": 3,
+      "successes": 0,
+      "wilson_95": [
+        5.551115123125783e-17,
+        0.5614970317550454
+      ],
+      "median_actions": 20,
+      "median_elapsed_seconds": 20.000069299945608,
+      "outcomes": {
+        "break_with_partial_or_no_pickup": 2,
+        "mineable_without_confirmed_break": 1
+      }
+    },
+    "one_log/no_neural": {
+      "verified_trials": 3,
+      "successes": 1,
+      "wilson_95": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "median_actions": 26,
+      "median_elapsed_seconds": 19.98995289998129,
+      "outcomes": {
+        "break_with_partial_or_no_pickup": 2,
+        "success": 1
+      }
+    },
+    "one_log/shuffled": {
+      "verified_trials": 3,
+      "successes": 3,
+      "wilson_95": [
+        0.4385029682449546,
+        1
+      ],
+      "median_actions": 9,
+      "median_elapsed_seconds": 7.758649399969727,
+      "outcomes": {
+        "success": 3
+      }
+    },
+    "wooden_pickaxe/trained": {
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 96,
+      "median_elapsed_seconds": 74.98284430010244,
+      "outcomes": {
+        "sticks_crafted_table_unconfirmed": 1
+      }
+    },
+    "wooden_pickaxe/frozen": {
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 107,
+      "median_elapsed_seconds": 75.00175509997644,
+      "outcomes": {
+        "planks_crafted_sticks_unconfirmed": 1
+      }
+    },
+    "wooden_pickaxe/uniform": {
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 113,
+      "median_elapsed_seconds": 74.99256179993972,
+      "outcomes": {
+        "planks_crafted_sticks_unconfirmed": 1
+      }
+    },
+    "wooden_pickaxe/no_neural": {
+      "verified_trials": 1,
+      "successes": 0,
+      "wilson_95": [
+        0,
+        0.7934506856227626
+      ],
+      "median_actions": 104,
+      "median_elapsed_seconds": 74.99106990010478,
+      "outcomes": {
+        "break_with_partial_or_no_pickup": 1
+      }
+    },
+    "wooden_pickaxe/shuffled": {
+      "verified_trials": 1,
+      "successes": 1,
+      "wilson_95": [
+        0.20654931437723745,
+        1
+      ],
+      "median_actions": 73,
+      "median_elapsed_seconds": 53.239098199876025,
+      "outcomes": {
+        "success": 1
+      }
+    }
+  },
+  "pairs": [
+    {
+      "goal": "one_log",
+      "layout_seed": 7520578824115535931,
+      "condition": "frozen",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": true
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 7520578824115535931,
+      "condition": "uniform",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": false
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 7520578824115535931,
+      "condition": "no_neural",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": false
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 7520578824115535931,
+      "condition": "shuffled",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": true
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 8588403633905697808,
+      "condition": "frozen",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": true
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 8588403633905697808,
+      "condition": "uniform",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": false
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 8588403633905697808,
+      "condition": "no_neural",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": true
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 8588403633905697808,
+      "condition": "shuffled",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": true
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 672816142402341917,
+      "condition": "frozen",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": false
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 672816142402341917,
+      "condition": "uniform",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": false
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 672816142402341917,
+      "condition": "no_neural",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": false
+    },
+    {
+      "goal": "one_log",
+      "layout_seed": 672816142402341917,
+      "condition": "shuffled",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": true,
+      "control_success": true
+    },
+    {
+      "goal": "wooden_pickaxe",
+      "layout_seed": 7520578824115535931,
+      "condition": "frozen",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": false,
+      "control_success": false
+    },
+    {
+      "goal": "wooden_pickaxe",
+      "layout_seed": 7520578824115535931,
+      "condition": "uniform",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": false,
+      "control_success": false
+    },
+    {
+      "goal": "wooden_pickaxe",
+      "layout_seed": 7520578824115535931,
+      "condition": "no_neural",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": false,
+      "control_success": false
+    },
+    {
+      "goal": "wooden_pickaxe",
+      "layout_seed": 7520578824115535931,
+      "condition": "shuffled",
+      "absolute_pose_matched": true,
+      "fixture_matched": true,
+      "trained_success": false,
+      "control_success": true
+    }
+  ],
+  "runs": [
+    {
+      "run_id": "p8_control_20261124_one_log_b1",
+      "stop_reason": "available_ram_guard",
+      "scored": 1,
+      "requested": 15
+    },
+    {
+      "run_id": "p8_control_20261124_one_log_b1_a2",
+      "stop_reason": "suite_complete",
+      "scored": 15,
+      "requested": 15
+    },
+    {
+      "run_id": "p8_control_20261124_wooden_pickaxe_b1",
+      "stop_reason": "suite_complete",
+      "scored": 5,
+      "requested": 5
+    }
+  ],
+  "episodes": {
+    "one_log/trained": [
+      {
+        "episode_id": "trial_0000",
+        "condition": "trained",
+        "goal": "one_log",
+        "layout_seed": 7520578824115535931,
+        "success": true,
+        "ticks": 124,
+        "train": false,
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0000",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "one_log",
+          "server_tick": 20,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 6,
+        "game_seconds": 6.2,
+        "elapsed_seconds": 5.9909035000018775,
+        "decisions": 6,
+        "visible_block_decisions": 1,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 0.33222342615868977,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -7.179091868815381,
+        "after_final_break_decisions": 5,
+        "after_final_break_visible_drop_decisions": 5,
+        "after_final_break_forward_with_drop": 2,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0005",
+        "condition": "trained",
+        "goal": "one_log",
+        "layout_seed": 8588403633905697808,
+        "success": true,
+        "ticks": 304,
+        "train": false,
+        "inventory": {
+          "log": 2,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0005",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 8588403633905697808,
+          "goal": "one_log",
+          "server_tick": 1535,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 16,
+        "game_seconds": 15.2,
+        "elapsed_seconds": 15.0021931999363,
+        "decisions": 16,
+        "visible_block_decisions": 4,
+        "closest_visible_log": 1.2400000095367432,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 1.2755181574826653,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 2,
+        "confirmed_breaks": 2,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -6.243969176327972,
+        "after_final_break_decisions": 11,
+        "after_final_break_visible_drop_decisions": 11,
+        "after_final_break_forward_with_drop": 3,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0010",
+        "condition": "trained",
+        "goal": "one_log",
+        "layout_seed": 672816142402341917,
+        "success": true,
+        "ticks": 295,
+        "train": false,
+        "inventory": {
+          "log": 2,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0010",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 672816142402341917,
+          "goal": "one_log",
+          "server_tick": 2965,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -60,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -59,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -58,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -4
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 16,
+        "game_seconds": 14.75,
+        "elapsed_seconds": 14.733858700143173,
+        "decisions": 16,
+        "visible_block_decisions": 6,
+        "closest_visible_log": 1.8526037098831296,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 1.5290011608649197,
+        "blind_forward_decisions": 1,
+        "blind_decisions": 4,
+        "legal_mine_decisions": 2,
+        "confirmed_breaks": 2,
+        "first_legal_mine_decision": 4,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -6.126363811799703,
+        "after_final_break_decisions": 10,
+        "after_final_break_visible_drop_decisions": 5,
+        "after_final_break_forward_with_drop": 2,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      }
+    ],
+    "one_log/frozen": [
+      {
+        "episode_id": "trial_0001",
+        "condition": "frozen",
+        "goal": "one_log",
+        "layout_seed": 7520578824115535931,
+        "success": true,
+        "ticks": 119,
+        "train": false,
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0001",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "one_log",
+          "server_tick": 205,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 5,
+        "game_seconds": 5.95,
+        "elapsed_seconds": 5.762180899968371,
+        "decisions": 5,
+        "visible_block_decisions": 1,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 0.0,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -7.5,
+        "after_final_break_decisions": 4,
+        "after_final_break_visible_drop_decisions": 4,
+        "after_final_break_forward_with_drop": 1,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0006",
+        "condition": "frozen",
+        "goal": "one_log",
+        "layout_seed": 8588403633905697808,
+        "success": true,
+        "ticks": 129,
+        "train": false,
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0006",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 8588403633905697808,
+          "goal": "one_log",
+          "server_tick": 1900,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 7,
+        "game_seconds": 6.45,
+        "elapsed_seconds": 6.254315000027418,
+        "decisions": 7,
+        "visible_block_decisions": 1,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 0.7591037481191638,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -6.766750788766469,
+        "after_final_break_decisions": 6,
+        "after_final_break_visible_drop_decisions": 6,
+        "after_final_break_forward_with_drop": 3,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0011",
+        "condition": "frozen",
+        "goal": "one_log",
+        "layout_seed": 672816142402341917,
+        "success": false,
+        "ticks": 400,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "break_with_partial_or_no_pickup",
+        "initial": {
+          "episode_id": "trial_0011",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 672816142402341917,
+          "goal": "one_log",
+          "server_tick": 3325,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -60,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -59,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -58,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -4
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 23,
+        "game_seconds": 20.0,
+        "elapsed_seconds": 20.003368699923158,
+        "decisions": 23,
+        "visible_block_decisions": 13,
+        "closest_visible_log": 1.8136687935928981,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 1.5496332574735658,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 3,
+        "confirmed_breaks": 2,
+        "first_legal_mine_decision": 4,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -5.955618049487994,
+        "after_final_break_decisions": 9,
+        "after_final_break_visible_drop_decisions": 9,
+        "after_final_break_forward_with_drop": 2,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      }
+    ],
+    "one_log/uniform": [
+      {
+        "episode_id": "trial_0002",
+        "condition": "uniform",
+        "goal": "one_log",
+        "layout_seed": 7520578824115535931,
+        "success": false,
+        "ticks": 400,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "break_with_partial_or_no_pickup",
+        "initial": {
+          "episode_id": "trial_0002",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "one_log",
+          "server_tick": 385,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 20,
+        "game_seconds": 20.0,
+        "elapsed_seconds": 20.003087799996138,
+        "decisions": 20,
+        "visible_block_decisions": 15,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 0.0,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 5,
+        "confirmed_breaks": 2,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -7.5,
+        "after_final_break_decisions": 4,
+        "after_final_break_visible_drop_decisions": 4,
+        "after_final_break_forward_with_drop": 0,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0007",
+        "condition": "uniform",
+        "goal": "one_log",
+        "layout_seed": 8588403633905697808,
+        "success": false,
+        "ticks": 400,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "break_with_partial_or_no_pickup",
+        "initial": {
+          "episode_id": "trial_0007",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 8588403633905697808,
+          "goal": "one_log",
+          "server_tick": 2090,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 20,
+        "game_seconds": 20.0,
+        "elapsed_seconds": 20.000069299945608,
+        "decisions": 20,
+        "visible_block_decisions": 15,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 0.0,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 5,
+        "confirmed_breaks": 2,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -7.5,
+        "after_final_break_decisions": 4,
+        "after_final_break_visible_drop_decisions": 4,
+        "after_final_break_forward_with_drop": 0,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0012",
+        "condition": "uniform",
+        "goal": "one_log",
+        "layout_seed": 672816142402341917,
+        "success": false,
+        "ticks": 400,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "mineable_without_confirmed_break",
+        "initial": {
+          "episode_id": "trial_0012",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 672816142402341917,
+          "goal": "one_log",
+          "server_tick": 3790,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -60,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -59,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -58,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -4
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 29,
+        "game_seconds": 20.0,
+        "elapsed_seconds": 19.99633190012537,
+        "decisions": 30,
+        "visible_block_decisions": 14,
+        "closest_visible_log": 1.9458005085006882,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 1.574843449192445,
+        "blind_forward_decisions": 2,
+        "blind_decisions": 16,
+        "legal_mine_decisions": 2,
+        "confirmed_breaks": 0,
+        "first_legal_mine_decision": 4,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -6.003326723231538,
+        "after_final_break_decisions": 0,
+        "after_final_break_visible_drop_decisions": 0,
+        "after_final_break_forward_with_drop": 0,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      }
+    ],
+    "one_log/no_neural": [
+      {
+        "episode_id": "trial_0003",
+        "condition": "no_neural",
+        "goal": "one_log",
+        "layout_seed": 7520578824115535931,
+        "success": false,
+        "ticks": 400,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "break_with_partial_or_no_pickup",
+        "initial": {
+          "episode_id": "trial_0003",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "one_log",
+          "server_tick": 850,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 26,
+        "game_seconds": 20.0,
+        "elapsed_seconds": 19.98995289998129,
+        "decisions": 26,
+        "visible_block_decisions": 2,
+        "closest_visible_log": 1.4682072375358095,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 1.2515605128172573,
+        "blind_forward_decisions": 3,
+        "blind_decisions": 19,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -7.087658919951087,
+        "after_final_break_decisions": 25,
+        "after_final_break_visible_drop_decisions": 5,
+        "after_final_break_forward_with_drop": 1,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0008",
+        "condition": "no_neural",
+        "goal": "one_log",
+        "layout_seed": 8588403633905697808,
+        "success": true,
+        "ticks": 105,
+        "train": false,
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0008",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 8588403633905697808,
+          "goal": "one_log",
+          "server_tick": 2555,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 4,
+        "game_seconds": 5.25,
+        "elapsed_seconds": 5.261414400069043,
+        "decisions": 4,
+        "visible_block_decisions": 1,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 0.0,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -7.5,
+        "after_final_break_decisions": 3,
+        "after_final_break_visible_drop_decisions": 3,
+        "after_final_break_forward_with_drop": 1,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0013",
+        "condition": "no_neural",
+        "goal": "one_log",
+        "layout_seed": 672816142402341917,
+        "success": false,
+        "ticks": 400,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "break_with_partial_or_no_pickup",
+        "initial": {
+          "episode_id": "trial_0013",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 672816142402341917,
+          "goal": "one_log",
+          "server_tick": 4255,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -60,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -59,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -58,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -4
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 26,
+        "game_seconds": 20.0,
+        "elapsed_seconds": 19.993514500092715,
+        "decisions": 26,
+        "visible_block_decisions": 3,
+        "closest_visible_log": 2.588190451025208,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 1.2515947539200825,
+        "blind_forward_decisions": 3,
+        "blind_decisions": 19,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 2,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -7.130315570226262,
+        "after_final_break_decisions": 24,
+        "after_final_break_visible_drop_decisions": 4,
+        "after_final_break_forward_with_drop": 1,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      }
+    ],
+    "one_log/shuffled": [
+      {
+        "episode_id": "trial_0004",
+        "condition": "shuffled",
+        "goal": "one_log",
+        "layout_seed": 7520578824115535931,
+        "success": true,
+        "ticks": 159,
+        "train": false,
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0004",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "one_log",
+          "server_tick": 1315,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 9,
+        "game_seconds": 7.95,
+        "elapsed_seconds": 7.758649399969727,
+        "decisions": 9,
+        "visible_block_decisions": 1,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 0.8583744269528328,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -6.756612225426891,
+        "after_final_break_decisions": 8,
+        "after_final_break_visible_drop_decisions": 8,
+        "after_final_break_forward_with_drop": 3,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0009",
+        "condition": "shuffled",
+        "goal": "one_log",
+        "layout_seed": 8588403633905697808,
+        "success": true,
+        "ticks": 175,
+        "train": false,
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0009",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 8588403633905697808,
+          "goal": "one_log",
+          "server_tick": 2725,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -7
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 10,
+        "game_seconds": 8.75,
+        "elapsed_seconds": 8.76117549999617,
+        "decisions": 10,
+        "visible_block_decisions": 1,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 0.7527321034498969,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -6.7554169108938,
+        "after_final_break_decisions": 9,
+        "after_final_break_visible_drop_decisions": 9,
+        "after_final_break_forward_with_drop": 3,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      },
+      {
+        "episode_id": "trial_0014",
+        "condition": "shuffled",
+        "goal": "one_log",
+        "layout_seed": 672816142402341917,
+        "success": true,
+        "ticks": 141,
+        "train": false,
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0014",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 672816142402341917,
+          "goal": "one_log",
+          "server_tick": 4720,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -4.5,
+            -60.0,
+            -7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -60,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -59,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -4,
+                -58,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                -4
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -6
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -5
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -3,
+                -57,
+                -4
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 9,
+        "game_seconds": 7.05,
+        "elapsed_seconds": 7.00244880001992,
+        "decisions": 10,
+        "visible_block_decisions": 4,
+        "closest_visible_log": 1.8502713335087737,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 2.013097585012764,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 0,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 4,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": -5.524690066900099,
+        "after_final_break_decisions": 6,
+        "after_final_break_visible_drop_decisions": 6,
+        "after_final_break_forward_with_drop": 4,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_one_log_b1_a2",
+        "run_stop_reason": "suite_complete"
+      }
+    ],
+    "wooden_pickaxe/trained": [
+      {
+        "episode_id": "trial_0000",
+        "condition": "trained",
+        "goal": "wooden_pickaxe",
+        "layout_seed": 7520578824115535931,
+        "success": false,
+        "ticks": 1500,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 6,
+          "sticks": 4,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "sticks_crafted_table_unconfirmed",
+        "initial": {
+          "episode_id": "trial_0000",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "wooden_pickaxe",
+          "server_tick": 20,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -7.5,
+            -60.0,
+            7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -60,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -59,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -58,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -60,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -59,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                11
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 96,
+        "game_seconds": 75.0,
+        "elapsed_seconds": 74.98284430010244,
+        "decisions": 96,
+        "visible_block_decisions": 17,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 1.7011177884517652,
+        "blind_forward_decisions": 3,
+        "blind_decisions": 69,
+        "legal_mine_decisions": 4,
+        "confirmed_breaks": 3,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": 8.77841691676887,
+        "after_final_break_decisions": 76,
+        "after_final_break_visible_drop_decisions": 8,
+        "after_final_break_forward_with_drop": 0,
+        "confirmed_crafting_and_placement": {
+          "CRAFT_PLANKS": 2,
+          "CRAFT_STICKS": 1
+        },
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_wooden_pickaxe_b1",
+        "run_stop_reason": "suite_complete"
+      }
+    ],
+    "wooden_pickaxe/frozen": [
+      {
+        "episode_id": "trial_0001",
+        "condition": "frozen",
+        "goal": "wooden_pickaxe",
+        "layout_seed": 7520578824115535931,
+        "success": false,
+        "ticks": 1500,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 8,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "planks_crafted_sticks_unconfirmed",
+        "initial": {
+          "episode_id": "trial_0001",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "wooden_pickaxe",
+          "server_tick": 1585,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -7.5,
+            -60.0,
+            7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -60,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -59,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -58,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -60,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -59,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                11
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 107,
+        "game_seconds": 75.0,
+        "elapsed_seconds": 75.00175509997644,
+        "decisions": 108,
+        "visible_block_decisions": 15,
+        "closest_visible_log": 0.7159143393011776,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 1.8762967824833687,
+        "blind_forward_decisions": 13,
+        "blind_decisions": 71,
+        "legal_mine_decisions": 2,
+        "confirmed_breaks": 2,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 1,
+        "jump_actions": [],
+        "max_observed_z": 9.328933356970111,
+        "after_final_break_decisions": 8,
+        "after_final_break_visible_drop_decisions": 5,
+        "after_final_break_forward_with_drop": 2,
+        "confirmed_crafting_and_placement": {
+          "CRAFT_PLANKS": 2
+        },
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_wooden_pickaxe_b1",
+        "run_stop_reason": "suite_complete"
+      }
+    ],
+    "wooden_pickaxe/uniform": [
+      {
+        "episode_id": "trial_0002",
+        "condition": "uniform",
+        "goal": "wooden_pickaxe",
+        "layout_seed": 7520578824115535931,
+        "success": false,
+        "ticks": 1500,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 4,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "planks_crafted_sticks_unconfirmed",
+        "initial": {
+          "episode_id": "trial_0002",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "wooden_pickaxe",
+          "server_tick": 3150,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -7.5,
+            -60.0,
+            7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -60,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -59,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -58,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -60,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -59,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                11
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 113,
+        "game_seconds": 75.0,
+        "elapsed_seconds": 74.99256179993972,
+        "decisions": 114,
+        "visible_block_decisions": 35,
+        "closest_visible_log": 0.7159143393011774,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 7.099680002086862,
+        "blind_forward_decisions": 17,
+        "blind_decisions": 78,
+        "legal_mine_decisions": 14,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": 8.699999988079071,
+        "after_final_break_decisions": 113,
+        "after_final_break_visible_drop_decisions": 1,
+        "after_final_break_forward_with_drop": 0,
+        "confirmed_crafting_and_placement": {
+          "CRAFT_PLANKS": 1
+        },
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_wooden_pickaxe_b1",
+        "run_stop_reason": "suite_complete"
+      }
+    ],
+    "wooden_pickaxe/no_neural": [
+      {
+        "episode_id": "trial_0003",
+        "condition": "no_neural",
+        "goal": "wooden_pickaxe",
+        "layout_seed": 7520578824115535931,
+        "success": false,
+        "ticks": 1500,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "verified": true,
+        "strict_success": false,
+        "outcome": "break_with_partial_or_no_pickup",
+        "initial": {
+          "episode_id": "trial_0003",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "wooden_pickaxe",
+          "server_tick": 4715,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -7.5,
+            -60.0,
+            7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -60,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -59,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -58,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -60,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -59,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                11
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 104,
+        "game_seconds": 75.0,
+        "elapsed_seconds": 74.99106990010478,
+        "decisions": 105,
+        "visible_block_decisions": 5,
+        "closest_visible_log": 1.5,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 3.0127582809449516,
+        "blind_forward_decisions": 8,
+        "blind_decisions": 93,
+        "legal_mine_decisions": 1,
+        "confirmed_breaks": 1,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": 7.912341080048913,
+        "after_final_break_decisions": 104,
+        "after_final_break_visible_drop_decisions": 7,
+        "after_final_break_forward_with_drop": 1,
+        "confirmed_crafting_and_placement": {},
+        "legal_placement_decisions": 0,
+        "placement_outcomes": {},
+        "run_id": "p8_control_20261124_wooden_pickaxe_b1",
+        "run_stop_reason": "suite_complete"
+      }
+    ],
+    "wooden_pickaxe/shuffled": [
+      {
+        "episode_id": "trial_0004",
+        "condition": "shuffled",
+        "goal": "wooden_pickaxe",
+        "layout_seed": 7520578824115535931,
+        "success": true,
+        "ticks": 1068,
+        "train": false,
+        "inventory": {
+          "log": 0,
+          "planks": 3,
+          "sticks": 2,
+          "crafting_table": 0,
+          "wooden_pickaxe": 1
+        },
+        "verified": true,
+        "strict_success": true,
+        "outcome": "success",
+        "initial": {
+          "episode_id": "trial_0004",
+          "world_seed": 7958542629895453475,
+          "layout_seed": 7520578824115535931,
+          "goal": "wooden_pickaxe",
+          "server_tick": 6280,
+          "game_mode": "SURVIVAL",
+          "position_xyz_yaw_pitch": [
+            -7.5,
+            -60.0,
+            7.5,
+            0.0,
+            0.0
+          ],
+          "inventory": {
+            "log": 0,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "fixture_blocks": [
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -12,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -11,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -11,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -10,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -9,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -60,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -59,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -8,
+                -58,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -8,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -60,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:stone}",
+              "position": [
+                -8,
+                -59,
+                12
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                8
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -7,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -6,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -60,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -59,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_log}[axis=y]",
+              "position": [
+                -5,
+                -58,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -5,
+                -57,
+                11
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                9
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                10
+              ]
+            },
+            {
+              "state": "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]",
+              "position": [
+                -4,
+                -57,
+                11
+              ]
+            }
+          ],
+          "replay_fidelity": "Initial fixture snapshot; complete world/entity RNG replay is unverified"
+        },
+        "actions": 73,
+        "game_seconds": 53.4,
+        "elapsed_seconds": 53.239098199876025,
+        "decisions": 73,
+        "visible_block_decisions": 35,
+        "closest_visible_log": 0.7324647823624074,
+        "first_visible_log_decision": 1,
+        "farthest_observed_from_start": 3.193141725712583,
+        "blind_forward_decisions": 0,
+        "blind_decisions": 23,
+        "legal_mine_decisions": 4,
+        "confirmed_breaks": 3,
+        "first_legal_mine_decision": 1,
+        "blocked_forward_actions": 0,
+        "jump_actions": [],
+        "max_observed_z": 9.814336650735761,
+        "after_final_break_decisions": 9,
+        "after_final_break_visible_drop_decisions": 1,
+        "after_final_break_forward_with_drop": 0,
+        "confirmed_crafting_and_placement": {
+          "CRAFT_PLANKS": 3,
+          "CRAFT_STICKS": 1,
+          "CRAFT_TABLE": 1,
+          "PLACE_TABLE": 1,
+          "CRAFT_PICKAXE": 1
+        },
+        "legal_placement_decisions": 1,
+        "placement_outcomes": {
+          "success": 1
+        },
+        "run_id": "p8_control_20261124_wooden_pickaxe_b1",
+        "run_stop_reason": "suite_complete"
+      }
+    ]
+  }
+}
