@@ -37,7 +37,6 @@ Use a fresh name. Run from the repository root after the Minecraft/data setup:
 .\.venv\Scripts\python.exe tools/run_phase9.py init `
   --name checked_demo --checked --compact --goal wooden_pickaxe `
   --checkpoint checkpoints/phase8/finish_20261123/progress_readout_mining.npz `
-  --frozen-checkpoint checkpoints/phase7/curriculum_v3_seed29.npz `
   --forward-ticks 2 --worlds 5 --master-seed 202611240901 `
   --recording-policy milestones --recording-milestones 1
 ```
@@ -47,6 +46,11 @@ catalog excludes previously recorded world/layout IDs and separates pilot,
 training-reserve, development evaluation and final evaluation partitions.
 Creating reserved seed IDs generates no worlds. This supervisor never accesses
 the training-reserve or final-evaluation partitions.
+
+This setup uses the included initial readout as its frozen reference. For a
+Phase 7 transfer comparison, provide your preserved model explicitly with
+`--frozen-checkpoint PATH`; older local checkpoints are not all included in a
+clone. Using the same checkpoint twice is not evidence of transfer.
 
 ```powershell
 .\.venv\Scripts\python.exe tools/supervise_phase9.py run `
