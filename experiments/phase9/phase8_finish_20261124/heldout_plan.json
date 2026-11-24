@@ -1,0 +1,111 @@
+{
+  "state": "frozen before first held-out episode",
+  "phase": 8,
+  "selection_note": "Corrected confirmed-mining fit completed all three predeclared development layouts: three_logs 3/3 and wooden_pickaxe 3/3; keep the original two-tick motor setting. Prior pitch evaluation and pilot layouts are development only.",
+  "phase9_campaign_authorized": false,
+  "git_commit_at_freeze": "2eed44742de71bd6d80ca74ff357d56f3b290c6c",
+  "implementation_sha256": "797c90920bd4dd348804c49ff578da65b4615b8fcbd46b1daf6ce82e4c3873ce",
+  "policy": {
+    "checkpoint": "checkpoints/phase8/finish_20261123/progress_readout_mining.npz",
+    "sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4",
+    "policy_rng_seed": 9001,
+    "policy_action_limit": 120,
+    "condition": "trained",
+    "training": false,
+    "pitch_actions": true,
+    "camera_mode": "bounded",
+    "turn_degrees": 15,
+    "forward_ticks": 2,
+    "movement_feedback": "displacement",
+    "jump_on_blocked_forward": false,
+    "explore_forward": false
+  },
+  "goals": {
+    "one_log": {
+      "trials": 30,
+      "success_target": 24,
+      "trial_ticks": 400
+    },
+    "three_logs": {
+      "trials": 30,
+      "success_target": 21,
+      "trial_ticks": 1500
+    },
+    "planks": {
+      "trials": 30,
+      "success_target": 21,
+      "trial_ticks": 400
+    },
+    "wooden_pickaxe": {
+      "trials": 30,
+      "success_target": 15,
+      "trial_ticks": 1500
+    }
+  },
+  "environment": "Disposable flat survival fixtures; empty inventory. Three trees and mined-column memory only for longer goals.",
+  "dependence": "Five relative layouts per generated world; Wilson intervals are descriptive, not adjusted for shared world clusters.",
+  "gate": "Complete one_log first. Release the longer goals only at 24/30 verified one-log successes.",
+  "seed_derivation": "SHA256 FlyCraft-phase8-heldout-20261124:nonce, first 8 bytes, signed63, excluding every previously recorded world/layout seed",
+  "blocks": [
+    {
+      "world_seed": 7958542629895453475,
+      "layout_seeds": [
+        7520578824115535931,
+        8588403633905697808,
+        672816142402341917,
+        7946938497252712089,
+        867506390434969348
+      ]
+    },
+    {
+      "world_seed": 9116169379719977943,
+      "layout_seeds": [
+        7709350323872472950,
+        7482420314212330841,
+        1425746884183318355,
+        2447135145704018640,
+        5307724246016347718
+      ]
+    },
+    {
+      "world_seed": 219331457390281054,
+      "layout_seeds": [
+        7615357089454581100,
+        7855944687589724147,
+        568663271120089942,
+        157743029463872904,
+        2624273210052655987
+      ]
+    },
+    {
+      "world_seed": 3490424679424629051,
+      "layout_seeds": [
+        8502159209340814483,
+        4780426311391192019,
+        2885444487103364992,
+        1578295273001703497,
+        8009749635665313517
+      ]
+    },
+    {
+      "world_seed": 555848254292249720,
+      "layout_seeds": [
+        3933851298033029844,
+        1527318897505778335,
+        53395234802638858,
+        1082792850182196013,
+        6580969562075479862
+      ]
+    },
+    {
+      "world_seed": 5878533388629836757,
+      "layout_seeds": [
+        1437987021912779558,
+        1562770718694600866,
+        5167380624142680409,
+        67752862238426246,
+        9093095548525230474
+      ]
+    }
+  ]
+}
