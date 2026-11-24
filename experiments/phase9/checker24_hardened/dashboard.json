@@ -1,0 +1,38 @@
+{
+  "status": "checked batch finished",
+  "summary": {
+    "stage": "development",
+    "official_training_worlds": 0,
+    "generated_world_instances": 1,
+    "unverified_world_counts": 0,
+    "distinct_generated_seeds": 1,
+    "committed_episodes": 1,
+    "training_episodes": 0,
+    "verified_game_episodes": 1,
+    "uncommitted_scored_episodes": 0,
+    "uncommitted_reported_updates": 0,
+    "training_updates": 0,
+    "evaluation_episodes": 1,
+    "recording_policy": "milestones",
+    "recorded_episodes": 0,
+    "event_only_episodes": 1,
+    "recent_training_success_rate": null,
+    "mean_training_reward": null,
+    "measured_training_worlds_per_hour": null,
+    "mean_actions_per_success": null,
+    "estimated_remaining_seconds": null,
+    "estimate_basis": "remaining generated-world slots times measured attempt wall time; interruptions included",
+    "curriculum_level": 1,
+    "goal": "one_log",
+    "progression": "operator-selected interaction goal; no automatic curriculum advancement",
+    "checkpoint": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+      "sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4"
+    },
+    "active_attempt": null,
+    "recent_errors": [],
+    "updated_unix": 1795545810.3227563
+  },
+  "live_worker": null,
+  "brain": null
+}

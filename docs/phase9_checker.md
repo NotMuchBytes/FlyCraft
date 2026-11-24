@@ -52,7 +52,7 @@ the training-reserve or final-evaluation partitions.
 .\.venv\Scripts\python.exe tools/supervise_phase9.py run `
   --campaign experiments/phase9/checked_demo --split eval_a `
   --max-attempts 2 --seconds 900 `
-  --work-dir C:/path/to/work --build-dir .runtime/build_reply_loss_20261107 `
+  --work-dir C:/path/to/work --build-dir .runtime/mod-build `
   --obs-control-dir C:/path/to/obs-control --video-export-dir C:/path/to/outputs
 ```
 

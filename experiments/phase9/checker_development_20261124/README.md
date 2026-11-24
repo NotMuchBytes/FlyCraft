@@ -27,8 +27,22 @@ After the frozen pilot, corrupted-copy regression tests exposed two reporting
 edge cases: a null update object escaped as TypeError, and failed video
 validation did not retain the separately verified game outcome in the ledger.
 Both are repaired without changing gameplay. Pre-fix test failures are
-preserved. All 136 tests pass on the hardened checker; a fresh frozen smoke
-trial follows separately. Historical pilot source/configuration is not thawed.
+preserved. All 136 tests pass on the hardened checker. Its separate fresh
+one-log smoke trial also succeeded with zero updates. In total, nine functional
+episodes succeeded across ten disposable worlds, including the unscored mining
+interruption. Historical pilot source/configuration is not thawed.
+
+`release_audit.json` verifies all new scores/checkpoints and exact reproduction
+of the 152 archived episodes. Final source hash:
+`1f66c63d78e288ddc042a9cffeb845bba688ee207d56ef557d767321cc35bb7e`.
+Minimum sampled RAM was 1,874.43 MiB available, maximum GPU temperature 53°C.
+All resource guards remained enabled. The old 139,255-neuron graph and original
+checkpoints are unchanged. No official training worlds were started.
+
+`handoff_example/attention/request_0001.md` demonstrates an actual generated
+fix request from a deliberately corrupted COPY. It is clearly labeled a test,
+not a failed live episode. The checker pauses instead of editing source or
+benchmark rules. Standalone chat notification is not connected.
 
 ## Protocol and provenance
 

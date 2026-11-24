@@ -1,7 +1,7 @@
 # FlyCraft Phase 9 development report
 
-**November 24 checker development:** the local checked supervisor and Codex
-repair handoffs are implemented. The frozen functional pilot completed eight
+**November 24 checker development verified:** the local checked supervisor and
+Codex repair handoffs are implemented. The frozen functional pilot completed eight
 verified successes across all four goals, including two verified development
 readout updates. STOP interrupted mining without a successful acknowledgment;
 its fresh resumed attempt succeeded. Nine disposable worlds include that
@@ -10,12 +10,46 @@ and manual review. This small pilot establishes neither reliability nor a
 learning/neural advantage.
 
 All 136 tests pass after hardening malformed-evidence handling and preserving
-valid game outcomes when video verification fails. A final fresh smoke trial
-of the hardened version is pending. Original graph/checkpoints and actor
+valid game outcomes when video verification fails. A fresh smoke trial of the
+hardened version also succeeded, giving **nine successful functional episodes
+across ten generated disposable worlds**, including the unscored interruption.
+The two training episodes produced verified readout changes; all seven new
+evaluation episodes have zero weight updates. The minimum sampled available
+RAM was 1,874.43 MiB and maximum GPU temperature 53°C. The 768 MiB RAM,
+2,048 MiB disk and 75°C GPU guards stayed enabled; CPU temperature is unavailable.
+Original graph/checkpoints and actor
 source remain unchanged; only coordination/validation/recorder lifecycle code
 changed. The 10,000-world campaign remains unauthorized and unstarted.
 [Protocol and verified pilot evidence](experiments/phase9/checker_development_20261124/README.md),
+[release audit](experiments/phase9/checker_development_20261124/release_audit.json),
 [checker operation and limits](docs/phase9_checker.md)
+
+The final source hash is
+`1f66c63d78e288ddc042a9cffeb845bba688ee207d56ef557d767321cc35bb7e`.
+The original graph hash remains
+`37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d`.
+The validated Phase 8 checkpoint remains the default; the two newly saved
+training checkpoints are development artifacts, not a replacement selected
+for reliability. Re-auditing with the hardened checker reproduces all 152
+archived Phase 8 scores and the frozen pilot records exactly.
+
+The preselected recorded pickaxe succeeded in 89 actions, 67.737 wall seconds
+and 67.9 game seconds. Its Minecraft-only first-person RTX 4050 recording is
+82.833 seconds and passed full decode and manual review. The original footage
+is unedited, includes ordinary loading/tutorial UI, and is a fresh development
+execution rather than an exact replay. Its export is
+`C:\Users\anass\Documents\Codex\2026-11-17\continue-developing-the-actual-flycraft-minecraft\outputs\FlyCraft_Development_Milestone_00001_checker24_pick_eval_a_trained_00001_a0001.mp4`.
+[Recording metadata](recordings/phase9/youtube/checker24_pick_eval_a_trained_00001_a0001.json),
+[manual review and functional audit](experiments/phase9/checker_development_20261124/pilot_audit.json)
+
+Fix requests pause execution and preserve evidence hashes plus a local Markdown
+handoff for Codex. During a Codex-managed batch the attention result returns to
+the agent. Standalone execution does not wake an idle chat; no external AI
+service or automatic code patching is configured. Long-run/parallel operation,
+natural-terrain reliability, stronger neural controls and official campaign
+authorization remain separate work. The checker is ready for bounded
+development use, not a completed or authorized 10,000-world experiment.
+[Clearly labeled corrupted-copy handoff example](experiments/phase9/checker_development_20261124/handoff_example/attention/request_0001.md)
 
 **Earlier November 24, 2026:** [Phase 8 controlled validation](PHASE_8_REPORT.md)
 is complete at 27/30 one-log, 27/30 three-log, 27/30 four-plank and 19/30
