@@ -78,6 +78,10 @@ with the completed Phase 8 benchmark.
   episodes pauses the batch and writes a Codex fix request. Those verified
   failures remain in the ledger. Frozen/uniform/ablation controls do not trigger
   the trained-policy failure-rate rule.
+- Malformed evidence fields produce a typed attention result instead of
+  crashing the handoff path. If game evidence is valid but required video
+  verification fails, its outcome is retained as an uncommitted scored episode;
+  the checkpoint stays unchanged and that scored cell is not repeated.
 - A changed implementation requires a new frozen development campaign. The
   checker cannot erase a fix request, thaw configuration or silently revise
   the benchmark. Resume from a reviewed preserved checkpoint in a fresh plan

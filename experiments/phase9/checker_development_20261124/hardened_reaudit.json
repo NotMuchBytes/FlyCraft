@@ -1,0 +1,453 @@
+{
+  "prior_pilot_outcomes_unchanged": true,
+  "attempts": 9,
+  "scored_episodes": 8,
+  "reports": [
+    {
+      "schema": 1,
+      "run_id": "checker24_one_eval_a_trained_00001_a0001",
+      "status": "verified",
+      "stop_reason": "suite_complete",
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "goal": "one_log",
+          "condition": "trained",
+          "layout_seed": 6218542308816961717,
+          "success": true,
+          "actions": 10,
+          "game_seconds": 7.3,
+          "elapsed_seconds": 7.2486301001627,
+          "confirmed_breaks": 1,
+          "crafts": {},
+          "failure_mode": "success",
+          "inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "weight_delta_norm": 0.0,
+          "training_applied": false
+        }
+      ],
+      "intervention_commands_verified": 10,
+      "video": null,
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+      "evidence_sha256": {
+        "bridge.jsonl": "fb16ea896c04e580de81b470ef645d427b8ae415499fcfcf45f9712ef33fdf88",
+        "bridge_launcher.log": "26d9cc8344a2f575c75b6c7eaf253e1c411bf2b0ff2774d8bf355b12b1f6de66",
+        "camera.jsonl": "a8bc80593b74dc89d1853d4ccb0bd218da2df75e07a7cc32f794fc020bff897d",
+        "controller.jsonl": "b01c81909da6e2cc305e232f8cb95aa21bb11cee342b3f206ff53ff1356cc91e",
+        "headless.jsonl": "261d7bb0fae10e31930dca9914d0db193793fe39335935319f902a25c47a5cfd",
+        "prepare_launcher.log": "729c2c1eb96c0744b113df2bbde8417e95a938afe62901f6abdc4297973c9efc",
+        "run.json": "3989d1a15bcb5e8cbe043910f79202641102c1eea3a753e896421604bfdb0260",
+        "server.jsonl": "4003f39bc13614feb66357a83988ae2fb610995e341f1ec79f8b4847f88a7128",
+        "server.jsonl.delivery.jsonl": "660fc23183d81a15b96247b8c0e54dab03de55b67fe9b8b259cd1bfd7c7aa238",
+        "server.jsonl.initial.jsonl": "88c0310d8e75c127bbee7dba890881256a7eb41a194f831685af29809ff15140",
+        "server.log": "c4013907b2968913a173dfc16ac3b347f7b9f1154f301bf78c3d2676c3905bf7",
+        "server_launcher.log": "c4013907b2968913a173dfc16ac3b347f7b9f1154f301bf78c3d2676c3905bf7",
+        "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+        "status.json": "f238e0bc400e49e6c7b58ba1381199571018722fce554d2380a50b2c52f4fd4d"
+      }
+    },
+    {
+      "schema": 1,
+      "run_id": "checker24_one_eval_a_trained_00002_a0002",
+      "status": "verified",
+      "stop_reason": "suite_complete",
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "goal": "one_log",
+          "condition": "trained",
+          "layout_seed": 8495663230098908223,
+          "success": true,
+          "actions": 11,
+          "game_seconds": 8.4,
+          "elapsed_seconds": 8.24787799990736,
+          "confirmed_breaks": 1,
+          "crafts": {},
+          "failure_mode": "success",
+          "inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "weight_delta_norm": 0.0,
+          "training_applied": false
+        }
+      ],
+      "intervention_commands_verified": 11,
+      "video": null,
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+      "evidence_sha256": {
+        "bridge.jsonl": "8c1c9ddfa9cdcf3dcd1ed7ef5737db8dbdb47b198af1726a8e1c30f18489691d",
+        "bridge_launcher.log": "011fce74833e6096809f43c189ec12dceb64c98ab4033dad107ebd629a16d714",
+        "camera.jsonl": "931b77b6c2982fbf6f0d00a1a9b12a9785e0b2d719986dcfb6016ed2f7084e9b",
+        "controller.jsonl": "229f24ac73e25de4742d5817084d99f7e997ebda33913dbe3df2270c066de0f2",
+        "headless.jsonl": "d863e5b54b6499b0a83c6c22e8892306c0ca4b7b200305c6e3b45d49edfdbafb",
+        "prepare_launcher.log": "bef597a269c12d22416deeba33563ecef3477867671a3203da12efa0b45657bb",
+        "run.json": "536f9417d5ce9f97a9acbc461c9f2b641ecf3c6d89b871ff0452460b2582103f",
+        "server.jsonl": "5442fb0134a32c1462002045872487f63926750cf46c7403c5ce073a1924454c",
+        "server.jsonl.delivery.jsonl": "cd710996bb579f1815675eb87552ff3dbd00326bfae307d4f3e0c5f460ac59a6",
+        "server.jsonl.initial.jsonl": "d79227e9026779081b4389121896bb5799e785981ef64a03084dee714ba8a776",
+        "server.log": "632d7b3fdfdb16bac2c1d7df21f90065d672d8af3d4eecd085a07ec3f89b2e64",
+        "server_launcher.log": "632d7b3fdfdb16bac2c1d7df21f90065d672d8af3d4eecd085a07ec3f89b2e64",
+        "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+        "status.json": "39dfe1ee18211fbc416e96a3c7a1f21e6bf3940ad23895f88b080ae03a13670a"
+      }
+    },
+    {
+      "schema": 1,
+      "run_id": "checker24_three_eval_a_trained_00001_a0001",
+      "status": "verified",
+      "stop_reason": "suite_complete",
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "goal": "three_logs",
+          "condition": "trained",
+          "layout_seed": 2077998000921060610,
+          "success": true,
+          "actions": 25,
+          "game_seconds": 22.1,
+          "elapsed_seconds": 21.989337200066075,
+          "confirmed_breaks": 3,
+          "crafts": {},
+          "failure_mode": "success",
+          "inventory": {
+            "log": 3,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "weight_delta_norm": 0.0,
+          "training_applied": false
+        }
+      ],
+      "intervention_commands_verified": 25,
+      "video": null,
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+      "evidence_sha256": {
+        "bridge.jsonl": "da4cbe4ee69c6c39f4becea76c79ebf387ed204870a563589c348ab019f8f279",
+        "bridge_launcher.log": "1259a6c174e921ed8a9abc931e37cafedfe75130c0bc314f822ec1db493fb35b",
+        "camera.jsonl": "0ae7e71f3ea5a18960f1223a3dc209d9cf73028ad0b086501fb20e8f0ece7b2c",
+        "controller.jsonl": "69db461f23571956bd2d3b19f54cf1869c225437ac3767e69f319ca8ab5d2b37",
+        "headless.jsonl": "26c021640a10d6afeda462df863ab096e03014b81981ab23aca0f5d7888d627a",
+        "prepare_launcher.log": "bef597a269c12d22416deeba33563ecef3477867671a3203da12efa0b45657bb",
+        "run.json": "be304bb96b75f83e39771cf72d724c246dd5339d48c9a40535b1051a9d6dc1aa",
+        "server.jsonl": "6e8369c0ba0875f758637d46632f0c51894a625ae54c0400227dc75f2edb482a",
+        "server.jsonl.delivery.jsonl": "90dc77e2b387e4251b7da9f817f2d0e0eebd553b514970bcbea6b46420798fdc",
+        "server.jsonl.initial.jsonl": "f39dcf5909a4b31b59fb4aaab067b78b70205037cbe42a93f21ed9516c37a966",
+        "server.log": "effa6d06887a62dce25c5a708efb545c47bb7bbcbabcf00d4e01e3918d5c6557",
+        "server_launcher.log": "effa6d06887a62dce25c5a708efb545c47bb7bbcbabcf00d4e01e3918d5c6557",
+        "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+        "status.json": "b2dae06096957862080f952600f7110faef8f29a809311d44d62d162e5942255"
+      }
+    },
+    {
+      "schema": 1,
+      "run_id": "checker24_planks_eval_a_trained_00001_a0001",
+      "status": "verified",
+      "stop_reason": "suite_complete",
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "goal": "planks",
+          "condition": "trained",
+          "layout_seed": 4738280841778720552,
+          "success": true,
+          "actions": 9,
+          "game_seconds": 9.4,
+          "elapsed_seconds": 9.235510899918154,
+          "confirmed_breaks": 2,
+          "crafts": {
+            "CRAFT_PLANKS": 1
+          },
+          "failure_mode": "success",
+          "inventory": {
+            "log": 0,
+            "planks": 4,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "weight_delta_norm": 0.0,
+          "training_applied": false
+        }
+      ],
+      "intervention_commands_verified": 9,
+      "video": null,
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+      "evidence_sha256": {
+        "bridge.jsonl": "b75e139ee8c28bafc65847abc389e2b013d7ca529804012804256f1c833d2b0b",
+        "bridge_launcher.log": "6dfe72c29ae47de9d85f481733add678229a91dd171f8cdf54dd7468d7ef007c",
+        "camera.jsonl": "28e7304d442c93dc05d348059e0ab80f6fdf5e14330cd6a80eea8b59e6b0f9b1",
+        "controller.jsonl": "d28f941230f6403a0e94d76d9190589cc7a42c387af1688b2c23588a41e40935",
+        "headless.jsonl": "c0baf55692dcc037dddc6555c9f04552d71c9d7a6b5ad1a921f7b67ad04d7874",
+        "prepare_launcher.log": "bef597a269c12d22416deeba33563ecef3477867671a3203da12efa0b45657bb",
+        "run.json": "bdd73ce9be2586e468cfbc33fae227343f4194c162d1062d6fdf1b2c089405e7",
+        "server.jsonl": "66b28e43f81c415d8038bf12486a0a11faa03a43debc877a750f108eb7d2fbe7",
+        "server.jsonl.delivery.jsonl": "cd710996bb579f1815675eb87552ff3dbd00326bfae307d4f3e0c5f460ac59a6",
+        "server.jsonl.initial.jsonl": "4dc636cd18f884d2e421778db269bac4eb2c0663b20fcd88c54871b07088faeb",
+        "server.log": "304c3127192e23fae483d132dbd33abe7b29da27d7480f0f695953c9feadf9ed",
+        "server_launcher.log": "304c3127192e23fae483d132dbd33abe7b29da27d7480f0f695953c9feadf9ed",
+        "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+        "status.json": "57a0a5fd3471c6dbeae22e25b2190ae5447013acfc0c327a2092868c330ee3f6"
+      }
+    },
+    {
+      "schema": 1,
+      "run_id": "checker24_pick_eval_a_trained_00001_a0001",
+      "status": "verified",
+      "stop_reason": "suite_complete",
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "goal": "wooden_pickaxe",
+          "condition": "trained",
+          "layout_seed": 5756716452767679645,
+          "success": true,
+          "actions": 89,
+          "game_seconds": 67.9,
+          "elapsed_seconds": 67.73651499999687,
+          "confirmed_breaks": 3,
+          "crafts": {
+            "CRAFT_PLANKS": 3,
+            "CRAFT_STICKS": 1,
+            "CRAFT_TABLE": 1,
+            "PLACE_TABLE": 1,
+            "CRAFT_PICKAXE": 1
+          },
+          "failure_mode": "success",
+          "inventory": {
+            "log": 0,
+            "planks": 3,
+            "sticks": 2,
+            "crafting_table": 0,
+            "wooden_pickaxe": 1
+          },
+          "weight_delta_norm": 0.0,
+          "training_applied": false
+        }
+      ],
+      "intervention_commands_verified": 89,
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 2484,
+        "duration_seconds": 82.833333,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "2485"
+        },
+        "bytes": 30615728,
+        "sha256": "735487a28322af583f905e2905ead1e66e54f7d10adffdf05cd8edadbd933fb4"
+      },
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+      "evidence_sha256": {
+        "bridge.jsonl": "b1591cf2cb1719abe14b8e32e9b7a7c5d2d90f16c882ab8a204707db57b0f68d",
+        "bridge_launcher.log": "62e7d62fd1c30b8d09199f5701582966b5477f84b3b532bbc1e03069c8dc0ec8",
+        "camera.jsonl": "fd9935c68e879a65de5de88d850bde9de4a8b99c794b28e66c61236fc7e984ae",
+        "client.log": "960ab43d1d6372a20f00ac15697dbf201bc7985098765a3ae5e1d13ef7bb5d91",
+        "client_launcher.log": "fa21ff6ebd0bde4b24c29d693f5f3e64be5daf2fc2e692940839c66b6292e569",
+        "controller.jsonl": "7790e70db882113a98b00bcd92c37c5bcc64b538da9c7647dbd72550fec45a54",
+        "headless.jsonl": "56114cfa08ffdc99c23ebbbff820448dd0c5ff59f7aea395e5d1e6bad8ade776",
+        "prepare_launcher.log": "0345cbcab96fc25c9552ac3b0e69b3ccad8a873139f3a0be4f06c23427796cf6",
+        "run.json": "b9828b65250c6c24e8d984408ff16309ac954f937299235de37874010e77b72e",
+        "server.jsonl": "bfcc973c5656ae136f9634dadd01236f51b789b89e1bd5f56af095d93766ad87",
+        "server.jsonl.delivery.jsonl": "cd710996bb579f1815675eb87552ff3dbd00326bfae307d4f3e0c5f460ac59a6",
+        "server.jsonl.initial.jsonl": "a0589b1878638ad94c69297263ba1865dfa8471fea342b632889a62577f4d9d0",
+        "server.log": "d6db807b522d3915c4e7db726e65e9879fd2ada501dd3ee124ace7522fb0671a",
+        "server_launcher.log": "d6db807b522d3915c4e7db726e65e9879fd2ada501dd3ee124ace7522fb0671a",
+        "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+        "status.json": "1455ff75e62fe5cae395f6decc8b317c2a4c7c47e9dde0c485a6aaba17aa6a8e"
+      }
+    },
+    {
+      "schema": 1,
+      "run_id": "checker24_stop_eval_a_trained_00001_a0001",
+      "status": "technical_stop",
+      "stop_reason": "manual_stop",
+      "episodes": [],
+      "intervention_commands_verified": 0,
+      "video": null,
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+      "evidence_sha256": {
+        "bridge.jsonl": "ca494741e8b066491d36ab2d0e8b1c790116e7bc97eb03d79641c701cb7ec8cd",
+        "bridge_launcher.log": "0177ebfef4c3c11d60d3dc71bd5d878288920167a4d648ab6733638e0f65281d",
+        "camera.jsonl": "c0a2499b3af72156022ab44d9d4f0fa4a22c9e10d208b0dd783a1fdd3cf8a370",
+        "controller.jsonl": "8c984a420329f14558de86da0c25158ec586d65fe1605514fd6b3ef7b695ce0d",
+        "headless.jsonl": "8f98f55979c1f6d29de9d1bda24a2e90dbae1563e0e34f34fbb399d2cb31d305",
+        "prepare_launcher.log": "bef597a269c12d22416deeba33563ecef3477867671a3203da12efa0b45657bb",
+        "run.json": "addd8ef3c26a8614da802a4aca8ba760bdf5a2350ecaa25489466c9cf14caeaf",
+        "server.jsonl.initial.jsonl": "0552d72d6201838399e4b7c46fb1560f154824250d9e2f6929446f492397472b",
+        "server.log": "5cac09dbf2c4a653ccf4eceda865313e738e013b024473c17cc7e4424b64a509",
+        "server_launcher.log": "5cac09dbf2c4a653ccf4eceda865313e738e013b024473c17cc7e4424b64a509",
+        "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+        "status.json": "b43077ead68d7a211a6e5cde171adb25ea62c310a6103c23a72f445d444c73e7"
+      }
+    },
+    {
+      "schema": 1,
+      "run_id": "checker24_stop_eval_a_trained_00001_a0002",
+      "status": "verified",
+      "stop_reason": "suite_complete",
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "goal": "one_log",
+          "condition": "trained",
+          "layout_seed": 8333822288643373171,
+          "success": true,
+          "actions": 6,
+          "game_seconds": 6.2,
+          "elapsed_seconds": 5.996939199976623,
+          "confirmed_breaks": 1,
+          "crafts": {},
+          "failure_mode": "success",
+          "inventory": {
+            "log": 1,
+            "planks": 0,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "weight_delta_norm": 0.0,
+          "training_applied": false
+        }
+      ],
+      "intervention_commands_verified": 6,
+      "video": null,
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+      "evidence_sha256": {
+        "bridge.jsonl": "2bd7b32b82bf1082fe3abeec12a9996856a21d79bb87cd759798ac5600449a03",
+        "bridge_launcher.log": "aa50d4ad60306a0d89c11e9b695a0fdcb8ba793806e384d2a95076f1fbb0e6d7",
+        "camera.jsonl": "5af51a03a4956243eb390e16f0a48a4ba5149a3617ee6a0ae92640af44134627",
+        "controller.jsonl": "07982a03dd71746fde7214509607bb4ad004ca0c22cdc1e0ffc48ac5e183d1ca",
+        "headless.jsonl": "e13bd342a1d075a0f7c81ffcdf04207f7d7e916215f29fcf4201271c855014e1",
+        "prepare_launcher.log": "bef597a269c12d22416deeba33563ecef3477867671a3203da12efa0b45657bb",
+        "run.json": "563fc17013f25b79d905b1a7965b85300a9a50ad68668d3d26f64f2d9d3098c9",
+        "server.jsonl": "5d3d27785e4f94a6ba81fb0d5e8a090f314188cc2d7d423eccd1585d078e6f01",
+        "server.jsonl.delivery.jsonl": "6b55825f932d99e8dd3c822754adc8fca200e1562c7d5369573c5e7f37d415ef",
+        "server.jsonl.initial.jsonl": "f2299a96a2f65fa006f86b465ea5723b5fb192c9ae0082d771fc2f81d16107d8",
+        "server.log": "9098c2a09b4d258fc6b224a13dd2324a9dec1ea7d66bd56bfeb3fd848d213908",
+        "server_launcher.log": "9098c2a09b4d258fc6b224a13dd2324a9dec1ea7d66bd56bfeb3fd848d213908",
+        "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+        "status.json": "fc47de32c01d9ee22339d9ea532548c72079ee52733fdc10293a3033d74b3201"
+      }
+    },
+    {
+      "schema": 1,
+      "run_id": "checker24_train_pilot_trained_00001_a0001",
+      "status": "verified",
+      "stop_reason": "suite_complete",
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "goal": "planks",
+          "condition": "trained",
+          "layout_seed": 7912516558148973099,
+          "success": true,
+          "actions": 14,
+          "game_seconds": 13.65,
+          "elapsed_seconds": 13.494462700095028,
+          "confirmed_breaks": 2,
+          "crafts": {
+            "CRAFT_PLANKS": 1
+          },
+          "failure_mode": "success",
+          "inventory": {
+            "log": 0,
+            "planks": 4,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "weight_delta_norm": 0.01629402191252885,
+          "training_applied": true
+        }
+      ],
+      "intervention_commands_verified": 14,
+      "video": null,
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+      "evidence_sha256": {
+        "bridge.jsonl": "491896e20f3fcd52a2eb0376008a10cf9bc7a705b913feb393780dcad33a1d72",
+        "bridge_launcher.log": "a6908d8ebae1263ccdfb96753046f2346ad1c779d4275c4113730dad8e73391f",
+        "camera.jsonl": "7602292aa142764fffcf54fea29bb71ec6a0ca990df1fbc8ed080cce7fdda37c",
+        "controller.jsonl": "4a49be4510d712a211c97398e80c3d07468a4f4b1d101d23287062e252668a96",
+        "headless.jsonl": "12d94682e4ffa4211099c40a257db31ca436230650112dc8a2e806dc43f861ba",
+        "prepare_launcher.log": "bef597a269c12d22416deeba33563ecef3477867671a3203da12efa0b45657bb",
+        "run.json": "f3f1c4475181d3a591e6053db6b2daf9247a44813b3e1233304a3512337918da",
+        "server.jsonl": "eb7855def622b43e12e55929fd79d64ef293d556ea6989035fabf5546656905b",
+        "server.jsonl.delivery.jsonl": "cd710996bb579f1815675eb87552ff3dbd00326bfae307d4f3e0c5f460ac59a6",
+        "server.jsonl.initial.jsonl": "0bb4c331ae0a55fd7d4307ec7e5c97a4311de780005fa54f9529768c103c2b33",
+        "server.log": "82461c197fd66923cefa362a6a83f7bedaa542226802a750de795101122fd101",
+        "server_launcher.log": "82461c197fd66923cefa362a6a83f7bedaa542226802a750de795101122fd101",
+        "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+        "status.json": "da3dc81533e131a6595e9827cd87586f6735f44874fe9f0d5357e9b99e289811"
+      }
+    },
+    {
+      "schema": 1,
+      "run_id": "checker24_train_pilot_trained_00002_a0002",
+      "status": "verified",
+      "stop_reason": "suite_complete",
+      "episodes": [
+        {
+          "episode_id": "trial_0000",
+          "goal": "planks",
+          "condition": "trained",
+          "layout_seed": 250858401364856079,
+          "success": true,
+          "actions": 6,
+          "game_seconds": 5.9,
+          "elapsed_seconds": 5.7373921000398695,
+          "confirmed_breaks": 1,
+          "crafts": {
+            "CRAFT_PLANKS": 1
+          },
+          "failure_mode": "success",
+          "inventory": {
+            "log": 0,
+            "planks": 4,
+            "sticks": 0,
+            "crafting_table": 0,
+            "wooden_pickaxe": 0
+          },
+          "weight_delta_norm": 0.01549760157277084,
+          "training_applied": true
+        }
+      ],
+      "intervention_commands_verified": 6,
+      "video": null,
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+      "evidence_sha256": {
+        "bridge.jsonl": "52f2ee6810eaecd0271a506376cddd418ed78096deb3f202070b9cd09003df55",
+        "bridge_launcher.log": "29c362a4e67236c87f6c82242eb7d468ca5e7f33c106cfdd756285d2feddb826",
+        "camera.jsonl": "36d95325d57459579cc59c57d23ff6e586ae97a00a06dd1d458f7cc5652ead26",
+        "controller.jsonl": "996b01faf06c5ed628e8956923d9651480c02197ddcd0cb12265be02dcf72115",
+        "headless.jsonl": "1ee75d7d5c5ddf5759ca8866161dc32807eba5bcf4ada329f9e863e202f80cea",
+        "prepare_launcher.log": "bef597a269c12d22416deeba33563ecef3477867671a3203da12efa0b45657bb",
+        "run.json": "eb0e8162631b21d4d323ed6c9206ce756ea722aebe81b3e75a9cfab30246687c",
+        "server.jsonl": "03d04ee67048db93cdf0df6d6ef6bba2743edaa6c202b5e06f998e40db19b58e",
+        "server.jsonl.delivery.jsonl": "cd710996bb579f1815675eb87552ff3dbd00326bfae307d4f3e0c5f460ac59a6",
+        "server.jsonl.initial.jsonl": "6f7bd26dab4f33c28aabd349da9ca60aab7364302fe24037b5bc6289bba63ffc",
+        "server.log": "9971471394403e065de6e251708ff4fc9e5a937416d5863f7d31ae48db528925",
+        "server_launcher.log": "9971471394403e065de6e251708ff4fc9e5a937416d5863f7d31ae48db528925",
+        "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+        "status.json": "d298711d16957992a48d0290f949287ffb8ea687fbca82bc8bf62af300826dce"
+      }
+    }
+  ]
+}

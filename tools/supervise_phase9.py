@@ -223,7 +223,7 @@ def main():
             acquired = True
             campaign = Campaign(args.campaign, project_root=ROOT)
             return supervise(campaign, args)
-    except (OSError, ValueError, RuntimeError) as error:
+    except Exception as error:
         if acquired and args.campaign.is_dir():
             request_fix(args.campaign, error, code="campaign_preflight")
         else:

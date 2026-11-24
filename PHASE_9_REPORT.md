@@ -1,6 +1,23 @@
 # FlyCraft Phase 9 development report
 
-**November 24, 2026:** [Phase 8 controlled validation](PHASE_8_REPORT.md)
+**November 24 checker development:** the local checked supervisor and Codex
+repair handoffs are implemented. The frozen functional pilot completed eight
+verified successes across all four goals, including two verified development
+readout updates. STOP interrupted mining without a successful acknowledgment;
+its fresh resumed attempt succeeded. Nine disposable worlds include that
+unscored interruption. The preselected pickaxe milestone passed full playback
+and manual review. This small pilot establishes neither reliability nor a
+learning/neural advantage.
+
+All 136 tests pass after hardening malformed-evidence handling and preserving
+valid game outcomes when video verification fails. A final fresh smoke trial
+of the hardened version is pending. Original graph/checkpoints and actor
+source remain unchanged; only coordination/validation/recorder lifecycle code
+changed. The 10,000-world campaign remains unauthorized and unstarted.
+[Protocol and verified pilot evidence](experiments/phase9/checker_development_20261124/README.md),
+[checker operation and limits](docs/phase9_checker.md)
+
+**Earlier November 24, 2026:** [Phase 8 controlled validation](PHASE_8_REPORT.md)
 is complete at 27/30 one-log, 27/30 three-log, 27/30 four-plank and 19/30
 wooden pickaxe, with matched controls and verified milestone footage.
 Natural-terrain generalization and neural advantage remain unestablished.

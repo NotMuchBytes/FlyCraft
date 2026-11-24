@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="5">
+<title>FlyCraft development dashboard</title><style>
+body{font:16px system-ui;background:#101722;color:#e5efff;margin:32px;max-width:1200px}h1{color:#71aaff}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.cards div,section{padding:16px;background:#1a2536;border-radius:10px;margin-bottom:12px}
+small,strong{display:block}small{color:#a9bfdc}strong{font-size:22px;overflow-wrap:anywhere}table{width:100%;font-size:13px}td,th{padding:7px;text-align:left;border-bottom:1px solid #334}pre{white-space:pre-wrap;overflow-wrap:anywhere}label{display:block;margin:7px}label span{display:block;height:5px;background:#55a7ff}</style>
+<h1>FlyCraft · development</h1><p>Status: checked batch finished. Official training worlds: 0. Goal: one_log, curriculum level 1.</p>
+<div class="cards"><div><small>generated world instances</small><strong>2</strong></div><div><small>distinct generated seeds</small><strong>1</strong></div><div><small>training episodes</small><strong>0</strong></div><div><small>training updates</small><strong>0</strong></div><div><small>evaluation episodes</small><strong>1</strong></div><div><small>recent training success rate</small><strong>None</strong></div><div><small>mean training reward</small><strong>None</strong></div><div><small>measured training worlds per hour</small><strong>None</strong></div><div><small>estimated remaining seconds</small><strong>None</strong></div></div><p>Throughput is observed worker wall time including startup and filming. Remaining seconds are an estimate. This is a small development pilot, not a learning-performance claim.</p>
+<section><h2>Observed worker resources</h2><pre>null</pre><p>CPU temperature unavailable. Samples may be absent during startup. Resource timestamps are Unix seconds.</p></section>
+<section><h2>Actual policy readout</h2><p>No neural decision sample yet.</p><p>Activity comes from the fixed connectome. Only the linear softmax readout is learned. Bias is not neural activity. Bars show action probabilities, not neuron firing animations.</p></section>
+<section><h2>Recent episodes</h2><table><tr><th>Episode</th><th>Split</th><th>Policy</th><th>Outcome</th><th>Actions</th><th>Reward</th><th>Run</th></tr><tr><td>1</td><td>eval_a</td><td>trained</td><td>interrupted</td><td>—</td><td>—</td><td>checker24_stop_eval_a_trained_00001_a0001</td></tr><tr><td>1</td><td>eval_a</td><td>trained</td><td>True</td><td>6</td><td>8.263893900435257</td><td>checker24_stop_eval_a_trained_00001_a0002</td></tr></table></section>
+<section><h2>Safe stop and checkpoint</h2><p>Create the file <code>C:\Users\anass\Documents\FlyCraft\experiments\phase9\checker24_stop\STOP</code> or run the CLI stop command. The worker interrupts safely and preserves evidence. Use clear-stop before a later resume.</p><pre>{
+  &quot;path&quot;: &quot;C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz&quot;,
+  &quot;sha256&quot;: &quot;0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4&quot;
+}</pre><pre>[
+  &quot;technical_stop: manual_stop&quot;
+]</pre></section>

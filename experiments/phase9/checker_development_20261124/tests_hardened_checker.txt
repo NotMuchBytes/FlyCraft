@@ -1,0 +1,25 @@
+test_archived_actual_pickaxe_has_independent_block_and_recipe_evidence (test_checked_supervisor.CheckedSupervisorTests.test_archived_actual_pickaxe_has_independent_block_and_recipe_evidence) ... ok
+{"status": "needs_attention", "fix_request": "C:\\Users\\anass\\AppData\\Local\\Temp\\tmp30kxcnwp\\campaign\\fix_request.json"}
+test_batch_stop_and_existing_attention_prevent_worker_launch (test_checked_supervisor.CheckedSupervisorTests.test_batch_stop_and_existing_attention_prevent_worker_launch) ... ok
+test_busy_campaign_is_not_modified_or_given_a_spurious_fix_request (test_checked_supervisor.CheckedSupervisorTests.test_busy_campaign_is_not_modified_or_given_a_spurious_fix_request) ... campaign or Minecraft worker already has a live owner
+ok
+test_checked_checkpoint_advances_only_after_independent_gate_and_is_idempotent (test_checked_supervisor.CheckedSupervisorTests.test_checked_checkpoint_advances_only_after_independent_gate_and_is_idempotent) ... ok
+test_checked_worker_uses_four_goal_pitch_contract_and_evaluation_never_trains (test_checked_supervisor.CheckedSupervisorTests.test_checked_worker_uses_four_goal_pitch_contract_and_evaluation_never_trains) ... ok
+test_contradictory_inventory_missing_recipe_update_and_wrong_seed_are_rejected (test_checked_supervisor.CheckedSupervisorTests.test_contradictory_inventory_missing_recipe_update_and_wrong_seed_are_rejected) ... ok
+test_graph_changes_block_launch_and_seed_catalog_excludes_prior_ids (test_checked_supervisor.CheckedSupervisorTests.test_graph_changes_block_launch_and_seed_catalog_excludes_prior_ids) ... ok
+test_late_resource_stop_retains_valid_score_but_missing_score_does_not (test_checked_supervisor.CheckedSupervisorTests.test_late_resource_stop_retains_valid_score_but_missing_score_does_not) ... ok
+test_malformed_update_pauses_without_advancing_the_checkpoint (test_checked_supervisor.CheckedSupervisorTests.test_malformed_update_pauses_without_advancing_the_checkpoint) ... ok
+test_missing_terminal_ack_and_duplicate_ack_cannot_pass (test_checked_supervisor.CheckedSupervisorTests.test_missing_terminal_ack_and_duplicate_ack_cannot_pass) ... ok
+test_obs_markers_are_preserved_and_foreign_recorder_is_untouched (test_checked_supervisor.CheckedSupervisorTests.test_obs_markers_are_preserved_and_foreign_recorder_is_untouched) ... ok
+test_official_or_oversized_configuration_cannot_enter_the_supervisor (test_checked_supervisor.CheckedSupervisorTests.test_official_or_oversized_configuration_cannot_enter_the_supervisor) ... ok
+test_resource_wait_requires_two_stable_samples_and_stop_is_responsive (test_checked_supervisor.CheckedSupervisorTests.test_resource_wait_requires_two_stable_samples_and_stop_is_responsive) ... ok
+{"status": "needs_attention", "fix_request": "C:\\Users\\anass\\AppData\\Local\\Temp\\tmptvfdzyy5\\campaign\\attention\\request_0001.json", "reason": "missing acknowledgement"}
+test_retries_are_bounded_and_handoff_is_durable_without_automatic_fixes (test_checked_supervisor.CheckedSupervisorTests.test_retries_are_bounded_and_handoff_is_durable_without_automatic_fixes) ... ok
+test_unowned_obs_is_never_started_or_closed_by_the_supervisor (test_checked_supervisor.CheckedSupervisorTests.test_unowned_obs_is_never_started_or_closed_by_the_supervisor) ... ok
+test_valid_policy_failure_is_kept_and_next_episode_uses_a_new_seed (test_checked_supervisor.CheckedSupervisorTests.test_valid_policy_failure_is_kept_and_next_episode_uses_a_new_seed) ... ok
+test_video_failure_keeps_the_verified_game_outcome_in_attention (test_checked_supervisor.CheckedSupervisorTests.test_video_failure_keeps_the_verified_game_outcome_in_attention) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 1.924s
+
+OK

@@ -253,6 +253,8 @@ class Campaign:
     def begin(self, split="pilot", condition="trained", *, runtime_root=None):
         if self.state["active_attempt"] is not None:
             raise RuntimeError("recover the interrupted attempt before starting another")
+        if self.config.get("checker") and (self.folder / "fix_request.json").exists():
+            raise RuntimeError("Unresolved Codex fix request; this campaign stays paused")
         if split not in ("pilot", "eval_a", "eval_b") or condition not in CONDITIONS:
             raise ValueError("unsupported development split/condition")
         if split == "pilot" and condition != "trained":
@@ -271,7 +273,7 @@ class Campaign:
         checkpoint = self.state["final_policy"] if split == "eval_b" else self.state["current_checkpoint"]
         if condition == "frozen":
             checkpoint = self.config.get("frozen_checkpoint", self.config["initial_checkpoint"])
-        completed = [a for a in self.state["attempts"] if a["status"] == "committed" and a["split"] == split and a["condition"] == condition
+        completed = [a for a in self.state["attempts"] if (a["status"] == "committed" or self.config.get("checker") and a.get("verified_game_episodes")) and a["split"] == split and a["condition"] == condition
                      and (split != "eval_a" or a["checkpoint"]["sha256"] == checkpoint["sha256"])]
         index = len(completed)
         limit = self.config["world_limit"] if split == "pilot" else len(self.catalog[split])
@@ -335,7 +337,8 @@ class Campaign:
                 atomic_json(audit_path, report)
                 attempt.update(checker_status=report["status"], checker_report=str(audit_path))
                 if report["status"] != "verified":
-                    raise EvidenceError("technical_stop" if report["status"] == "technical_stop" else "worker_failure", run["stop_reason"])
+                    raise EvidenceError("technical_stop" if report["status"] == "technical_stop" else "worker_failure",
+                                        run["stop_reason"], verified_episodes=report["episodes"])
                 if len(report["episodes"]) != 1:
                     raise EvidenceError("episode_count", "checked worker must score exactly one episode")
                 attempt["technical_stop_after_terminal"] = run["stop_reason"] != "suite_complete"
@@ -407,12 +410,14 @@ class Campaign:
                            wall_seconds=run["elapsed_seconds"], checkpoint_after=next_checkpoint,
                            implementation_sha256=run["implementation_sha256"])
             self.state["current_checkpoint"] = next_checkpoint
-        except (OSError, ValueError, KeyError) as error:
+        except (OSError, ValueError, KeyError, TypeError, AttributeError, IndexError) as error:
             attempt.update(status="interrupted", finished_unix=time.time(), error=str(error), results=str(results))
             if self.config.get("checker"):
                 attempt["checker_error_code"] = getattr(error, "code", "validation_error")
                 if attempt.get("checker_status") != "technical_stop":
                     attempt["checker_status"] = "needs_attention"
+                if getattr(error, "verified_episodes", None):
+                    attempt["verified_game_episodes"] = error.verified_episodes
         self.state["active_attempt"] = None
         self.save()
         return dict(attempt)
@@ -461,6 +466,8 @@ class Campaign:
     def summary(self):
         attempts = self.state["attempts"]
         committed = [a for a in attempts if a["status"] == "committed"]
+        uncommitted = [episode for a in attempts if a["status"] != "committed"
+                       for episode in a.get("verified_game_episodes", [])]
         training = [a for a in committed if a["train"]]
         recent = training[-20:]
         finished_training = [a for a in attempts if a["split"]=="pilot" and a.get("finished_unix") is not None]
@@ -474,6 +481,9 @@ class Campaign:
                 "unverified_world_counts": sum(a["generated_world_instances"] is None for a in attempts),
                 "distinct_generated_seeds": len({a["world_seed"] for a in attempts if a["generated_world_instances"]}),
                 "committed_episodes": len(committed), "training_episodes": len(training),
+                "verified_game_episodes": len(committed) + len(uncommitted),
+                "uncommitted_scored_episodes": len(uncommitted),
+                "uncommitted_reported_updates": sum(row["training_applied"] for row in uncommitted),
                 "training_updates": sum(a["training_applied"] for a in training),
                 "evaluation_episodes": len(committed)-len(training),
                 "recording_policy": self.config.get("recording_policy", "all"),

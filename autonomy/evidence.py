@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import subprocess
 
 GOALS = {"one_log": ("log", 1), "three_logs": ("log", 3),
          "planks": ("planks", 4), "wooden_pickaxe": ("wooden_pickaxe", 1)}
@@ -15,8 +16,9 @@ RECIPES = {"planks": ("CRAFT_PLANKS",), "wooden_pickaxe": (
 
 
 class EvidenceError(ValueError):
-    def __init__(self, code, detail):
+    def __init__(self, code, detail, *, verified_episodes=None):
         self.code = code
+        self.verified_episodes = verified_episodes or []
         super().__init__(f"{code}: {detail}")
 
 
@@ -73,7 +75,7 @@ def same_inventory(actual, expected):
     return all(actual.get(key) == count for key, count in inventory(expected).items())
 
 
-def audit_run(directory, *, expected=None, verify_video=True):
+def _audit_run(directory, *, expected=None, verify_video=True):
     """Accept valid policy failures; reject contradictions and unexecuted success.
 
     Partial technical attempts retain all completed episode results. Callers
@@ -240,15 +242,20 @@ def audit_run(directory, *, expected=None, verify_video=True):
                          "weight_delta_norm": delta, "training_applied": bool(controller["train"] and delta > 0)})
     video_report = None
     if meta.get("milestone") is not None:
-        video = meta.get("milestone_video") or {}
-        require(meta.get("milestone_video_status") == "verified" and video.get("episode_coverage_complete")
-                and video.get("visual_content_preflight_verified") and meta.get("capture_content_proof", {}).get("matched"),
-                "milestone_capture", directory.name)
-        require(file_sha256(video["path"]) == video["sha256"], "milestone_hash", directory.name)
-        if verify_video:
-            from tools.milestone_video import verify_mp4
-            video_report = verify_mp4(video["path"], minimum_seconds=sum(row["game_seconds"] for row in episodes))
-            require(video_report["sha256"] == video["sha256"], "milestone_hash", directory.name)
+        try:
+            video = meta.get("milestone_video") or {}
+            require(meta.get("milestone_video_status") == "verified" and video.get("episode_coverage_complete")
+                    and video.get("visual_content_preflight_verified") and meta.get("capture_content_proof", {}).get("matched"),
+                    "milestone_capture", directory.name)
+            require(file_sha256(video["path"]) == video["sha256"], "milestone_hash", directory.name)
+            if verify_video:
+                from tools.milestone_video import verify_mp4
+                video_report = verify_mp4(video["path"], minimum_seconds=sum(row["game_seconds"] for row in episodes))
+                require(video_report["sha256"] == video["sha256"], "milestone_hash", directory.name)
+        except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
+            issue = error if isinstance(error, EvidenceError) else EvidenceError("milestone_playback", str(error))
+            issue.verified_episodes = episodes
+            raise issue
     known_stop = meta["stop_reason"] in TECHNICAL_STOPS or meta["stop_reason"] == "suite_complete"
     status = "needs_attention" if not known_stop else "verified" if episodes else "technical_stop"
     return {"schema": 1, "run_id": directory.name, "status": status, "stop_reason": meta["stop_reason"],
@@ -256,3 +263,14 @@ def audit_run(directory, *, expected=None, verify_video=True):
             "video": video_report, "implementation_sha256": meta["implementation_sha256"],
             "evidence_sha256": {p.name: file_sha256(p) for p in sorted(directory.iterdir())
                                 if p.is_file() and p.suffix in (".json", ".jsonl", ".log", ".png")}}
+
+
+def audit_run(directory, *, expected=None, verify_video=True):
+    """Turn malformed/unreadable evidence into an explicit failed gate."""
+    try:
+        return _audit_run(directory, expected=expected, verify_video=verify_video)
+    except EvidenceError:
+        raise
+    except (OSError, ValueError, KeyError, TypeError, AttributeError, IndexError,
+            OverflowError, subprocess.SubprocessError) as error:
+        raise EvidenceError("evidence_schema", f"{directory}: {error}") from error

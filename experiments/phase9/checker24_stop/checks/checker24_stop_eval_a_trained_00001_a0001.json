@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "run_id": "checker24_stop_eval_a_trained_00001_a0001",
+  "status": "technical_stop",
+  "stop_reason": "manual_stop",
+  "episodes": [],
+  "intervention_commands_verified": 0,
+  "video": null,
+  "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+  "evidence_sha256": {
+    "bridge.jsonl": "ca494741e8b066491d36ab2d0e8b1c790116e7bc97eb03d79641c701cb7ec8cd",
+    "bridge_launcher.log": "0177ebfef4c3c11d60d3dc71bd5d878288920167a4d648ab6733638e0f65281d",
+    "camera.jsonl": "c0a2499b3af72156022ab44d9d4f0fa4a22c9e10d208b0dd783a1fdd3cf8a370",
+    "controller.jsonl": "8c984a420329f14558de86da0c25158ec586d65fe1605514fd6b3ef7b695ce0d",
+    "headless.jsonl": "8f98f55979c1f6d29de9d1bda24a2e90dbae1563e0e34f34fbb399d2cb31d305",
+    "prepare_launcher.log": "bef597a269c12d22416deeba33563ecef3477867671a3203da12efa0b45657bb",
+    "run.json": "addd8ef3c26a8614da802a4aca8ba760bdf5a2350ecaa25489466c9cf14caeaf",
+    "server.jsonl.initial.jsonl": "0552d72d6201838399e4b7c46fb1560f154824250d9e2f6929446f492397472b",
+    "server.log": "5cac09dbf2c4a653ccf4eceda865313e738e013b024473c17cc7e4424b64a509",
+    "server_launcher.log": "5cac09dbf2c4a653ccf4eceda865313e738e013b024473c17cc7e4424b64a509",
+    "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+    "status.json": "b43077ead68d7a211a6e5cde171adb25ea62c310a6103c23a72f445d444c73e7"
+  }
+}

@@ -1,0 +1,4 @@
+{"episode_id":"","wall_time_unix_ms":1795544941953,"event":"spawn","data":{"graphical_client":false,"player":"afce3781-d416-3ec9-8607-3f9ec4fec972","mode":"SURVIVAL","position_xyz":[7.5,-60.0,-8.5]}}
+{"episode_id":"initial","wall_time_unix_ms":1795544942044,"event":"episode_observed","data":{"position":[7.5,-8.5,0.0],"inventory":{"log":0,"planks":0,"sticks":0,"crafting_table":0,"table_placed":0,"wooden_pickaxe":0},"episode_id":"initial"}}
+{"episode_id":"trial_0000","wall_time_unix_ms":1795544942631,"event":"episode_observed","data":{"position":[7.5,-8.5,0.0],"inventory":{"log":0,"planks":0,"sticks":0,"crafting_table":0,"table_placed":0,"wooden_pickaxe":0},"episode_id":"trial_0000"}}
+{"episode_id":"trial_0000","wall_time_unix_ms":1795544943762,"event":"action_start","data":{"command_id":1,"position":[7.5,-8.5,0.0],"inventory":{"log":0,"planks":0,"sticks":0,"crafting_table":0,"table_placed":0,"wooden_pickaxe":0},"server_tick":47,"action":"COLLECT_LOG"}}

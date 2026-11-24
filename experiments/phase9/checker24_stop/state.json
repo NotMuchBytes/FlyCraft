@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "config_sha256": "4d45fa95d22decf6ea8d5070f0ea9fb72ee09c87a1ad34e64ec83c2e94e988c9",
+  "current_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+    "sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4"
+  },
+  "active_attempt": null,
+  "attempts": [
+    {
+      "number": 1,
+      "episode_number": 1,
+      "run_id": "checker24_stop_eval_a_trained_00001_a0001",
+      "split": "eval_a",
+      "condition": "trained",
+      "world_seed": 8333822288643373171,
+      "layout_seed": 8333822288643373171,
+      "policy_seed": 9001,
+      "goal": "one_log",
+      "train": false,
+      "checkpoint": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+        "sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4"
+      },
+      "status": "interrupted",
+      "started_unix": 1795544920.5524566,
+      "generated_world_instances": 1,
+      "video_required": false,
+      "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\game\\checker24_stop_eval_a_trained_00001_a0001",
+      "worker_pid": 24728,
+      "worker_created": 1795544920.5585616,
+      "checker_status": "technical_stop",
+      "checker_report": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\checker24_stop\\checks\\checker24_stop_eval_a_trained_00001_a0001.json",
+      "finished_unix": 1795544944.7825973,
+      "error": "technical_stop: manual_stop",
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\checker24_stop_eval_a_trained_00001_a0001",
+      "checker_error_code": "technical_stop"
+    },
+    {
+      "number": 2,
+      "episode_number": 1,
+      "run_id": "checker24_stop_eval_a_trained_00001_a0002",
+      "split": "eval_a",
+      "condition": "trained",
+      "world_seed": 8333822288643373171,
+      "layout_seed": 8333822288643373171,
+      "policy_seed": 9001,
+      "goal": "one_log",
+      "train": false,
+      "checkpoint": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+        "sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4"
+      },
+      "status": "committed",
+      "started_unix": 1795544976.6595652,
+      "generated_world_instances": 1,
+      "video_required": false,
+      "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\game\\checker24_stop_eval_a_trained_00001_a0002",
+      "worker_pid": 10500,
+      "worker_created": 1795544976.6659153,
+      "checker_status": "verified",
+      "checker_report": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\checker24_stop\\checks\\checker24_stop_eval_a_trained_00001_a0002.json",
+      "technical_stop_after_terminal": false,
+      "finished_unix": 1795545008.994431,
+      "success": true,
+      "ticks": 124,
+      "actions": 6,
+      "total_reward": 8.263893900435257,
+      "update": {
+        "weight_delta_norm": 0.0,
+        "gradient_norm": 0.0
+      },
+      "training_applied": false,
+      "terminal_unattributed_reward": 0,
+      "training_suppressed": null,
+      "termination": "success",
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\checker24_stop_eval_a_trained_00001_a0002",
+      "video": null,
+      "terminal_inventory_source": "controller_result",
+      "wall_seconds": 31.83078909991309,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+        "sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4"
+      },
+      "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb"
+    }
+  ],
+  "final_policy": null
+}

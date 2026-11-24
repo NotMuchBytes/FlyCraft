@@ -1,0 +1,15 @@
+test_video_failure_keeps_the_verified_game_outcome_in_attention (test_checked_supervisor.CheckedSupervisorTests.test_video_failure_keeps_the_verified_game_outcome_in_attention) ... ERROR
+
+======================================================================
+ERROR: test_video_failure_keeps_the_verified_game_outcome_in_attention (test_checked_supervisor.CheckedSupervisorTests.test_video_failure_keeps_the_verified_game_outcome_in_attention)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\anass\Documents\FlyCraft\tests\test_checked_supervisor.py", line 261, in test_video_failure_keeps_the_verified_game_outcome_in_attention
+    self.assertEqual(len(result["verified_game_episodes"]), 1)
+                         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'verified_game_episodes'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.155s
+
+FAILED (errors=1)

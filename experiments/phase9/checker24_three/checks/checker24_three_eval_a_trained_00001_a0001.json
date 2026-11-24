@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "run_id": "checker24_three_eval_a_trained_00001_a0001",
+  "status": "verified",
+  "stop_reason": "suite_complete",
+  "episodes": [
+    {
+      "episode_id": "trial_0000",
+      "goal": "three_logs",
+      "condition": "trained",
+      "layout_seed": 2077998000921060610,
+      "success": true,
+      "actions": 25,
+      "game_seconds": 22.1,
+      "elapsed_seconds": 21.989337200066075,
+      "confirmed_breaks": 3,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    }
+  ],
+  "intervention_commands_verified": 25,
+  "video": null,
+  "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+  "evidence_sha256": {
+    "bridge.jsonl": "da4cbe4ee69c6c39f4becea76c79ebf387ed204870a563589c348ab019f8f279",
+    "bridge_launcher.log": "1259a6c174e921ed8a9abc931e37cafedfe75130c0bc314f822ec1db493fb35b",
+    "camera.jsonl": "0ae7e71f3ea5a18960f1223a3dc209d9cf73028ad0b086501fb20e8f0ece7b2c",
+    "controller.jsonl": "69db461f23571956bd2d3b19f54cf1869c225437ac3767e69f319ca8ab5d2b37",
+    "headless.jsonl": "26c021640a10d6afeda462df863ab096e03014b81981ab23aca0f5d7888d627a",
+    "prepare_launcher.log": "bef597a269c12d22416deeba33563ecef3477867671a3203da12efa0b45657bb",
+    "run.json": "be304bb96b75f83e39771cf72d724c246dd5339d48c9a40535b1051a9d6dc1aa",
+    "server.jsonl": "6e8369c0ba0875f758637d46632f0c51894a625ae54c0400227dc75f2edb482a",
+    "server.jsonl.delivery.jsonl": "90dc77e2b387e4251b7da9f817f2d0e0eebd553b514970bcbea6b46420798fdc",
+    "server.jsonl.initial.jsonl": "f39dcf5909a4b31b59fb4aaab067b78b70205037cbe42a93f21ed9516c37a966",
+    "server.log": "effa6d06887a62dce25c5a708efb545c47bb7bbcbabcf00d4e01e3918d5c6557",
+    "server_launcher.log": "effa6d06887a62dce25c5a708efb545c47bb7bbcbabcf00d4e01e3918d5c6557",
+    "source_manifest.json": "1615cf43009a0c814d618eed671ee87b37c9415e7c90b5c8d13ceb6d4b1bdfe1",
+    "status.json": "b2dae06096957862080f952600f7110faef8f29a809311d44d62d162e5942255"
+  }
+}

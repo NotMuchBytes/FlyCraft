@@ -107,11 +107,13 @@ class CheckedSupervisorTests(unittest.TestCase):
         return attempt, destination
 
     def test_archived_actual_pickaxe_has_independent_block_and_recipe_evidence(self):
-        report = audit_run(SOURCE, verify_video=False)
-        self.assertEqual(report["status"], "verified")
-        self.assertEqual(report["episodes"][0]["confirmed_breaks"], 3)
-        self.assertEqual(report["episodes"][0]["inventory"]["wooden_pickaxe"], 1)
-        self.assertEqual(report["episodes"][0]["actions"], 45)
+        # Keep this game-evidence test usable in a clone without local MP4 exports.
+        with tempfile.TemporaryDirectory() as directory:
+            report = audit_run(self.evidence(Path(directory)), verify_video=False)
+            self.assertEqual(report["status"], "verified")
+            self.assertEqual(report["episodes"][0]["confirmed_breaks"], 3)
+            self.assertEqual(report["episodes"][0]["inventory"]["wooden_pickaxe"], 1)
+            self.assertEqual(report["episodes"][0]["actions"], 45)
 
     def test_contradictory_inventory_missing_recipe_update_and_wrong_seed_are_rejected(self):
         for damage, expected in (("inventory", "inventory_success"), ("recipe", "missing_recipe"),
@@ -234,6 +236,34 @@ class CheckedSupervisorTests(unittest.TestCase):
                 campaign.config.update(change)
                 with self.assertRaisesRegex(ValueError, "at most 100 worlds"):
                     supervisor.supervise(campaign, None)
+
+    def test_malformed_update_pauses_without_advancing_the_checkpoint(self):
+        with tempfile.TemporaryDirectory() as directory:
+            campaign = self.campaign(Path(directory))
+            attempt, data = self.planned_evidence(campaign, training=True)
+            before = dict(campaign.state["current_checkpoint"])
+            rewrite_rows(data/"controller.jsonl", lambda rows: rows[0].update(update=None))
+            result = campaign.recover()
+            self.assertEqual(result["status"], "interrupted")
+            self.assertEqual(result["checker_status"], "needs_attention")
+            self.assertEqual(campaign.state["current_checkpoint"], before)
+
+    def test_video_failure_keeps_the_verified_game_outcome_in_attention(self):
+        with tempfile.TemporaryDirectory() as directory:
+            campaign = self.campaign(Path(directory))
+            attempt, data = self.planned_evidence(campaign)
+            campaign.state["attempts"][0]["video_required"] = True
+            meta = load(data/"run.json")
+            meta.update(spectator=True, milestone=1, milestone_video_status="missing")
+            atomic_json(data/"run.json", meta)
+            before = dict(campaign.state["current_checkpoint"])
+            result = campaign.recover()
+            self.assertEqual(result["status"], "interrupted")
+            self.assertEqual(result["checker_status"], "needs_attention")
+            self.assertEqual(len(result["verified_game_episodes"]), 1)
+            self.assertTrue(result["verified_game_episodes"][0]["success"])
+            self.assertEqual(campaign.state["current_checkpoint"], before)
+            self.assertEqual(campaign.summary()["uncommitted_scored_episodes"], 1)
 
     def test_checked_checkpoint_advances_only_after_independent_gate_and_is_idempotent(self):
         for corrupt in (False, True):
