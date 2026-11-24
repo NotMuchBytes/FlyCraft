@@ -24,6 +24,7 @@ def main():
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--stop-file", type=Path, required=True)
     args = parser.parse_args()
+    args.work_dir.mkdir(parents=True, exist_ok=True)
     plan = json.loads((FOLDER / "heldout_plan.json").read_text())
     block = plan["blocks"][0]
     checkpoint = ROOT / plan["policy"]["checkpoint"]
@@ -82,6 +83,7 @@ def main():
     result = score()
     assert len(result["groups"]) == 10 and all(value["verified_trials"] == 3 for value in result["groups"].values())
     assert all(pair["absolute_pose_matched"] and pair["fixture_matched"] for pair in result["pairs"])
+    assert result["complete"]
     with (FOLDER / "control_results.json").open("x", encoding="utf-8", newline="\n") as output:
         json.dump(result, output, indent=2, allow_nan=False)
         output.write("\n")

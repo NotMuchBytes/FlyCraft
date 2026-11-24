@@ -1,5 +1,58 @@
 # FlyCraft — Phase 8 report
 
+**November 24, 2026: all four controlled reliability point targets are met.**
+The frozen mining-supervised readout completed all 120 new scored episodes:
+27/30 one-log, 27/30 three-log, 27/30 four-plank and 19/30 wooden pickaxe,
+each from empty inventory. Matched control repeats and the selected-readout
+milestone recording are being verified before the Phase 8 closeout.
+
+| Goal | Success | Target | Descriptive 95% Wilson CI | Median actions | Median wall / game seconds |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| One log | 27/30 (90%) | 24/30 | 74.4%–96.5% | 9 | 8.864 / 8.975 |
+| Three logs | 27/30 (90%) | 21/30 | 74.4%–96.5% | 42 | 35.509 / 35.625 |
+| Four planks | 27/30 (90%) | 21/30 | 74.4%–96.5% | 9.5 | 10.128 / 10.200 |
+| Wooden pickaxe | 19/30 (63.3%) | 15/30 | 45.5%–78.1% | 75.5 | 59.261 / 57.300 |
+
+Medians include successes and failures. Wall time is the episode controller
+duration; game time comes from server ticks. Six world seeds contain five
+layout seeds each. The intervals are descriptive and do not account for
+shared-world or repeated-fixture dependence. Passing these point targets
+does not put the confidence-interval lower bounds above the targets.
+[All scores and failure modes](experiments/phase9/phase8_finish_20261124/final_results.json)
+
+One-log and plank failures each comprise two visible-log cases without a
+mining affordance and one confirmed break without pickup. All three
+three-log failures have confirmed breaks with insufficient pickup; one broke
+at least three logs. Pickaxe failures ended after sticks in eight cases,
+after crafting a table without confirmed placement in two, and after planks
+without confirmed sticks in one. Six pickaxe failures broke at least three
+logs, so broken-block counts alone would overstate collection success.
+
+The final score audit reproduces all 120 records exactly from the live logs,
+checks terminal inventory, real block changes, normal crafting/placement
+acknowledgments and action budgets, and confirms zero evaluation weight
+updates. All 18 primary runs completed without technical stops. The minimum
+sampled available RAM was 1,180.34 MiB and maximum GPU temperature 54°C.
+The 768 MiB RAM, 2,048 MiB disk and 75°C GPU guards stayed enabled; CPU
+temperature telemetry remains unavailable. The graph, original checkpoints,
+selected checkpoint and live implementation hashes remain unchanged.
+[Completion audit](experiments/phase9/phase8_finish_20261124/completion_audit.json),
+[artifact preservation](experiments/phase9/phase8_finish_20261124/artifact_integrity_final.json)
+
+This is **held-out-seed reliability in controlled fixtures**, with no natural
+terrain or neural-benefit conclusion. Single-tree goals have ten distinct
+relative arrangements; 28/30 trials reuse development geometry. Longer
+goals have fifteen arrangements; 27/30 trials reuse development geometry.
+The checkpoint was frozen before evaluation. The earlier 120 pitch episodes
+are its training/development data, excluded from these scores. The 66-by-12
+readout is fitted from actual logged policy actions and progress, including
+acknowledged log breaks; the original 139,255-neuron sparse brain is fixed.
+[Fixture overlap](experiments/phase9/phase8_finish_20261124/layout_overlap_final.json),
+[frozen protocol and engineered assistance](experiments/phase9/phase8_finish_20261124/README.md)
+
+The Phase 9 campaign remains pending separate authorization and discussion
+of an AI checker. The dated sections below preserve prior results and gaps.
+
 November 20, 2026. The pitch-enabled candidate completed 30 live trials
 per goal, scoring **26/30 one-log, 18/30 three-log, 27/30 four-plank and
 12/30 from-empty wooden pickaxe**. The one-log and plank point targets

@@ -1,5 +1,23 @@
 # FlyCraft Phase 7.5 reliability report
 
+**November 24, 2026:** the selected Phase 8 readout completed its new frozen
+one-log set at **27/30 (90%)**, and all four controlled Phase 8 point targets
+are now met: 27/30 three logs, 27/30 four planks and 19/30 wooden pickaxes.
+Matched control repeats and the selected-readout milestone are undergoing
+final verification. The earlier fixed-pose obstacle diagnostic and recorded
+jump success remain separate evidence; this candidate uses no jump retry
+or exploration-forward prior. Vanilla exploration/approach remains open.
+[Latest scores and limits](PHASE_8_REPORT.md),
+[complete live score audit](experiments/phase9/phase8_finish_20261124/completion_audit.json)
+
+These new scores use seed identities excluded from development, but a small
+fixture generator repeats relative geometry: 28/30 single-tree trials and
+27/30 longer-goal trials reuse development arrangements. No natural-terrain,
+unseen-layout or neural-benefit claim follows. Original graph/checkpoints
+remain intact, evaluation performs no weight updates, and all live resource
+guards stay enabled. Phase 9 is pending separate authorization and AI-checker
+discussion. Dated sections below retain the historical evidence.
+
 November 20, 2026. The fixed-pose obstacle diagnostic verified a
 policy-selected forward retry with a vanilla jump pulse, followed by
 inventory-confirmed collection. The pitch-enabled controlled one-log

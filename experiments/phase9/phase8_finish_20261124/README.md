@@ -1,5 +1,32 @@
 # Phase 8 continuation, November 24
 
+## Complete primary reliability sample
+
+All 120 predeclared scored episodes completed without technical stops:
+
+| Goal | Success | Target | 95% Wilson CI | Median actions | Median wall / game seconds |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| One log | 27/30 | 24/30 | 74.4%–96.5% | 9 | 8.864 / 8.975 |
+| Three logs | 27/30 | 21/30 | 74.4%–96.5% | 42 | 35.509 / 35.625 |
+| Four planks | 27/30 | 21/30 | 74.4%–96.5% | 9.5 | 10.128 / 10.200 |
+| Wooden pickaxe | 19/30 | 15/30 | 45.5%–78.1% | 75.5 | 59.261 / 57.300 |
+
+Medians include failed episodes. Intervals are descriptive, without adjustment
+for six shared world seeds or repeated fixture geometry. See `final_results.json`
+for every score/failure, `completion_audit.json` for exact reconstruction and
+zero evaluation updates, and `artifact_integrity_final.json` for preserved
+graph/checkpoints and training-source hashes. Minimum sampled available RAM
+was 1,180.34 MiB, maximum GPU temperature 54°C. All guards stayed enabled.
+
+Seed identities are disjoint from development. Geometry is not: 28/30
+single-tree trials and 27/30 longer-goal trials reuse development arrangements
+(`layout_overlap_final.json`). This establishes controlled held-out-seed
+reliability, not unseen-terrain generalization or a neural contribution.
+The predeclared control repeats and milestone capture are still being
+verified; they remain outside the primary 30-trial denominators.
+
+## Development and frozen protocol
+
 The corrected mining-supervised readout completed all six development cells:
 3/3 three-log pickups and 3/3 wooden pickaxes, each from empty inventory.
 Median actions were 26 and 39, and median episode wall times were 25.458 and
