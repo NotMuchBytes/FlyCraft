@@ -27,7 +27,7 @@ not replays or vanilla-spawn tests.
 | Preserved reference | 5 | 2/3 | 2/3 |
 | Positive-progress fit | 2 | 3/3 | 1/2 |
 | Positive-progress fit | 5 | 1/2 | 2/2 |
-| Progress plus confirmed mining fit | 2 | Pending | Pending |
+| Progress plus confirmed mining fit | 2 | 3/3 | 3/3 |
 
 The small pilot does not establish an improvement. `development_audit_v2.json`
 contains all 21 scored episodes, action counts, elapsed times, descriptive
@@ -82,8 +82,11 @@ An independent repeat with the committed training utility reconstructed all
 produced the exact same NPZ SHA-256 and zero weight difference. The record
 is `mining_fit_reproduction.json`. This verifies reproducibility of fitting,
 and is separate from live performance evidence.
-Loss reduction is training evidence only. The corrected candidate has not
-yet completed live development validation or any fresh held-out evaluation.
+Loss reduction is training evidence only. On November 24 the corrected
+candidate completed its three-layout development pilot with 3/3 per longer
+goal. It is selected for a separate fresh held-out evaluation. See
+`../phase8_finish_20261124/development_audit.json`. These six development
+scores do not establish a reliability or neural-contribution advantage.
 
 Example commands, from the repository with its Python environment:
 

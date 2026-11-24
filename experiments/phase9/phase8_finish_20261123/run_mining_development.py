@@ -24,7 +24,10 @@ def main():
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--forward-ticks", type=int, choices=(2, 5), default=2)
     parser.add_argument("--stop-file", type=Path, required=True)
+    parser.add_argument("--launch-ram-mib", type=int, default=1800)
     args = parser.parse_args()
+    if args.launch_ram_mib < 1536:
+        parser.error("Launch margin must cover the live reserve and owned runtime")
     assert hashlib.sha256(CHECKPOINT.read_bytes()).hexdigest() == CHECKPOINT_SHA
     args.work_dir.mkdir(parents=True, exist_ok=True)
     parent = psutil.Process(os.getpid())
@@ -74,7 +77,7 @@ def main():
             if args.stop_file.exists():
                 return
             available = psutil.virtual_memory().available / 1024**2
-            ready_samples = ready_samples + 1 if available >= 2400 else 0
+            ready_samples = ready_samples + 1 if available >= args.launch_ram_mib else 0
             print(json.dumps({"available_ram_mib": round(available), "ready_samples": ready_samples}), flush=True)
             if ready_samples < 2:
                 time.sleep(30)
@@ -96,6 +99,8 @@ def main():
         meta = json.loads((PHASE / run_id / "run.json").read_text())
         print(json.dumps({"finished": run_id, "completed": meta["completed"],
                           "stop_reason": meta["stop_reason"]}), flush=True)
+        if args.stop_file.exists():
+            return
         if meta["stop_reason"] not in {"suite_complete", "available_ram_guard", "wall_budget"}:
             raise RuntimeError(f"Inspect technical stop: {run_id}: {meta['stop_reason']}")
     raise RuntimeError("Development pilot still incomplete after twenty attempts")

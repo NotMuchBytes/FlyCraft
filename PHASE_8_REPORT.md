@@ -784,3 +784,22 @@ for at least 2,400 MiB on two samples before launching, while preserving
 the 768 MiB live reserve, temperature and disk guards. No new milestone
 video or fresh held-out score is claimed for the unvalidated readout.
 Phase 8 remains open, and Phase 9 remains pending discussion.
+
+## November 24 corrected-readout development pilot
+
+The corrected readout completed the three predeclared development layouts:
+3/3 inventory-confirmed three-log pickups and 3/3 wooden pickaxes from empty
+inventory. Independent actor evidence confirms all required block changes,
+recipes and table placements. Median actions were 26 and 39; median wall
+times were 25.458 and 31.005 seconds. The three-trial Wilson intervals are
+43.9%–100%, so this pilot supplies no final reliability or neural-benefit
+claim. The candidate is selected, with unchanged two-tick forward input,
+for a new frozen 30-trial-per-goal evaluation with separate seeds.
+[Development audit and continuation protocol](experiments/phase9/phase8_finish_20261124/README.md)
+
+All 119 baseline tests passed in 25.684 seconds. Original graph/checkpoint
+hashes and the live implementation hash are unchanged. A cache-clearing
+launch hold produced an unscored technical stop, preserved separately.
+The live RAM reserve stays 768 MiB; the configurable pre-launch margin
+defaults to 1,800 MiB on two samples. The scored pilot sampled at least
+770.49 MiB available RAM and at most 52 degrees Celsius GPU temperature.

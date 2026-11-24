@@ -14,12 +14,13 @@ sys.path.insert(0, str(FOLDER.parents[2]))
 from experiments.phase9.phase75_reliability_20261117.audit import audit, summarize
 
 
-def score(run_ids):
-    plan = json.loads((FOLDER / "heldout_plan.json").read_text(encoding="utf-8"))
+def score(run_ids, *, plan_folder=None):
+    folder = Path(plan_folder) if plan_folder is not None else FOLDER
+    plan = json.loads((folder / "heldout_plan.json").read_text(encoding="utf-8"))
     expected_layouts = {block["world_seed"]: set(block["layout_seeds"]) for block in plan["blocks"]}
     policy = plan["policy"]
     goal_specs = plan["goals"]
-    excluded = json.loads((FOLDER / "excluded_runs.json").read_text(encoding="utf-8"))
+    excluded = json.loads((folder / "excluded_runs.json").read_text(encoding="utf-8"))
     run_records = []
     episodes = {goal: [] for goal in goal_specs}
     identities = set()
@@ -27,7 +28,7 @@ def score(run_ids):
     for run_id in run_ids:
         if run_id in excluded:
             raise ValueError(f"{run_id}: explicitly excluded repeat")
-        meta = json.loads((FOLDER.parent / run_id / "run.json").read_text(encoding="utf-8"))
+        meta = json.loads((folder.parent / run_id / "run.json").read_text(encoding="utf-8"))
         goals = meta["goals"]
         if (not goals or not set(goals) <= goal_specs.keys()
                 or len(goals) != 1 and goals != ["three_logs", "wooden_pickaxe"]):
