@@ -93,7 +93,7 @@ public final class Phase8Harness {
         try {
             Path temporary = controlFile.resolveSibling(controlFile.getFileName() + ".tmp");
             Files.writeString(temporary, control.toString());
-            Files.move(temporary, controlFile, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+            AtomicFiles.replace(temporary, controlFile);
         } catch (IOException error) { throw new IllegalStateException(error); }
     }
 

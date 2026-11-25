@@ -132,6 +132,8 @@ def run():
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--campaign-manifest", type=Path, help="Frozen authorized official plan; orchestration only")
     parser.add_argument("--official-world-number", type=int)
+    parser.add_argument("--launch-cache", type=Path)
+    parser.add_argument("--launch-cache-sha256")
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--build-dir", type=Path, required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
@@ -196,6 +198,8 @@ def run():
     parser.add_argument("--recording-gate", action="store_true", help="Wait for runtime/start.enabled before starting trials")
     parser.add_argument("--obs-control-dir", type=Path, help="Directory shared with OBS; graphical trials require recording")
     args = parser.parse_args()
+    if (args.launch_cache is None) != (args.launch_cache_sha256 is None):
+        parser.error("launch cache requires its frozen SHA256")
     graphical = not args.headless or args.spectator
     if any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in args.run_id):
         parser.error("run-id must be a simple identifier")
@@ -397,20 +401,24 @@ def run():
         direct_commands = {}
         if args.launcher == "direct":
             export_dir = runtime / "launch"
-            preparation = launch(gradle + ["-PflycraftRunDir=" + java_path(runtime / "prepare"),
-                "-PflycraftAutotest", "-PflycraftServer=127.0.0.1:25567", "-PflycraftGraphicsBackend="+args.graphics_backend,
-                "-PflycraftExportLaunchDir="+java_path(export_dir), "runServer"] + (["runClient"] if graphical else []), "prepare", ROOT / "minecraft_mod")
-            preparation_deadline=time.perf_counter()+min(90,args.seconds)
-            while preparation.poll() is None:
-                ownership_check()
-                if time.perf_counter()>=preparation_deadline:
-                    raise RuntimeError("launch_preparation_timeout")
-                time.sleep(.5)
-            if preparation.returncode != 0:
-                raise RuntimeError("launch_preparation_failed")
-            for name in (("server", "client") if graphical else ("server",)):
-                direct_commands[name]=command_from_export(export_dir / ("run"+name.title()+".json"),
-                    export_dir / (name+".args"), expected_java=java)
+            if args.launch_cache is not None:
+                from tools.launch_cache import cached_commands
+                direct_commands = cached_commands(args.launch_cache, args.launch_cache_sha256, ROOT, args, export_dir, java)
+            else:
+                preparation = launch(gradle + ["-PflycraftRunDir=" + java_path(runtime / "prepare"),
+                    "-PflycraftAutotest", "-PflycraftServer=127.0.0.1:25567", "-PflycraftGraphicsBackend="+args.graphics_backend,
+                    "-PflycraftExportLaunchDir="+java_path(export_dir), "runServer"] + (["runClient"] if graphical else []), "prepare", ROOT / "minecraft_mod")
+                preparation_deadline=time.perf_counter()+min(90,args.seconds)
+                while preparation.poll() is None:
+                    ownership_check()
+                    if time.perf_counter()>=preparation_deadline:
+                        raise RuntimeError("launch_preparation_timeout")
+                    time.sleep(.5)
+                if preparation.returncode != 0:
+                    raise RuntimeError("launch_preparation_failed")
+                for name in (("server", "client") if graphical else ("server",)):
+                    direct_commands[name]=command_from_export(export_dir / ("run"+name.title()+".json"),
+                        export_dir / (name+".args"), expected_java=java)
         if shutil.disk_usage(runtime).free / 1024**2 < args.minimum_free_disk_mib:
             raise SupervisorStop("free_disk_guard")
         if psutil.virtual_memory().available / 1024**2 < args.minimum_available_ram_mib:
@@ -713,6 +721,8 @@ def run():
         summary["interaction_assistance"] = "visible_target_aim_macro" if args.camera_mode=="legacy" else "crosshair_only_no_automatic_aim"
         summary["requested_graphics_backend"] = args.graphics_backend
         summary["launcher"] = args.launcher
+        summary["launch_preparation_mode"] = "verified_cached_export" if args.launch_cache else "gradle_export"
+        summary["launch_cache_sha256"] = args.launch_cache_sha256
         summary["minimum_sampled_available_ram_mib"] = minimum_available_ram
         summary["available_ram_guard_mib"] = args.minimum_available_ram_mib
         summary["peak_sampled_process_tree_rss_mib"] = peak_process_rss

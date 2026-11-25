@@ -171,7 +171,7 @@ class Campaign:
         self.check_current()
 
     @classmethod
-    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None, forward_ticks=5, recording_policy="all", recording_milestones=None, goal="one_log", checked=False, official=False, authorization=None):
+    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None, forward_ticks=5, recording_policy="all", recording_milestones=None, goal="one_log", checked=False, official=False, authorization=None, launch_cache=None, continuous_readiness=False):
         if not name or len(name) > 36 or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in name):
             raise ValueError("campaign name must be a simple identifier up to 36 characters")
         if official and (worlds != 10000 or not checked or not isinstance(authorization, dict)
@@ -231,6 +231,9 @@ class Campaign:
                                  "launch_ram_mib": 1800, "launch_ready_samples": 2,
                                  "failure_window": 10, "failure_limit": 9,
                                  "reviewer": "Codex", "automatic_code_changes": False}
+            config["checker"]["readiness_mode"] = "continuous" if continuous_readiness else "per_episode"
+        if launch_cache is not None:
+            config["runtime_profile"]["launch_cache"] = {"path": str(Path(launch_cache).resolve()), "sha256": digest(launch_cache)}
         if official:
             config.update(schema=3, stage="official_training", official_experiment_authorized=True,
                 authorization=authorization, goal_schedule=list(RESOURCE_GOALS),
@@ -317,6 +320,8 @@ class Campaign:
                    "layout_seed": self.catalog[split][index], "policy_seed": 9001 + index,
                    "goal": goal, "train": split in ("pilot", "training"), "checkpoint": dict(checkpoint),
                    "status": "running", "started_unix": time.time(), "generated_world_instances": None}
+        attempt.update(execution_revision=self.config.get("execution_revision", 1),
+                       implementation_sha256=self.config["implementation_sha256"])
         attempt["video_required"] = (self.config.get("recording_policy", "all") == "all"
                                      or index + 1 in self.config.get("recording_milestones", MILESTONES))
         attempt["runtime"] = str(Path(runtime_root).resolve() / attempt["run_id"]) if runtime_root else None
@@ -367,6 +372,8 @@ class Campaign:
                     "remember_mined_columns": profile["remember_mined_columns"],
                     "environment_kind": "controlled_flat_three_tree_fixture" if profile["three_tree_fixture"]
                                         else "controlled_flat_survival_fixture"}
+                if profile.get("launch_cache"):
+                    expected.update(launch_preparation_mode="verified_cached_export", launch_cache_sha256=profile["launch_cache"]["sha256"])
                 if self.official:
                     expected.update(experiment_stage="official_training", campaign_name=self.config["name"],
                                     official_world_number=attempt.get("official_world_number"))
@@ -511,11 +518,12 @@ class Campaign:
         recent = training[-20:]
         training_split = "training" if self.official else "pilot"
         finished_training = [a for a in attempts if a["split"]==training_split and a.get("finished_unix") is not None]
-        seconds = sum(a.get("wall_seconds",a["finished_unix"]-a["started_unix"]) for a in finished_training)
-        rate = len(training) / seconds if seconds else None
+        latest_timed = [a for a in finished_training if a.get("execution_revision", 1) == self.config.get("execution_revision", 1)]
+        seconds = sum(a.get("coordinator_cycle_seconds",a.get("wall_seconds",a["finished_unix"]-a["started_unix"])) for a in latest_timed)
+        rate = len(latest_timed) / seconds if seconds else None
         generated_training=sum(a["generated_world_instances"] or 0 for a in attempts if a["split"]==training_split)
         remaining=max(0,self.config["world_limit"]-generated_training)
-        attempt_seconds=seconds/len(finished_training) if finished_training else None
+        attempt_seconds=seconds/len(latest_timed) if latest_timed else None
         return {"stage": self.config["stage"], "official_training_worlds": generated_training if self.official else 0,
                 "world_limit": self.config["world_limit"], "remaining_world_slots": remaining,
                 "goal_counts": {goal: {"world_instances": sum(a.get("generated_world_instances") or 0 for a in attempts if a["split"] == training_split and a["goal"] == goal),
@@ -537,7 +545,8 @@ class Campaign:
                 "measured_training_worlds_per_hour": rate*3600 if rate else None,
                 "mean_actions_per_success": sum(a["actions"] for a in recent if a["success"])/sum(a["success"] for a in recent) if any(a["success"] for a in recent) else None,
                 "estimated_remaining_seconds": remaining*attempt_seconds if attempt_seconds is not None else None,
-                "estimate_basis": "remaining generated-world slots times measured attempt wall time; interruptions included",
+                "estimate_basis": "current execution revision coordinator cycle time, including readiness where recorded; interruptions included",
+                "execution_revision": self.config.get("execution_revision", 1),
                 "curriculum_level": 1, "goal": ", ".join(self.config["goal_schedule"]) if self.official else self.config["goal"],
                 "progression": "fixed balanced four-goal schedule" if self.official else "operator-selected interaction goal; no automatic curriculum advancement",
                 "checkpoint": self.state["current_checkpoint"], "active_attempt": self.state["active_attempt"],

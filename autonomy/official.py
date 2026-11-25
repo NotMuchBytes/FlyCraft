@@ -16,6 +16,13 @@ def validate_worker(args, root, *, campaign=None):
         raise ValueError("official worker has no durable active attempt")
     attempt = campaign.state["attempts"][index]
     profile = campaign.runtime_profile(attempt["goal"])
+    cache = profile.get("launch_cache")
+    if cache:
+        if getattr(args, "launch_cache", None) is None or Path(args.launch_cache).resolve() != Path(cache["path"]).resolve() \
+                or args.launch_cache_sha256 != cache["sha256"]:
+            raise ValueError("official launch cache differs from frozen profile")
+    elif getattr(args, "launch_cache", None) is not None:
+        raise ValueError("unplanned official launch cache")
     expected = {"run_id": attempt["run_id"], "official_world_number": attempt["official_world_number"],
         "world_seed": attempt["world_seed"], "layout_start": attempt["layout_seed"],
         "policy_seed": attempt["policy_seed"], "goals": attempt["goal"], "conditions": "trained",

@@ -74,8 +74,10 @@ def verify_artifacts(folder, ffmpeg):
         if attempt.get("checker_status") != "verified":
             raise ValueError("committed episode lacks evidence verification")
         audit = read(attempt["checker_report"])
+        implementation = attempt.get("implementation_sha256", config["implementation_sha256"])
+        permitted = {config["implementation_sha256"]} | {r["implementation_sha256"] for r in config.get("execution_revisions", [])}
         if audit["status"] != "verified" or audit["run_id"] != attempt["run_id"] \
-                or audit["implementation_sha256"] != config["implementation_sha256"]:
+                or implementation not in permitted or audit["implementation_sha256"] != implementation:
             raise ValueError("episode audit differs from frozen campaign")
         evidence = Path(attempt["results"])
         for name, expected in audit["evidence_sha256"].items():

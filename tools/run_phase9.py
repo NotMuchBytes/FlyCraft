@@ -117,6 +117,9 @@ def worker_command(campaign, attempt, args, seconds):
         command += ["--video-export-dir",str(args.video_export_dir)]
     if attempt["train"]:
         command.append("--train")
+    if profile.get("launch_cache"):
+        command += ["--launch-cache", profile["launch_cache"]["path"],
+                    "--launch-cache-sha256", profile["launch_cache"]["sha256"]]
     if campaign.official:
         command += ["--campaign-manifest", str(campaign.folder / "config.json"),
                     "--official-world-number", str(attempt["official_world_number"])]
@@ -135,6 +138,8 @@ def main():
     init.add_argument("--master-seed",type=int,default=20261029)
     init.add_argument("--compact",action="store_true",help="Development profile: 384/512 MiB server/client heaps, 854x480 capture")
     init.add_argument("--checked",action="store_true",help="Independent evidence gate and validated pitch/four-goal interface; development only")
+    init.add_argument("--launch-cache",type=Path)
+    init.add_argument("--continuous-readiness",action="store_true")
     init.add_argument("--forward-ticks",type=int,default=5,choices=range(1,11),help="Fixed input duration; freeze before paired evaluation")
     init.add_argument("--recording-policy",choices=("milestones","all"),default="milestones")
     init.add_argument("--recording-milestones",help="Optional comma-separated episode numbers; default Phase 9 schedule")
@@ -161,7 +166,8 @@ def main():
                 parser.error("recording-milestones must be comma-separated integers")
         campaign=Campaign.create(ROOT/"experiments/phase9"/args.name, project_root=ROOT,name=args.name,
             checkpoint=args.checkpoint,master=args.master_seed,worlds=args.worlds,compact=args.compact,frozen_checkpoint=args.frozen_checkpoint,
-            forward_ticks=args.forward_ticks,recording_policy=args.recording_policy,recording_milestones=milestones,goal=args.goal,checked=args.checked)
+            forward_ticks=args.forward_ticks,recording_policy=args.recording_policy,recording_milestones=milestones,goal=args.goal,checked=args.checked,
+            launch_cache=args.launch_cache,continuous_readiness=args.continuous_readiness)
         campaign.save(); dashboard(campaign)
         print(campaign.folder)
         return

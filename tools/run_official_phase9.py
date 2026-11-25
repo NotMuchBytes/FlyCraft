@@ -24,13 +24,14 @@ def run(campaign, args, *, batch=supervise):
         raise ValueError("an authorized frozen 10000-world plan is required")
     atomic_json(campaign.folder / "executor.json", {"pid": os.getpid(),
         "process_created": psutil.Process().create_time(), "started_unix": time.time(),
-        "status": "running", "automatic_final_evaluation": False})
+        "status": "running", "execution_revision": campaign.config.get("execution_revision", 1), "automatic_final_evaluation": False})
     # Batch limits remain bounded. This explicit executor is the only long-run
     # entry point; it never clears STOP or attention requests between batches.
     args.split, args.condition = "training", "trained"
     args.max_attempts, args.seconds, args.worker_seconds = 100, 3600, 300
     while not (campaign.folder / "STOP").exists():
         if (campaign.folder / "fix_request.json").exists():
+            atomic_json(campaign.folder / "executor.json", {"status": "needs_attention", "updated_unix": time.time()})
             return 2
         for attempt in campaign.state["attempts"]:
             cleanup_world(campaign, attempt, args.work_dir)
@@ -44,6 +45,8 @@ def run(campaign, args, *, batch=supervise):
             return 0
         outcome = batch(campaign, args, official=True)
         if outcome:
+            atomic_json(campaign.folder / "executor.json", {"status": "paused" if (campaign.folder / "STOP").exists() else "needs_attention",
+                "exit_code": outcome, "updated_unix": time.time()})
             return outcome
     atomic_json(campaign.folder / "executor.json", {"status": "paused", "updated_unix": time.time(),
                                                   "official_training_worlds": campaign.training_worlds()})

@@ -63,10 +63,19 @@ def gpu_temperature():
         return None
 
 
-def wait_resources(campaign, deadline, *, required_ram_mib=None, sleep=time.sleep, clock=time.monotonic, memory=psutil.virtual_memory, disk=psutil.disk_usage, temperature=gpu_temperature):
+def wait_resources(campaign, deadline, *, required_ram_mib=None, readiness=None, sleep=time.sleep, clock=time.monotonic, memory=psutil.virtual_memory, disk=psutil.disk_usage, temperature=gpu_temperature):
     """Two stable launch samples; the worker retains its own live guards."""
     ready, next_sample = 0, 0
     while clock() < deadline and not (campaign.folder / "STOP").exists():
+        if readiness is not None:
+            threshold = required_ram_mib or campaign.config["checker"]["launch_ram_mib"]
+            healthy, sample = readiness.readiness(threshold)
+            atomic_json(campaign.folder / "supervisor.json", dict(sample, status="ready" if healthy else "waiting_resources",
+                required_ram_mib=threshold, readiness_mode="continuous_30_second_window", official_training_worlds=campaign.training_worlds()))
+            if healthy:
+                return True
+            sleep(min(1, max(0, deadline - clock())))
+            continue
         now = clock()
         if now >= next_sample:
             ram = memory().available / 1024**2
@@ -124,8 +133,12 @@ def supervise(campaign, args, *, official=False):
         return 2
     deadline = time.monotonic() + args.seconds
     recorder = None
+    readiness = None
     worker = None
     try:
+        if campaign.config["checker"].get("readiness_mode") == "continuous":
+            from tools.resource_readiness import ResourceReadiness
+            readiness = ResourceReadiness(campaign.root, gpu_temperature).__enter__()
         recovered = campaign.recover()
         if recovered:
             recovered_action = classify(campaign, recovered)
@@ -141,10 +154,11 @@ def supervise(campaign, args, *, official=False):
             world_count = campaign.training_worlds() if official else sum(a.get("generated_world_instances") or 0 for a in campaign.state["attempts"])
             if world_count >= campaign.config["world_limit"]:
                 break
+            cycle_started = time.monotonic()
             next_number = world_count + 1
             filming = official and (campaign.config["recording_policy"] == "all" or next_number in campaign.config["recording_milestones"])
             required_ram = campaign.config["checker"].get("recording_launch_ram_mib") if filming else None
-            if not wait_resources(campaign, deadline-180, required_ram_mib=required_ram):
+            if not wait_resources(campaign, deadline-180, required_ram_mib=required_ram, readiness=readiness):
                 break
             attempt = campaign.begin(args.split, args.condition, runtime_root=args.work_dir)
             if attempt["video_required"]:
@@ -173,6 +187,8 @@ def supervise(campaign, args, *, official=False):
             if official:
                 from autonomy.official import cleanup_world
                 cleanup_world(campaign, campaign.state["attempts"][-1], args.work_dir)
+            campaign.state["attempts"][-1]["coordinator_cycle_seconds"] = time.monotonic() - cycle_started
+            campaign.save()
             action = classify(campaign, outcome)
             dashboard(campaign, action, results)
             print(json.dumps({"run_id": attempt["run_id"], "decision": action, "success": outcome.get("success"),
@@ -206,6 +222,8 @@ def supervise(campaign, args, *, official=False):
                     attempt=campaign.state["attempts"][-1] if campaign.state["attempts"] else None)
         return 2
     finally:
+        if readiness is not None:
+            readiness.__exit__()
         if recorder is not None:
             recorder.close()
 

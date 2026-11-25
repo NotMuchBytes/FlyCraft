@@ -86,6 +86,26 @@ class CompletionTests(unittest.TestCase):
             self.assertEqual(command[-3:], ["/s", "/t", "0"])
             self.assertNotIn("/f", command)
 
+    def test_final_audit_accepts_only_recorded_execution_revisions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            artifact = root / "artifact.fixture"
+            artifact.write_bytes(b"SYNTHETIC GRAPH AND CHECKPOINT MARKER")
+            reference = dict(path=str(artifact), sha256=completion.digest(artifact))
+            audit = dict(status="verified", run_id="unit", implementation_sha256="old-source", evidence_sha256={})
+            (root / "audit.json").write_text(json.dumps(audit))
+            config = dict(initial_checkpoint=reference, frozen_checkpoint=reference, checker=dict(graph=reference),
+                          implementation_sha256="new-source", execution_revisions=[dict(implementation_sha256="old-source")])
+            state = dict(final_policy=reference, attempts=[dict(status="committed", checker_status="verified",
+                checker_report=str(root / "audit.json"), run_id="unit", implementation_sha256="old-source", results=str(root), video_required=False)])
+            (root / "config.json").write_text(json.dumps(config))
+            (root / "state.json").write_text(json.dumps(state))
+            self.assertEqual(completion.verify_artifacts(root, "unused")["verified_scored_episodes"], 1)
+            config["execution_revisions"] = []
+            (root / "config.json").write_text(json.dumps(config))
+            with self.assertRaisesRegex(ValueError, "audit"):
+                completion.verify_artifacts(root, "unused")
+
 
 if __name__ == "__main__":
     unittest.main()
