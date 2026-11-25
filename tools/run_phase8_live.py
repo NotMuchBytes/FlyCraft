@@ -130,6 +130,8 @@ def pending_mining_command(trace):
 def run():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-id", required=True)
+    parser.add_argument("--campaign-manifest", type=Path, help="Frozen authorized official plan; orchestration only")
+    parser.add_argument("--official-world-number", type=int)
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--build-dir", type=Path, required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
@@ -271,6 +273,12 @@ def run():
     server_restart = args.operator_fault in {"server_restart", "server_crash"}
     if checkpoint_restart and conditions != ["trained"]:
         parser.error("bridge checkpoint restart requires the trained evaluation condition")
+    official_metadata = {}
+    if args.campaign_manifest is not None:
+        from autonomy.official import validate_worker
+        official_metadata = validate_worker(args, ROOT)
+    elif args.official_world_number is not None:
+        parser.error("official world number requires a bound campaign manifest")
     if listening(25567) or listening(8765):
         parser.error("live test ports already occupied; no existing process will be stopped")
     recorder = EventLogRecording() if not graphical else ObsRecorder(args.obs_control_dir.resolve(), args.run_id)
@@ -662,6 +670,7 @@ def run():
         summary["recording_confirmed"] = recorder.started
         summary["milestone"] = args.milestone
         summary["experiment_stage"] = "development"
+        summary.update(official_metadata)
         summary["redo_of"] = args.redo_of
         summary["execution_kind"] = "new_execution_not_replay"
         summary["headless"] = args.headless
@@ -676,7 +685,7 @@ def run():
         if server_restart:
             summary["capture_content_proof_before_restart"] = capture_proof_before_restart
         summary["recording_mode"] = "OBS_isolated_spectator" if args.spectator else "OBS_Minecraft_window" if graphical else "structured_event_logs_no_video"
-        summary["generated_world_instances"] = int((server_dir/"world/level.dat").exists())
+        summary["generated_world_instances"] = int((server_dir / "world").is_dir() if official_metadata else (server_dir/"world/level.dat").exists())
         summary["episodes_in_generated_world"] = last_rows
         summary["environment_kind"] = ("vanilla_overworld_spawn" if args.natural_world else
                                        "controlled_blocked_forward_diagnostic" if args.blocked_forward_fixture else
@@ -734,7 +743,8 @@ def run():
                     raise ValueError("No confirmed recording source exists")
                 if Path(recording).stat().st_mtime<started_unix-2:
                     raise ValueError("Recording path predates this run")
-                video_name=f"FlyCraft_Development_Milestone_{args.milestone:05d}_{args.run_id}.mp4"
+                video_prefix = "FlyCraft_Phase9" if official_metadata else "FlyCraft_Development"
+                video_name=f"{video_prefix}_Milestone_{args.milestone:05d}_{args.run_id}.mp4"
                 destination=ROOT/"recordings/phase9"/video_name
                 # Independent server episode time is a conservative coverage
                 # minimum; OBS was gated before any policy action.
@@ -758,7 +768,7 @@ def run():
                 summary["milestone_video_error"]=str(error)
             media_folder=ROOT/"recordings/phase9/youtube"
             media_folder.mkdir(parents=True,exist_ok=True)
-            media={"run_id":args.run_id,"milestone":args.milestone,"stage":"development",
+            media={"run_id":args.run_id,"milestone":args.milestone,"stage":summary["experiment_stage"],
                 "status":summary["milestone_video_status"],"video":summary.get("milestone_video"),
                 "error":summary.get("milestone_video_error"),"episode_log":str(results/"server.jsonl"),
                 "action_log":str(results/"headless.jsonl"),"observation_log":str(results/"bridge.jsonl"),

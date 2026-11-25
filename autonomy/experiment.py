@@ -171,10 +171,13 @@ class Campaign:
         self.check_current()
 
     @classmethod
-    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None, forward_ticks=5, recording_policy="all", recording_milestones=None, goal="one_log", checked=False):
+    def create(cls, folder, *, project_root, name, checkpoint, master=20261029, worlds=100, table=None, compact=False, frozen_checkpoint=None, forward_ticks=5, recording_policy="all", recording_milestones=None, goal="one_log", checked=False, official=False, authorization=None):
         if not name or len(name) > 36 or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in name):
             raise ValueError("campaign name must be a simple identifier up to 36 characters")
-        if not 1 <= worlds <= 100:
+        if official and (worlds != 10000 or not checked or not isinstance(authorization, dict)
+                         or not authorization.get("statement") or not authorization.get("authorized_date")):
+            raise ValueError("official training requires explicit recorded authorization, checked mode and exactly 10000 worlds")
+        if not official and not 1 <= worlds <= 100:
             raise ValueError("development campaigns permit 1-100 worlds; official launch is not enabled")
         if goal not in RESOURCE_GOALS:
             raise ValueError("unknown resource goal")
@@ -228,6 +231,18 @@ class Campaign:
                                  "launch_ram_mib": 1800, "launch_ready_samples": 2,
                                  "failure_window": 10, "failure_limit": 9,
                                  "reviewer": "Codex", "automatic_code_changes": False}
+        if official:
+            config.update(schema=3, stage="official_training", official_experiment_authorized=True,
+                authorization=authorization, goal_schedule=list(RESOURCE_GOALS),
+                world_budget_definition="Minecraft-created training world directories; aborted instances consume a unique seed/slot; prelaunch attempts without a world do not",
+                automatic_final_evaluation=False)
+            config["runtime_profiles"] = {}
+            for item in RESOURCE_GOALS:
+                long_goal = item in ("three_logs", "wooden_pickaxe")
+                config["runtime_profiles"][item] = config["runtime_profile"] | {
+                    "trial_ticks": 1500 if long_goal else 400, "three_tree_fixture": long_goal,
+                    "remember_mined_columns": long_goal}
+            config["checker"]["recording_launch_ram_mib"] = 3000
         atomic_json(folder / "config.json", config)
         atomic_json(folder / "state.json", {"schema": 1, "config_sha256": digest(folder / "config.json"),
                     "current_checkpoint": initial, "active_attempt": None, "attempts": [], "final_policy": None})
@@ -250,20 +265,34 @@ class Campaign:
             if digest(frozen["path"]) != frozen["sha256"]:
                 raise ValueError("frozen reference checkpoint integrity mismatch")
 
+    @property
+    def official(self):
+        return self.config.get("stage") == "official_training" and self.config.get("official_experiment_authorized") is True
+
+    def training_worlds(self):
+        return sum(row.get("generated_world_instances") or 0 for row in self.state["attempts"] if row["split"] == "training")
+
+    def runtime_profile(self, goal):
+        return self.config.get("runtime_profiles", {}).get(goal, self.config["runtime_profile"])
+
     def begin(self, split="pilot", condition="trained", *, runtime_root=None):
         if self.state["active_attempt"] is not None:
             raise RuntimeError("recover the interrupted attempt before starting another")
         if self.config.get("checker") and (self.folder / "fix_request.json").exists():
             raise RuntimeError("Unresolved Codex fix request; this campaign stays paused")
-        if split not in ("pilot", "eval_a", "eval_b") or condition not in CONDITIONS:
+        if split not in ("pilot", "training", "eval_a", "eval_b") or condition not in CONDITIONS:
             raise ValueError("unsupported development split/condition")
-        if split == "pilot" and condition != "trained":
+        if split == "training" and not self.official:
+            raise ValueError("official training is not authorized for this campaign")
+        if self.official and split != "training":
+            raise ValueError("official campaigns use training only; freeze a separate evaluation plan before evaluation")
+        if split in ("pilot", "training") and condition != "trained":
             raise ValueError("pilot training must use the trained policy")
-        if self.config.get("checker") and sum(a.get("generated_world_instances") or 0 for a in self.state["attempts"]) >= self.config["world_limit"]:
+        if self.config.get("checker") and not self.official and sum(a.get("generated_world_instances") or 0 for a in self.state["attempts"]) >= self.config["world_limit"]:
             raise ValueError("checked development world-instance limit reached")
         if split == "pilot" and sum(a["generated_world_instances"] or 0 for a in self.state["attempts"] if a["split"] == "pilot") >= self.config["world_limit"]:
             raise ValueError("development world-instance limit reached, including interrupted worlds")
-        if self.state["final_policy"] is not None and split == "pilot":
+        if self.state["final_policy"] is not None and split in ("pilot", "training"):
             raise ValueError("training is frozen after final policy selection")
         if split == "eval_b" and self.state["final_policy"] is None:
             raise ValueError("select and freeze the final policy before using eval_b")
@@ -275,21 +304,24 @@ class Campaign:
             checkpoint = self.config.get("frozen_checkpoint", self.config["initial_checkpoint"])
         completed = [a for a in self.state["attempts"] if (a["status"] == "committed" or self.config.get("checker") and a.get("verified_game_episodes")) and a["split"] == split and a["condition"] == condition
                      and (split != "eval_a" or a["checkpoint"]["sha256"] == checkpoint["sha256"])]
-        index = len(completed)
-        limit = self.config["world_limit"] if split == "pilot" else len(self.catalog[split])
+        index = self.training_worlds() if split == "training" else len(completed)
+        limit = self.config["world_limit"] if split in ("pilot", "training") else len(self.catalog[split])
         if index >= limit:
             raise ValueError("split is complete; its worlds cannot be evaluated again")
         if digest(checkpoint["path"]) != checkpoint["sha256"]:
             raise ValueError("selected checkpoint integrity mismatch")
+        goal = self.config["goal_schedule"][index % len(self.config["goal_schedule"])] if split == "training" else self.config["goal"]
         attempt = {"number": len(self.state["attempts"]) + 1, "episode_number": index + 1,
                    "run_id": f"{self.config['name']}_{split}_{condition}_{index+1:05d}_a{len(self.state['attempts'])+1:04d}",
                    "split": split, "condition": condition, "world_seed": self.catalog[split][index],
                    "layout_seed": self.catalog[split][index], "policy_seed": 9001 + index,
-                   "goal": self.config["goal"], "train": split == "pilot", "checkpoint": dict(checkpoint),
+                   "goal": goal, "train": split in ("pilot", "training"), "checkpoint": dict(checkpoint),
                    "status": "running", "started_unix": time.time(), "generated_world_instances": None}
         attempt["video_required"] = (self.config.get("recording_policy", "all") == "all"
                                      or index + 1 in self.config.get("recording_milestones", MILESTONES))
         attempt["runtime"] = str(Path(runtime_root).resolve() / attempt["run_id"]) if runtime_root else None
+        if split == "training":
+            attempt["official_world_number"] = index + 1
         self.state["attempts"].append(attempt)
         self.state["active_attempt"] = len(self.state["attempts"]) - 1
         self.save()
@@ -308,15 +340,19 @@ class Campaign:
             except psutil.NoSuchProcess:
                 pass
         if attempt.get("runtime"):
-            attempt["generated_world_instances"] = int((Path(attempt["runtime"]) / "server/world/level.dat").is_file())
+            world = Path(attempt["runtime"]) / "server/world"
+            attempt["generated_world_instances"] = int(world.is_dir() if self.official else (world / "level.dat").is_file())
         results = self.root / "experiments/phase9" / attempt["run_id"]
         try:
             run = json.loads((results / "run.json").read_text())
-            attempt["generated_world_instances"] = run.get("generated_world_instances", 0)
+            count = run.get("generated_world_instances", 0)
+            if type(count) is not int or count not in (0, 1):
+                raise ValueError("worker world count must be zero or one")
+            attempt["generated_world_instances"] = max(attempt.get("generated_world_instances") or 0, count)
             checked = self.config.get("checker")
             if checked:
                 from .evidence import audit_run, EvidenceError
-                profile = self.config["runtime_profile"]
+                profile = self.runtime_profile(attempt["goal"])
                 expected = {"world_seed": attempt["world_seed"], "train": attempt["train"],
                     "implementation_sha256": self.config["implementation_sha256"],
                     "checkpoint_sha256": attempt["checkpoint"]["sha256"],
@@ -331,6 +367,9 @@ class Campaign:
                     "remember_mined_columns": profile["remember_mined_columns"],
                     "environment_kind": "controlled_flat_three_tree_fixture" if profile["three_tree_fixture"]
                                         else "controlled_flat_survival_fixture"}
+                if self.official:
+                    expected.update(experiment_stage="official_training", campaign_name=self.config["name"],
+                                    official_world_number=attempt.get("official_world_number"))
                 report = audit_run(results, expected=expected)
                 audit_path = self.folder / "checks" / (attempt["run_id"] + ".json")
                 audit_path.parent.mkdir(exist_ok=True)
@@ -438,7 +477,7 @@ class Campaign:
         every previous configuration, source manifest and state. No active job,
         training history or final benchmark is eligible for this narrow repair.
         """
-        if not reason or self.state["active_attempt"] is not None or self.state["final_policy"] is not None \
+        if self.official or not reason or self.state["active_attempt"] is not None or self.state["final_policy"] is not None \
                 or any(a["train"] or a["split"] == "eval_b" for a in self.state["attempts"]):
             raise ValueError("validation amendment requires idle development evaluation only")
         previous = json.loads((self.folder / "source_manifest.json").read_text())
@@ -470,13 +509,17 @@ class Campaign:
                        for episode in a.get("verified_game_episodes", [])]
         training = [a for a in committed if a["train"]]
         recent = training[-20:]
-        finished_training = [a for a in attempts if a["split"]=="pilot" and a.get("finished_unix") is not None]
+        training_split = "training" if self.official else "pilot"
+        finished_training = [a for a in attempts if a["split"]==training_split and a.get("finished_unix") is not None]
         seconds = sum(a.get("wall_seconds",a["finished_unix"]-a["started_unix"]) for a in finished_training)
         rate = len(training) / seconds if seconds else None
-        generated_training=sum(a["generated_world_instances"] or 0 for a in attempts if a["split"]=="pilot")
+        generated_training=sum(a["generated_world_instances"] or 0 for a in attempts if a["split"]==training_split)
         remaining=max(0,self.config["world_limit"]-generated_training)
         attempt_seconds=seconds/len(finished_training) if finished_training else None
-        return {"stage": "development", "official_training_worlds": 0,
+        return {"stage": self.config["stage"], "official_training_worlds": generated_training if self.official else 0,
+                "world_limit": self.config["world_limit"], "remaining_world_slots": remaining,
+                "goal_counts": {goal: {"world_instances": sum(a.get("generated_world_instances") or 0 for a in attempts if a["split"] == training_split and a["goal"] == goal),
+                    "scored": sum(a["goal"] == goal for a in training), "successes": sum(a["goal"] == goal and a["success"] for a in training)} for goal in RESOURCE_GOALS},
                 "generated_world_instances": sum(a["generated_world_instances"] or 0 for a in attempts),
                 "unverified_world_counts": sum(a["generated_world_instances"] is None for a in attempts),
                 "distinct_generated_seeds": len({a["world_seed"] for a in attempts if a["generated_world_instances"]}),
@@ -495,7 +538,8 @@ class Campaign:
                 "mean_actions_per_success": sum(a["actions"] for a in recent if a["success"])/sum(a["success"] for a in recent) if any(a["success"] for a in recent) else None,
                 "estimated_remaining_seconds": remaining*attempt_seconds if attempt_seconds is not None else None,
                 "estimate_basis": "remaining generated-world slots times measured attempt wall time; interruptions included",
-                "curriculum_level": 1, "goal": self.config["goal"], "progression": "operator-selected interaction goal; no automatic curriculum advancement",
+                "curriculum_level": 1, "goal": ", ".join(self.config["goal_schedule"]) if self.official else self.config["goal"],
+                "progression": "fixed balanced four-goal schedule" if self.official else "operator-selected interaction goal; no automatic curriculum advancement",
                 "checkpoint": self.state["current_checkpoint"], "active_attempt": self.state["active_attempt"],
                 "recent_errors": [a.get("error") for a in attempts if a["status"] == "interrupted"][-5:],
                 "updated_unix": time.time()}

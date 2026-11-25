@@ -71,12 +71,12 @@ def dashboard(campaign, status="idle", results=None):
             bars += f"<label>{escape(key)} {value:.4f}<span style='width:{min(100,max(0,value*100)):.3f}%'></span></label>"
         bars += f"<pre>{escape(json.dumps(brain['features'],indent=2))}</pre><p>Fixed neural window: {brain['neural_steps']} steps; peak active neurons: {brain['peak_active_neurons']}. Feature mode: {escape(brain['mode'])}.</p>"
     page = f"""<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="5">
-<title>FlyCraft development dashboard</title><style>
+<title>FlyCraft {escape(summary['stage'])} dashboard</title><style>
 body{{font:16px system-ui;background:#101722;color:#e5efff;margin:32px;max-width:1200px}}h1{{color:#71aaff}}
 .cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}.cards div,section{{padding:16px;background:#1a2536;border-radius:10px;margin-bottom:12px}}
 small,strong{{display:block}}small{{color:#a9bfdc}}strong{{font-size:22px;overflow-wrap:anywhere}}table{{width:100%;font-size:13px}}td,th{{padding:7px;text-align:left;border-bottom:1px solid #334}}pre{{white-space:pre-wrap;overflow-wrap:anywhere}}label{{display:block;margin:7px}}label span{{display:block;height:5px;background:#55a7ff}}</style>
-<h1>FlyCraft · development</h1><p>Status: {escape(status)}. Official training worlds: 0. Goal: {escape(summary['goal'])}, curriculum level 1.</p>
-<div class="cards">{cards}</div><p>Throughput is observed worker wall time including startup and filming. Remaining seconds are an estimate. This is a small development pilot, not a learning-performance claim.</p>
+<h1>FlyCraft · {escape(summary['stage'])}</h1><p>Status: {escape(status)}. Official training worlds: {summary['official_training_worlds']}. Goal: {escape(summary['goal'])}, curriculum level 1.</p>
+<div class="cards">{cards}</div><p>Throughput is observed worker wall time including startup and filming. Remaining seconds are an estimate. Training outcomes are not held-out evaluation results.</p>
 <section><h2>Observed worker resources</h2><pre>{escape(json.dumps(live,indent=2))}</pre><p>CPU temperature unavailable. Samples may be absent during startup. Resource timestamps are Unix seconds.</p></section>
 <section><h2>Actual policy readout</h2>{bars or '<p>No neural decision sample yet.</p>'}<p>Activity comes from the fixed connectome. Only the linear softmax readout is learned. Bias is not neural activity. Bars show action probabilities, not neuron firing animations.</p></section>
 <section><h2>Recent episodes</h2><table><tr><th>Episode</th><th>Split</th><th>Policy</th><th>Outcome</th><th>Actions</th><th>Reward</th><th>Run</th></tr>{rows}</table></section>
@@ -89,7 +89,7 @@ small,strong{{display:block}}small{{color:#a9bfdc}}strong{{font-size:22px;overfl
 
 
 def worker_command(campaign, attempt, args, seconds):
-    profile = campaign.config["runtime_profile"]
+    profile = campaign.runtime_profile(attempt["goal"])
     command = [sys.executable, str(ROOT/"tools/run_phase8_live.py"), "--run-id", attempt["run_id"],
         "--headless",
         "--checkpoint",attempt["checkpoint"]["path"],"--frozen-checkpoint",campaign.config.get("frozen_checkpoint",campaign.config["initial_checkpoint"])["path"],
@@ -117,6 +117,9 @@ def worker_command(campaign, attempt, args, seconds):
         command += ["--video-export-dir",str(args.video_export_dir)]
     if attempt["train"]:
         command.append("--train")
+    if campaign.official:
+        command += ["--campaign-manifest", str(campaign.folder / "config.json"),
+                    "--official-world-number", str(attempt["official_world_number"])]
     return command
 
 

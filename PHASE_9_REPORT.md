@@ -1,5 +1,17 @@
 # FlyCraft Phase 9 development report
 
+**November 25, 2026 — official launch authorized:** the user explicitly said
+“start the 10000”, requested milestone recordings and authorized a temporary
+shutdown guard. The official executor now supports a frozen balanced four-goal
+schedule over 10,000 distinct generated training-world slots. All **145 tests
+pass**; this includes interrupted-world accounting, worker-plan binding and
+safe disposable-world cleanup. The original graph, actor and prior checkpoints
+are preserved. [Official design, limits and recording schedule](docs/phase9_official_campaign.md).
+At this implementation checkpoint the official plan has **not yet launched**;
+live counters will be reported from the campaign ledger. Historical authorization
+and usage-cap statements below are superseded by the explicit instructions.
+The untouched final 100-world evaluation remains separate from training.
+
 **November 24 checker development verified:** the local checked supervisor and
 Codex repair handoffs are implemented. The frozen functional pilot completed eight
 verified successes across all four goals, including two verified development

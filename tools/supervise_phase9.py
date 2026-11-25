@@ -42,8 +42,14 @@ def request_fix(folder, reason, *, code="supervisor_error", attempt=None):
         f"Run: `{(attempt or {}).get('run_id', 'not launched')}`\n\n"
         f"Evidence: `{(attempt or {}).get('results', '')}`\n\n"
         f"{record['next_step']}\n", encoding="utf-8", newline="\n")
+    state_path = folder / "state.json"
+    try:
+        state = json.loads(state_path.read_text()) if state_path.is_file() else {"attempts": []}
+        worlds = sum(a.get("generated_world_instances") or 0 for a in state["attempts"] if a.get("split") == "training")
+    except (OSError, ValueError, TypeError, KeyError, AttributeError):
+        worlds = None
     atomic_json(folder / "supervisor.json", {"status": "needs_attention", "fix_request": str(path),
-                "official_training_worlds": 0, "automatic_code_changes": False})
+                "official_training_worlds": worlds, "automatic_code_changes": False})
     print(json.dumps({"status": "needs_attention", "fix_request": str(path), "reason": str(reason)}), flush=True)
     return record
 
@@ -57,7 +63,7 @@ def gpu_temperature():
         return None
 
 
-def wait_resources(campaign, deadline, *, sleep=time.sleep, clock=time.monotonic, memory=psutil.virtual_memory, disk=psutil.disk_usage, temperature=gpu_temperature):
+def wait_resources(campaign, deadline, *, required_ram_mib=None, sleep=time.sleep, clock=time.monotonic, memory=psutil.virtual_memory, disk=psutil.disk_usage, temperature=gpu_temperature):
     """Two stable launch samples; the worker retains its own live guards."""
     ready, next_sample = 0, 0
     while clock() < deadline and not (campaign.folder / "STOP").exists():
@@ -66,11 +72,12 @@ def wait_resources(campaign, deadline, *, sleep=time.sleep, clock=time.monotonic
             ram = memory().available / 1024**2
             free = disk(str(campaign.root)).free / 1024**2
             thermal = temperature()
-            ready = ready + 1 if (ram >= campaign.config["checker"]["launch_ram_mib"] and free >= 2048
+            required_ram = required_ram_mib or campaign.config["checker"]["launch_ram_mib"]
+            ready = ready + 1 if (ram >= required_ram and free >= 2048
                                   and (thermal is None or thermal < 75)) else 0
             atomic_json(campaign.folder / "supervisor.json", {"status": "ready" if ready >= 2 else "waiting_resources",
                 "available_ram_mib": ram, "free_disk_mib": free, "gpu_temperature_c": thermal, "ready_samples": ready,
-                "official_training_worlds": 0})
+                "required_ram_mib": required_ram, "official_training_worlds": campaign.training_worlds()})
             if ready >= 2:
                 return True
             next_sample = now + 30
@@ -103,17 +110,20 @@ def classify(campaign, outcome):
     return "retry" if failures <= campaign.config["checker"]["technical_retries"] else "needs_attention"
 
 
-def supervise(campaign, args):
+def supervise(campaign, args, *, official=False):
     if not campaign.config.get("checker"):
         raise ValueError("Initialize a new --checked development campaign first")
-    if (campaign.config.get("stage") != "development" or campaign.config.get("official_experiment_authorized") is not False
+    if official:
+        if not campaign.official or campaign.config["world_limit"] != 10000 or args.split != "training" or args.condition != "trained":
+            raise ValueError("official executor requires authorized 10000-world training only")
+    elif (campaign.config.get("stage") != "development" or campaign.config.get("official_experiment_authorized") is not False
             or not 1 <= campaign.config["world_limit"] <= 100):
         raise ValueError("This supervisor permits only development campaigns of at most 100 worlds")
     if (campaign.folder / "fix_request.json").exists():
         print(json.dumps({"status": "needs_attention", "fix_request": str(campaign.folder / "fix_request.json")}), flush=True)
         return 2
     deadline = time.monotonic() + args.seconds
-    recorder = BackgroundRecorder(args.obs_control_dir, campaign.folder / "recorder")
+    recorder = None
     worker = None
     try:
         recovered = campaign.recover()
@@ -123,16 +133,22 @@ def supervise(campaign, args):
                 request_fix(campaign.folder, recovered.get("error", "Recovered attempt requires inspection"), attempt=recovered)
                 return 2
             if recovered_action == "paused":
+                (campaign.folder / "STOP").touch(exist_ok=True)
                 return 0
         for _ in range(args.max_attempts):
             if (campaign.folder / "STOP").exists() or time.monotonic() + 180 >= deadline:
                 break
-            if sum(a.get("generated_world_instances") or 0 for a in campaign.state["attempts"]) >= campaign.config["world_limit"]:
+            world_count = campaign.training_worlds() if official else sum(a.get("generated_world_instances") or 0 for a in campaign.state["attempts"])
+            if world_count >= campaign.config["world_limit"]:
                 break
-            if not wait_resources(campaign, deadline-180):
+            next_number = world_count + 1
+            filming = official and (campaign.config["recording_policy"] == "all" or next_number in campaign.config["recording_milestones"])
+            required_ram = campaign.config["checker"].get("recording_launch_ram_mib") if filming else None
+            if not wait_resources(campaign, deadline-180, required_ram_mib=required_ram):
                 break
             attempt = campaign.begin(args.split, args.condition, runtime_root=args.work_dir)
             if attempt["video_required"]:
+                recorder = BackgroundRecorder(args.obs_control_dir, campaign.folder / "recorder" / attempt["run_id"])
                 recorder.ensure_ready(lambda: (campaign.folder / "STOP").exists())
             remaining = min(args.worker_seconds, int(deadline-time.monotonic())-10)
             if remaining < 120:
@@ -148,9 +164,15 @@ def supervise(campaign, args):
                 while worker.poll() is None:
                     if time.monotonic() >= deadline:
                         (campaign.folder / "STOP").touch(exist_ok=True)
-                    dashboard(campaign, "checked development batch running", results)
+                    dashboard(campaign, "official training running" if official else "checked development batch running", results)
                     time.sleep(2)
             outcome = campaign.recover()
+            if recorder is not None:
+                recorder.close()
+                recorder = None
+            if official:
+                from autonomy.official import cleanup_world
+                cleanup_world(campaign, campaign.state["attempts"][-1], args.work_dir)
             action = classify(campaign, outcome)
             dashboard(campaign, action, results)
             print(json.dumps({"run_id": attempt["run_id"], "decision": action, "success": outcome.get("success"),
@@ -160,9 +182,10 @@ def supervise(campaign, args):
                             code=outcome.get("checker_error_code", "repeated_policy_failure"), attempt=outcome)
                 return 2
             if action == "paused":
+                (campaign.folder / "STOP").touch(exist_ok=True)
                 break
         atomic_json(campaign.folder / "supervisor.json", {"status": "paused" if (campaign.folder / "STOP").exists() else "batch_finished",
-                    "official_training_worlds": 0, "summary": campaign.summary()})
+                    "official_training_worlds": campaign.training_worlds(), "summary": campaign.summary()})
         dashboard(campaign, "checked batch paused" if (campaign.folder / "STOP").exists() else "checked batch finished")
         return 0
     except (Exception, KeyboardInterrupt) as error:
@@ -177,13 +200,14 @@ def supervise(campaign, args):
         if campaign.state["active_attempt"] is not None:
             campaign.recover()
         if isinstance(error, KeyboardInterrupt) or (campaign.folder / "STOP").exists():
-            atomic_json(campaign.folder / "supervisor.json", {"status": "paused", "official_training_worlds": 0})
+            atomic_json(campaign.folder / "supervisor.json", {"status": "paused", "official_training_worlds": campaign.training_worlds()})
             return 130
         request_fix(campaign.folder, error, code=getattr(error, "code", "supervisor_error"),
                     attempt=campaign.state["attempts"][-1] if campaign.state["attempts"] else None)
         return 2
     finally:
-        recorder.close()
+        if recorder is not None:
+            recorder.close()
 
 
 def main():
