@@ -8,7 +8,14 @@ from .experiment import Campaign, source_manifest
 
 
 def validate_worker(args, root, *, campaign=None):
-    campaign = campaign or Campaign(args.campaign_manifest.parent, project_root=root)
+    if campaign is None:
+        import json
+        config = json.loads(args.campaign_manifest.read_text(encoding="utf-8"))
+        if config.get("curriculum_schema") == "staged-terrain-v1":
+            from .staged import StagedCampaign
+            campaign = StagedCampaign(args.campaign_manifest.parent, project_root=root)
+        else:
+            campaign = Campaign(args.campaign_manifest.parent, project_root=root)
     if not campaign.official or campaign.config["world_limit"] != 10000:
         raise ValueError("worker requires an authorized official 10000-world plan")
     index = campaign.state["active_attempt"]
@@ -25,8 +32,8 @@ def validate_worker(args, root, *, campaign=None):
         raise ValueError("unplanned official launch cache")
     expected = {"run_id": attempt["run_id"], "official_world_number": attempt["official_world_number"],
         "world_seed": attempt["world_seed"], "layout_start": attempt["layout_seed"],
-        "policy_seed": attempt["policy_seed"], "goals": attempt["goal"], "conditions": "trained",
-        "train": True, "headless": True, "trials": 1, "camera_mode": "bounded", "pitch_actions": True,
+        "policy_seed": attempt["policy_seed"], "goals": attempt["goal"], "conditions": attempt["condition"],
+        "train": attempt["train"], "headless": True, "trials": 1, "camera_mode": "bounded", "pitch_actions": True,
         "turn_degrees": profile["turn_degrees"], "forward_ticks": profile["forward_ticks"],
         "trial_ticks": profile["trial_ticks"], "three_tree_fixture": profile["three_tree_fixture"],
         "remember_mined_columns": profile["remember_mined_columns"], "spectator": attempt["video_required"],
@@ -37,7 +44,12 @@ def validate_worker(args, root, *, campaign=None):
         "unplaced_table_fixture": False, "graphics_backend": "opengl", "launcher": "direct",
         "server_heap_mib": profile["server_heap_mib"], "client_heap_mib": profile["client_heap_mib"],
         "capture_width": profile["width"], "capture_height": profile["height"]}
-    if attempt["split"] != "training" or attempt["status"] != "running":
+    if campaign.config.get("curriculum_schema") == "staged-terrain-v1":
+        expected.update(terrain_actions=True, terrain_step_fixture=profile["terrain_step_fixture"],
+                        natural_world=profile["natural_world"])
+    elif getattr(args, "terrain_actions", False) or getattr(args, "terrain_step_fixture", False):
+        raise ValueError("terrain interface is absent from the original frozen plan")
+    if (attempt["split"] != "training" and campaign.config.get("curriculum_schema") != "staged-terrain-v1") or attempt["status"] != "running":
         raise ValueError("official worker must own a running training attempt")
     for key, value in expected.items():
         if getattr(args, key) != value:
@@ -52,7 +64,7 @@ def validate_worker(args, root, *, campaign=None):
             raise ValueError("official worker path differs from durable attempt")
     if source_manifest(root)["implementation_sha256"] != campaign.config["implementation_sha256"]:
         raise ValueError("official worker source changed")
-    return {"experiment_stage": "official_training", "campaign_name": campaign.config["name"],
+    return {"experiment_stage": attempt.get("experiment_stage", "official_training"), "campaign_name": campaign.config["name"],
             "official_world_number": attempt["official_world_number"]}
 
 

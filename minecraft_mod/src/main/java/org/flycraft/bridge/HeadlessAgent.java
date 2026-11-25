@@ -44,9 +44,11 @@ public final class HeadlessAgent implements AutoCloseable {
     private final boolean rememberMinedColumns;
     private final boolean pitchActions;
     private final boolean jumpOnBlockedForward;
+    private final boolean terrainActions;
     private boolean blockedForward, assistedJump;
     private final Set<Long> minedColumns=new HashSet<>();
     private Vec3 movementStart=Vec3.ZERO;
+    private double jumpPeakY;
     private final ExecutorService io=Executors.newSingleThreadExecutor(r -> {
         Thread thread=new Thread(r,"flycraft-headless-ipc"); thread.setDaemon(true); return thread;
     });
@@ -85,6 +87,9 @@ public final class HeadlessAgent implements AutoCloseable {
         rememberMinedColumns=Boolean.parseBoolean(properties.getProperty("sensor.rememberMinedColumns","false"));
         pitchActions=Boolean.parseBoolean(properties.getProperty("camera.pitchActions","false"));
         jumpOnBlockedForward=Boolean.parseBoolean(properties.getProperty("motor.jumpOnBlockedForward","false"));
+        terrainActions=Boolean.parseBoolean(properties.getProperty("motor.terrainActions","false"));
+        if(terrainActions && (!pitchActions || jumpOnBlockedForward))
+            throw new IllegalArgumentException("Terrain mode requires pitch and excludes assisted jump retries");
         if(forwardTicks<1 || forwardTicks>10) throw new IllegalArgumentException("Invalid forward duration");
         properties.putIfAbsent("camera.mode","bounded"); camera=new CameraDriver(properties);
     }
@@ -147,7 +152,7 @@ public final class HeadlessAgent implements AutoCloseable {
         if(!player.isAlive()) {
             cancel("player_died",tick); follower=null; followStatus="dead";
             if(!deathReported) { modeRevision++; replyLossSince=-1; deathReported=true; event("companion_death",Map.of("server_tick",tick)); }
-            return;
+            if(!terrainActions) return;
         }
         if(follower!=null) {
             var step=follower.tick(server,player); var movement=step.movement();
@@ -168,6 +173,7 @@ public final class HeadlessAgent implements AutoCloseable {
             catch(Exception error) { cancel("control_unavailable",tick); return; }
         }
         if(control==null) return;
+        if(terrainActions && !player.isAlive() && !control.has("terminal")) return;
         if(control.get("suite_complete").getAsBoolean()) { cancel("suite_complete",tick); return; }
         String next=control.get("episode_id").getAsString();
         if(!episode.equals(next)) {
@@ -220,7 +226,7 @@ public final class HeadlessAgent implements AutoCloseable {
             }
             server.execute(() -> {
                 try {
-                    if(modeRevision!=expectedMode || !player.isAlive()) return;
+                    if(modeRevision!=expectedMode || !player.isAlive() && !(terrainActions && terminal)) return;
                     if(!expected.equals(episode) || !expected.equals(response.get("episode_id").getAsString())) return;
                     if(response.get("command_id").getAsLong()>0) replyLossSince=-1;
                     if(server.getTickCount()-tick>40) {
@@ -408,6 +414,34 @@ public final class HeadlessAgent implements AutoCloseable {
         return counts;
     }
     private List<Double> position() { return List.of(player.getX(),player.getZ(),Math.toRadians(player.getYRot())); }
+    private Map<String,Object> visibleTerrain() {
+        boolean obstacle=false,support=false,drop=false,water=false;
+        Vec3 eye=player.getEyePosition();
+        // The same camera-relative 15-ray FOV as resource sensing, shortened
+        // to 3 blocks. No collision/map queries behind first-hit surfaces.
+        for(int yawOffset:new int[]{-40,-20,0,20,40}) for(int pitchOffset:new int[]{-30,0,30}) {
+            float pitch=(float)Math.clamp(player.getXRot()+pitchOffset,-90,90);
+            Vec3 direction=Vec3.directionFromRotation(pitch,player.getYRot()+yawOffset);
+            BlockHitResult hit=player.level().clip(new ClipContext(eye,eye.add(direction.scale(3)),
+                ClipContext.Block.COLLIDER,ClipContext.Fluid.ANY,player));
+            if(hit.getType()!=HitResult.Type.BLOCK) continue;
+            Vec3 point=hit.getLocation();
+            double horizontal=Math.hypot(point.x-player.getX(),point.z-player.getZ());
+            double relativeY=point.y-player.getY();
+            water |= player.level().getFluidState(hit.getBlockPos()).is(FluidTags.WATER);
+            if(Math.abs(yawOffset)<=20 && horizontal>=.2) {
+                obstacle |= horizontal<=1.8 && relativeY>.1 && relativeY<1.3;
+                support |= horizontal<=2 && relativeY>=-.5 && relativeY<=.1;
+                drop |= horizontal<=2 && relativeY < -1.25;
+            }
+        }
+        Map<String,Object> value=new LinkedHashMap<>();
+        value.put("terrain_observation_schema","visible-terrain-v1");
+        value.put("health",player.getHealth()); value.put("food",player.getFoodData().getFoodLevel());
+        value.put("on_ground",player.onGround()); value.put("obstacle_visible",obstacle);
+        value.put("support_visible",support); value.put("drop_visible",drop); value.put("water_visible",water);
+        return value;
+    }
     private JsonObject observe(long tick) {
         Target target=sense(); BlockHitResult center=crosshair(); Map<String,Integer> items=inventory();
         String goal=control.get("goal").getAsString();
@@ -418,6 +452,7 @@ public final class HeadlessAgent implements AutoCloseable {
         boolean mineable=target!=null && target.kind.equals("block") && target.distance<=3 && center.getType()==HitResult.Type.BLOCK
             && center.getBlockPos().equals(target.hit.getBlockPos());
         List<String> allowed=new ArrayList<>(List.of("NO_OP","TURN_LEFT","TURN_RIGHT","FORWARD"));
+        if(terrainActions && player.onGround() && !player.isInWater()) allowed.add("JUMP_FORWARD");
         if(pitchActions) {
             if(player.getXRot()>-90) allowed.add("LOOK_UP");
             if(player.getXRot()<90) allowed.add("LOOK_DOWN");
@@ -438,6 +473,7 @@ public final class HeadlessAgent implements AutoCloseable {
             if(station!=null) target=station;
         }
         Map<String,Object> telemetry=new LinkedHashMap<>();
+        if(terrainActions) telemetry.putAll(visibleTerrain());
         telemetry.put("session_id",player.getUUID().toString()); telemetry.put("position",position());
         telemetry.put("game_mode",player.gameMode().name()); telemetry.put("inventory",items);
         telemetry.put("inventory_revision",inventoryRevision); telemetry.put("inventory_consistent",true);
@@ -481,6 +517,14 @@ public final class HeadlessAgent implements AutoCloseable {
                 player.jumpPulse=assistedJump;
                 int duration=assistedJump ? Math.max(forwardTicks,6) : forwardTicks;
                 player.forwardTicks=duration; readyAt=tick+duration;
+            }
+            case "JUMP_FORWARD" -> {
+                if(!terrainActions || !player.onGround() || player.isInWater()) {
+                    finish("failed","jump_unavailable",false,tick); return;
+                }
+                movementStart=player.position(); assistedJump=false;
+                jumpPeakY=player.getY();
+                player.jumpPulse=true; player.forwardTicks=8; readyAt=tick+8;
             }
             case "COLLECT_LOG" -> {
                 miningHit=crosshair();
@@ -581,6 +625,7 @@ public final class HeadlessAgent implements AutoCloseable {
         finish(confirmed ? "success" : "failed",confirmed ? "" : "table_placement_unconfirmed",placed,tick);
     }
     private void advance(long tick) {
+        if(action.equals("JUMP_FORWARD")) jumpPeakY=Math.max(jumpPeakY,player.getY());
         if(action.equals("TURN_LEFT") || action.equals("TURN_RIGHT") || action.equals("LOOK_UP") || action.equals("LOOK_DOWN")) {
             if(!camera.busy()) finish(camera.completion().equals("settled") ? "success" : "failed",camera.completion().equals("settled") ? "" : camera.completion(),false,tick);
         } else if(action.equals("COLLECT_LOG")) {
@@ -600,7 +645,7 @@ public final class HeadlessAgent implements AutoCloseable {
     }
     private void finish(String status,String error,boolean changed,long tick) {
         MovementFeedback.Result motion=null;
-        if(action.equals("FORWARD")) {
+        if(action.equals("FORWARD") || action.equals("JUMP_FORWARD")) {
             motion=MovementFeedback.measure(movementStart.x,movementStart.z,player.getX(),player.getZ());
             if(verifyMovement && status.equals("success") && !motion.moved()) { status="failed"; error="movement_blocked"; }
         }
@@ -613,6 +658,17 @@ public final class HeadlessAgent implements AutoCloseable {
                 ack.addProperty("jump_assisted",assistedJump);
                 ack.addProperty("vertical_displacement",player.getY()-movementStart.y);
                 blockedForward=error.equals("movement_blocked") && !assistedJump;
+            }
+            if(action.equals("JUMP_FORWARD")) {
+                double vertical=player.getY()-movementStart.y;
+                ack.addProperty("policy_selected_jump",true);
+                ack.addProperty("jump_assisted",false);
+                ack.addProperty("vertical_displacement",vertical);
+                ack.addProperty("peak_vertical_displacement",jumpPeakY-movementStart.y);
+                ack.addProperty("jump_forward_ticks",8);
+                if(status.equals("success") && jumpPeakY-movementStart.y<=.08) {
+                    ack.addProperty("status","failed"); ack.addProperty("error","jump_not_confirmed");
+                }
             }
         }
         event("action_end",Map.of("ack",ack,"server_tick",tick,"position",position(),"inventory",inventory(),"physics_ticks",player.physicsTicks));

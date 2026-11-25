@@ -1,0 +1,12 @@
+{
+  "known_prior_seed_ids": 10619,
+  "new_partition_counts": {
+    "training": 9662,
+    "pilot": 100,
+    "eval_a": 300,
+    "eval_b": 300
+  },
+  "prior_overlap": 0,
+  "between_new_partitions_overlap": 0,
+  "original_final_evaluation_used": false
+}

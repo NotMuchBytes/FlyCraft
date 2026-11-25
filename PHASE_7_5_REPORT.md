@@ -1,5 +1,14 @@
 # FlyCraft Phase 7.5 reliability report
 
+**November 25 — broader terrain interface:** 163 tests pass, and native jump
+acknowledgments demonstrate policy-selected upward and horizontal movement.
+Two matched-seed evaluation probes both collected 0/1 logs; changing the jump
+transfer prior reduced jumps from 25 to one without improving that score.
+The first separately seeded curriculum training episode did confirm an actual
+break and pickup in 13 actions. Its milestone video passed full decode.
+These are teaching-arena results, not vanilla-spawn reliability or a measured
+learning advantage. [Contract and remaining gaps](docs/phase9_staged_curriculum.md).
+
 **November 25, 2026 — control publication reliability:** official training world
 321 stopped without a score when a Windows reader-sharing race blocked atomic
 replacement of its initial control message. The original world/logs and prior

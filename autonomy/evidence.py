@@ -147,6 +147,17 @@ def _audit_run(directory, *, expected=None, verify_video=True):
             key = episode, command
             require(key not in commands or commands[key] == response["action"], "command_identity", str(key))
             commands[key] = response["action"]
+            if meta.get("terrain_actions"):
+                telemetry = request["telemetry"]
+                require(telemetry.get("terrain_observation_schema") == "visible-terrain-v1"
+                        and not meta.get("jump_on_blocked_forward"), "terrain_interface", str(key))
+                for field in ("health", "food"):
+                    number = telemetry.get(field)
+                    require(type(number) in (int, float) and math.isfinite(number) and 0 <= number <= 20,
+                            "terrain_vitals", str(key))
+                for field in ("on_ground", "obstacle_visible", "support_visible", "drop_visible", "water_visible"):
+                    require(type(telemetry.get(field)) is bool, "terrain_visibility", str(key))
+                require(response["action"] in telemetry["allowed_actions"], "terrain_legal_action", str(key))
             condition = scores[episode]["condition"]
             require(response["feature_mode"] == condition and response["neural_steps"] == 18,
                     "neural_intervention", str(key))
@@ -178,6 +189,12 @@ def _audit_run(directory, *, expected=None, verify_video=True):
         key = row["episode_id"], ack["command_id"]
         require(key not in ended, "duplicate_ack", str(key))
         require(commands.get(key) == ack["action"], "unissued_action", str(key))
+        if ack["action"] == "JUMP_FORWARD":
+            require(meta.get("terrain_actions") is True and ack.get("policy_selected_jump") is True
+                    and ack.get("jump_assisted") is False, "jump_policy_selection", str(key))
+            if ack["status"] == "success":
+                require(ack.get("movement_confirmed") is True and ack.get("peak_vertical_displacement", 0) > .08,
+                        "jump_physics", str(key))
         require(any(all(other.get(field) == ack.get(field) for field in ("action", "status", "block_changed"))
                     for other in observed_acks.get(key, [])), "ack_disagreement", str(key))
         ended[key] = ack

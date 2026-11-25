@@ -1,0 +1,6 @@
+# Preserve the exact hashed bytes of this immutable live evidence.
+experiments/phase9/terrain25_probe001/** -text whitespace=cr-at-eol
+experiments/phase9/terrain25_probe002/** -text whitespace=cr-at-eol
+experiments/phase9/fc9_stage25_terrain_*/** -text whitespace=cr-at-eol
+experiments/phase9/staged25_operations/** -text whitespace=cr-at-eol
+recordings/phase9/youtube/fc9_stage25_terrain_00001.json -text whitespace=cr-at-eol

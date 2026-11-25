@@ -111,6 +111,13 @@ def worker_command(campaign, attempt, args, seconds):
         command[command.index("--trial-ticks") + 1] = str(profile["trial_ticks"])
     if profile.get("three_tree_fixture"):
         command.append("--three-tree-fixture")
+    if profile.get("terrain_actions"):
+        command += ["--terrain-actions", "--policy-label", "foundation338_terrain_transfer",
+                    "--frozen-label", "foundation338_terrain_frozen_reference"]
+    if profile.get("terrain_step_fixture"):
+        command.append("--terrain-step-fixture")
+    if profile.get("natural_world"):
+        command.append("--natural-world")
     if profile.get("remember_mined_columns"):
         command.append("--remember-mined-columns")
     if args.video_export_dir:

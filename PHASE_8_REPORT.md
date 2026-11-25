@@ -1,5 +1,16 @@
 # FlyCraft — Phase 8 report
 
+**November 25 — broader curriculum transfer:** the validated Phase 8 wood
+scores remain 27/30 one-log, 27/30 three-log, 27/30 planks and 19/30 wooden
+pickaxe. The user-selected Phase 9 revision preserves the original 338-world
+foundation and expands a copied pitch readout for policy-selected terrain
+movement. All 163 tests pass. The first new training world collected one log
+in 13 actions with a verified update and a fully decoded milestone MP4;
+two preceding matched development probes both failed collection. Natural
+exploration, broader reliability and learning benefit remain unverified.
+Stone, food, combat and progression are pending interfaces, not trained skills.
+See [the staged contract](docs/phase9_staged_curriculum.md).
+
 **November 25, 2026:** the live runner gained validated launch caching,
 continuous resource readiness and bounded Windows control-publication recovery.
 All 155 tests pass; the separate eight-episode development pilot updated no

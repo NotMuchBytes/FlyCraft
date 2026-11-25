@@ -1,5 +1,18 @@
 # FlyCraft Phase 9 development report
 
+**November 25 — broader curriculum started:** the original campaign is
+preserved and paused at 338 generated worlds and 337 scored episodes. The
+remaining training budget is allocated to validated stages rather than a
+10,000-world wood-only schedule. All 163 tests pass. The first new curriculum
+world (slot 339) collected one log in 13 actions and 264 ticks, with a verified
+readout update and Minecraft-only RTX 4050 milestone footage that passed full
+decode. Two prior matched development probes both failed collection, despite
+verified jump execution. No broader held-out success rate or neural advantage
+has been established. Terrain and natural exploration have explicit training,
+five-condition evaluation and retention gates; stone tools, food/shelter,
+combat and later progression still require implemented, validated interfaces.
+[Protocol, evidence and operational limits](docs/phase9_staged_curriculum.md).
+
 **November 25 — faster execution revision 2:** after 320 scored worlds
 (280 successes), world 321 exposed a Windows atomic-publication sharing race
 and remained unscored. The failure and all prior results were preserved. A

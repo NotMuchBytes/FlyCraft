@@ -134,6 +134,8 @@ def run():
     parser.add_argument("--official-world-number", type=int)
     parser.add_argument("--launch-cache", type=Path)
     parser.add_argument("--launch-cache-sha256")
+    parser.add_argument("--terrain-actions", action="store_true", help="Versioned terrain readout and policy-selected jump-forward")
+    parser.add_argument("--terrain-step-fixture", action="store_true", help="Seeded step/log teaching arena; not vanilla terrain")
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--build-dir", type=Path, required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
@@ -201,6 +203,11 @@ def run():
     if (args.launch_cache is None) != (args.launch_cache_sha256 is None):
         parser.error("launch cache requires its frozen SHA256")
     graphical = not args.headless or args.spectator
+    if args.terrain_actions and (not args.headless or not args.pitch_actions or args.jump_on_blocked_forward):
+        parser.error("terrain actions require headless pitch mode without assisted jump retries")
+    if args.terrain_step_fixture and (not args.terrain_actions or args.natural_world or args.blocked_forward_fixture
+                                     or args.goals != "one_log" or args.trials != 1):
+        parser.error("terrain step teaching requires one terrain-enabled one-log trial")
     if any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in args.run_id):
         parser.error("run-id must be a simple identifier")
     goals, conditions = args.goals.split(","), args.conditions.split(",")
@@ -241,7 +248,7 @@ def run():
     if args.three_tree_fixture and any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals):
         parser.error("three-tree-fixture requires the three_logs or wooden_pickaxe goal")
     if args.natural_world and (not args.headless or goals != ["one_log"] or args.trials != 1 or len(conditions) != 1
-                               or args.train or args.operator_fault != "none"):
+                               or args.train and not args.terrain_actions or args.operator_fault != "none"):
         parser.error("natural-world requires one headless one-log evaluation episode without an operator fault")
     if args.natural_start is not None:
         x, y, z, yaw, pitch = args.natural_start
@@ -314,6 +321,7 @@ def run():
         f"fixture.naturalWorld={str(args.natural_world).lower()}\n"
         f"fixture.naturalStart={','.join(map(str, args.natural_start or []))}\n"
         f"fixture.blockedForward={str(args.blocked_forward_fixture).lower()}\n"
+        f"fixture.terrainActions={str(args.terrain_actions).lower()}\nfixture.terrainStep={str(args.terrain_step_fixture).lower()}\n"
         f"fixture.headless={str(args.headless).lower()}\n", encoding="utf-8")
     capture_title="FlyCraft Recording "+args.run_id
     (client_dir / "flycraft-phase8-client.properties").write_text(f"controlFile={java_path(control)}\ncapture.windowTitle={capture_title}\n", encoding="utf-8")
@@ -334,6 +342,7 @@ def run():
             f"camera.pitchActions={str(args.pitch_actions).lower()}\n"
             f"motor.forwardTicks={args.forward_ticks}\nmotor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n"
             f"motor.jumpOnBlockedForward={str(args.jump_on_blocked_forward).lower()}\n"
+            f"motor.terrainActions={str(args.terrain_actions).lower()}\n"
             f"sensor.rememberMinedColumns={str(args.remember_mined_columns).lower()}\n",encoding="utf-8")
     if args.spectator:
         (client_dir/"flycraft-spectator.properties").write_text(
@@ -430,6 +439,8 @@ def run():
             bridge_command += ["--phase8-frozen-checkpoint", str(args.frozen_checkpoint.resolve())]
         if args.pitch_actions:
             bridge_command += ["--phase8-pitch-actions"]
+        if args.terrain_actions:
+            bridge_command += ["--terrain-actions"]
         if args.explore_forward:
             bridge_command += ["--phase8-explore-forward"]
         if args.train:
@@ -696,6 +707,7 @@ def run():
         summary["generated_world_instances"] = int((server_dir / "world").is_dir() if official_metadata else (server_dir/"world/level.dat").exists())
         summary["episodes_in_generated_world"] = last_rows
         summary["environment_kind"] = ("vanilla_overworld_spawn" if args.natural_world else
+                                       "controlled_terrain_step_teaching_fixture" if args.terrain_step_fixture else
                                        "controlled_blocked_forward_diagnostic" if args.blocked_forward_fixture else
                                        "controlled_flat_three_tree_fixture" if args.three_tree_fixture
                                        else "controlled_flat_survival_fixture")
@@ -711,6 +723,7 @@ def run():
         summary["camera_mode"] = args.camera_mode
         summary["turn_degrees"] = args.turn_degrees
         summary["pitch_actions"] = args.pitch_actions
+        summary["terrain_actions"] = args.terrain_actions
         summary["forward_ticks"] = args.forward_ticks
         summary["movement_feedback"] = args.movement_feedback
         summary["jump_on_blocked_forward"] = args.jump_on_blocked_forward

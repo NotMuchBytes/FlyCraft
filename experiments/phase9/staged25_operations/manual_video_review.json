@@ -1,0 +1,16 @@
+{
+  "video": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\recordings\\phase9\\FlyCraft_Phase9_Milestone_00339_fc9_stage25_terrain_00001.mp4",
+  "sha256": "32d4fc1b3356b363c55a13dd3aa73704040a119ad16c1e1514791698af0ef26d",
+  "sampled_seconds": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "observed": "Minecraft startup, teaching arena, movement toward trunk, mining and trunk disappearance; no desktop content",
+  "inventory_basis": "independent Minecraft inventory and controller logs",
+  "actions_altered": false,
+  "replay": false
+}

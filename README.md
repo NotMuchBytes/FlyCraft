@@ -14,6 +14,8 @@ Start with the Python demo below. Full-network inference and real Minecraft requ
 
 The planner, semantic sensors, legal-action masks and crafting transactions are engineered components. Reliable exploration and collection in natural terrain remain under development. The optional companion's follow mode uses engineered navigation.
 
+Broader training has started with policy-selected jumping and terrain exploration, while retaining the wood tasks. The original 338-world foundation is preserved. Stone tools, food, combat and later progression still need their own validated interfaces; they are not trained skills yet. See the [staged curriculum and live evidence](https://github.com/NotMuchBytes/FlyCraft/blob/phase8-real-minecraft/docs/phase9_staged_curriculum.md).
+
 ## 1. Quick start: Python demo
 
 These commands were tested on **Windows PowerShell with Python 3.14.7**. Install [Git](https://git-scm.com/downloads) and a **64-bit Python 3.14** release from the [Python 3.14 download page](https://www.python.org/downloads/release/python-31410/), then open PowerShell where you want the project:

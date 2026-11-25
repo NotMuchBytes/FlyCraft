@@ -152,6 +152,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--autonomy-checkpoint", type=Path, help="Phase 7 navigation checkpoint; requires telemetry-enabled Fabric client")
     parser.add_argument("--phase8-checkpoint", type=Path, help="Phase 8 acknowledged survival interactions")
     parser.add_argument("--phase8-pitch-actions", action="store_true", help="Enable the expanded headless pitch readout")
+    parser.add_argument("--terrain-actions", action="store_true", help="Versioned visible-terrain features and policy-selected jump-forward")
     parser.add_argument("--phase8-explore-forward", action="store_true",
                         help="Triple legal forward odds during target-absent resource search")
     parser.add_argument("--phase8-frozen-checkpoint", type=Path)
@@ -190,7 +191,7 @@ def main() -> None:
         controller = LiveResourceController(NeuralController(), table, args.phase8_checkpoint,
             frozen_checkpoint=args.phase8_frozen_checkpoint, result_log=args.phase8_results, checkpoint_dir=args.phase8_save_dir,
             control_file=args.phase8_control, mining_checkpoint=args.phase8_mining_checkpoint,
-            pitch_actions=args.phase8_pitch_actions, explore_forward=args.phase8_explore_forward)
+            pitch_actions=args.phase8_pitch_actions, explore_forward=args.phase8_explore_forward, terrain_actions=args.terrain_actions)
     elif args.autonomy_checkpoint:
         from autonomy.bridge import LiveNavigationController
         controller = LiveNavigationController(NeuralController(), args.autonomy_checkpoint, args.goal, args.save_autonomy_state)

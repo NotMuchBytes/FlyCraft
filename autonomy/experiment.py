@@ -278,6 +278,10 @@ class Campaign:
     def runtime_profile(self, goal):
         return self.config.get("runtime_profiles", {}).get(goal, self.config["runtime_profile"])
 
+    def environment_expectation(self, profile):
+        return {"environment_kind": "controlled_flat_three_tree_fixture" if profile["three_tree_fixture"]
+                else "controlled_flat_survival_fixture"}
+
     def begin(self, split="pilot", condition="trained", *, runtime_root=None):
         if self.state["active_attempt"] is not None:
             raise RuntimeError("recover the interrupted attempt before starting another")
@@ -369,13 +373,12 @@ class Campaign:
                     "pitch_actions": True, "movement_feedback": "displacement",
                     "jump_on_blocked_forward": False, "explore_forward": False,
                     "trial_tick_limit": profile["trial_ticks"],
-                    "remember_mined_columns": profile["remember_mined_columns"],
-                    "environment_kind": "controlled_flat_three_tree_fixture" if profile["three_tree_fixture"]
-                                        else "controlled_flat_survival_fixture"}
+                    "remember_mined_columns": profile["remember_mined_columns"]}
+                expected.update(self.environment_expectation(profile))
                 if profile.get("launch_cache"):
                     expected.update(launch_preparation_mode="verified_cached_export", launch_cache_sha256=profile["launch_cache"]["sha256"])
                 if self.official:
-                    expected.update(experiment_stage="official_training", campaign_name=self.config["name"],
+                    expected.update(experiment_stage=attempt.get("experiment_stage", "official_training"), campaign_name=self.config["name"],
                                     official_world_number=attempt.get("official_world_number"))
                 report = audit_run(results, expected=expected)
                 audit_path = self.folder / "checks" / (attempt["run_id"] + ".json")

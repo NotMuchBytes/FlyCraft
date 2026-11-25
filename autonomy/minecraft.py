@@ -11,7 +11,7 @@ import numpy as np
 
 from learning import LinearSoftmaxPolicy
 from .agent import AutonomousAgent
-from .world import ACTIONS, CRAFT_ACTIONS, ITEMS
+from .world import ACTIONS, CRAFT_ACTIONS, ITEMS, TERRAIN_ACTIONS
 
 
 OBJECTIVES = {"one_log": "find_collect", "three_logs": "collect_multiple", "planks": "craft_simple",
@@ -86,13 +86,21 @@ class LiveResourceController:
     def __init__(self, neural, table, checkpoint: Path, *, frozen_checkpoint: Path | None = None,
                  result_log: Path, checkpoint_dir: Path | None = None, control_file: Path | None = None,
                  mining_checkpoint: Path | None = None, pitch_actions: bool = False,
-                 explore_forward: bool = False):
+                 explore_forward: bool = False, terrain_actions: bool = False):
         self.neural, self.table = neural, table
         self.agent, _ = AutonomousAgent.load(checkpoint, table)
         frozen_agent, _ = AutonomousAgent.load(frozen_checkpoint or checkpoint, table)
         self.pitch_actions = pitch_actions
+        self.terrain_actions = terrain_actions
         self.explore_forward = explore_forward
-        if pitch_actions:
+        if terrain_actions:
+            if not pitch_actions:
+                raise ValueError("terrain actions require the pitch interface")
+            self.agent.enable_live_terrain()
+            frozen_agent.enable_live_terrain()
+        elif self.agent.policy.actions == TERRAIN_ACTIONS or frozen_agent.policy.actions == TERRAIN_ACTIONS:
+            raise ValueError("terrain checkpoint requires the terrain interface")
+        elif pitch_actions:
             self.agent.enable_live_pitch()
             frozen_agent.enable_live_pitch()
         elif self.agent.policy.actions != ACTIONS or frozen_agent.policy.actions != ACTIONS:
@@ -260,6 +268,8 @@ class LiveResourceController:
                 telemetry = dict(telemetry, inventory=dict(terminal["inventory"]),
                     position=list(terminal["position"]), inventory_consistent=True,
                     visible=False, near=False, station_visible=False, allowed_actions=["NO_OP"])
+                if self.terrain_actions:
+                    telemetry.update({key: terminal[key] for key in ("health", "food")})
             try:
                 # Validate the complete pose before committing inventory or a
                 # block acknowledgment. A rejected packet may be retried with
@@ -275,6 +285,19 @@ class LiveResourceController:
                 pitch_error = telemetry.get("target_pitch_error") if visible and self.pitch_actions else 0.0
                 if type(pitch_error) not in (int, float) or not math.isfinite(pitch_error) or abs(pitch_error) > math.pi:
                     raise ObservationError("invalid_visible_pitch_error")
+                terrain = {}
+                if self.terrain_actions:
+                    if telemetry.get("terrain_observation_schema") != "visible-terrain-v1":
+                        raise ObservationError("terrain_observation_schema")
+                    for key in ("health", "food"):
+                        value = telemetry.get(key)
+                        if type(value) not in (int, float) or not math.isfinite(value) or not 0 <= value <= 20:
+                            raise ObservationError("invalid_terrain_vitals")
+                        terrain[key] = float(value)
+                    for key in ("on_ground", "obstacle_visible", "support_visible", "drop_visible", "water_visible"):
+                        if type(telemetry.get(key)) is not bool:
+                            raise ObservationError("invalid_visible_terrain")
+                        terrain[key] = telemetry[key]
                 inventory = self.ledger.observe(telemetry, ack if self.pending_id is not None and ack.get("status") != "not_executed" else None,
                                                 terminal_tick=int(terminal["server_tick"]) if terminal else None)
                 self.inventory_waits = 0
@@ -299,6 +322,7 @@ class LiveResourceController:
                 "restrict_recipes": control["goal"] in {"sticks", "crafting_table", "wooden_pickaxe", "pickaxe_transaction"},
                 "last_error": ack.get("error", "") if ack and self.pending_id is not None else "",
                 "resource_exhausted": False, "interrupted": bool(ack and ack.get("status") == "interrupted")}
+            observation.update(terrain)
             if terminal and self.agent.pending and ack and ack.get("error") == "episode_boundary" \
                     and self.agent.manager.goals[self.agent.manager.root].satisfied(observation):
                 # Ending a successful goal cancels any remaining held input.
