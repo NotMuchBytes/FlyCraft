@@ -1,0 +1,61 @@
+{
+  "stage": "official_training",
+  "official_training_worlds": 338,
+  "world_limit": 10000,
+  "remaining_world_slots": 9662,
+  "goal_counts": {
+    "one_log": {
+      "world_instances": 85,
+      "scored": 84,
+      "successes": 81
+    },
+    "three_logs": {
+      "world_instances": 85,
+      "scored": 85,
+      "successes": 68
+    },
+    "planks": {
+      "world_instances": 84,
+      "scored": 84,
+      "successes": 80
+    },
+    "wooden_pickaxe": {
+      "world_instances": 84,
+      "scored": 84,
+      "successes": 64
+    }
+  },
+  "generated_world_instances": 338,
+  "unverified_world_counts": 0,
+  "distinct_generated_seeds": 338,
+  "committed_episodes": 337,
+  "training_episodes": 337,
+  "verified_game_episodes": 337,
+  "uncommitted_scored_episodes": 0,
+  "uncommitted_reported_updates": 0,
+  "training_updates": 311,
+  "evaluation_episodes": 0,
+  "recording_policy": "milestones",
+  "recorded_episodes": 9,
+  "event_only_episodes": 328,
+  "recent_training_success_rate": 0.8,
+  "mean_training_reward": 9.127517796460396,
+  "measured_training_worlds_per_hour": 68.65569330737722,
+  "mean_actions_per_success": 28.5,
+  "estimated_remaining_seconds": 506632.41931405076,
+  "estimate_basis": "current execution revision coordinator cycle time, including readiness where recorded; interruptions included",
+  "execution_revision": 2,
+  "curriculum_level": 1,
+  "goal": "one_log, three_logs, planks, wooden_pickaxe",
+  "progression": "fixed balanced four-goal schedule",
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00338_a0338\\trial_0000.npz",
+    "sha256": "ab18a30bd132b3556bfbfaa211fe78982de0a715215b30385a1d9a9326e46e78"
+  },
+  "active_attempt": null,
+  "recent_errors": [
+    "worker_failure: process_exit",
+    "technical_stop: manual_stop"
+  ],
+  "updated_unix": 1795613472.4416664
+}
