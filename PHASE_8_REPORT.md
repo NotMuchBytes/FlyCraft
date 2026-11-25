@@ -1,5 +1,11 @@
 # FlyCraft — Phase 8 report
 
+**November 25, 2026:** the live runner gained validated launch caching,
+continuous resource readiness and bounded Windows control-publication recovery.
+All 155 tests pass; the separate eight-episode development pilot updated no
+weights. The original Phase 8 scores and actor interface remain unchanged.
+[Measurements, recordings and versioned continuation](experiments/phase9/fc9_20261125_operations/performance_revision_0002.md).
+
 **November 24, 2026: Phase 8 controlled reliability validation is complete.**
 The frozen mining-supervised readout completed all 120 new scored episodes:
 27/30 one-log, 27/30 three-log, 27/30 four-plank and 19/30 wooden pickaxe,

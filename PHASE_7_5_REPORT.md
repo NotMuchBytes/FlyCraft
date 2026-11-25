@@ -1,5 +1,15 @@
 # FlyCraft Phase 7.5 reliability report
 
+**November 25, 2026 — control publication reliability:** official training world
+321 stopped without a score when a Windows reader-sharing race blocked atomic
+replacement of its initial control message. The original world/logs and prior
+320 scores were preserved. A one-second bounded access-denied retry now preserves
+complete JSON and still fails on persistent locks; an actual Windows/JDK locking
+test verified both paths. Eight fresh live evaluation episodes passed the
+transaction/evidence gate with this transport fix and no learning updates.
+[Validated fix, execution revision and limits](experiments/phase9/fc9_20261125_operations/performance_revision_0002.md).
+This adds no new natural-terrain reliability claim.
+
 **November 24, 2026:** the selected Phase 8 readout completed its new frozen
 one-log set at **27/30 (90%)**, and all four controlled Phase 8 point targets
 are now met: 27/30 three logs, 27/30 four planks and 19/30 wooden pickaxes.

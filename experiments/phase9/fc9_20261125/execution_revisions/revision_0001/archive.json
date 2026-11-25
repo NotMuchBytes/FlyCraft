@@ -1,0 +1,12 @@
+{
+  "created_unix": 1795611258.1740189,
+  "reason": "user requested faster launcher; preserve original run and world 321 Windows sharing failure",
+  "files": {
+    "config.json": "ccf5751aa1961e4f7c993274369771b0cdcd662ea95f3bb994d2170952c04ad7",
+    "source_manifest.json": "adcde7cb9f02116e166a69730ccf4db56f7350dbd5779a60ad00daa42bb7d29e",
+    "state.json": "9f12c9381859962cd3785b33a66c7ce4c97daace54fa4428567fd9244c13bb72",
+    "fix_request.json": "f2b5bd35d3bed9ac2c3f9753992dd64b3336be3a02bf8cdfb50ac2a3be3500d7",
+    "executor.json": "89d59bf65f7a4e43e51bd522633e7c237c921088bf0ab5e88d96da6f9bf25834",
+    "supervisor.json": "47cd8e11326d7d89356162af7de45452fc305b8ac6dde98fe4cf578beaf1b5a3"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "status": "batch_finished",
+  "official_training_worlds": 0,
+  "summary": {
+    "stage": "development",
+    "official_training_worlds": 0,
+    "world_limit": 1,
+    "remaining_world_slots": 1,
+    "goal_counts": {
+      "one_log": {
+        "world_instances": 0,
+        "scored": 0,
+        "successes": 0
+      },
+      "three_logs": {
+        "world_instances": 0,
+        "scored": 0,
+        "successes": 0
+      },
+      "planks": {
+        "world_instances": 0,
+        "scored": 0,
+        "successes": 0
+      },
+      "wooden_pickaxe": {
+        "world_instances": 0,
+        "scored": 0,
+        "successes": 0
+      }
+    },
+    "generated_world_instances": 1,
+    "unverified_world_counts": 0,
+    "distinct_generated_seeds": 1,
+    "committed_episodes": 1,
+    "training_episodes": 0,
+    "verified_game_episodes": 1,
+    "uncommitted_scored_episodes": 0,
+    "uncommitted_reported_updates": 0,
+    "training_updates": 0,
+    "evaluation_episodes": 1,
+    "recording_policy": "milestones",
+    "recorded_episodes": 1,
+    "event_only_episodes": 0,
+    "recent_training_success_rate": null,
+    "mean_training_reward": null,
+    "measured_training_worlds_per_hour": null,
+    "mean_actions_per_success": null,
+    "estimated_remaining_seconds": null,
+    "estimate_basis": "current execution revision coordinator cycle time, including readiness where recorded; interruptions included",
+    "execution_revision": 1,
+    "curriculum_level": 1,
+    "goal": "wooden_pickaxe",
+    "progression": "operator-selected interaction goal; no automatic curriculum advancement",
+    "checkpoint": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00320_a0320\\trial_0000.npz",
+      "sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819"
+    },
+    "active_attempt": null,
+    "recent_errors": [],
+    "updated_unix": 1795612231.6820831
+  }
+}

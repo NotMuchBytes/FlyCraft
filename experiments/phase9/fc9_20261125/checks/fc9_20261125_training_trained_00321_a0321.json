@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "run_id": "fc9_20261125_training_trained_00321_a0321",
+  "status": "needs_attention",
+  "stop_reason": "process_exit",
+  "episodes": [],
+  "intervention_commands_verified": 0,
+  "video": null,
+  "implementation_sha256": "90a18f3f4e206b93115dfd6458a9fef5aa31255f2b40e6f81955bd3d6108c1b7",
+  "evidence_sha256": {
+    "bridge.jsonl": "34c0c1ef53ff80ac6c300352ad723b6bd70fcf1b815b6db972aacdd7867b6af8",
+    "bridge_launcher.log": "8f4076efb6c3e89cd76d7d5d64049c61867a00b5a901f21d9e711f93227693f3",
+    "camera.jsonl": "f9fa1b04bbd6c6662b7dad089a8761792142bb97f782d75a9abbfac23070c022",
+    "controller.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "headless.jsonl": "685aa9f9b5ec94f923b545803ccd77534a105df91181992aa2ecca5f72086460",
+    "prepare_launcher.log": "729c2c1eb96c0744b113df2bbde8417e95a938afe62901f6abdc4297973c9efc",
+    "run.json": "91a8ce0ae58c3cb07ec17598169c7efc579ad49cf118b53cf8b8bda99c7316aa",
+    "server.jsonl.initial.jsonl": "01df86ae0105d18bb2fd673853fd818670411dccbfb6e440fcdf181c77686f57",
+    "server.log": "6c035fb42cde29e4a15e88c508de0f76a83067a24768817ab4aeed6428a02b61",
+    "server_launcher.log": "5d632af4f0f8db7e06283a5bc9db0e2d753d441bf7640400f5b98088feba06b7",
+    "source_manifest.json": "adcde7cb9f02116e166a69730ccf4db56f7350dbd5779a60ad00daa42bb7d29e",
+    "status.json": "6234cf4ce5fb650c0df8d2dfa116b58063b039c96df5afb7659db2637a1f965d"
+  }
+}

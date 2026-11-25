@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "run_id": "perf25_log_cached_eval_a_trained_00002_a0002",
+  "status": "verified",
+  "stop_reason": "suite_complete",
+  "episodes": [
+    {
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 7046950020422906603,
+      "success": true,
+      "actions": 25,
+      "game_seconds": 18.6,
+      "elapsed_seconds": 18.515408999985084,
+      "confirmed_breaks": 2,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    }
+  ],
+  "intervention_commands_verified": 25,
+  "video": null,
+  "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+  "evidence_sha256": {
+    "bridge.jsonl": "0ef9c4a0236ef961cd61a1c16eaedfb0774fde5f9a32157cfb0d77bd2007ed5c",
+    "bridge_launcher.log": "c5502c1689c76f0f837e0c7e5750f80f2b69fbdd80284e82462c4b36d2c98fd8",
+    "camera.jsonl": "b213fde9ae03f532e8a4dcb6629259ad101fd8df22fb9be66bafbe0dba7bfe3d",
+    "controller.jsonl": "b9d1a2c1db19204d8a8cfaf18a6506c8fc849f773749b570ccbf649efb31825f",
+    "headless.jsonl": "73cb0fc870e35d1fd8fd0c54fb8a5e564f5535cbb2682815e5322741903a9bdd",
+    "run.json": "fabe75c7a010d37741f508a042a171d5dd5f8266aebd604a5cf9fe18a04f1275",
+    "server.jsonl": "96575509c45762b8195986f1197e5196d52d7fa8a03a87611b2231091d824a96",
+    "server.jsonl.delivery.jsonl": "90dc77e2b387e4251b7da9f817f2d0e0eebd553b514970bcbea6b46420798fdc",
+    "server.jsonl.initial.jsonl": "472358c6667723b68d5fb97d8812e7f2e2ecac6b4770482fbd2b6e7beada13f6",
+    "server.log": "2a43c920a1a0ff8b5e75b494575c025df216eaa39ac3dfee41e78f2a799c39e1",
+    "server_launcher.log": "2a43c920a1a0ff8b5e75b494575c025df216eaa39ac3dfee41e78f2a799c39e1",
+    "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+    "status.json": "3054df2096ce1c33621690591f95262f8bb21145fa2c3fe52a1a9e4eafb987c0"
+  }
+}

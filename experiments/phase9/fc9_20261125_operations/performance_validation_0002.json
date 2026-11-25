@@ -1,0 +1,2034 @@
+{
+  "schema": 1,
+  "passed": true,
+  "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+  "tests_passed": 155,
+  "tests_log": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\performance_revision_tests_all_20261125.txt",
+    "sha256": "8b9d6d43fde5994304b61c57e6a2cdbef7903a1241b84518aeda1a62d4981869"
+  },
+  "runs": [
+    "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_legacy_eval_a_trained_00001_a0001",
+    "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_legacy_eval_a_trained_00002_a0002",
+    "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_cached_eval_a_trained_00001_a0001",
+    "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_cached_eval_a_trained_00002_a0002",
+    "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_fast_eval_a_trained_00001_a0001",
+    "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_fast_eval_a_trained_00002_a0002",
+    "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_pick_legacy_eval_a_trained_00001_a0001",
+    "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_pick_fast_eval_a_trained_00001_a0001"
+  ],
+  "configuration_matched": true,
+  "exact_replay": false,
+  "absolute_poses_not_fixed": true,
+  "relative_initial_geometry_equal": true,
+  "learning_updates": 0,
+  "initial_checkpoint_sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819",
+  "timing": [
+    {
+      "goal": "one_log",
+      "mode": "legacy",
+      "trials": 2,
+      "successes": 1,
+      "total_coordinator_seconds": 147.46036839997396,
+      "mean_worker_overhead_seconds": 27.731988649931736,
+      "first_outside_worker_seconds": 31.381810099817812,
+      "warmed_outside_worker_seconds": [
+        32.39920960040763
+      ]
+    },
+    {
+      "goal": "one_log",
+      "mode": "cached",
+      "trials": 2,
+      "successes": 2,
+      "total_coordinator_seconds": 133.4105940000154,
+      "mean_worker_overhead_seconds": 20.238059799885377,
+      "first_outside_worker_seconds": 32.023855600040406,
+      "warmed_outside_worker_seconds": [
+        31.874840500298887
+      ]
+    },
+    {
+      "goal": "one_log",
+      "mode": "fast",
+      "trials": 2,
+      "successes": 2,
+      "total_coordinator_seconds": 93.36644789995626,
+      "mean_worker_overhead_seconds": 20.085313700139523,
+      "first_outside_worker_seconds": 32.77102479990572,
+      "warmed_outside_worker_seconds": [
+        2.1044892000500113
+      ]
+    },
+    {
+      "goal": "wooden_pickaxe",
+      "mode": "legacy",
+      "trials": 1,
+      "successes": 1,
+      "total_coordinator_seconds": 140.95394739997573,
+      "mean_worker_overhead_seconds": 53.85613329987973,
+      "first_outside_worker_seconds": 41.59671580023132,
+      "warmed_outside_worker_seconds": []
+    },
+    {
+      "goal": "wooden_pickaxe",
+      "mode": "fast",
+      "trials": 1,
+      "successes": 1,
+      "total_coordinator_seconds": 105.37497900007293,
+      "mean_worker_overhead_seconds": 42.98588819988072,
+      "first_outside_worker_seconds": 38.07970050023869,
+      "warmed_outside_worker_seconds": []
+    }
+  ],
+  "episodes": [
+    {
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_legacy_eval_a_trained_00001_a0001",
+      "run_id": "perf25_log_legacy_eval_a_trained_00001_a0001",
+      "goal": "one_log",
+      "mode": "legacy",
+      "success": false,
+      "actions": 22,
+      "policy_seed": 9001,
+      "seed": 503336097358437245,
+      "initial_absolute_pose": [
+        4.5,
+        -60.0,
+        7.5,
+        0.0,
+        0.0
+      ],
+      "relative_initial_geometry": {
+        "y": -60.0,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "game_mode": "SURVIVAL",
+        "blocks": [
+          [
+            [
+              -0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              0.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              0.5,
+              1.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              0.5,
+              2.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ]
+        ]
+      },
+      "worker_seconds": 47.421612000092864,
+      "episode_seconds": 19.963159800041467,
+      "worker_overhead_seconds": 27.458452200051397,
+      "coordinator_cycle_seconds": 78.80342209991068,
+      "outside_worker_seconds": 31.381810099817812,
+      "preparation_mode": "gradle_export",
+      "video": null,
+      "export": null,
+      "failure_mode": "break_without_enough_pickup",
+      "proof": {
+        "schema": 1,
+        "run_id": "perf25_log_legacy_eval_a_trained_00001_a0001",
+        "status": "verified",
+        "stop_reason": "suite_complete",
+        "episodes": [
+          {
+            "episode_id": "trial_0000",
+            "goal": "one_log",
+            "condition": "trained",
+            "layout_seed": 503336097358437245,
+            "success": false,
+            "actions": 22,
+            "game_seconds": 20.0,
+            "elapsed_seconds": 19.963159800041467,
+            "confirmed_breaks": 2,
+            "crafts": {},
+            "failure_mode": "break_without_enough_pickup",
+            "inventory": {
+              "log": 0,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "weight_delta_norm": 0.0,
+            "training_applied": false
+          }
+        ],
+        "intervention_commands_verified": 23,
+        "video": null,
+        "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+        "evidence_sha256": {
+          "bridge.jsonl": "808456400b1b6dd65dce59266c2aa3e0abb7e28cb812d2cfbe612d6e8dff483c",
+          "bridge_launcher.log": "11c9294411b25173ecfab48812266b490979467436274d3cd02105141b725140",
+          "camera.jsonl": "d381e7055097ec1df48f53165d8df33c4bbf71f761724f0ce0b9f98506b9f1f8",
+          "controller.jsonl": "7ec94a7b71b8b5aada65e82623b7a49f8cdf74920f303788e0253175a084b8fe",
+          "headless.jsonl": "2b14a0592e7f061ee3081ac7d6f369dbb8d71a75463088eb49fb877ad5b4e7da",
+          "prepare_launcher.log": "729c2c1eb96c0744b113df2bbde8417e95a938afe62901f6abdc4297973c9efc",
+          "run.json": "bcc4893f35917f2634190a16be6c6b1f6ab42375162967562a5aeb059a1b2488",
+          "server.jsonl": "b9bb158b140468b8c6f2513ab93e79343f8a243731c5d555d9175adf767cd47a",
+          "server.jsonl.delivery.jsonl": "36d830eeff0f896c3e5eed4f3021a85b4ea7b6073c7453775e383c3b6311241a",
+          "server.jsonl.initial.jsonl": "7eca706cb3c86ac7676e1c7df25d8b7406c17f05ee0fea1eacab586ee32e87ae",
+          "server.log": "6abd2feb0089e7af5e0953c524c21a879a0b15d06b5d6f48bf02bf0acd9360e5",
+          "server_launcher.log": "6abd2feb0089e7af5e0953c524c21a879a0b15d06b5d6f48bf02bf0acd9360e5",
+          "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+          "status.json": "92671fa1ccb7b5046fdbacbcb61b7619e36d8a267f4d7e2b8ce74b9d66daf5ab"
+        }
+      }
+    },
+    {
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_legacy_eval_a_trained_00002_a0002",
+      "run_id": "perf25_log_legacy_eval_a_trained_00002_a0002",
+      "goal": "one_log",
+      "mode": "legacy",
+      "success": true,
+      "actions": 11,
+      "policy_seed": 9002,
+      "seed": 7046950020422906603,
+      "initial_absolute_pose": [
+        -4.5,
+        -60.0,
+        -9.5,
+        0.0,
+        0.0
+      ],
+      "relative_initial_geometry": {
+        "y": -60.0,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "game_mode": "SURVIVAL",
+        "blocks": [
+          [
+            [
+              -3.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              0.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              1.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              2.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ]
+        ]
+      },
+      "worker_seconds": 36.23725099978037,
+      "episode_seconds": 8.231725899968296,
+      "worker_overhead_seconds": 28.005525099812075,
+      "coordinator_cycle_seconds": 68.636460600188,
+      "outside_worker_seconds": 32.39920960040763,
+      "preparation_mode": "gradle_export",
+      "video": null,
+      "export": null,
+      "failure_mode": "success",
+      "proof": {
+        "schema": 1,
+        "run_id": "perf25_log_legacy_eval_a_trained_00002_a0002",
+        "status": "verified",
+        "stop_reason": "suite_complete",
+        "episodes": [
+          {
+            "episode_id": "trial_0000",
+            "goal": "one_log",
+            "condition": "trained",
+            "layout_seed": 7046950020422906603,
+            "success": true,
+            "actions": 11,
+            "game_seconds": 8.35,
+            "elapsed_seconds": 8.231725899968296,
+            "confirmed_breaks": 1,
+            "crafts": {},
+            "failure_mode": "success",
+            "inventory": {
+              "log": 1,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "weight_delta_norm": 0.0,
+            "training_applied": false
+          }
+        ],
+        "intervention_commands_verified": 11,
+        "video": null,
+        "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+        "evidence_sha256": {
+          "bridge.jsonl": "919fa6bde9af960ebc8cbd6c9c9432e83ca24de57b61f65ddd58380f817060b2",
+          "bridge_launcher.log": "b41f65fa41be658a0f3c214e5581f3ed0a459a9e7d3fbaed37f8b1223c0cbff3",
+          "camera.jsonl": "963fce462040e7863460f977ec43c3b788975f796c1db68c65695ee664186850",
+          "controller.jsonl": "f65eddbc261c968208343fdbd64d549eb4606adb86d062fad4e1483cae580519",
+          "headless.jsonl": "349bda0c6ecef1e503ea9399ada0689f6e0722a25b775d278e33703fbcb2fddc",
+          "prepare_launcher.log": "729c2c1eb96c0744b113df2bbde8417e95a938afe62901f6abdc4297973c9efc",
+          "run.json": "025fd5a9ac0c97d3934a9a94e43dee814c2e4376e97b936dec5054cc9e884f1f",
+          "server.jsonl": "230b63dbcffb044d6ce526c105e03c7eb8fbd2fcdd94657a44602f08faef7f6a",
+          "server.jsonl.delivery.jsonl": "90dc77e2b387e4251b7da9f817f2d0e0eebd553b514970bcbea6b46420798fdc",
+          "server.jsonl.initial.jsonl": "50db34a8edb1240380e7a66c4fcaf104360a27e764e5eb5a1ccb079e155b6d5d",
+          "server.log": "7b6c9212a2c3fedf39d7810fef4b4965bb0e78ab1e7b2f4f2ad8bb2cbacae4da",
+          "server_launcher.log": "7b6c9212a2c3fedf39d7810fef4b4965bb0e78ab1e7b2f4f2ad8bb2cbacae4da",
+          "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+          "status.json": "01f67dfff54068b65ec415c05f04ccc606290090752f9d5246876591f29e3d10"
+        }
+      }
+    },
+    {
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_cached_eval_a_trained_00001_a0001",
+      "run_id": "perf25_log_cached_eval_a_trained_00001_a0001",
+      "goal": "one_log",
+      "mode": "cached",
+      "success": true,
+      "actions": 10,
+      "policy_seed": 9001,
+      "seed": 503336097358437245,
+      "initial_absolute_pose": [
+        -6.5,
+        -60.0,
+        -2.5,
+        0.0,
+        0.0
+      ],
+      "relative_initial_geometry": {
+        "y": -60.0,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "game_mode": "SURVIVAL",
+        "blocks": [
+          [
+            [
+              -0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              0.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              0.5,
+              1.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              0.5,
+              2.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ]
+        ]
+      },
+      "worker_seconds": 30.626468899892643,
+      "episode_seconds": 10.497870299965143,
+      "worker_overhead_seconds": 20.1285985999275,
+      "coordinator_cycle_seconds": 62.65032449993305,
+      "outside_worker_seconds": 32.023855600040406,
+      "preparation_mode": "verified_cached_export",
+      "video": null,
+      "export": null,
+      "failure_mode": "success",
+      "proof": {
+        "schema": 1,
+        "run_id": "perf25_log_cached_eval_a_trained_00001_a0001",
+        "status": "verified",
+        "stop_reason": "suite_complete",
+        "episodes": [
+          {
+            "episode_id": "trial_0000",
+            "goal": "one_log",
+            "condition": "trained",
+            "layout_seed": 503336097358437245,
+            "success": true,
+            "actions": 10,
+            "game_seconds": 10.65,
+            "elapsed_seconds": 10.497870299965143,
+            "confirmed_breaks": 2,
+            "crafts": {},
+            "failure_mode": "success",
+            "inventory": {
+              "log": 1,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "weight_delta_norm": 0.0,
+            "training_applied": false
+          }
+        ],
+        "intervention_commands_verified": 10,
+        "video": null,
+        "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+        "evidence_sha256": {
+          "bridge.jsonl": "6e0565046847285330546ac7dac5e02b58a5ddb6ce198047cb1ccf9ae7328bc3",
+          "bridge_launcher.log": "7c812729c5f90307dbefe420c79dad2c553b6a484f06fcdd176b3a8b5dc00def",
+          "camera.jsonl": "2a7ea9bbc9d3b29df0ab6995ebff5f4fcd3e0602f0c14fe806ec88033cb3b7e8",
+          "controller.jsonl": "8550d8d3615b33f665203a78119db6e193998cddc22fc3f998ff2a41d4587365",
+          "headless.jsonl": "c12dc244e5e0db66b6cf42af97e8639c6e827ca426a9e5cccb3bc08648408644",
+          "run.json": "3fc312b895ca82f11eda8e5125ca232c9462086ec71329990f31df71deb56e9f",
+          "server.jsonl": "c15516a0d4c95019c6c9ad087524ccc42d68326700453610289e6ce48b7fb9cf",
+          "server.jsonl.delivery.jsonl": "cd710996bb579f1815675eb87552ff3dbd00326bfae307d4f3e0c5f460ac59a6",
+          "server.jsonl.initial.jsonl": "3d4e5d69e334e4c5f03e22b2087b5c6709a214b09480dd82629d9c2a8d752ea1",
+          "server.log": "2f5337eb8561816539a20952d5cfbc80d9bb516727dd2ac40882c4e8f148f2fd",
+          "server_launcher.log": "2f5337eb8561816539a20952d5cfbc80d9bb516727dd2ac40882c4e8f148f2fd",
+          "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+          "status.json": "85e52b646daa9f4368488d2c63deebebb9e8a6446e7a2990cae9fa3349c473dc"
+        }
+      }
+    },
+    {
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_cached_eval_a_trained_00002_a0002",
+      "run_id": "perf25_log_cached_eval_a_trained_00002_a0002",
+      "goal": "one_log",
+      "mode": "cached",
+      "success": true,
+      "actions": 25,
+      "policy_seed": 9002,
+      "seed": 7046950020422906603,
+      "initial_absolute_pose": [
+        5.5,
+        -60.0,
+        3.5,
+        0.0,
+        0.0
+      ],
+      "relative_initial_geometry": {
+        "y": -60.0,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "game_mode": "SURVIVAL",
+        "blocks": [
+          [
+            [
+              -3.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              0.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              1.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              2.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ]
+        ]
+      },
+      "worker_seconds": 38.86292999982834,
+      "episode_seconds": 18.515408999985084,
+      "worker_overhead_seconds": 20.347520999843255,
+      "coordinator_cycle_seconds": 70.73777050012723,
+      "outside_worker_seconds": 31.874840500298887,
+      "preparation_mode": "verified_cached_export",
+      "video": null,
+      "export": null,
+      "failure_mode": "success",
+      "proof": {
+        "schema": 1,
+        "run_id": "perf25_log_cached_eval_a_trained_00002_a0002",
+        "status": "verified",
+        "stop_reason": "suite_complete",
+        "episodes": [
+          {
+            "episode_id": "trial_0000",
+            "goal": "one_log",
+            "condition": "trained",
+            "layout_seed": 7046950020422906603,
+            "success": true,
+            "actions": 25,
+            "game_seconds": 18.6,
+            "elapsed_seconds": 18.515408999985084,
+            "confirmed_breaks": 2,
+            "crafts": {},
+            "failure_mode": "success",
+            "inventory": {
+              "log": 1,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "weight_delta_norm": 0.0,
+            "training_applied": false
+          }
+        ],
+        "intervention_commands_verified": 25,
+        "video": null,
+        "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+        "evidence_sha256": {
+          "bridge.jsonl": "0ef9c4a0236ef961cd61a1c16eaedfb0774fde5f9a32157cfb0d77bd2007ed5c",
+          "bridge_launcher.log": "c5502c1689c76f0f837e0c7e5750f80f2b69fbdd80284e82462c4b36d2c98fd8",
+          "camera.jsonl": "b213fde9ae03f532e8a4dcb6629259ad101fd8df22fb9be66bafbe0dba7bfe3d",
+          "controller.jsonl": "b9d1a2c1db19204d8a8cfaf18a6506c8fc849f773749b570ccbf649efb31825f",
+          "headless.jsonl": "73cb0fc870e35d1fd8fd0c54fb8a5e564f5535cbb2682815e5322741903a9bdd",
+          "run.json": "fabe75c7a010d37741f508a042a171d5dd5f8266aebd604a5cf9fe18a04f1275",
+          "server.jsonl": "96575509c45762b8195986f1197e5196d52d7fa8a03a87611b2231091d824a96",
+          "server.jsonl.delivery.jsonl": "90dc77e2b387e4251b7da9f817f2d0e0eebd553b514970bcbea6b46420798fdc",
+          "server.jsonl.initial.jsonl": "472358c6667723b68d5fb97d8812e7f2e2ecac6b4770482fbd2b6e7beada13f6",
+          "server.log": "2a43c920a1a0ff8b5e75b494575c025df216eaa39ac3dfee41e78f2a799c39e1",
+          "server_launcher.log": "2a43c920a1a0ff8b5e75b494575c025df216eaa39ac3dfee41e78f2a799c39e1",
+          "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+          "status.json": "3054df2096ce1c33621690591f95262f8bb21145fa2c3fe52a1a9e4eafb987c0"
+        }
+      }
+    },
+    {
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_fast_eval_a_trained_00001_a0001",
+      "run_id": "perf25_log_fast_eval_a_trained_00001_a0001",
+      "goal": "one_log",
+      "mode": "fast",
+      "success": true,
+      "actions": 9,
+      "policy_seed": 9001,
+      "seed": 503336097358437245,
+      "initial_absolute_pose": [
+        -7.5,
+        -60.0,
+        9.5,
+        0.0,
+        0.0
+      ],
+      "relative_initial_geometry": {
+        "y": -60.0,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "game_mode": "SURVIVAL",
+        "blocks": [
+          [
+            [
+              -0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              0.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              0.5,
+              1.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              0.5,
+              2.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ]
+        ]
+      },
+      "worker_seconds": 30.050776600139216,
+      "episode_seconds": 10.259825599845499,
+      "worker_overhead_seconds": 19.790951000293717,
+      "coordinator_cycle_seconds": 62.82180140004493,
+      "outside_worker_seconds": 32.77102479990572,
+      "preparation_mode": "verified_cached_export",
+      "video": null,
+      "export": null,
+      "failure_mode": "success",
+      "proof": {
+        "schema": 1,
+        "run_id": "perf25_log_fast_eval_a_trained_00001_a0001",
+        "status": "verified",
+        "stop_reason": "suite_complete",
+        "episodes": [
+          {
+            "episode_id": "trial_0000",
+            "goal": "one_log",
+            "condition": "trained",
+            "layout_seed": 503336097358437245,
+            "success": true,
+            "actions": 9,
+            "game_seconds": 10.45,
+            "elapsed_seconds": 10.259825599845499,
+            "confirmed_breaks": 2,
+            "crafts": {},
+            "failure_mode": "success",
+            "inventory": {
+              "log": 1,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "weight_delta_norm": 0.0,
+            "training_applied": false
+          }
+        ],
+        "intervention_commands_verified": 9,
+        "video": null,
+        "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+        "evidence_sha256": {
+          "bridge.jsonl": "07324b41a81d1aec905fde580846d1371af141964384bd202345602bf866e7d7",
+          "bridge_launcher.log": "4c25e8762a64f45669da74b4e88ae4630cb2d62c9abff536e6d729dd6bcae05b",
+          "camera.jsonl": "e20744767d6f15e7265eb6533b7f0e55ef9c9f3805f76939eec52d01c5d3535d",
+          "controller.jsonl": "b56c8f9a05d7ff1b1f15eebf5be93b59dfaf4bb61f3c7ab62e8d816a8474eebd",
+          "headless.jsonl": "575b382a4e6d8966e927875eda599fd5fedc21882c541ce063e4e85c33657178",
+          "run.json": "2d376b2aa538d3be2f61ab00b19fa8275df8b29ff8fa3016f847a9fc7895bab6",
+          "server.jsonl": "db7b8c390931030ab0bb625fdd07470f5e84d703f55bcbbef79afae8db8ab0cd",
+          "server.jsonl.delivery.jsonl": "6b55825f932d99e8dd3c822754adc8fca200e1562c7d5369573c5e7f37d415ef",
+          "server.jsonl.initial.jsonl": "4ba34280acd2f7e97164cf6453c7704c89a4f57b1e88a8d214f85bf1604ee9b6",
+          "server.log": "b696dbc9d23f1ec22596d6e450cb903eca890a40525831789605455a6d91ef96",
+          "server_launcher.log": "b696dbc9d23f1ec22596d6e450cb903eca890a40525831789605455a6d91ef96",
+          "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+          "status.json": "86f96e8e25616c16fcae4390c8fe131f2ed5fc9f4f9f9bcb2da272508cbe2a83"
+        }
+      }
+    },
+    {
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_fast_eval_a_trained_00002_a0002",
+      "run_id": "perf25_log_fast_eval_a_trained_00002_a0002",
+      "goal": "one_log",
+      "mode": "fast",
+      "success": true,
+      "actions": 11,
+      "policy_seed": 9002,
+      "seed": 7046950020422906603,
+      "initial_absolute_pose": [
+        2.5,
+        -60.0,
+        -6.5,
+        0.0,
+        0.0
+      ],
+      "relative_initial_geometry": {
+        "y": -60.0,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "game_mode": "SURVIVAL",
+        "blocks": [
+          [
+            [
+              -3.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              0.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              1.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              2.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ]
+        ]
+      },
+      "worker_seconds": 28.379814899992198,
+      "episode_seconds": 8.00013850000687,
+      "worker_overhead_seconds": 20.37967639998533,
+      "coordinator_cycle_seconds": 30.48430410004221,
+      "outside_worker_seconds": 2.1044892000500113,
+      "preparation_mode": "verified_cached_export",
+      "video": null,
+      "export": null,
+      "failure_mode": "success",
+      "proof": {
+        "schema": 1,
+        "run_id": "perf25_log_fast_eval_a_trained_00002_a0002",
+        "status": "verified",
+        "stop_reason": "suite_complete",
+        "episodes": [
+          {
+            "episode_id": "trial_0000",
+            "goal": "one_log",
+            "condition": "trained",
+            "layout_seed": 7046950020422906603,
+            "success": true,
+            "actions": 11,
+            "game_seconds": 8.1,
+            "elapsed_seconds": 8.00013850000687,
+            "confirmed_breaks": 1,
+            "crafts": {},
+            "failure_mode": "success",
+            "inventory": {
+              "log": 1,
+              "planks": 0,
+              "sticks": 0,
+              "crafting_table": 0,
+              "wooden_pickaxe": 0
+            },
+            "weight_delta_norm": 0.0,
+            "training_applied": false
+          }
+        ],
+        "intervention_commands_verified": 11,
+        "video": null,
+        "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+        "evidence_sha256": {
+          "bridge.jsonl": "3bcb4b7095f6d31e5a4264d18f7c03a927b4d3fc898103815fee15fb9ca1c716",
+          "bridge_launcher.log": "a549e975b2f89f6d3590e2ea4a075420a3574d671af17e63b280dccb52002567",
+          "camera.jsonl": "83c315cb249b0dc06a151241bea36bc8ade16ff2b38493c8604297957ebfffdc",
+          "controller.jsonl": "2270af5bd0660419593c84e7e91eabedf99ccb2ce2ab90c76068d5884f2b907f",
+          "headless.jsonl": "a17c4ed24bb3b2a14e693ba22aff3a00cb92bbaf02bb5fb39215dc0acc601419",
+          "run.json": "e5639fd825b506d7c794fe571295ce33eafc27c7fb504e1bc3c958625fa1fb21",
+          "server.jsonl": "b700130a0b0e145ab81c96b157574423a5134243d1eed0a46c3a878b9082c492",
+          "server.jsonl.delivery.jsonl": "90dc77e2b387e4251b7da9f817f2d0e0eebd553b514970bcbea6b46420798fdc",
+          "server.jsonl.initial.jsonl": "4f93a20f49581efdb86b3e1a05fa1602224a499f33e1d1abd585c4812e3c7c26",
+          "server.log": "4688d5e2d8faba08c95059f232d0c2830af9bff04e6e46553f899d865e7df625",
+          "server_launcher.log": "4688d5e2d8faba08c95059f232d0c2830af9bff04e6e46553f899d865e7df625",
+          "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+          "status.json": "e24b4ea81d7b7743b6b70c65b88f36848a45ecbe1f56c1da478d7fb6d250e372"
+        }
+      }
+    },
+    {
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_pick_legacy_eval_a_trained_00001_a0001",
+      "run_id": "perf25_pick_legacy_eval_a_trained_00001_a0001",
+      "goal": "wooden_pickaxe",
+      "mode": "legacy",
+      "success": true,
+      "actions": 58,
+      "policy_seed": 9001,
+      "seed": 1444593038726694642,
+      "initial_absolute_pose": [
+        -0.5,
+        -60.0,
+        -8.5,
+        0.0,
+        0.0
+      ],
+      "relative_initial_geometry": {
+        "y": -60.0,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "game_mode": "SURVIVAL",
+        "blocks": [
+          [
+            [
+              -3.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              4.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              0.0,
+              3.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              1.0,
+              3.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              2.0,
+              3.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              4.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              4.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              0.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -0.5,
+              0.0,
+              4.5
+            ],
+            "Block{minecraft:stone}"
+          ],
+          [
+            [
+              -0.5,
+              1.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -0.5,
+              1.0,
+              4.5
+            ],
+            "Block{minecraft:stone}"
+          ],
+          [
+            [
+              -0.5,
+              2.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              0.0,
+              2.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              1.5,
+              1.0,
+              2.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              1.5,
+              2.0,
+              2.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              2.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              2.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              2.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ]
+        ]
+      },
+      "worker_seconds": 99.34511869982816,
+      "episode_seconds": 45.48898539994843,
+      "worker_overhead_seconds": 53.85613329987973,
+      "coordinator_cycle_seconds": 140.94183450005949,
+      "outside_worker_seconds": 41.59671580023132,
+      "preparation_mode": "gradle_export",
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 1726,
+        "duration_seconds": 57.533333,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "1726"
+        },
+        "bytes": 20653364,
+        "sha256": "18ed67a4f1feae65a323259ee8266158f82803014116c2441332dde81b490ab0",
+        "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-25 16-09-24.mp4",
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_perf25_pick_legacy_eval_a_trained_00001_a0001.mp4",
+        "recovery": "none",
+        "verification_attempts": [
+          "verified_original"
+        ],
+        "episode_coverage_complete": true,
+        "visual_content_preflight_verified": true
+      },
+      "export": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_Development_Milestone_00001_perf25_pick_legacy_eval_a_trained_00001_a0001.mp4",
+      "failure_mode": "success",
+      "proof": {
+        "schema": 1,
+        "run_id": "perf25_pick_legacy_eval_a_trained_00001_a0001",
+        "status": "verified",
+        "stop_reason": "suite_complete",
+        "episodes": [
+          {
+            "episode_id": "trial_0000",
+            "goal": "wooden_pickaxe",
+            "condition": "trained",
+            "layout_seed": 1444593038726694642,
+            "success": true,
+            "actions": 58,
+            "game_seconds": 45.6,
+            "elapsed_seconds": 45.48898539994843,
+            "confirmed_breaks": 4,
+            "crafts": {
+              "CRAFT_PLANKS": 3,
+              "CRAFT_STICKS": 1,
+              "CRAFT_TABLE": 1,
+              "PLACE_TABLE": 1,
+              "CRAFT_PICKAXE": 1
+            },
+            "failure_mode": "success",
+            "inventory": {
+              "log": 1,
+              "planks": 3,
+              "sticks": 2,
+              "crafting_table": 0,
+              "wooden_pickaxe": 1
+            },
+            "weight_delta_norm": 0.0,
+            "training_applied": false
+          }
+        ],
+        "intervention_commands_verified": 58,
+        "video": {
+          "playable_verified": true,
+          "full_decode_verified": true,
+          "decoded_frames": 1726,
+          "duration_seconds": 57.533333,
+          "video_stream": {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "avg_frame_rate": "30/1",
+            "nb_frames": "1726"
+          },
+          "bytes": 20653364,
+          "sha256": "18ed67a4f1feae65a323259ee8266158f82803014116c2441332dde81b490ab0"
+        },
+        "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+        "evidence_sha256": {
+          "bridge.jsonl": "008f981bfbc288d545e93a30bf1e9cab4c77186679aa7d7be54474c57211a48f",
+          "bridge_launcher.log": "7c877294421cd49473f12a79c36e668b1a39d387be59c37efbe1b4fbbc0d8bd7",
+          "camera.jsonl": "bf62958b5eae879bb196c5879928f9970a28b6e0edbf3f66592dce18a1fde7af",
+          "client.log": "dfd7fe588a775f077b5f59581190c1ff3781b19bbf82445648fbeffd7b8e372b",
+          "client_launcher.log": "38ae8afd35e0f70b2d2be7028889e51e80d5d5fb6677e26fd09e805382d61da9",
+          "controller.jsonl": "e72af427b5aeeb755969d152756e47af7d615fb8a3a1e0d1e224773e0bc7e1b4",
+          "headless.jsonl": "a8f89ebdf2ff6850cc62d58b4e7236d6230110aade6b7aa8a31b13927697a0ce",
+          "prepare_launcher.log": "58aa292e38607fee73c16414e17b1042eec8f231d25fc88be2bb42d378edabf7",
+          "run.json": "20954ad55d482c0cf46a2b6822878d2255392d209682746c2aa53665a3c0e52a",
+          "server.jsonl": "45051e61150d3aa382e046edcb1993541e8a041faacc5a867df26fa2d180eaab",
+          "server.jsonl.delivery.jsonl": "cd710996bb579f1815675eb87552ff3dbd00326bfae307d4f3e0c5f460ac59a6",
+          "server.jsonl.initial.jsonl": "4bb78a0b8ced9185f08cf0bed42769c22d8268b3747ffa4ccf0a47042e2f7002",
+          "server.log": "6bc619f82f42e426ab3095ddc961c79c975dc38c6757859457398b4521d50a67",
+          "server_launcher.log": "6bc619f82f42e426ab3095ddc961c79c975dc38c6757859457398b4521d50a67",
+          "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+          "status.json": "74a12f117baa54e4e660391d183b7273d845c24f291edc19d9d8592e740400ab"
+        }
+      }
+    },
+    {
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_pick_fast_eval_a_trained_00001_a0001",
+      "run_id": "perf25_pick_fast_eval_a_trained_00001_a0001",
+      "goal": "wooden_pickaxe",
+      "mode": "fast",
+      "success": true,
+      "actions": 33,
+      "policy_seed": 9001,
+      "seed": 1444593038726694642,
+      "initial_absolute_pose": [
+        -7.5,
+        -60.0,
+        -9.5,
+        0.0,
+        0.0
+      ],
+      "relative_initial_geometry": {
+        "y": -60.0,
+        "yaw": 0.0,
+        "pitch": 0.0,
+        "inventory": {
+          "log": 0,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "game_mode": "SURVIVAL",
+        "blocks": [
+          [
+            [
+              -3.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -3.5,
+              3.0,
+              4.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              0.0,
+              3.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              1.0,
+              3.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              2.0,
+              3.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -2.5,
+              3.0,
+              4.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -1.5,
+              3.0,
+              4.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              0.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -0.5,
+              0.0,
+              4.5
+            ],
+            "Block{minecraft:stone}"
+          ],
+          [
+            [
+              -0.5,
+              1.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -0.5,
+              1.0,
+              4.5
+            ],
+            "Block{minecraft:stone}"
+          ],
+          [
+            [
+              -0.5,
+              2.0,
+              1.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              -0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              0.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              0.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              0.0,
+              2.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              1.5,
+              1.0,
+              2.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              1.5,
+              2.0,
+              2.5
+            ],
+            "Block{minecraft:oak_log}[axis=y]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              1.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              2.5,
+              3.0,
+              1.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              2.5,
+              3.0,
+              2.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ],
+          [
+            [
+              2.5,
+              3.0,
+              3.5
+            ],
+            "Block{minecraft:oak_leaves}[distance=7,persistent=false,waterlogged=false]"
+          ]
+        ]
+      },
+      "worker_seconds": 67.235567699885,
+      "episode_seconds": 24.249679500004277,
+      "worker_overhead_seconds": 42.98588819988072,
+      "coordinator_cycle_seconds": 105.31526820012368,
+      "outside_worker_seconds": 38.07970050023869,
+      "preparation_mode": "verified_cached_export",
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 1099,
+        "duration_seconds": 36.633333,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "1099"
+        },
+        "bytes": 12053123,
+        "sha256": "8239b13111726ffa9b51fb9e31c5e7f918ffd3558cbc35eba7faa24b62bd67b6",
+        "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-25 16-11-34.mp4",
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_perf25_pick_fast_eval_a_trained_00001_a0001.mp4",
+        "recovery": "none",
+        "verification_attempts": [
+          "verified_original"
+        ],
+        "episode_coverage_complete": true,
+        "visual_content_preflight_verified": true
+      },
+      "export": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_Development_Milestone_00001_perf25_pick_fast_eval_a_trained_00001_a0001.mp4",
+      "failure_mode": "success",
+      "proof": {
+        "schema": 1,
+        "run_id": "perf25_pick_fast_eval_a_trained_00001_a0001",
+        "status": "verified",
+        "stop_reason": "suite_complete",
+        "episodes": [
+          {
+            "episode_id": "trial_0000",
+            "goal": "wooden_pickaxe",
+            "condition": "trained",
+            "layout_seed": 1444593038726694642,
+            "success": true,
+            "actions": 33,
+            "game_seconds": 24.2,
+            "elapsed_seconds": 24.249679500004277,
+            "confirmed_breaks": 3,
+            "crafts": {
+              "CRAFT_PLANKS": 3,
+              "CRAFT_STICKS": 1,
+              "CRAFT_TABLE": 1,
+              "PLACE_TABLE": 1,
+              "CRAFT_PICKAXE": 1
+            },
+            "failure_mode": "success",
+            "inventory": {
+              "log": 0,
+              "planks": 3,
+              "sticks": 2,
+              "crafting_table": 0,
+              "wooden_pickaxe": 1
+            },
+            "weight_delta_norm": 0.0,
+            "training_applied": false
+          }
+        ],
+        "intervention_commands_verified": 33,
+        "video": {
+          "playable_verified": true,
+          "full_decode_verified": true,
+          "decoded_frames": 1099,
+          "duration_seconds": 36.633333,
+          "video_stream": {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "avg_frame_rate": "30/1",
+            "nb_frames": "1099"
+          },
+          "bytes": 12053123,
+          "sha256": "8239b13111726ffa9b51fb9e31c5e7f918ffd3558cbc35eba7faa24b62bd67b6"
+        },
+        "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+        "evidence_sha256": {
+          "bridge.jsonl": "27c5c55d9b53d533e442dd21f83bdff8a4f1117f7f8055f30d8234f71fedb403",
+          "bridge_launcher.log": "5e14a8195bc196484a3503d53368c0b5ea9a29e1a8639c22400aac6693a780e3",
+          "camera.jsonl": "0f7da46bcac710961e3448c0f1823a11c18c3ee81db73790069a42969b91a067",
+          "client.log": "3981116acdad3c4a83c626de7bbf62b3463c22e3ffa414d863fba61ae70f4016",
+          "client_launcher.log": "951b0801cf8a94bcb7376e4629b07cb8098d14a9fda04cbc551ea68c6c74c6df",
+          "controller.jsonl": "2e28073200c3f4d483b929c667237d48acc65628c994d4a4c8140efc7769606c",
+          "headless.jsonl": "814eff04e7648df2b9a109d3216974fd5c05aa148a0ab74b29515abdef749e27",
+          "run.json": "63b193d8d9fc9855717f09a3f3ef641a80f56e72860ca09a5b2d47e52ef3bd04",
+          "server.jsonl": "4759bcda40321b89270fc2ccf550d6ef6456a7a035bd293f1696c56e2c6c7439",
+          "server.jsonl.delivery.jsonl": "90dc77e2b387e4251b7da9f817f2d0e0eebd553b514970bcbea6b46420798fdc",
+          "server.jsonl.initial.jsonl": "28bbb05d48f69e187cd917e58229d0883322986e8e75e6441336fb51da786a93",
+          "server.log": "765ab2987f3b8967c631f27c6686e38a31c275cfed891ca2f81f525399e4b02b",
+          "server_launcher.log": "765ab2987f3b8967c631f27c6686e38a31c275cfed891ca2f81f525399e4b02b",
+          "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+          "status.json": "accf048a2b23db28bc69122bbd29d6eb344012e882faa3d41cbcf6a33201beab"
+        }
+      }
+    }
+  ],
+  "errors": []
+}

@@ -37,3 +37,5 @@ data/**
 !data/README.md
 experiments/phase9/fc9_20261125/
 experiments/phase9/fc9_20261125_training_*/
+experiments/phase9/perf25_*/dashboard.html
+experiments/phase9/perf25_*/recorder/

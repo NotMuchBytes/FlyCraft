@@ -1,5 +1,18 @@
 # FlyCraft Phase 9 development report
 
+**November 25 — faster execution revision 2:** after 320 scored worlds
+(280 successes), world 321 exposed a Windows atomic-publication sharing race
+and remained unscored. The failure and all prior results were preserved. A
+bounded publication retry, hash-verified launch cache and continuous unchanged
+resource window passed **155 tests** and eight fresh live evaluation episodes
+with no learning updates. Warmed time outside a worker fell from 32.4 to 2.1
+seconds; routine worker overhead fell from 27.7 to 20.1 seconds. The versioned
+campaign resumed at world 322 with the same checkpoint chain and seed catalog.
+[Complete timing pilot, source history and recording evidence](experiments/phase9/fc9_20261125_operations/performance_revision_0002.md).
+The user has also selected a broader staged curriculum for the remaining
+budget; additional skills require their own implemented interfaces and live
+validation before training. These are not yet supported by the four wood goals.
+
 **November 25 — 274-world audited snapshot:** the original frozen campaign is
 still running. A read-only re-audit reproduced all **274 scores (238 successes)**
 and the checkpoint chain with zero discrepancies. Training counts are one-log
