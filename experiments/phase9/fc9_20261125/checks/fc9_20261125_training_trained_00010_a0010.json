@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "run_id": "fc9_20261125_training_trained_00010_a0010",
+  "status": "verified",
+  "stop_reason": "suite_complete",
+  "episodes": [
+    {
+      "episode_id": "trial_0000",
+      "goal": "three_logs",
+      "condition": "trained",
+      "layout_seed": 6547766628500230522,
+      "success": true,
+      "actions": 28,
+      "game_seconds": 25.2,
+      "elapsed_seconds": 25.23761219996959,
+      "confirmed_breaks": 3,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0046214149850843395,
+      "training_applied": true
+    }
+  ],
+  "intervention_commands_verified": 28,
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 1114,
+    "duration_seconds": 37.166667,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "1115"
+    },
+    "bytes": 11901848,
+    "sha256": "5c156b1bd52430982fb73e958bd23ae69174be401ce2fc6a40c8170c0ca0ac83"
+  },
+  "implementation_sha256": "90a18f3f4e206b93115dfd6458a9fef5aa31255f2b40e6f81955bd3d6108c1b7",
+  "evidence_sha256": {
+    "bridge.jsonl": "c67a984c3de8150236f3dfe46315dbe477787356f3ff1d89ab978a3a039fa6eb",
+    "bridge_launcher.log": "dda172d26ddf51a467fc82da0d871c0f9762c1f7d8f47a7de7201630951c1a54",
+    "camera.jsonl": "3ef539eebc17dba88cd2ea33f993b8db5153fd46eb3f22b2dbd9070e85e7f4b8",
+    "client.log": "a07896dd009bc52b3c21ea349cea311e7d75dcab2764da5c81b1e980a45f7ae5",
+    "client_launcher.log": "3dd09b7c2d1b670246326ce578f9fd34486fa5dacb08b571b648bb65b1bc4016",
+    "controller.jsonl": "d0f2b3fb1d2bda39b5ae7d1c79f2d7a4541e3ba0c93e72cd41a13371928a5e04",
+    "headless.jsonl": "676660547d254348e91a1cca45a53d44749f3e56c3e90cc98eebb9144ab16f19",
+    "prepare_launcher.log": "0345cbcab96fc25c9552ac3b0e69b3ccad8a873139f3a0be4f06c23427796cf6",
+    "run.json": "a4a6fd9087bbcddfe65eb03b66ff456bf78a982661ab138889f5a27f0e23732d",
+    "server.jsonl": "018ec8a06d00e53afc5dbba4f92276e3ba74bb295e568f5a89c97eaeb557f81f",
+    "server.jsonl.delivery.jsonl": "36d830eeff0f896c3e5eed4f3021a85b4ea7b6073c7453775e383c3b6311241a",
+    "server.jsonl.initial.jsonl": "7bcf817b5b93ec237928dba2c2de1bccea885db09786667a2ce522275e1674ab",
+    "server.log": "5b6c1ded711c4f829421bacb6604b5f04224bdde25d8b74f285836228756e642",
+    "server_launcher.log": "5b6c1ded711c4f829421bacb6604b5f04224bdde25d8b74f285836228756e642",
+    "source_manifest.json": "adcde7cb9f02116e166a69730ccf4db56f7350dbd5779a60ad00daa42bb7d29e",
+    "status.json": "935f0f8606170ace88d74fbfb3a995799a21aa71271f0e74ee3a37c572acdc05"
+  }
+}

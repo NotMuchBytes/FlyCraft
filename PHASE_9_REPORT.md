@@ -1,5 +1,14 @@
 # FlyCraft Phase 9 development report
 
+**November 25 — 274-world audited snapshot:** the original frozen campaign is
+still running. A read-only re-audit reproduced all **274 scores (238 successes)**
+and the checkpoint chain with zero discrepancies. Training counts are one-log
+66/69, three-log 59/69, planks 65/68 and pickaxe 48/68; these are not held-out
+evaluation scores. All **149 tests pass**. Nine milestone MP4s through world 250
+passed another full decode, with sampled manual review of the newer recordings.
+The original source/graph/checkpoints, guards and pending final evaluation are
+unchanged. [Counts, action/time statistics, failures and recording paths](experiments/phase9/fc9_20261125_operations/progress_00274.md).
+
 **November 25, 2026 — official launch authorized:** the user explicitly said
 “start the 10000”, requested milestone recordings and authorized a temporary
 shutdown guard. The official executor now supports a frozen balanced four-goal

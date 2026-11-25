@@ -1,0 +1,43 @@
+{
+  "run_id": "fc9_20261125_training_trained_00025_a0025",
+  "milestone": 25,
+  "stage": "official_training",
+  "status": "verified",
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 672,
+    "duration_seconds": 22.4,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "672"
+    },
+    "bytes": 5994438,
+    "sha256": "6fd28751e74b4617116ea171c4691c022aa28aabc66e216c8a15430bbec59d4f",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-25 08-25-23.mp4",
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Phase9_Milestone_00025_fc9_20261125_training_trained_00025_a0025.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": true,
+    "visual_content_preflight_verified": true
+  },
+  "error": null,
+  "episode_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\fc9_20261125_training_trained_00025_a0025\\server.jsonl",
+  "action_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\fc9_20261125_training_trained_00025_a0025\\headless.jsonl",
+  "observation_log": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\fc9_20261125_training_trained_00025_a0025\\bridge.jsonl",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00024_a0024\\trial_0000.npz",
+  "checkpoint_sha256": "131b84df5137ba5e6dd79d8968e99476f3be7e0670a2c2eb47d636506b4b387b",
+  "checkpoint_timing": "before_episode_update",
+  "camera_role": "recording_only",
+  "recording_kind": "synchronized_spectator_capture",
+  "redo_of": null,
+  "replay": false,
+  "actions_altered_for_video": false
+}
