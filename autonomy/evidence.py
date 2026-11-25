@@ -75,6 +75,22 @@ def same_inventory(actual, expected):
     return all(actual.get(key) == count for key, count in inventory(expected).items())
 
 
+def verify_start_pose(meta, starts):
+    requested = meta.get("natural_start_requested")
+    if requested is None:
+        return
+    require(meta.get("environment_kind") == "vanilla_overworld_spawn"
+            and isinstance(requested, list) and len(requested) == 5
+            and all(type(v) in (int, float) and math.isfinite(v) for v in requested),
+            "matched_start", "invalid requested natural pose")
+    require(len(starts) == 1, "matched_start", "missing or ambiguous native start")
+    actual = next(iter(starts.values())).get("position_xyz_yaw_pitch")
+    require(isinstance(actual, list) and len(actual) == 5
+            and all(type(a) in (int, float) and math.isfinite(a) and math.isclose(a,b,rel_tol=0,abs_tol=1e-4)
+                    for a,b in zip(actual,requested)),
+            "matched_start", "native starting pose differs from matched reference")
+
+
 def _audit_run(directory, *, expected=None, verify_video=True):
     """Accept valid policy failures; reject contradictions and unexecuted success.
 
@@ -108,6 +124,8 @@ def _audit_run(directory, *, expected=None, verify_video=True):
     scores = indexed(scored, "server")
     controllers = indexed(records(directory / "controller.jsonl", required=bool(scored), interrupted=interrupted), "controller")
     starts = indexed(records(directory / "server.jsonl.initial.jsonl", required=bool(scored), interrupted=interrupted), "initial")
+    if scored:
+        verify_start_pose(meta, starts)
     deliveries = indexed(records(directory / "server.jsonl.delivery.jsonl", required=bool(scored), interrupted=interrupted), "delivery")
     if not interrupted:
         require(set(scores) == set(starts) == set(controllers) == set(deliveries),

@@ -1,5 +1,24 @@
 # Staged curriculum handoff and first milestone
 
+Revision 2 is installed after verified slot 350, with the old config, source
+and state preserved under `revision_0001_at350`. All **166 tests pass**. It
+matches natural control starting poses to native reference records and gates
+all four wood skills at 24/30, 21/30, 21/30 and 15/30, alongside the primary
+24/30 goal. It changes no actor, reward, checkpoint, training seed or budget.
+`revision2_review.json` records the exact four changed production modules.
+
+The first twelve new training episodes scored **6/12** (terrain 4/9, retention
+2/3), with 11 verified updates. Both original milestone MP4s, 339 and 350,
+passed complete decode and sampled review. A separate five-condition natural
+pilot reproduced the same actual starting pose, RNG and 600-tick budget.
+Every condition scored **0/1**, with zero learning updates and no visible
+target. It demonstrates matched execution and persistent exploration weakness,
+not improved reliability. See `through350_audit.json`,
+`natural_interface_pilot.json` and `natural_pilot_exploration_audit.json`.
+The report-aggregation exception after its trained trial was repaired by
+auditing that already completed episode; its actions were never rerun.
+Its source is retained separately from the final retention-gate revision.
+
 The user authorized switching the remaining 9,662 training slots to a broader
 curriculum, preserving the first 338 foundation world instances. The active
 ledger is in the isolated real checkout at

@@ -1,0 +1,15 @@
+{
+  "video": "recordings/phase9/FlyCraft_Phase9_Milestone_00350_fc9_stage25_terrain_00012.mp4",
+  "sampled_seconds": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "observed": "Only Minecraft loading, flat wood-retention scene, native mining and trunk break; no desktop capture",
+  "full_decode_verified": true,
+  "actions_altered": false,
+  "replay": false
+}

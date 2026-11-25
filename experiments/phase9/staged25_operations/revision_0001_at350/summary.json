@@ -1,0 +1,71 @@
+{
+  "stage": "official_training",
+  "official_training_worlds": 350,
+  "world_limit": 10000,
+  "remaining_world_slots": 9650,
+  "goal_counts": {
+    "one_log": {
+      "world_instances": 10,
+      "scored": 10,
+      "successes": 5
+    },
+    "three_logs": {
+      "world_instances": 1,
+      "scored": 1,
+      "successes": 0
+    },
+    "planks": {
+      "world_instances": 1,
+      "scored": 1,
+      "successes": 1
+    },
+    "wooden_pickaxe": {
+      "world_instances": 0,
+      "scored": 0,
+      "successes": 0
+    }
+  },
+  "generated_world_instances": 12,
+  "unverified_world_counts": 0,
+  "distinct_generated_seeds": 12,
+  "committed_episodes": 12,
+  "training_episodes": 12,
+  "verified_game_episodes": 12,
+  "uncommitted_scored_episodes": 0,
+  "uncommitted_reported_updates": 0,
+  "training_updates": 11,
+  "evaluation_episodes": 0,
+  "recording_policy": "milestones",
+  "recorded_episodes": 2,
+  "event_only_episodes": 10,
+  "recent_training_success_rate": 0.5,
+  "mean_training_reward": 4.817897155191701,
+  "measured_training_worlds_per_hour": 58.18671853013124,
+  "mean_actions_per_success": 17.666666666666668,
+  "estimated_remaining_seconds": null,
+  "estimate_basis": "broader skills are not yet implemented or timed",
+  "execution_revision": 1,
+  "curriculum_level": 1,
+  "goal": "one_log, three_logs, planks, wooden_pickaxe",
+  "progression": "64 terrain training worlds, locked 30-seed five-condition evaluation and retention gate; then 128 natural exploration worlds; later skills require validated implementation",
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00012\\trial_0000.npz",
+    "sha256": "70f953dccc40527085db8d6ee28f7b739b5a2479c73bb48f2e944556279762ec"
+  },
+  "active_attempt": null,
+  "recent_errors": [],
+  "updated_unix": 1795615983.3511775,
+  "curriculum_schema": "staged-terrain-v1",
+  "foundation_worlds": 338,
+  "new_training_worlds": 12,
+  "curriculum_status": "ready",
+  "curriculum_index": 0,
+  "gates": {},
+  "pending_skills": [
+    "stone_tools",
+    "food_and_shelter",
+    "mining_and_survival",
+    "combat",
+    "nether_and_progression"
+  ]
+}

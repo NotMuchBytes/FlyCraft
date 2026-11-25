@@ -46,7 +46,7 @@ def validate_worker(args, root, *, campaign=None):
         "capture_width": profile["width"], "capture_height": profile["height"]}
     if campaign.config.get("curriculum_schema") == "staged-terrain-v1":
         expected.update(terrain_actions=True, terrain_step_fixture=profile["terrain_step_fixture"],
-                        natural_world=profile["natural_world"])
+                        natural_world=profile["natural_world"], natural_start=profile.get("natural_start"))
     elif getattr(args, "terrain_actions", False) or getattr(args, "terrain_step_fixture", False):
         raise ValueError("terrain interface is absent from the original frozen plan")
     if (attempt["split"] != "training" and campaign.config.get("curriculum_schema") != "staged-terrain-v1") or attempt["status"] != "running":

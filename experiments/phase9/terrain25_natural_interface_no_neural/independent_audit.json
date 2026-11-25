@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "run_id": "terrain25_natural_interface_no_neural",
+  "status": "verified",
+  "stop_reason": "suite_complete",
+  "episodes": [
+    {
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "no_neural",
+      "layout_seed": 202611252601,
+      "success": false,
+      "actions": 40,
+      "game_seconds": 30.0,
+      "elapsed_seconds": 29.984985899878666,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    }
+  ],
+  "intervention_commands_verified": 41,
+  "video": null,
+  "implementation_sha256": "99e63ea2424c327fe17d8bc6886eb90a377450347547df6cbabb8bb0ff8193da",
+  "evidence_sha256": {
+    "bridge.jsonl": "330303c80ab932517d36807934874eb289caf86169e638d7824d137ac747f1c6",
+    "bridge_launcher.log": "3c2eb5541fef549b95e469d9430896e629aacdd9b391a3d02334d00c98f01e5d",
+    "camera.jsonl": "1aba75c75a9ca7571df6a7e6d67c57833e82c8ec6fcaaf025ed2dc09ed4e9659",
+    "controller.jsonl": "f29853c709e8c57747d290adfd4b4a1e837d54ade724a861db7909b6481cd6e2",
+    "headless.jsonl": "4da5d0059f256f0a7cc57177b5d511a531315ce9af76c7719e45334709e7f955",
+    "run.json": "6dfa59d92e43c384af399d787c07224ed49974b0b8e62f4de4032cfe295caa4b",
+    "server.jsonl": "ce5a155b0af640f703bf74e48941d8e30480ef1dce2a20f2596ced0cd7ce16c5",
+    "server.jsonl.delivery.jsonl": "36d830eeff0f896c3e5eed4f3021a85b4ea7b6073c7453775e383c3b6311241a",
+    "server.jsonl.initial.jsonl": "61ec60cdec333c6a98e3d15c24e59d176cb285619046e26de7b3e85841826384",
+    "server.log": "192ef7719223a6c6897e963991f750c08fddca72063cc7af418dcdf73012bd74",
+    "server_launcher.log": "192ef7719223a6c6897e963991f750c08fddca72063cc7af418dcdf73012bd74",
+    "source_manifest.json": "a7afe6a0d0cdcf7e07a2f6badcb4739c1bac6279c11dead564544e00e7d52027",
+    "status.json": "767149a14ab5d72d378cc5b280692eb7a8471287809f881284f90f4a7376c1e1"
+  }
+}

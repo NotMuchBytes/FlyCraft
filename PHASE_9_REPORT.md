@@ -1,5 +1,16 @@
 # FlyCraft Phase 9 development report
 
+**November 25 — staged revision 2:** through world 350, the new course scored
+6/12 training successes (terrain 4/9; retention 2/3), with 11 independently
+verified updates. Milestones 339 and 350 passed full decode and sampled
+review. A separate five-condition natural interface pilot used identical
+recorded native poses, seed, RNG and budget; every condition scored 0/1 and
+made zero updates. All 166 tests pass. Revision 2 preserves the source and
+ledger at 350, rejects unmatched natural starts and requires all four wood
+retention gates. It changes no actor, reward, readout, training seeds or
+training budgets. Natural exploration and later skills remain unfinished.
+[Results, limits and source lineage](docs/phase9_staged_curriculum.md).
+
 **November 25 — broader curriculum started:** the original campaign is
 preserved and paused at 338 generated worlds and 337 scored episodes. The
 remaining training budget is allocated to validated stages rather than a

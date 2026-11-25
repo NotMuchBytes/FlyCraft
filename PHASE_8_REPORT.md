@@ -1,5 +1,14 @@
 # FlyCraft — Phase 8 report
 
+**November 25 — retention checks for the broader candidate:** all 166 tests
+pass. The new curriculum has 6/12 training successes through world 350 and
+11 verified updates, with two fully decoded milestones. Its fresh natural
+interface pilot scored 0/1 under each of five matched conditions. These do
+not replace the Phase 8 controlled scores below. The new candidate must pass
+30 fresh retention trials for each of the four wood goals at the original
+80%/70%/70%/50% point targets before advancing. Broader reliability and a
+learning/neural advantage remain unestablished.
+
 **November 25 — broader curriculum transfer:** the validated Phase 8 wood
 scores remain 27/30 one-log, 27/30 three-log, 27/30 planks and 19/30 wooden
 pickaxe. The user-selected Phase 9 revision preserves the original 338-world

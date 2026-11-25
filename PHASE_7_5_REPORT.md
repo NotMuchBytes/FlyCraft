@@ -1,5 +1,14 @@
 # FlyCraft Phase 7.5 reliability report
 
+**November 25 — matched natural controls:** all five conditions now reproduce
+the same recorded absolute starting pose and the checker rejects actual pose
+drift. The separate one-seed, 600-tick development pilot scored 0/1 in every
+condition, with zero learning updates. No target became visible; trained
+movement was only 1.23 blocks net versus 11.69 for uniform. Exploration is
+still weak. All 166 tests pass. The training snapshot through world 350 is
+6/12 new successes, with verified milestone videos 339 and 350; these are
+training outcomes. [Complete protocol and gaps](docs/phase9_staged_curriculum.md).
+
 **November 25 — broader terrain interface:** 163 tests pass, and native jump
 acknowledgments demonstrate policy-selected upward and horizontal movement.
 Two matched-seed evaluation probes both collected 0/1 logs; changing the jump

@@ -1,6 +1,6 @@
 """Budget, seed and progression checks; synthetic, not live skill scores."""
 import unittest
-from autonomy.staged import StagedCampaign, STAGES, gate_report
+from autonomy.staged import StagedCampaign, STAGES, RETENTION_MINIMUMS, gate_report
 from autonomy.experiment import CONDITIONS
 
 
@@ -16,7 +16,7 @@ class StagedTests(unittest.TestCase):
     def evaluated(self, successes=24):
         return [dict(curriculum_stage="terrain", split="eval_a", status="committed", evaluation_task=task,
             condition=condition, evaluation_index=i, success=i < successes, train=False, generated_world_instances=1)
-            for task, conditions in (("primary", CONDITIONS), ("retention", ("trained",)))
+            for task, conditions in [("primary", CONDITIONS)] + [("retention_"+g, ("trained",)) for g in RETENTION_MINIMUMS]
             for condition in conditions for i in range(30)]
 
     def test_gate_requires_all_controls_and_retention_and_never_counts_duplicates(self):
@@ -25,9 +25,19 @@ class StagedTests(unittest.TestCase):
         self.assertFalse(gate_report(rows[:-1], "terrain")["passed"])
         self.assertFalse(gate_report(rows + [rows[0]], "terrain")["passed"])
         self.assertFalse(gate_report(self.evaluated(23), "terrain")["passed"])
-        rows[-1]["success"] = False
-        rows[-30]["success"] = False
+        rows[150]["success"] = False
         self.assertFalse(gate_report(rows, "terrain")["passed"])
+
+    def test_each_retained_goal_has_its_own_original_success_threshold(self):
+        rows = self.evaluated(30)
+        for row in rows:
+            if row["evaluation_task"].startswith("retention_"):
+                goal = row["evaluation_task"][len("retention_"):]
+                row["success"] = row["evaluation_index"] < RETENTION_MINIMUMS[goal]
+        self.assertTrue(gate_report(rows,"terrain")["passed"])
+        pick = next(r for r in rows if r["evaluation_task"]=="retention_wooden_pickaxe" and r["success"])
+        pick["success"] = False
+        self.assertFalse(gate_report(rows,"terrain")["passed"])
 
     def test_foundation_budget_retention_and_locked_evaluation(self):
         c = self.campaign()

@@ -4,6 +4,7 @@ Only terrain/exploration and wood retention are executable in this revision.
 Later skills are reserved, not silently replaced with more wood episodes.
 """
 import json
+import math
 from pathlib import Path
 import time
 
@@ -17,19 +18,39 @@ STAGES = (
     {"id": "exploration", "training_worlds": 128, "terrain_step_fixture": False, "natural_world": True},
 )
 PENDING = ("stone_tools", "food_and_shelter", "mining_and_survival", "combat", "nether_and_progression")
+RETENTION_MINIMUMS = {"one_log": 24, "three_logs": 21, "planks": 21, "wooden_pickaxe": 15}
+
+
+def reference_start(attempts, *, stage, index, seed):
+    """Reuse only an observed own pose from the first matched condition."""
+    rows = [a for a in attempts if a.get("curriculum_stage") == stage and a["split"] == "eval_a"
+            and a.get("evaluation_task") == "primary" and a["condition"] == "trained"
+            and a.get("evaluation_index") == index and a["status"] == "committed"]
+    if len(rows) != 1 or rows[0]["world_seed"] != seed:
+        raise ValueError("matched natural control needs its completed trained reference")
+    initial = [json.loads(line) for line in (Path(rows[0]["results"]) / "server.jsonl.initial.jsonl").read_text().splitlines()]
+    if len(initial) != 1 or initial[0].get("world_seed") != seed or initial[0].get("game_mode") != "SURVIVAL":
+        raise ValueError("ambiguous or mismatched natural starting-pose evidence")
+    pose = initial[0].get("position_xyz_yaw_pitch")
+    if not isinstance(pose, list) or len(pose) != 5 or any(type(v) not in (int, float) or not math.isfinite(v) for v in pose):
+        raise ValueError("invalid natural reference pose")
+    if any(initial[0]["inventory"].values()):
+        raise ValueError("natural reference inventory was not empty")
+    return list(pose)
 
 
 def gate_report(attempts, stage):
-    """Thirty untouched primary seeds, all five controls, plus retention."""
+    """Thirty untouched primary seeds, all controls, all four retention goals."""
     rows = [a for a in attempts if a.get("curriculum_stage") == stage and a["split"] == "eval_a" and a["status"] == "committed"]
     cells = {(a["evaluation_task"], a["condition"], a["evaluation_index"]): a for a in rows}
-    required = [("primary", c, i) for i in range(30) for c in CONDITIONS] + [("retention", "trained", i) for i in range(30)]
+    required = [("primary", c, i) for i in range(30) for c in CONDITIONS] + [("retention_"+g, "trained", i) for g in RETENTION_MINIMUMS for i in range(30)]
     complete = len(rows) == len(cells) == len(required) and all(k in cells for k in required)
     scores = {c: sum(a["success"] for a in rows if a["evaluation_task"] == "primary" and a["condition"] == c) for c in CONDITIONS}
-    retention = sum(a["success"] for a in rows if a["evaluation_task"] == "retention")
+    retention = {g: sum(a["success"] for a in rows if a["evaluation_task"] == "retention_"+g) for g in RETENTION_MINIMUMS}
     return dict(complete=complete, primary_successes=scores, retention_successes=retention,
                 trials_per_condition=30, minimum_successes=24,
-                passed=complete and scores["trained"] >= 24 and retention >= 24)
+                retention_minimums=dict(RETENTION_MINIMUMS),
+                passed=complete and scores["trained"] >= 24 and all(retention[g] >= n for g,n in RETENTION_MINIMUMS.items()))
 
 
 class StagedCampaign(Campaign):
@@ -102,7 +123,7 @@ class StagedCampaign(Campaign):
 
     def environment_expectation(self, profile):
         kind = "vanilla_overworld_spawn" if profile["natural_world"] else "controlled_terrain_step_teaching_fixture" if profile["terrain_step_fixture"] else "controlled_flat_three_tree_fixture" if profile["three_tree_fixture"] else "controlled_flat_survival_fixture"
-        return dict(terrain_actions=True, environment_kind=kind)
+        return dict(terrain_actions=True, environment_kind=kind, natural_start_requested=profile.get("natural_start"))
 
     def next_cell(self):
         if self.state["active_attempt"] is not None:
@@ -125,7 +146,8 @@ class StagedCampaign(Campaign):
             self.save()
         if self.state["stage_checkpoints"][stage["id"]] != self.state["current_checkpoint"]:
             raise ValueError("candidate changed after held-out evaluation began")
-        for task, conditions in (("primary", CONDITIONS), ("retention", ("trained",))):
+        tasks = [("primary", CONDITIONS)] + [("retention_"+g, ("trained",)) for g in RETENTION_MINIMUMS]
+        for task, conditions in tasks:
             for n in range(30):
                 for condition in conditions:
                     previous = [a for a in rows if a["split"] == "eval_a" and a["evaluation_task"] == task and a["condition"] == condition and a["evaluation_index"] == n]
@@ -133,7 +155,9 @@ class StagedCampaign(Campaign):
                     if previous and previous[-1]["status"] != "committed":
                         raise ValueError("incomplete evaluation cell requires explicit evidence review")
                     if not previous:
-                        return dict(split="eval_a", condition=condition, goal="one_log", retention=task == "retention", evaluation_task=task, evaluation_index=n)
+                        retention = task.startswith("retention_")
+                        return dict(split="eval_a", condition=condition, goal=task[len("retention_"):] if retention else "one_log",
+                                    retention=retention, evaluation_task=task, evaluation_index=n)
         gate = gate_report(rows, stage["id"])
         self.state["gates"][stage["id"]] = gate
         self.state["status"] = "stage_passed" if gate["passed"] else "stage_gate_failed"
@@ -154,11 +178,14 @@ class StagedCampaign(Campaign):
         stage = self.config["supported_stages"][self.state["curriculum_index"]]
         train = cell["split"] == "training"
         own_worlds = self.training_worlds() - 338
-        seed_index = own_worlds if train else self.state["curriculum_index"] * 60 + cell["evaluation_index"] + (30 if cell["retention"] else 0)
+        seed_index = own_worlds if train else self.state["curriculum_index"] * 150 + cell["evaluation_index"] + (30*(1+list(RETENTION_MINIMUMS).index(cell["goal"])) if cell["retention"] else 0)
         seed = self.catalog["training" if train else "eval_a"][seed_index]
         checkpoint = self.config["frozen_checkpoint"] if cell["condition"] == "frozen" else self.state["current_checkpoint"]
         profile = dict(self.config["runtime_profile"])
         profile.update(terrain_step_fixture=stage["terrain_step_fixture"] and not cell["retention"], natural_world=stage["natural_world"] and not cell["retention"])
+        if profile["natural_world"] and not train and cell["condition"] != "trained":
+            profile["natural_start"] = reference_start(self.state["attempts"], stage=stage["id"],
+                index=cell["evaluation_index"], seed=seed)
         if cell["retention"]:
             long = cell["goal"] in ("three_logs", "wooden_pickaxe")
             profile.update(trial_ticks=1500 if long else 400, forward_ticks=2, three_tree_fixture=long, remember_mined_columns=long)
@@ -169,7 +196,7 @@ class StagedCampaign(Campaign):
             run_id=run_id, curriculum_stage=stage["id"], profile=profile,
             world_seed=seed, layout_seed=seed, policy_seed=19001 + seed_index,
             train=train, checkpoint=dict(checkpoint), status="running", started_unix=time.time(),
-            generated_world_instances=None, execution_revision=1,
+            generated_world_instances=None, execution_revision=self.config.get("execution_revision", 1),
             experiment_stage="official_training" if train else "staged_curriculum_evaluation",
             implementation_sha256=self.config["implementation_sha256"], official_world_number=official_number,
             video_required=train and official_number in self.config["recording_milestones"],
@@ -185,6 +212,6 @@ class StagedCampaign(Campaign):
         result.update(curriculum_schema=SCHEMA, official_training_worlds=total,
             foundation_worlds=338, new_training_worlds=total-338, remaining_world_slots=10000-total,
             estimated_remaining_seconds=None, estimate_basis="broader skills are not yet implemented or timed",
-            progression="64 terrain training worlds, locked 30-seed five-condition evaluation and retention gate; then 128 natural exploration worlds; later skills require validated implementation",
+            progression="64 terrain training worlds, locked 30-seed five-condition evaluation and 30 trials per wood retention goal; then 128 natural exploration worlds; later skills require validated implementation",
             curriculum_status=self.state["status"], curriculum_index=self.state["curriculum_index"], gates=self.state["gates"], pending_skills=self.config["pending_skills"])
         return result

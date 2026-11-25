@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "run_id": "terrain25_natural_interface_shuffled",
+  "status": "verified",
+  "stop_reason": "suite_complete",
+  "episodes": [
+    {
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "shuffled",
+      "layout_seed": 202611252601,
+      "success": false,
+      "actions": 40,
+      "game_seconds": 30.0,
+      "elapsed_seconds": 29.97889590007253,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    }
+  ],
+  "intervention_commands_verified": 41,
+  "video": null,
+  "implementation_sha256": "99e63ea2424c327fe17d8bc6886eb90a377450347547df6cbabb8bb0ff8193da",
+  "evidence_sha256": {
+    "bridge.jsonl": "ef208412e9a1fc0fa53e72f3ceea16ce99ec3c995cdbd1b7945cb4cefc092027",
+    "bridge_launcher.log": "da4fdee6b4b804876854326eee0d32f16b4470464ed9a25c913e5fd4f93edfec",
+    "camera.jsonl": "261654f329da169f78f7a4ed789519e5e5967ae0de69887080df0aefbcb31721",
+    "controller.jsonl": "3d0fe75e62dd7a9020c67d56511245812adbe87d1b10ef948e4f15bb5a664c5d",
+    "headless.jsonl": "cadbb28a2afbc1aca691cb1fd956f6028eb69c039a1caaf334dc5fa235b77c1d",
+    "run.json": "399d97dd807f28dd0dffa1a6405cd23de3ec94fe29c1e8adf06bdf13c25fb0eb",
+    "server.jsonl": "80ac3012458badf97eacc27e765526dd20718eb9acfa1978de257c164b43f4c0",
+    "server.jsonl.delivery.jsonl": "36d830eeff0f896c3e5eed4f3021a85b4ea7b6073c7453775e383c3b6311241a",
+    "server.jsonl.initial.jsonl": "61ec60cdec333c6a98e3d15c24e59d176cb285619046e26de7b3e85841826384",
+    "server.log": "4af1dcb69f41ae73686412ce1f523e5c0fdb0b4078e0d43f2debab89c31ad28c",
+    "server_launcher.log": "4af1dcb69f41ae73686412ce1f523e5c0fdb0b4078e0d43f2debab89c31ad28c",
+    "source_manifest.json": "a7afe6a0d0cdcf7e07a2f6badcb4739c1bac6279c11dead564544e00e7d52027",
+    "status.json": "fcf113e71ba07beb277b28a7d4a399b018019519cb0cc0846bcff079e217346a"
+  }
+}

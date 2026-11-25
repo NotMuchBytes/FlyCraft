@@ -22,9 +22,10 @@ development and evaluation worlds do not count as training worlds.
 After each stage the candidate checkpoint is locked. Thirty fresh primary
 seeds are run under trained, frozen transfer, uniform, no-neural and shuffled
 neural conditions. Each condition gets the same seed, policy RNG, interface
-and budget. An additional 30 fresh one-log retention seeds use the trained
-candidate. Advancing requires at least 24/30 primary trained successes and
-24/30 retention successes. Point thresholds do not establish neural benefit;
+and budget. Retention trials use the locked trained candidate. Revision 2
+evaluates 30 fresh retention seeds per wood goal (120 total per stage) and
+requires at least 24/30 one-log, 21/30 three-log, 21/30 plank and 15/30 pickaxe
+successes, alongside 24/30 primary trained successes. Point thresholds do not establish neural benefit;
 condition results, intervals, action counts, elapsed time and failures must
 still be reported. Exact replays of entity RNG are not claimed.
 
@@ -96,7 +97,7 @@ not been performed during training.
 
 ## Development evidence
 
-All 163 automated tests pass, including shutdown eligibility checks. Native Fabric
+All 166 automated tests pass, including matching, retention and shutdown eligibility checks. Native Fabric
 compilation succeeds. Two matched-seed evaluation probes both scored 0/1
 one-log collection in the teaching arena (80 actions and 60 game seconds
 each). The first zero-column transfer selected 25 jumps; the movement-prior
@@ -121,3 +122,29 @@ without a confirmed break; turning/exploration remained weak. All four actual
 readout changes and their checkpoint chain were reverified, with the original
 connectome and transferred weight prefix unchanged. Full results and raw
 evidence hashes: `experiments/phase9/staged25_operations/first4_audit.json`.
+
+Through official world 350, twelve new training worlds scored **6/12**:
+terrain **4/9** (Wilson 95% 18.9–73.3%) and retention **2/3** (20.8–93.9%).
+Eleven actual readout updates were verified; one unexecuted terminal command
+correctly suppressed learning. Milestones 339 and 350 both passed complete
+decode and sampled review. See `through350_audit.json` in the same operations
+folder for per-episode actions, times, failures and checkpoint lineage.
+
+Before evaluation, revision 2 hardened natural controls to reuse the trained
+reference's actual native starting XYZ/yaw/pitch. The checker rejects pose
+drift instead of trusting a requested teleport. A separate development pilot
+ran all five conditions on one fresh natural seed with exactly matching poses,
+policy RNG and 600-tick budgets. Each scored **0/1**, with zero updates and no
+visible target or confirmed break. Trained/frozen/no-neural/shuffled used 40
+acknowledged actions; uniform used 43. Trained moved only 1.23 blocks net,
+versus 11.69 for uniform. This confirms the comparison interface and the
+remaining exploration weakness; it establishes no broader skill or neural
+benefit. It uses development data, not the held-out gate seeds. Exact entity
+RNG replay remains unverified. `natural_interface_pilot.json` and
+`natural_pilot_exploration_audit.json` retain the evidence.
+
+Revision 2 preserves the prior source/config/state at world 350. It changes
+comparison setup and evaluation gates, with **no actor, reward, readout,
+training seed or training action-budget change**. All four wood skills now
+need retention gates so a stronger collection score cannot hide forgotten
+crafting. The next official training slot is 351.

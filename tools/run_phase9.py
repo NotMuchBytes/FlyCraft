@@ -118,6 +118,8 @@ def worker_command(campaign, attempt, args, seconds):
         command.append("--terrain-step-fixture")
     if profile.get("natural_world"):
         command.append("--natural-world")
+    if profile.get("natural_start") is not None:
+        command += ["--natural-start", *map(str, profile["natural_start"])]
     if profile.get("remember_mined_columns"):
         command.append("--remember-mined-columns")
     if args.video_export_dir:
