@@ -1,5 +1,10 @@
 # Checked development supervisor
 
+**25 November 2026:** the user separately authorized the official campaign.
+[Its dedicated executor, frozen design and milestone schedule](phase9_official_campaign.md)
+extend the same evidence gate. The development CLI described below retains its
+100-world bound; it cannot silently become an official run.
+
 The supervisor runs bounded real-Minecraft development batches and asks Codex
 to investigate problems. It does not implement or authorize the 10,000-world
 campaign. Valid policy failures remain scored; the checker cannot patch code,

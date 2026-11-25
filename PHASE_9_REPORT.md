@@ -7,8 +7,16 @@ schedule over 10,000 distinct generated training-world slots. All **145 tests
 pass**; this includes interrupted-world accounting, worker-plan binding and
 safe disposable-world cleanup. The original graph, actor and prior checkpoints
 are preserved. [Official design, limits and recording schedule](docs/phase9_official_campaign.md).
-At this implementation checkpoint the official plan has **not yet launched**;
-live counters will be reported from the campaign ledger. Historical authorization
+The official campaign **has started**. Its first four scheduled milestones scored
+**3/4**: one-log 1/1, three-log 1/1, planks 1/1 and pickaxe 0/1. The pickaxe
+failure reached sticks but missed the fixed tick budget; it remains a scored
+failure. All four training updates and Minecraft-only RTX 4050 MP4s passed the
+independent gate, full decode and sampled manual review. Training continues in
+the background; routine verified world cleanup is working. These small training
+counts are not final evaluation or a reliability estimate.
+[Verified launch audit and video paths](experiments/phase9/fc9_20261125_operations/launch_audit.json),
+[host operations, shutdown condition and fan limitation](experiments/phase9/fc9_20261125_operations/README.md).
+Live counters are in the local campaign ledger. Historical authorization
 and usage-cap statements below are superseded by the explicit instructions.
 The untouched final 100-world evaluation remains separate from training.
 
