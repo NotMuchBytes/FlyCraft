@@ -1,0 +1,19 @@
+test_malformed_update_pauses_without_advancing_the_checkpoint (test_checked_supervisor.CheckedSupervisorTests.test_malformed_update_pauses_without_advancing_the_checkpoint) ... ERROR
+
+======================================================================
+ERROR: test_malformed_update_pauses_without_advancing_the_checkpoint (test_checked_supervisor.CheckedSupervisorTests.test_malformed_update_pauses_without_advancing_the_checkpoint)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\anass\Documents\FlyCraft\tests\test_checked_supervisor.py", line 244, in test_malformed_update_pauses_without_advancing_the_checkpoint
+    result = campaign.recover()
+  File "C:\Users\anass\Documents\FlyCraft\autonomy\experiment.py", line 332, in recover
+    report = audit_run(results, expected=expected)
+  File "C:\Users\anass\Documents\FlyCraft\autonomy\evidence.py", line 213, in audit_run
+    delta = controller["update"]["weight_delta_norm"]
+            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+----------------------------------------------------------------------
+Ran 1 test in 0.228s
+
+FAILED (errors=1)

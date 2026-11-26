@@ -1,0 +1,265 @@
+{
+  "complete": true,
+  "functional_validation_only": true,
+  "episodes": {
+    "checker24_one": [
+      {
+        "episode_id": "trial_0000",
+        "goal": "one_log",
+        "condition": "trained",
+        "layout_seed": 6218542308816961717,
+        "success": true,
+        "actions": 10,
+        "game_seconds": 7.3,
+        "elapsed_seconds": 7.2486301001627,
+        "confirmed_breaks": 1,
+        "crafts": {},
+        "failure_mode": "success",
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "weight_delta_norm": 0.0,
+        "training_applied": false
+      },
+      {
+        "episode_id": "trial_0000",
+        "goal": "one_log",
+        "condition": "trained",
+        "layout_seed": 8495663230098908223,
+        "success": true,
+        "actions": 11,
+        "game_seconds": 8.4,
+        "elapsed_seconds": 8.24787799990736,
+        "confirmed_breaks": 1,
+        "crafts": {},
+        "failure_mode": "success",
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "weight_delta_norm": 0.0,
+        "training_applied": false
+      }
+    ],
+    "checker24_three": [
+      {
+        "episode_id": "trial_0000",
+        "goal": "three_logs",
+        "condition": "trained",
+        "layout_seed": 2077998000921060610,
+        "success": true,
+        "actions": 25,
+        "game_seconds": 22.1,
+        "elapsed_seconds": 21.989337200066075,
+        "confirmed_breaks": 3,
+        "crafts": {},
+        "failure_mode": "success",
+        "inventory": {
+          "log": 3,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "weight_delta_norm": 0.0,
+        "training_applied": false
+      }
+    ],
+    "checker24_planks": [
+      {
+        "episode_id": "trial_0000",
+        "goal": "planks",
+        "condition": "trained",
+        "layout_seed": 4738280841778720552,
+        "success": true,
+        "actions": 9,
+        "game_seconds": 9.4,
+        "elapsed_seconds": 9.235510899918154,
+        "confirmed_breaks": 2,
+        "crafts": {
+          "CRAFT_PLANKS": 1
+        },
+        "failure_mode": "success",
+        "inventory": {
+          "log": 0,
+          "planks": 4,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "weight_delta_norm": 0.0,
+        "training_applied": false
+      }
+    ],
+    "checker24_pick": [
+      {
+        "episode_id": "trial_0000",
+        "goal": "wooden_pickaxe",
+        "condition": "trained",
+        "layout_seed": 5756716452767679645,
+        "success": true,
+        "actions": 89,
+        "game_seconds": 67.9,
+        "elapsed_seconds": 67.73651499999687,
+        "confirmed_breaks": 3,
+        "crafts": {
+          "CRAFT_PLANKS": 3,
+          "CRAFT_STICKS": 1,
+          "CRAFT_TABLE": 1,
+          "PLACE_TABLE": 1,
+          "CRAFT_PICKAXE": 1
+        },
+        "failure_mode": "success",
+        "inventory": {
+          "log": 0,
+          "planks": 3,
+          "sticks": 2,
+          "crafting_table": 0,
+          "wooden_pickaxe": 1
+        },
+        "weight_delta_norm": 0.0,
+        "training_applied": false
+      }
+    ],
+    "checker24_stop": [
+      {
+        "episode_id": "trial_0000",
+        "goal": "one_log",
+        "condition": "trained",
+        "layout_seed": 8333822288643373171,
+        "success": true,
+        "actions": 6,
+        "game_seconds": 6.2,
+        "elapsed_seconds": 5.996939199976623,
+        "confirmed_breaks": 1,
+        "crafts": {},
+        "failure_mode": "success",
+        "inventory": {
+          "log": 1,
+          "planks": 0,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "weight_delta_norm": 0.0,
+        "training_applied": false
+      }
+    ],
+    "checker24_train": [
+      {
+        "episode_id": "trial_0000",
+        "goal": "planks",
+        "condition": "trained",
+        "layout_seed": 7912516558148973099,
+        "success": true,
+        "actions": 14,
+        "game_seconds": 13.65,
+        "elapsed_seconds": 13.494462700095028,
+        "confirmed_breaks": 2,
+        "crafts": {
+          "CRAFT_PLANKS": 1
+        },
+        "failure_mode": "success",
+        "inventory": {
+          "log": 0,
+          "planks": 4,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "weight_delta_norm": 0.01629402191252885,
+        "training_applied": true
+      },
+      {
+        "episode_id": "trial_0000",
+        "goal": "planks",
+        "condition": "trained",
+        "layout_seed": 250858401364856079,
+        "success": true,
+        "actions": 6,
+        "game_seconds": 5.9,
+        "elapsed_seconds": 5.7373921000398695,
+        "confirmed_breaks": 1,
+        "crafts": {
+          "CRAFT_PLANKS": 1
+        },
+        "failure_mode": "success",
+        "inventory": {
+          "log": 0,
+          "planks": 4,
+          "sticks": 0,
+          "crafting_table": 0,
+          "wooden_pickaxe": 0
+        },
+        "weight_delta_norm": 0.01549760157277084,
+        "training_applied": true
+      }
+    ]
+  },
+  "scored_episodes": 8,
+  "generated_world_instances": 9,
+  "training_updates": 2,
+  "stop_resume": {
+    "first_attempt_status": "interrupted",
+    "run_id": "checker24_stop_eval_a_trained_00001_a0001",
+    "mining_command_id": 1,
+    "mining_acknowledged_success": false,
+    "committed_episodes": 1,
+    "generated_world_instances": 2,
+    "scored_before_stop": false
+  },
+  "milestone_run": "checker24_pick_eval_a_trained_00001_a0001",
+  "milestone_video": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_Development_Milestone_00001_checker24_pick_eval_a_trained_00001_a0001.mp4",
+  "milestone_goal_success": true,
+  "milestone_frames": [
+    {
+      "seconds": 4.14166665,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\checker_pilot_video_review\\frame_0_4.142s.png"
+    },
+    {
+      "seconds": 18.22333326,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\checker_pilot_video_review\\frame_1_18.223s.png"
+    },
+    {
+      "seconds": 33.1333332,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\checker_pilot_video_review\\frame_2_33.133s.png"
+    },
+    {
+      "seconds": 48.043333139999994,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\checker_pilot_video_review\\frame_3_48.043s.png"
+    },
+    {
+      "seconds": 62.95333308,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\checker_pilot_video_review\\frame_4_62.953s.png"
+    },
+    {
+      "seconds": 77.86333302,
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\checker_pilot_video_review\\frame_5_77.863s.png"
+    }
+  ],
+  "contact_sheet": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\checker_pilot_video_review\\contact_sheet.png",
+  "manual_visual_review": {
+    "completed": true,
+    "observations": "Inspected six sampled original frames plus 80.3 seconds. Minecraft-only loading/gameplay, removed logs and visible dropped log; placed crafting table visible at 80.3 seconds. Tutorial overlay remains; inventory success is independently audited from server/actor logs, not spectator HUD."
+  },
+  "graph_unchanged": true,
+  "original_checkpoints_unchanged": true,
+  "actor_source_unchanged": true,
+  "changed_coordination_files": [
+    "autonomy/evidence.py",
+    "autonomy/experiment.py",
+    "tools/obs_session.py",
+    "tools/run_phase9.py",
+    "tools/supervise_phase9.py"
+  ],
+  "pilot_source_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+  "review_source_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+  "official_training_worlds": 0
+}

@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "run_id": "terrain25_probe001",
+  "status": "verified",
+  "stop_reason": "suite_complete",
+  "episodes": [
+    {
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 202611251501,
+      "success": false,
+      "actions": 80,
+      "game_seconds": 60.0,
+      "elapsed_seconds": 59.98853030009195,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    }
+  ],
+  "intervention_commands_verified": 80,
+  "video": null,
+  "implementation_sha256": "1b0ab5b9410789a5bc04ff6395116d0d0f9f403d51cebb94e58d4b30f9a1b64c",
+  "evidence_sha256": {
+    "bridge.jsonl": "025ccdf8a96a946457ad140c824e9478dd2b1b7a55fb9e03356214e67ce25567",
+    "bridge_launcher.log": "7870a76d6847f619d879cd801721ce6a330a32dfb3f7e7cca30f927bf3f15270",
+    "camera.jsonl": "2c471a063a92f0a01036f05260e9173e9c4fa444a752684692a481e84a67d2d2",
+    "controller.jsonl": "1a0f7153fb2302139f8572a98ceb6bb0cc4845bb311fd25f711b75d74e80eda2",
+    "headless.jsonl": "88f9a4ebc0917e725d82fe12bf1617eb747c4727baa87c80dfdac64ae977cb05",
+    "prepare_launcher.log": "ae427a65888872598070d1ad6008311b26569943bea3cdab755797593f23f6bc",
+    "run.json": "1c0171e788804ffcc79ed84f2326f6fba030ad3e79a7d3794e221106479da052",
+    "server.jsonl": "ffa31b88121ca7b454cf29c881d94382e800a553585f0120db4f11509156b323",
+    "server.jsonl.delivery.jsonl": "36d830eeff0f896c3e5eed4f3021a85b4ea7b6073c7453775e383c3b6311241a",
+    "server.jsonl.initial.jsonl": "4b60e3f8a5f0b588bb74def81c7f6bdeb8df6dbe765b1b5220577027115a70ff",
+    "server.log": "7e648fe4c4173bd21b30c0431f47710b4e9200ad08b29ef07f62291f948c9a93",
+    "server_launcher.log": "7e648fe4c4173bd21b30c0431f47710b4e9200ad08b29ef07f62291f948c9a93",
+    "source_manifest.json": "20ae062da7b4bdc201a0c0f4a35f7ddb59e645f77633e47fe07a5d1bcca462a0",
+    "status.json": "0d3461ff341dbaadf4247e29b9678d1765372a0a9d883afc6a97b464ba7723d1"
+  }
+}

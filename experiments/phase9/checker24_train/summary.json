@@ -1,0 +1,30 @@
+{
+  "stage": "development",
+  "official_training_worlds": 0,
+  "generated_world_instances": 2,
+  "unverified_world_counts": 0,
+  "distinct_generated_seeds": 2,
+  "committed_episodes": 2,
+  "training_episodes": 2,
+  "training_updates": 2,
+  "evaluation_episodes": 0,
+  "recording_policy": "milestones",
+  "recorded_episodes": 0,
+  "event_only_episodes": 2,
+  "recent_training_success_rate": 1.0,
+  "mean_training_reward": 8.990765690971834,
+  "measured_training_worlds_per_hour": 99.84859139879032,
+  "mean_actions_per_success": 10.0,
+  "estimated_remaining_seconds": 72.10917950002477,
+  "estimate_basis": "remaining generated-world slots times measured attempt wall time; interruptions included",
+  "curriculum_level": 1,
+  "goal": "planks",
+  "progression": "operator-selected interaction goal; no automatic curriculum advancement",
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\checker24_train_pilot_trained_00002_a0002\\trial_0000.npz",
+    "sha256": "ba502a3456fdd2a87960a65dfd8fe47ed85b9dd66ff395930d10f28c65610ae5"
+  },
+  "active_attempt": null,
+  "recent_errors": [],
+  "updated_unix": 1795545147.7078958
+}

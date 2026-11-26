@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "flycraft_bridge",
+	"version": "${version}",
+	"name": "FlyCraft Bridge",
+	"description": "Transparent local bridge between Minecraft observations and the FlyCraft connectome simulator.",
+	"authors": [
+		"FlyCraft project"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"org.flycraft.bridge.FlyCraftMod"
+		],
+		"client": [
+			"org.flycraft.bridge.client.FlyCraftClient"
+		]
+	},
+	"mixins": [{"config": "flycraft.phase8.mixins.json", "environment": "client"}, "flycraft.companion.mixins.json"],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

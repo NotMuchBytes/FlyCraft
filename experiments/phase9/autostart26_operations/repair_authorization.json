@@ -1,0 +1,25 @@
+{
+  "previous": {
+    "execution_revision": 2,
+    "implementation_sha256": "b07fb2b9e102e0ff58048378fbc2f24024f6b6163cb6b7368cf575db5627ed2e",
+    "config_sha256": "1c5ed8651591fbf5d17e1e7bed71a1ace05076c5b8492db6923f6b356fd2f424",
+    "archive": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\autostart26_operations\\before_repair_402",
+    "retired_after_world": 402,
+    "reason": "user requested resume and automatic restart; preserve failed gate and train bounded retention repair"
+  },
+  "changed_modules": [
+    "autonomy/staged.py",
+    "tools/power_guard.py",
+    "tools/run_phase9.py",
+    "tools/run_staged_curriculum.py"
+  ],
+  "actor_reward_changed": false,
+  "original_training_seeds_unchanged": true,
+  "fresh_evaluation_seed_count": 150,
+  "prior_gate_preserved": true,
+  "checkpoint_before_repair": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00064\\trial_0000.npz",
+    "sha256": "d645b4538333cf8cd6553b4697cfd0e7f9ca46cb02209d1333825e68f29c483f"
+  },
+  "created_unix": 1795701823.866224
+}

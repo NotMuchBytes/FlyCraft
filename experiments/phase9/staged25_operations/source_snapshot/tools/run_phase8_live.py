@@ -1,0 +1,826 @@
+#!/usr/bin/env python3
+"""Supervise bounded, disposable live Minecraft trials and preserve all evidence."""
+
+import argparse
+import hashlib
+import math
+import json
+import os
+import shutil
+import socket
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+import psutil
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from autonomy.minecraft import CONDITIONS, OBJECTIVES
+from tools.obs_control import ObsRecorder
+from tools.java_launch import command_from_export
+from tools.milestone_video import MILESTONES, require_video_tools, preserve_milestone, compare_capture_frames
+from autonomy.experiment import atomic_json, source_manifest, CampaignLock
+
+
+class SupervisorStop(RuntimeError):
+    pass
+
+
+class EventLogRecording:
+    """A headless server produces event evidence, never an implicit video."""
+    started=False
+    def pulse(self):
+        return True
+    def stop(self):
+        return None
+
+
+def listening(port):
+    try:
+        return any(connection.status == psutil.CONN_LISTEN and connection.laddr.port == port
+                   for connection in psutil.net_connections(kind="tcp"))
+    except psutil.Error:
+        pass
+    try:
+        with socket.create_connection(("127.0.0.1", port), timeout=0.2):
+            return True
+    except OSError:
+        return False
+
+
+def graphics_readiness(log, backend):
+    """Verify the selected renderer, rather than a preferred-device message."""
+    lines = log.lower().splitlines()
+    backends = [line for line in lines if "using graphics backend " in line]
+    devices = [line.split("using graphics device:", 1)[1].strip()
+               for line in lines if "using graphics device:" in line]
+    if backend == "vulkan" and backends and "using graphics backend opengl" in backends[-1]:
+        return False, "vulkan_unavailable_opengl_fallback_rejected"
+    if backend == "opengl" and backends and "using graphics backend opengl" not in backends[-1]:
+        return False, "requested_opengl_backend_not_selected"
+    if devices and not devices[-1].startswith("nvidia "):
+        return False, "requested_nvidia_device_not_selected"
+    return bool(backends and devices), None
+
+
+def stop(process):
+    if process is None or process.poll() is not None:
+        return
+    try:
+        parent = psutil.Process(process.pid)
+        children = []
+        for child in parent.children(recursive=True):
+            try:
+                if child.name().lower() not in {"werfault.exe","werfaultsecure.exe","wermgr.exe"}:
+                    children.append(child)
+            except (psutil.NoSuchProcess,psutil.AccessDenied):
+                pass
+        for child in reversed(children):
+            try:
+                child.terminate()
+            except (psutil.NoSuchProcess,psutil.AccessDenied):
+                pass
+        try:
+            process.terminate()
+        except (OSError,psutil.AccessDenied):
+            pass
+        _, remaining = psutil.wait_procs(children + [parent], timeout=4)
+        for child in remaining:
+            try:
+                child.kill()
+            except (psutil.NoSuchProcess,psutil.AccessDenied):
+                pass
+    except (psutil.NoSuchProcess,psutil.AccessDenied):
+        pass
+
+
+def owned_rss_mib(process):
+    if not isinstance(process.pid,int):
+        return None
+    try:
+        parent=psutil.Process(process.pid)
+        processes=[parent,*parent.children(recursive=True)]
+        return sum(child.memory_info().rss for child in processes)/1024**2
+    except (psutil.NoSuchProcess,psutil.AccessDenied):
+        return None
+
+
+def pending_mining_command(trace):
+    """Read actual actor events for a one-shot operator fault, never policy input."""
+    try:
+        lines = trace.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return None
+    pending = None
+    for line in lines:
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue  # An append may still be in progress.
+        if event.get("event") == "action_start":
+            pending = event["data"] if event["data"].get("action") == "COLLECT_LOG" else None
+        elif event.get("event") == "action_end" and pending is not None:
+            if event["data"].get("ack", {}).get("command_id") == pending["command_id"]:
+                pending = None
+    return pending
+
+
+def run():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--run-id", required=True)
+    parser.add_argument("--campaign-manifest", type=Path, help="Frozen authorized official plan; orchestration only")
+    parser.add_argument("--official-world-number", type=int)
+    parser.add_argument("--launch-cache", type=Path)
+    parser.add_argument("--launch-cache-sha256")
+    parser.add_argument("--terrain-actions", action="store_true", help="Versioned terrain readout and policy-selected jump-forward")
+    parser.add_argument("--terrain-step-fixture", action="store_true", help="Seeded step/log teaching arena; not vanilla terrain")
+    parser.add_argument("--work-dir", type=Path, required=True)
+    parser.add_argument("--build-dir", type=Path, required=True)
+    parser.add_argument("--checkpoint", type=Path, required=True)
+    parser.add_argument("--frozen-checkpoint", type=Path)
+    parser.add_argument("--policy-label", default="six_live_log_episodes")
+    parser.add_argument("--frozen-label", default="phase7_frozen_transfer")
+    parser.add_argument("--goals", default="one_log")
+    parser.add_argument("--conditions", default="trained")
+    parser.add_argument("--trials", type=int, default=1)
+    parser.add_argument("--world-seed", type=int, default=81001)
+    parser.add_argument("--layout-start", type=int, default=81001)
+    parser.add_argument("--layout-seeds", help="Explicit comma-separated signed 64-bit layout seeds")
+    parser.add_argument("--seconds", type=int, default=180)
+    parser.add_argument("--trial-ticks", type=int, default=600)
+    parser.add_argument("--train", action="store_true")
+    parser.add_argument("--policy-seed", type=int, default=9001)
+    parser.add_argument("--stop-file", type=Path, help="Safely interrupt owned processes when this file exists")
+    parser.add_argument("--parent-pid", type=int, help="Coordinator ownership; stop if it disappears")
+    parser.add_argument("--parent-created", type=float)
+    parser.add_argument("--camera-mode", choices=("legacy","instant","bounded"), default="bounded")
+    parser.add_argument("--turn-degrees", type=float, default=15)
+    parser.add_argument("--pitch-actions", action="store_true",
+                        help="Enable the experimental headless pitch readout and relative look actions")
+    parser.add_argument("--forward-ticks", type=int, default=5,
+                        help="Fixed forward input duration, 1-10 ticks; never target-dependent")
+    parser.add_argument("--movement-feedback",choices=("input_only","displacement"),default="displacement",
+                        help="Require at least 0.02 blocks of own-pose movement for forward success")
+    parser.add_argument("--camera-probe", action="store_true", help="Scripted motor tests, never autonomous goal evidence")
+    parser.add_argument("--three-tree-fixture", action="store_true",
+                        help="Use three separate trunks for the three-log or wooden-pickaxe goal")
+    parser.add_argument("--natural-world", action="store_true",
+                        help="Run one headless one-log trial from a vanilla overworld spawn without placing trees")
+    parser.add_argument("--natural-start", nargs=5, type=float, metavar=("X", "Y", "Z", "YAW", "PITCH"),
+                        help="Reuse an observed vanilla spawn pose for a matched comparison")
+    parser.add_argument("--blocked-forward-fixture", action="store_true",
+                        help="Fixed absolute pose and one-block step before a visible log; diagnostic only")
+    parser.add_argument("--explore-forward", action="store_true",
+                        help="Evaluation ablation: triple legal forward odds when searching without a visible target")
+    parser.add_argument("--jump-on-blocked-forward", action="store_true",
+                        help="Add one ordinary jump pulse to a policy-selected retry of blocked forward input")
+    parser.add_argument("--unplaced-table-fixture", action="store_true",
+                        help="Start a headless pickaxe transaction with an owned table and a visible support face")
+    parser.add_argument("--remember-mined-columns", action="store_true",
+                        help="Ignore off-pitch log hits in previously mined columns during headless collection")
+    parser.add_argument("--operator-fault", choices=("none", "mining_interrupt", "bridge_stall", "bridge_read_timeout",
+                        "bridge_checkpoint_restart", "server_restart", "server_crash"), default="none",
+                        help="One-shot disturbance during mining; reliability tests only")
+    parser.add_argument("--graphics-backend", choices=("default","opengl","vulkan"),default="opengl")
+    parser.add_argument("--minimum-available-ram-mib", type=int, default=768)
+    parser.add_argument("--minimum-free-disk-mib", type=int, default=2048)
+    parser.add_argument("--launcher", choices=("direct", "gradle"), default="direct")
+    parser.add_argument("--headless", action="store_true", help="Server-only adapter; structured event logs, no MP4")
+    parser.add_argument("--spectator", action="store_true", help="Record a headless agent with an isolated spectator client")
+    parser.add_argument("--spectator-view", choices=("third_person","first_person"), default="third_person")
+    parser.add_argument("--capture-width", type=int, default=1920)
+    parser.add_argument("--capture-height", type=int, default=1080)
+    parser.add_argument("--milestone", type=int, help="Recorded development episode number (1-10000)")
+    parser.add_argument("--redo-of", help="Prior development run retained separately; this is a new execution, not a replay")
+    parser.add_argument("--video-export-dir", type=Path)
+    parser.add_argument("--server-heap-mib", type=int, default=768)
+    parser.add_argument("--client-heap-mib", type=int, default=1024)
+    parser.add_argument("--recording-gate", action="store_true", help="Wait for runtime/start.enabled before starting trials")
+    parser.add_argument("--obs-control-dir", type=Path, help="Directory shared with OBS; graphical trials require recording")
+    args = parser.parse_args()
+    if (args.launch_cache is None) != (args.launch_cache_sha256 is None):
+        parser.error("launch cache requires its frozen SHA256")
+    graphical = not args.headless or args.spectator
+    if args.terrain_actions and (not args.headless or not args.pitch_actions or args.jump_on_blocked_forward):
+        parser.error("terrain actions require headless pitch mode without assisted jump retries")
+    if args.terrain_step_fixture and (not args.terrain_actions or args.natural_world or args.blocked_forward_fixture
+                                     or args.goals != "one_log" or args.trials != 1):
+        parser.error("terrain step teaching requires one terrain-enabled one-log trial")
+    if any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in args.run_id):
+        parser.error("run-id must be a simple identifier")
+    goals, conditions = args.goals.split(","), args.conditions.split(",")
+    if any(goal not in OBJECTIVES for goal in goals) or any(c not in CONDITIONS for c in conditions):
+        parser.error("unknown goal or condition")
+    if not 0 < args.trials <= 30 or not 0 < args.seconds <= 900 or args.trial_ticks <= 0:
+        parser.error("use 1-30 trials and a bounded wall limit up to 900 seconds")
+    try:
+        layout_seeds = ([int(seed) for seed in args.layout_seeds.split(",")] if args.layout_seeds is not None
+                        else list(range(args.layout_start, args.layout_start + args.trials)))
+    except ValueError:
+        parser.error("layout-seeds must be comma-separated integers")
+    if (len(layout_seeds) != args.trials or len(set(layout_seeds)) != args.trials
+            or any(not -(2**63) <= seed < 2**63 for seed in layout_seeds)):
+        parser.error("supply one distinct signed 64-bit layout seed per trial")
+    if args.minimum_available_ram_mib < 256:
+        parser.error("the RAM reserve must be at least 256 MiB")
+    if not 384<=args.server_heap_mib<=2048 or not 512<=args.client_heap_mib<=2048:
+        parser.error("use bounded server/client heaps")
+    if graphical and args.obs_control_dir is None:
+        parser.error("graphical trials require --obs-control-dir")
+    if args.spectator and not args.headless:
+        parser.error("--spectator requires --headless")
+    if args.pitch_actions and not args.headless:
+        parser.error("--pitch-actions requires the headless adapter")
+    if args.milestone is not None:
+        if not 1<=args.milestone<=10000:
+            parser.error("development recording number must be 1-10000")
+        if not args.spectator or args.trials!=1 or len(goals)!=1 or len(conditions)!=1:
+            parser.error("a milestone requires one episode and an isolated recorded spectator")
+        require_video_tools()
+    if not 854<=args.capture_width<=1920 or not 480<=args.capture_height<=1080:
+        parser.error("capture dimensions must remain within 854x480 and 1920x1080")
+    if args.headless and (args.launcher!="direct" or args.camera_mode=="legacy" or args.camera_probe
+                         or any(goal not in {"one_log", "planks", "three_logs", "sticks", "crafting_table",
+                                             "wooden_pickaxe", "pickaxe_transaction"} for goal in goals)):
+        parser.error("headless pilot requires direct launch, strict camera, and a resource goal")
+    if args.three_tree_fixture and any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals):
+        parser.error("three-tree-fixture requires the three_logs or wooden_pickaxe goal")
+    if args.natural_world and (not args.headless or goals != ["one_log"] or args.trials != 1 or len(conditions) != 1
+                               or args.train and not args.terrain_actions or args.operator_fault != "none"):
+        parser.error("natural-world requires one headless one-log evaluation episode without an operator fault")
+    if args.natural_start is not None:
+        x, y, z, yaw, pitch = args.natural_start
+        if (not args.natural_world or not all(map(math.isfinite, args.natural_start))
+                or max(abs(x), abs(z)) >= 30_000_000 or not -64 <= y < 320
+                or abs(yaw) > 360 or abs(pitch) > 90):
+            parser.error("natural-start requires natural-world and a valid X Y Z YAW PITCH")
+    if args.blocked_forward_fixture and (not args.headless or args.natural_world or goals != ["one_log"]
+                                         or args.trials != 1 or len(conditions) != 1 or args.train
+                                         or args.operator_fault != "none"):
+        parser.error("blocked-forward-fixture requires one headless one-log evaluation in a flat world")
+    if args.jump_on_blocked_forward and (not (args.natural_world or args.blocked_forward_fixture)
+                                         or args.movement_feedback != "displacement"):
+        parser.error("jump-on-blocked-forward requires natural-world or blocked-forward-fixture and displacement feedback")
+    if args.explore_forward and (not args.headless or args.train or args.operator_fault != "none"):
+        parser.error("explore-forward requires headless evaluation without an operator fault")
+    if args.unplaced_table_fixture and (not args.headless or goals != ["pickaxe_transaction"]):
+        parser.error("unplaced-table-fixture requires a headless pickaxe_transaction")
+    if args.remember_mined_columns and (not args.headless or any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals)):
+        parser.error("remember-mined-columns requires a headless three_logs or wooden_pickaxe goal")
+    if not args.checkpoint.is_file() or args.frozen_checkpoint and not args.frozen_checkpoint.is_file():
+        parser.error("checkpoint files must exist")
+    if not math.isfinite(args.turn_degrees) or not 0<args.turn_degrees<=45:
+        parser.error("turn-degrees must be finite and in (0,45]")
+    if not 1 <= args.forward_ticks <= 10:
+        parser.error("forward-ticks must be in [1,10]")
+    if args.camera_probe and (args.camera_mode=="legacy" or goals!=["camera_probe"] or args.trials!=1):
+        parser.error("camera-probe requires one camera_probe trial in instant or bounded mode")
+    if args.operator_fault != "none" and (not args.headless or args.train or args.trials != 1
+                                         or len(goals) != 1 or len(conditions) != 1):
+        parser.error("operator faults require one headless episode with learning disabled")
+    checkpoint_restart = args.operator_fault == "bridge_checkpoint_restart"
+    server_restart = args.operator_fault in {"server_restart", "server_crash"}
+    if checkpoint_restart and conditions != ["trained"]:
+        parser.error("bridge checkpoint restart requires the trained evaluation condition")
+    official_metadata = {}
+    if args.campaign_manifest is not None:
+        from autonomy.official import validate_worker
+        official_metadata = validate_worker(args, ROOT)
+    elif args.official_world_number is not None:
+        parser.error("official world number requires a bound campaign manifest")
+    if listening(25567) or listening(8765):
+        parser.error("live test ports already occupied; no existing process will be stopped")
+    recorder = EventLogRecording() if not graphical else ObsRecorder(args.obs_control_dir.resolve(), args.run_id)
+    runtime = args.work_dir.resolve() / args.run_id
+    phase="phase9" if args.headless else "phase8"
+    results = ROOT / "experiments" / phase / args.run_id
+    if runtime.exists() or results.exists():
+        parser.error("run paths must be new")
+    server_dir, client_dir = runtime / "server", runtime / "client"
+    server_dir.mkdir(parents=True); client_dir.mkdir(); results.mkdir(parents=True)
+    manifest=source_manifest(ROOT)
+    implementation_sha256=manifest["implementation_sha256"]
+    atomic_json(results/"source_manifest.json",manifest)
+    control = runtime / "control.json"
+    initial_control = {"episode_id": "initial", "goal": goals[0], "condition": conditions[0],
+                       "train": False, "active": False, "suite_complete": False}
+    atomic_json(control, initial_control)
+    trials = runtime / "trials.csv"
+    rows = [f"{condition},{goal},{seed},{str(args.train and condition == 'trained').lower()}"
+            for seed in layout_seeds for goal in goals for condition in conditions]
+    trials.write_text("\n".join(rows) + "\n", encoding="utf-8")
+    def java_path(path):
+        return str(path).replace("\\", "/")
+    (server_dir / "flycraft-phase8.properties").write_text(
+        f"controlFile={java_path(control)}\ntrialsFile={java_path(trials)}\nresultsFile={java_path(results / 'server.jsonl')}\n"
+        f"maxTrialTicks={args.trial_ticks}\nmaxSeconds={args.seconds}\npolicySeed={args.policy_seed}\n"
+        f"fixture.threeTrees={str(args.three_tree_fixture).lower()}\n"
+        f"fixture.unplacedTable={str(args.unplaced_table_fixture).lower()}\n"
+        f"fixture.naturalWorld={str(args.natural_world).lower()}\n"
+        f"fixture.naturalStart={','.join(map(str, args.natural_start or []))}\n"
+        f"fixture.blockedForward={str(args.blocked_forward_fixture).lower()}\n"
+        f"fixture.terrainActions={str(args.terrain_actions).lower()}\nfixture.terrainStep={str(args.terrain_step_fixture).lower()}\n"
+        f"fixture.headless={str(args.headless).lower()}\n", encoding="utf-8")
+    capture_title="FlyCraft Recording "+args.run_id
+    (client_dir / "flycraft-phase8-client.properties").write_text(f"controlFile={java_path(control)}\ncapture.windowTitle={capture_title}\n", encoding="utf-8")
+    camera_trace=results / "camera.jsonl"
+    camera_probe=results / "camera_probe.jsonl"
+    with (client_dir / "flycraft-phase8-client.properties").open("a",encoding="utf-8") as handle:
+        handle.write(f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\nmotor.forwardTicks={args.forward_ticks}\n")
+        handle.write(f"motor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n")
+        if args.camera_mode!="legacy": handle.write(f"camera.traceFile={java_path(camera_trace)}\n")
+        if args.camera_probe: handle.write(f"camera.probe=true\ncamera.probeFile={java_path(camera_probe)}\n")
+    if args.camera_probe:
+        with (server_dir / "flycraft-phase8.properties").open("a",encoding="utf-8") as handle:
+            handle.write(f"cameraProbeResult={java_path(Path(str(camera_probe)+'.complete.json'))}\n")
+    if args.headless:
+        (server_dir/"flycraft-headless.properties").write_text(
+            f"controlFile={java_path(control)}\ntraceFile={java_path(results/'headless.jsonl')}\n"
+            f"camera.mode={args.camera_mode}\ncamera.turnDegrees={args.turn_degrees}\ncamera.traceFile={java_path(camera_trace)}\n"
+            f"camera.pitchActions={str(args.pitch_actions).lower()}\n"
+            f"motor.forwardTicks={args.forward_ticks}\nmotor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n"
+            f"motor.jumpOnBlockedForward={str(args.jump_on_blocked_forward).lower()}\n"
+            f"motor.terrainActions={str(args.terrain_actions).lower()}\n"
+            f"sensor.rememberMinedColumns={str(args.remember_mined_columns).lower()}\n",encoding="utf-8")
+    if args.spectator:
+        (client_dir/"flycraft-spectator.properties").write_text(
+            f"controlFile={java_path(control)}\nreadyFile={java_path(runtime/'spectator.ready')}\nview={args.spectator_view}\n"
+            f"windowTitle={capture_title}\nframeFile={java_path(runtime/'spectator-frame.png')}\n",
+            encoding="utf-8")
+        with (client_dir/"flycraft-spectator.properties").open("a",encoding="utf-8") as handle:
+            handle.write(f"captureGate={java_path(runtime/'start.enabled')}\n")
+    with (server_dir / "flycraft-phase8.properties").open("a", encoding="utf-8") as handle:
+        handle.write(f"startGate={java_path(runtime / 'start.enabled')}\n")
+    # Reuse the user's existing local-test EULA acceptance; never open a saved player world.
+    (server_dir / "eula.txt").write_text("eula=true\n", encoding="utf-8")
+    (server_dir / "server.properties").write_text(
+        "server-ip=127.0.0.1\nserver-port=25567\nonline-mode=false\nenforce-secure-profile=false\n"
+        f"level-name=world\nlevel-seed={args.world_seed}\n"
+        f"level-type=minecraft:{'normal' if args.natural_world else 'flat'}\n"
+        "gamemode=survival\nforce-gamemode=true\ndifficulty=peaceful\n"
+        f"generate-structures={str(args.natural_world).lower()}\n"
+        f"spawn-protection=0\nmax-players={2 if args.spectator else 1}\nview-distance=2\nsimulation-distance=2\nallow-flight=false\n", encoding="utf-8")
+    (client_dir / "options.txt").write_text("maxFps:30\nrenderDistance:2\nsimulationDistance:5\nparticles:2\nfullscreen:false\npauseOnLostFocus:false\nsoundCategory_master:0.0\n", encoding="utf-8")
+    java = ROOT / ".runtime/jdk-25/bin/java.exe"
+    gradle = [str(java), "-Xmx64m", "-classpath", "gradle/wrapper/gradle-wrapper.jar", "org.gradle.wrapper.GradleWrapperMain",
+              "--offline", "--no-daemon", "--max-workers=2", "--console=plain", "-Dorg.gradle.jvmargs=-Xmx512m",
+              "-PflycraftBuildDir=" + java_path(args.build_dir.resolve()),
+              "-PflycraftServerHeapMiB="+str(args.server_heap_mib),"-PflycraftClientHeapMiB="+str(args.client_heap_mib),
+              "-PflycraftCaptureWidth="+str(args.capture_width),"-PflycraftCaptureHeight="+str(args.capture_height)]
+    environment = os.environ | {"JAVA_HOME": str(java.parents[1])}
+    processes, handles, temperatures = [], [], []
+    named_processes={}
+    peak_process_rss={}
+    started, last_rows, stop_reason = time.perf_counter(), 0, "wall_budget"
+    started_unix=time.time()
+    minimum_available_ram = None
+    low_ram_samples = 0
+    capture_proof=None
+    capture_proof_error=None
+    gpu_utilization=None
+    gpu_memory_mib=None
+    fault_events=[]
+    bridge_resume_at=None
+    bridge_restart_at=None
+    client_restarted = False
+    capture_proof_before_restart = None
+    suspended_bridge_processes=[]
+    def ownership_check():
+        if args.stop_file is not None and args.stop_file.exists():
+            raise SupervisorStop("manual_stop")
+        if args.parent_pid is not None:
+            try:
+                owner=psutil.Process(args.parent_pid)
+                if args.parent_created is None or abs(owner.create_time()-args.parent_created)>.01:
+                    raise SupervisorStop("coordinator_lost")
+            except psutil.NoSuchProcess:
+                raise SupervisorStop("coordinator_lost")
+    try:
+        def launch(command, name, cwd, *, log_name=None):
+            handle = (results / ((log_name or name) + "_launcher.log")).open("x", encoding="utf-8")
+            handles.append(handle)
+            process = subprocess.Popen(command, cwd=cwd, stdout=handle, stderr=subprocess.STDOUT,
+                                       stdin=subprocess.PIPE, env=environment, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            processes.append(process)
+            named_processes[name]=process
+            return process
+        ownership_check()
+        direct_commands = {}
+        if args.launcher == "direct":
+            export_dir = runtime / "launch"
+            if args.launch_cache is not None:
+                from tools.launch_cache import cached_commands
+                direct_commands = cached_commands(args.launch_cache, args.launch_cache_sha256, ROOT, args, export_dir, java)
+            else:
+                preparation = launch(gradle + ["-PflycraftRunDir=" + java_path(runtime / "prepare"),
+                    "-PflycraftAutotest", "-PflycraftServer=127.0.0.1:25567", "-PflycraftGraphicsBackend="+args.graphics_backend,
+                    "-PflycraftExportLaunchDir="+java_path(export_dir), "runServer"] + (["runClient"] if graphical else []), "prepare", ROOT / "minecraft_mod")
+                preparation_deadline=time.perf_counter()+min(90,args.seconds)
+                while preparation.poll() is None:
+                    ownership_check()
+                    if time.perf_counter()>=preparation_deadline:
+                        raise RuntimeError("launch_preparation_timeout")
+                    time.sleep(.5)
+                if preparation.returncode != 0:
+                    raise RuntimeError("launch_preparation_failed")
+                for name in (("server", "client") if graphical else ("server",)):
+                    direct_commands[name]=command_from_export(export_dir / ("run"+name.title()+".json"),
+                        export_dir / (name+".args"), expected_java=java)
+        if shutil.disk_usage(runtime).free / 1024**2 < args.minimum_free_disk_mib:
+            raise SupervisorStop("free_disk_guard")
+        if psutil.virtual_memory().available / 1024**2 < args.minimum_available_ram_mib:
+            raise SupervisorStop("available_ram_guard")
+        bridge_command = [sys.executable, str(ROOT / "minecraft_bridge.py"), "--phase8-checkpoint", str(args.checkpoint.resolve()),
+                          "--phase8-results", str(results / "controller.jsonl"), "--log", str(results / "bridge.jsonl"),
+                          "--phase8-control", str(control)]
+        if args.frozen_checkpoint:
+            bridge_command += ["--phase8-frozen-checkpoint", str(args.frozen_checkpoint.resolve())]
+        if args.pitch_actions:
+            bridge_command += ["--phase8-pitch-actions"]
+        if args.terrain_actions:
+            bridge_command += ["--terrain-actions"]
+        if args.explore_forward:
+            bridge_command += ["--phase8-explore-forward"]
+        if args.train:
+            bridge_command += ["--phase8-save-dir", str(ROOT / "checkpoints" / phase / args.run_id)]
+        pending_checkpoint = results / "pending_mining.npz"
+        initial_bridge_command = bridge_command + ["--phase8-mining-checkpoint", str(pending_checkpoint)] if checkpoint_restart else bridge_command
+        bridge = launch(initial_bridge_command, "bridge", ROOT)
+        server = launch(direct_commands["server"] if direct_commands else
+            gradle + ["-PflycraftRunDir=" + java_path(server_dir), "runServer", "--args=nogui"],
+            "server", server_dir if direct_commands else ROOT / "minecraft_mod")
+        client = None
+        next_thermal = 0
+        while time.perf_counter() - started < args.seconds:
+            ownership_check()
+            elapsed = time.perf_counter() - started
+            available_ram = psutil.virtual_memory().available / 1024**2
+            if shutil.disk_usage(runtime).free/1024**2<args.minimum_free_disk_mib:
+                stop_reason="free_disk_guard"; break
+            for process_name,owned_process in named_processes.items():
+                observed_rss=owned_rss_mib(owned_process)
+                if observed_rss is not None:
+                    peak_process_rss[process_name]=max(peak_process_rss.get(process_name,0),observed_rss)
+            minimum_available_ram = available_ram if minimum_available_ram is None else min(minimum_available_ram, available_ram)
+            low_ram_samples = low_ram_samples + 1 if available_ram < args.minimum_available_ram_mib else 0
+            if low_ram_samples >= 3:
+                stop_reason = "available_ram_guard"; break
+            evidence_ready=recorder.pulse()
+            recording_active=bool(graphical and evidence_ready)
+            atomic_json(results/"status.json",{"timestamp_unix":time.time(),"available_ram_mib":available_ram,
+                "cpu_percent":psutil.cpu_percent(),"gpu_temperature_c":temperatures[-1] if temperatures else None,
+                "gpu_utilization_percent":gpu_utilization,"gpu_memory_mib":gpu_memory_mib,
+                "server_alive":server.poll() is None,"client_alive":client is not None and client.poll() is None,
+                "recording_active":recording_active,"completed_episodes":last_rows,"peak_process_rss_mib":peak_process_rss})
+            graphics_ready=not graphical
+            client_launcher=results / ("client-restarted_launcher.log" if client_restarted else "client_launcher.log")
+            if graphical and client_launcher.exists():
+                graphics_log=client_launcher.read_text(encoding="utf-8",errors="replace")
+                graphics_ready, graphics_error = graphics_readiness(graphics_log,args.graphics_backend)
+                if graphics_error:
+                    stop_reason=graphics_error; break
+            spectator_ready=not args.spectator or (runtime/"spectator.ready").exists()
+            if args.spectator and recording_active and spectator_ready and capture_proof is None:
+                state=recorder.state()
+                game_frame=runtime/"spectator-frame.png"
+                obs_frame=Path(state[6]) if state and state[6] else None
+                ready_time=(runtime/"spectator.ready").stat().st_mtime if spectator_ready else 0
+                if game_frame.is_file() and obs_frame is not None and obs_frame.is_file() and obs_frame.stat().st_mtime>=ready_time and abs(obs_frame.stat().st_mtime-game_frame.stat().st_mtime)<=3:
+                    try:
+                        # Freeze the exact compared bytes; repeated GPU readbacks
+                        # may replace the live screenshot until this gate opens.
+                        suffix = "-restarted" if client_restarted else ""
+                        frozen_game=runtime/f"capture-proof-game{suffix}.png"
+                        frozen_obs=runtime/f"capture-proof-obs{suffix}.png"
+                        shutil.copyfile(game_frame,frozen_game)
+                        shutil.copyfile(obs_frame,frozen_obs)
+                        proof=compare_capture_frames(frozen_game,frozen_obs)
+                        if proof["matched"]:
+                            capture_proof=proof
+                            recorder.mark_capture_verified()
+                            print(json.dumps({"capture_proof":"matched_real_Minecraft_frame","rgb_error":proof["mean_absolute_rgb_error"]}),flush=True)
+                        else:
+                            capture_proof_error=proof
+                    except (ValueError,OSError,subprocess.SubprocessError) as error:
+                        capture_proof_error=str(error)
+            content_ready=not args.spectator or capture_proof is not None
+            if evidence_ready and graphics_ready and spectator_ready and content_ready and (not args.headless or listening(8765)) and not (runtime / "start.enabled").exists():
+                (runtime / "start.enabled").write_text("OBS confirmed active\n" if graphical else "Event logging ready\n", encoding="utf-8")
+            if graphical and client is None and listening(25567) and listening(8765):
+                client = launch(direct_commands["client"] if direct_commands else
+                    gradle + ["-PflycraftRunDir=" + java_path(client_dir), "-PflycraftAutotest", "-PflycraftServer=127.0.0.1:25567",
+                    "-PflycraftGraphicsBackend="+args.graphics_backend, "runClient"],
+                    "client", client_dir if direct_commands else ROOT / "minecraft_mod",
+                    log_name="client-restarted" if client_restarted else None)
+            if args.operator_fault != "none" and not fault_events:
+                mining = pending_mining_command(results / "headless.jsonl")
+                if mining is not None:
+                    event = {"kind": args.operator_fault, "requested_unix": time.time(),
+                        "mining_command_id": mining["command_id"], "mining_started_server_tick": mining["server_tick"]}
+                    if args.operator_fault == "mining_interrupt":
+                        # Adversarial disturbance, not aiming or a goal action.
+                        command = b"execute as FlyCraftAgent at @s run teleport @s ~ ~ ~ ~90 ~\n"
+                        server.stdin.write(command); server.stdin.flush()
+                        event.update(disturbance="relative_yaw_plus_90_degrees", command_written=True)
+                    elif checkpoint_restart:
+                        from learning import LinearSoftmaxPolicy
+                        _, metadata = LinearSoftmaxPolicy.load(pending_checkpoint)
+                        pending = metadata["extra"]["extension"]["phase8"]
+                        if pending["pending_id"] != mining["command_id"]:
+                            raise RuntimeError("mining checkpoint does not match the active command")
+                        stop(bridge)
+                        if bridge.poll() is None or listening(8765):
+                            raise RuntimeError("owned bridge did not stop for checkpoint restart")
+                        event.update(disturbance="owned_bridge_restarted_from_pending_checkpoint",
+                            stopped_unix=time.time(), stopped_pid=bridge.pid,
+                            checkpoint=str(pending_checkpoint),
+                            checkpoint_sha256=hashlib.sha256(pending_checkpoint.read_bytes()).hexdigest(),
+                            restored_controller_log=str(results / "controller-restored.jsonl"))
+                        bridge_restart_at = time.perf_counter() + 5
+                    elif server_restart:
+                        abrupt = args.operator_fault == "server_crash"
+                        event.update(disturbance=("owned_minecraft_server_forcibly_terminated" if abrupt
+                                                 else "owned_minecraft_server_gracefully_restarted"),
+                                     stopped_pid=server.pid, bridge_pid=bridge.pid)
+                        fault_events.append(event)
+                        atomic_json(results / "operator_fault.json", fault_events)
+                        if not (server_dir / "world/level.dat").is_file():
+                            raise RuntimeError("disposable world has no saved level metadata")
+                        if abrupt:
+                            server.kill()
+                        else:
+                            server.stdin.write(b"stop\n")
+                            server.stdin.flush()
+                        try:
+                            exit_code = server.wait(timeout=20)
+                        except subprocess.TimeoutExpired as error:
+                            raise RuntimeError("owned Minecraft server did not stop") from error
+                        if bool(exit_code) != abrupt or listening(25567):
+                            raise RuntimeError("Minecraft did not exit with the requested shutdown mode")
+                        if (results / "server.jsonl").exists():
+                            raise RuntimeError("episode finished before the server restart")
+                        event.update(stopped_unix=time.time(), exit_code=exit_code)
+                        shutil.copy2(server_dir / "logs/latest.log", results / "server-before-restart.log")
+                        if graphical:
+                            event["stopped_spectator_pid"] = client.pid
+                            stop(client)
+                            if client.poll() is None:
+                                raise RuntimeError("owned spectator did not stop for server restart")
+                            for name in ("start.enabled", "spectator.ready", "spectator-frame.png"):
+                                marker = runtime / name
+                                if marker.exists():
+                                    marker.rename(marker.with_name(name + ".before-restart"))
+                            shutil.copy2(client_dir / "logs/latest.log", results / "client-before-restart.log")
+                            capture_proof_before_restart, capture_proof = capture_proof, None
+                            capture_proof_error = None
+                            recorder.capture_verified = False
+                            client, client_restarted = None, True
+                        with (server_dir / "flycraft-phase8.properties").open("a", encoding="utf-8") as handle:
+                            handle.write("trialIdPrefix=restart_\n")
+                        with (server_dir / "flycraft-headless.properties").open("a", encoding="utf-8") as handle:
+                            handle.write(f"traceFile={java_path(results / 'headless-after-restart.jsonl')}\n"
+                                         f"camera.traceFile={java_path(results / 'camera-after-restart.jsonl')}\n")
+                        atomic_json(control, initial_control | {"episode_id": "initial_restarted"})
+                        ownership_check()
+                        server = launch(direct_commands["server"], "server", server_dir, log_name="server-restarted")
+                        event.update(restarted_unix=time.time(), restarted_pid=server.pid,
+                                     replacement_episode="restart_0000",
+                                     replacement_action_log=str(results / "headless-after-restart.jsonl"))
+                    else:
+                        # Only this supervisor's owned Python process is paused.
+                        # Minecraft continues; actual socket timeouts are logged.
+                        stall_seconds = 6 if args.operator_fault == "bridge_stall" else 20
+                        bridge_resume_at = time.perf_counter() + stall_seconds
+                        parent = psutil.Process(bridge.pid)
+                        # Windows venv python.exe can be a launcher with the
+                        # real interpreter below it. Pause every owned child.
+                        for owned in reversed([parent, *parent.children(recursive=True)]):
+                            owned.suspend()
+                            suspended_bridge_processes.append(owned)
+                        event.update(disturbance="owned_bridge_process_tree_suspended", requested_stall_seconds=stall_seconds,
+                            suspended_processes=[{"pid": owned.pid, "created": owned.create_time(), "name": owned.name()}
+                                                 for owned in suspended_bridge_processes])
+                    if not fault_events:
+                        fault_events.append(event)
+                    atomic_json(results / "operator_fault.json", fault_events)
+            if bridge_restart_at is not None and time.perf_counter() >= bridge_restart_at:
+                restored = bridge_command.copy()
+                restored[restored.index("--phase8-checkpoint") + 1] = str(pending_checkpoint)
+                restored[restored.index("--phase8-results") + 1] = str(results / "controller-restored.jsonl")
+                bridge = launch(restored, "bridge-restored", ROOT)
+                bridge_restart_at = None
+                fault_events[-1].update(restarted_unix=time.time(), restarted_pid=bridge.pid)
+                atomic_json(results / "operator_fault.json", fault_events)
+            if bridge_resume_at is not None and time.perf_counter() >= bridge_resume_at:
+                for owned in reversed(suspended_bridge_processes):
+                    if owned.is_running(): owned.resume()
+                suspended_bridge_processes.clear(); bridge_resume_at = None
+                fault_events[-1]["resumed_unix"] = time.time()
+                atomic_json(results / "operator_fault.json", fault_events)
+            server_rows = (results / "server.jsonl").read_text(encoding="utf-8").splitlines() if (results / "server.jsonl").exists() else []
+            if len(server_rows) != last_rows:
+                last_rows = len(server_rows)
+                print(json.dumps({"elapsed_seconds": round(elapsed, 1), "completed": last_rows, "requested": len(rows), "last": json.loads(server_rows[-1])}), flush=True)
+            if control.exists() and json.loads(control.read_text()).get("suite_complete"):
+                stop_reason = "suite_complete"
+                closing_deadline=time.perf_counter()+10
+                while any(process.poll() is None for name,process in named_processes.items() if name in {"client","server"}) and time.perf_counter()<closing_deadline:
+                    recorder.pulse(); time.sleep(.25)
+                break
+            if (bridge_restart_at is None and bridge.poll() is not None or server.poll() is not None
+                    or client is not None and client.poll() is not None):
+                stop_reason = "process_exit"; break
+            if elapsed >= next_thermal:
+                next_thermal = elapsed + 5
+                try:
+                    thermal = subprocess.run(["nvidia-smi", "--query-gpu=temperature.gpu,utilization.gpu,memory.used", "--format=csv,noheader,nounits"], capture_output=True, text=True, timeout=3)
+                    values=thermal.stdout.splitlines()[0].split(",")
+                    value = int(values[0]); temperatures.append(value)
+                    if len(values)>=3:
+                        gpu_utilization=int(values[1]); gpu_memory_mib=int(values[2])
+                    if value >= 75:
+                        stop_reason = "gpu_temperature_guard"; break
+                except (OSError, ValueError, IndexError, subprocess.TimeoutExpired):
+                    pass
+            time.sleep(1)
+    except SupervisorStop as error:
+        stop_reason=str(error)
+    except (RuntimeError, OSError) as error:
+        stop_reason = "supervisor_io_error" if isinstance(error, OSError) else "recording_confirmation_lost" if "OBS" in str(error) else "supervisor_error"
+        print(json.dumps({"error": str(error), "stop_reason": stop_reason}), flush=True)
+    finally:
+        for owned in reversed(suspended_bridge_processes):
+            try:
+                if owned.is_running(): owned.resume()
+            except psutil.Error:
+                pass
+        if suspended_bridge_processes and fault_events:
+            fault_events[-1]["resumed_during_cleanup_unix"] = time.time()
+            atomic_json(results / "operator_fault.json", fault_events)
+        recording = None
+        try:
+            recording = recorder.stop()
+        except Exception as error:
+            # Recording errors must never prevent cleanup of owned game/bridge
+            # processes. The OBS heartbeat remains a second bounded fallback.
+            print(json.dumps({"recording_stop_error": str(error)}), flush=True)
+        try:
+            with socket.create_connection(("127.0.0.1", 8765), timeout=2) as connection:
+                connection.sendall(b'{"tick_id":9223372036854775807,"event":"end_suite"}\n')
+                connection.recv(4096)
+        except OSError:
+            pass
+        natural_exits={name:process.poll() for name,process in named_processes.items()}
+        for process in reversed(processes):
+            stop(process)
+        for handle in handles:
+            handle.close()
+        for name, folder in (("server", server_dir), ("client", client_dir)):
+            log = folder / "logs/latest.log"
+            if log.exists():
+                shutil.copy2(log, results / (name + ".log"))
+        summary = {"run_id": args.run_id, "world_seed": args.world_seed, "layout_start": args.layout_start,
+                   "goals": goals, "conditions": conditions, "trials_per_goal_condition": args.trials, "requested": len(rows),
+                   "completed": last_rows, "stop_reason": stop_reason, "elapsed_seconds": time.perf_counter() - started,
+                   "maximum_sampled_gpu_c": max(temperatures) if temperatures else None, "train": args.train}
+        summary["recording"] = str(recording) if recording else None
+        summary["recording_confirmed"] = recorder.started
+        summary["milestone"] = args.milestone
+        summary["experiment_stage"] = "development"
+        summary.update(official_metadata)
+        summary["redo_of"] = args.redo_of
+        summary["execution_kind"] = "new_execution_not_replay"
+        summary["headless"] = args.headless
+        summary["operator_fault"] = args.operator_fault
+        summary["operator_fault_events"] = fault_events
+        summary["spectator"] = args.spectator
+        summary["spectator_view"] = args.spectator_view if args.spectator else None
+        summary["capture_requested_size"] = [args.capture_width,args.capture_height] if graphical else None
+        summary["client_fps_limit"] = 30 if graphical else None
+        summary["capture_content_proof"] = capture_proof
+        summary["capture_content_proof_error"] = capture_proof_error
+        if server_restart:
+            summary["capture_content_proof_before_restart"] = capture_proof_before_restart
+        summary["recording_mode"] = "OBS_isolated_spectator" if args.spectator else "OBS_Minecraft_window" if graphical else "structured_event_logs_no_video"
+        summary["generated_world_instances"] = int((server_dir / "world").is_dir() if official_metadata else (server_dir/"world/level.dat").exists())
+        summary["episodes_in_generated_world"] = last_rows
+        summary["environment_kind"] = ("vanilla_overworld_spawn" if args.natural_world else
+                                       "controlled_terrain_step_teaching_fixture" if args.terrain_step_fixture else
+                                       "controlled_blocked_forward_diagnostic" if args.blocked_forward_fixture else
+                                       "controlled_flat_three_tree_fixture" if args.three_tree_fixture
+                                       else "controlled_flat_survival_fixture")
+        summary["natural_start_requested"] = args.natural_start
+        summary["unplaced_table_fixture"] = args.unplaced_table_fixture
+        summary["remember_mined_columns"] = args.remember_mined_columns
+        if args.layout_seeds is not None:
+            summary["layout_seeds"] = layout_seeds
+        summary["server_heap_mib"] = args.server_heap_mib
+        summary["client_heap_mib"] = args.client_heap_mib if graphical else None
+        summary["trial_tick_limit"] = args.trial_ticks
+        summary["policy_rng_seed"] = args.policy_seed
+        summary["camera_mode"] = args.camera_mode
+        summary["turn_degrees"] = args.turn_degrees
+        summary["pitch_actions"] = args.pitch_actions
+        summary["terrain_actions"] = args.terrain_actions
+        summary["forward_ticks"] = args.forward_ticks
+        summary["movement_feedback"] = args.movement_feedback
+        summary["jump_on_blocked_forward"] = args.jump_on_blocked_forward
+        summary["explore_forward"] = args.explore_forward
+        summary["free_disk_guard_mib"] = args.minimum_free_disk_mib
+        summary["experiment_kind"] = ("scripted_camera_probe_not_policy" if args.camera_probe else
+                                      "policy_goal_with_operator_fault" if args.operator_fault != "none" else "policy_goal")
+        summary["interaction_assistance"] = "visible_target_aim_macro" if args.camera_mode=="legacy" else "crosshair_only_no_automatic_aim"
+        summary["requested_graphics_backend"] = args.graphics_backend
+        summary["launcher"] = args.launcher
+        summary["launch_preparation_mode"] = "verified_cached_export" if args.launch_cache else "gradle_export"
+        summary["launch_cache_sha256"] = args.launch_cache_sha256
+        summary["minimum_sampled_available_ram_mib"] = minimum_available_ram
+        summary["available_ram_guard_mib"] = args.minimum_available_ram_mib
+        summary["peak_sampled_process_tree_rss_mib"] = peak_process_rss
+        summary["exit_codes_before_cleanup"] = natural_exits
+        summary["client_exited_cleanly"] = natural_exits.get("client")==0 if graphical else None
+        summary["server_exited_cleanly"] = natural_exits.get("server")==0
+        client_log=results / ("client-restarted_launcher.log" if client_restarted else "client_launcher.log")
+        client_log_text=client_log.read_text(encoding="utf-8",errors="replace") if client_log.exists() else ""
+        if natural_exits.get("client") in (-1073741819,3221225477) or any(marker in client_log_text for marker in ("0xC0000005", "exit value -1073741819", "exit value 3221225477")):
+            summary["native_client_crash"] = True
+            summary["stop_reason"] = "native_client_crash"
+        if client_log.exists():
+            graphics_lines=client_log_text.splitlines()
+            summary["actual_graphics"]=[line.split("(Minecraft)",1)[-1].strip() for line in graphics_lines
+                if "Using graphics backend " in line or "Using graphics device:" in line]
+        summary["policy_label"] = args.policy_label
+        summary["checkpoint"] = str(args.checkpoint.resolve())
+        summary["checkpoint_sha256"] = hashlib.sha256(args.checkpoint.read_bytes()).hexdigest()
+        summary["implementation_sha256"] = implementation_sha256
+        if args.frozen_checkpoint:
+            summary["frozen_label"] = args.frozen_label
+            summary["frozen_checkpoint"] = str(args.frozen_checkpoint.resolve())
+            summary["frozen_checkpoint_sha256"] = hashlib.sha256(args.frozen_checkpoint.read_bytes()).hexdigest()
+        if args.milestone is not None:
+            summary["milestone_video_status"]="missing"
+            try:
+                if recording is None or not recorder.started:
+                    raise ValueError("No confirmed recording source exists")
+                if Path(recording).stat().st_mtime<started_unix-2:
+                    raise ValueError("Recording path predates this run")
+                video_prefix = "FlyCraft_Phase9" if official_metadata else "FlyCraft_Development"
+                video_name=f"{video_prefix}_Milestone_{args.milestone:05d}_{args.run_id}.mp4"
+                destination=ROOT/"recordings/phase9"/video_name
+                # Independent server episode time is a conservative coverage
+                # minimum; OBS was gated before any policy action.
+                score_file=results/"server.jsonl"
+                scores=[json.loads(line) for line in score_file.read_text().splitlines()] if score_file.is_file() else []
+                minimum_seconds=sum(row["ticks"]/20 for row in scores)
+                verified=preserve_milestone(recording,destination,minimum_seconds=minimum_seconds)
+                complete=(last_rows==len(rows) and summary["stop_reason"]=="suite_complete" and capture_proof is not None
+                          and (not server_restart or capture_proof_before_restart is not None))
+                verified["episode_coverage_complete"]=complete
+                verified["visual_content_preflight_verified"]=capture_proof is not None
+                summary["milestone_video_status"]="verified" if complete else "partial"
+                summary["milestone_video"]=verified
+                if args.video_export_dir is not None:
+                    args.video_export_dir.mkdir(parents=True,exist_ok=True)
+                    export=args.video_export_dir/video_name
+                    if export.exists(): raise FileExistsError("Refusing to overwrite exported video")
+                    shutil.copy2(destination,export)
+                    summary["milestone_video_export"]=str(export)
+            except Exception as error:
+                summary["milestone_video_error"]=str(error)
+            media_folder=ROOT/"recordings/phase9/youtube"
+            media_folder.mkdir(parents=True,exist_ok=True)
+            media={"run_id":args.run_id,"milestone":args.milestone,"stage":summary["experiment_stage"],
+                "status":summary["milestone_video_status"],"video":summary.get("milestone_video"),
+                "error":summary.get("milestone_video_error"),"episode_log":str(results/"server.jsonl"),
+                "action_log":str(results/"headless.jsonl"),"observation_log":str(results/"bridge.jsonl"),
+                "checkpoint":summary["checkpoint"],"checkpoint_sha256":summary["checkpoint_sha256"],
+                "checkpoint_timing":"before_episode_update","camera_role":"recording_only",
+                "recording_kind":"synchronized_spectator_capture","redo_of":args.redo_of,
+                "replay":False,"actions_altered_for_video":False}
+            with (media_folder/(args.run_id+".json")).open("x",encoding="utf-8",newline="\n") as handle:
+                json.dump(media,handle,indent=2)
+        atomic_json(results/"run.json",summary)
+        status_file=results/"status.json"
+        try:
+            status=json.loads(status_file.read_text()) if status_file.is_file() else {}
+        except (OSError,ValueError):
+            status={}
+        status.update(lifecycle_updated_unix=time.time(),finalized=True,recording_active=False,
+            server_alive=named_processes.get("server") is not None and named_processes["server"].poll() is None,
+            client_alive=named_processes.get("client") is not None and named_processes["client"].poll() is None,
+            stop_reason=summary["stop_reason"])
+        atomic_json(status_file,status)
+        print(json.dumps(summary, indent=2), flush=True)
+
+
+def main():
+    lease_dir=ROOT/".runtime/live-worker"
+    lease_dir.mkdir(parents=True,exist_ok=True)
+    with CampaignLock(lease_dir):
+        run()
+
+
+if __name__ == "__main__":
+    main()

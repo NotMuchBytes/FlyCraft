@@ -1,0 +1,6 @@
+{
+  "duplicate_bootstrap_exited_cleanly": true,
+  "same_supervisor_pid": 10984,
+  "same_runner": true,
+  "no_actions_replayed": true
+}

@@ -1,0 +1,10 @@
+debug: Attempted path: data/obs-studio/locale/en-US.ini
+debug: Attempted path: ../../data/obs-studio/locale/en-US.ini
+debug: Attempted path: data/obs-studio/locale.ini
+debug: Attempted path: ../../data/obs-studio/locale.ini
+debug: Attempted path: data/obs-studio/themes
+debug: Attempted path: ../../data/obs-studio/themes
+debug: Attempted path: data/obs-studio/themes/
+debug: Attempted path: ../../data/obs-studio/themes/
+[aac @ 0000021EE7702300] Qavg: 65536.000
+[aac @ 0000021EE7702300] 2 frames left in the queue on closing

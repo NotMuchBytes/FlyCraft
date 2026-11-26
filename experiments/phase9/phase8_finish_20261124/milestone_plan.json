@@ -1,0 +1,22 @@
+{
+  "phase": 8,
+  "milestone": 3,
+  "purpose": "Record the selected trained readout crafting a wooden pickaxe from empty inventory after the fresh reliability evaluation",
+  "world_seed": 202611230801,
+  "layout_seed": 728310449,
+  "selection": "First of the three predeclared development layouts, outside the primary held-out sample",
+  "checkpoint_sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4",
+  "policy_seed": 9001,
+  "goal": "wooden_pickaxe",
+  "forward_ticks": 2,
+  "turn_degrees": 15,
+  "pitch_actions": true,
+  "three_tree_fixture": true,
+  "remember_mined_columns": true,
+  "trial_tick_limit": 1500,
+  "policy_action_limit": 120,
+  "recording": "One exact Minecraft spectator window through the dedicated OBS profile, first-person view, actual NVIDIA renderer verification",
+  "verification": "Independent inventory and transaction audit, complete MP4 decode, actual game/capture frame match and manual frame review",
+  "execution_kind": "Clearly labeled fresh execution, never an exact replay",
+  "actions_altered_for_video": false
+}

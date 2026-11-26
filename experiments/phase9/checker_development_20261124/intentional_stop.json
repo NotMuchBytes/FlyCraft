@@ -1,0 +1,6 @@
+{
+  "run_id": "checker24_stop_eval_a_trained_00001_a0001",
+  "trigger": "Observed actual mining action_start; no actor inputs were changed",
+  "wall_time_unix": 1795544943.9567232,
+  "kind": "operator interruption diagnostic, excluded from benchmark"
+}

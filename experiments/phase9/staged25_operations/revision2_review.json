@@ -1,0 +1,26 @@
+{
+  "changed_files": [
+    "autonomy/evidence.py",
+    "autonomy/official.py",
+    "autonomy/staged.py",
+    "tools/run_phase9.py"
+  ],
+  "prior": {
+    "execution_revision": 1,
+    "implementation_sha256": "41584bb1f2709f5a6ef54e3195ad915b30a69b350216f2f1fb4d73f9b5bb14f0",
+    "config_sha256": "f314baba9dd3a823db6742e3faa598687eb3a7a3189f60215e86cecf07f5d141",
+    "archive": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\staged25_operations\\revision_0001_at350",
+    "retired_after_world": 350,
+    "successor_reason": "Match natural control poses to native trained reference; gate all four retained wood goals at their original thresholds",
+    "actor_or_reward_changed": false,
+    "training_seeds_changed": false
+  },
+  "implementation_sha256": "b07fb2b9e102e0ff58048378fbc2f24024f6b6163cb6b7368cf575db5627ed2e",
+  "pilot_sha256": "6a57675cc2434f25b823c167a01706e588ec89bd29aae64a98f51515556f260f",
+  "tests_sha256": "33c2d77f5f8b33db3bee4bf61d650a7669676bea8a350153613a2b483609aa00",
+  "reviewed_unix": 1795616603.1701932,
+  "policy_checkpoint_unchanged": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00012\\trial_0000.npz",
+    "sha256": "70f953dccc40527085db8d6ee28f7b739b5a2479c73bb48f2e944556279762ec"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "stage": "OBS startup before Minecraft launch",
+  "episode_started": false,
+  "scored_episodes": 0,
+  "error": "Dedicated OBS Lua recorder did not become ready within 35 seconds",
+  "observed_log": "Crash or unclean shutdown detected",
+  "preserved_log": "milestone_obs_preflight_failed.log",
+  "planned_run_id": "p8_mining_20261124_pickaxe_milestone"
+}

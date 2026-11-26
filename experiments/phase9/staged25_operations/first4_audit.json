@@ -1,0 +1,242 @@
+{
+  "schema": 1,
+  "training_evidence_not_heldout": true,
+  "foundation_worlds": 338,
+  "official_worlds_through_snapshot": 342,
+  "training_successes": 2,
+  "readout_updates": 4,
+  "groups": {
+    "terrain_teaching": {
+      "successes": 1,
+      "trials": 3,
+      "wilson95": [
+        0.06149194472039621,
+        0.7923403991979522
+      ],
+      "mean_actions": 62.666666666666664,
+      "mean_game_seconds": 44.4,
+      "mean_worker_wall_seconds": 68.03445286668527
+    },
+    "wood_retention": {
+      "successes": 1,
+      "trials": 1,
+      "wilson95": [
+        0.20654931437723745,
+        1
+      ],
+      "mean_actions": 8.0,
+      "mean_game_seconds": 6.3,
+      "mean_worker_wall_seconds": 22.71994199999608
+    }
+  },
+  "episodes": [
+    {
+      "official_world_number": 339,
+      "run_id": "fc9_stage25_terrain_00001",
+      "task": "terrain_teaching",
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 614455235457515494,
+      "success": true,
+      "actions": 13,
+      "game_seconds": 13.2,
+      "elapsed_seconds": 13.240383599884808,
+      "confirmed_breaks": 2,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.03806805202157815,
+      "training_applied": true,
+      "worker_wall_seconds": 51.09952710010111,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00001\\trial_0000.npz",
+        "sha256": "f82a73bf7038bdcab335e98a05b142209aea14fcbe54b0727fe26dfe5da02b9d"
+      }
+    },
+    {
+      "official_world_number": 340,
+      "run_id": "fc9_stage25_terrain_00002",
+      "task": "terrain_teaching",
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 8984978896200061242,
+      "success": false,
+      "actions": 87,
+      "game_seconds": 60.0,
+      "elapsed_seconds": 60.00137110007927,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.05738500306422847,
+      "training_applied": true,
+      "worker_wall_seconds": 76.50086729996838,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00002\\trial_0000.npz",
+        "sha256": "f0e6428ec7f59aa245d40c56280076a7bea46260a6615fdfd9cb3d5820d05852"
+      }
+    },
+    {
+      "official_world_number": 341,
+      "run_id": "fc9_stage25_terrain_00003",
+      "task": "terrain_teaching",
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 7307888173631268321,
+      "success": false,
+      "actions": 88,
+      "game_seconds": 60.0,
+      "elapsed_seconds": 60.00055360002443,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.06538786013069069,
+      "training_applied": true,
+      "worker_wall_seconds": 76.50296419998631,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00003\\trial_0000.npz",
+        "sha256": "53e3b97103071c32dd21f45e8fdc2dbd5b313d9abff95662fb0d3f9b41b92934"
+      }
+    },
+    {
+      "official_world_number": 342,
+      "run_id": "fc9_stage25_terrain_00004",
+      "task": "wood_retention",
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 1016278173116438857,
+      "success": true,
+      "actions": 8,
+      "game_seconds": 6.3,
+      "elapsed_seconds": 6.244457300053909,
+      "confirmed_breaks": 1,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.05924049043929361,
+      "training_applied": true,
+      "worker_wall_seconds": 22.71994199999608,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00004\\trial_0000.npz",
+        "sha256": "b799eb82c19ba8021360df384d3f363952fbf5e12c57a198f2dad537d19bc3ce"
+      }
+    }
+  ],
+  "videos": [
+    {
+      "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\recordings\\phase9\\FlyCraft_Phase9_Milestone_00339_fc9_stage25_terrain_00001.mp4",
+      "sha256": "32d4fc1b3356b363c55a13dd3aa73704040a119ad16c1e1514791698af0ef26d",
+      "recheck": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 752,
+        "duration_seconds": 25.1,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "753"
+        },
+        "bytes": 7194714,
+        "sha256": "32d4fc1b3356b363c55a13dd3aa73704040a119ad16c1e1514791698af0ef26d"
+      }
+    }
+  ],
+  "evidence_sha256": {
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\bridge.jsonl": "9077246ced76c35652370e5653472e2fc2c57173c6ef62e79744ba9e1b176956",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\bridge_launcher.log": "6a543f1831474b2e9ca8f915b26124bb0318e3e66cff0c970d9dfb5dc24c3f9f",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\camera.jsonl": "ee3cd68c36aa9ea860c321e60ece1e2e487194b9300114c46e5f4e251f295d0a",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\client.log": "665369cb697a82475636ae359111d24af3cc36e9119735288ac0a407ac383929",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\client_launcher.log": "ecaee3e54923c368423d1d8bbc8f06e1b8e6f0c54f329589410a8bb4f51a6ba0",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\controller.jsonl": "ac68d2d337adb88e7f4bd3227d678d757c100d4a4bf7e3d210c16c521983a0bd",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\headless.jsonl": "0ed2a3c0643af59860cc1818949e9ab8614475b2f6ff61267d5b6e8c8660e7f4",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\run.json": "857e4f8a3898e2609e31ad76749e8c5afdc006ace8fc266af1c80ef7f42e0948",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\server.jsonl": "04086e9c923c02cbd54a99fa75f35998cb22f16e98096fbbf0d6ba9d1ff23084",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\server.jsonl.delivery.jsonl": "660fc23183d81a15b96247b8c0e54dab03de55b67fe9b8b259cd1bfd7c7aa238",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\server.jsonl.initial.jsonl": "261fbb13f047df1d4f8523d57e0ff67c569453ca40b4555f6cfbff6294bf3d20",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\server.log": "7ef8ed53f83f2f79da15acfc814e79eea6842114046c1c1abbd4d90161ab1a9b",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\server_launcher.log": "7ef8ed53f83f2f79da15acfc814e79eea6842114046c1c1abbd4d90161ab1a9b",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\source_manifest.json": "b67d31fccc370491d0d608c97e91c8006818d9969bcb2b74b97f7e6479d29c8a",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00001\\status.json": "9a50b6f62734d2229ee01105ec4fd4ab07933c96cc8b517b77b7f1a61cf1f2d7",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\bridge.jsonl": "ebd3fba6f4fe4f49993b8c2fd1ec59f177429c7192be069df40e2b141a3d11f4",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\bridge_launcher.log": "a7fb72ef61951e594c5ea9f660e74bbf150644df12ad5b90d9077d132a22707a",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\camera.jsonl": "3b6dd6cf10327c237ff669baa4e08c89a62a88e6508203ea220a379491f6e1ad",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\controller.jsonl": "7787cfa135f7fcb94ea8c598e524517987313557b648f55c98e3dd32ca23d59c",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\headless.jsonl": "9d164f656ecd3836440d87936681e461231beded639a46822990442b06afe9e7",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\run.json": "b4b5618c97b7ab7748d48f505db9a3ee397d6ace5fc4a00aa5e30e686c81bd31",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\server.jsonl": "5e4cac69c229c973bf4be7ecd33cd3ec0cf16e8e995de3aa777ee89d2ebc49a3",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\server.jsonl.delivery.jsonl": "36d830eeff0f896c3e5eed4f3021a85b4ea7b6073c7453775e383c3b6311241a",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\server.jsonl.initial.jsonl": "f4168a4d6cf0d232d8c83d9955d2fcf104b74a9b1627e0cf7bdb5c46b7d8d44f",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\server.log": "a4afd1b7fb8f49445c5b2374eee6c0270e511e961c71feba52d653dbb51cff26",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\server_launcher.log": "a4afd1b7fb8f49445c5b2374eee6c0270e511e961c71feba52d653dbb51cff26",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\source_manifest.json": "b67d31fccc370491d0d608c97e91c8006818d9969bcb2b74b97f7e6479d29c8a",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00002\\status.json": "a36b03ad74b65c8ce267109130b6de0da9a810f3fb9a162af17543cd084afcd2",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\bridge.jsonl": "2136336ec748ec6c208dfcfabb3b032d82e92dd3f93ac29d2aceba418753b8a8",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\bridge_launcher.log": "3a73a5732f557bba2ee81ea91ac15573907b01939d7c740174d443d190edd2d0",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\camera.jsonl": "68aa9721c51d279c2e0a73ff618982ffc0f9bc05f2aaeb786f1723159dd4a705",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\controller.jsonl": "31671bf0acacf469683417294d5d93ea7d7788c5f24f0910cede9847b30370a6",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\headless.jsonl": "0425191999f82b500e3477e5565c03c6c475374139d0c0593fe6dec5b0e0bf96",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\run.json": "9a01f81ca8ca03fcc7feadcffd3958aaa66f38166a0257ce0a91d09af731459d",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\server.jsonl": "02d2c2c9a1b0ec5cd1d9dc416d3797b78292bc6f41cd139b4ddd1546fcfede10",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\server.jsonl.delivery.jsonl": "36d830eeff0f896c3e5eed4f3021a85b4ea7b6073c7453775e383c3b6311241a",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\server.jsonl.initial.jsonl": "34ec68ef3c6309a295a0fd5f4fe6174f8a24436e7679c910ef10fb270c228b08",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\server.log": "eb52710988b277a6c91c21cab1913b92c433c5ae73d1643278cf2b9d39003e45",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\server_launcher.log": "eb52710988b277a6c91c21cab1913b92c433c5ae73d1643278cf2b9d39003e45",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\source_manifest.json": "b67d31fccc370491d0d608c97e91c8006818d9969bcb2b74b97f7e6479d29c8a",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00003\\status.json": "5b55b50c2af681f536684bf2b61d3911cb81c3f9dacdfcb4bd07797c21a6a010",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\bridge.jsonl": "0a43ce808214f496fe2d2cd2ea3179f561c8d33745fa1a669eb79c6d54a74f65",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\bridge_launcher.log": "983a900a1eb550c45ec53f95cf3eee6fcc19780d2eb27492a9745664c74f9f4c",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\camera.jsonl": "fcdce57d09d64ef43b111e3f322d217c60fde0f1d50951fe98c25bb2a8c7d1d0",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\controller.jsonl": "756216b1ed0065904cb49c04ed7852f100aa5fd0987865ccab41ef2d1879f62f",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\headless.jsonl": "6946c5c3bae5cc0da203b94e1f1ba9d5faf1aa65f6797250cf11ab7a066fa358",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\run.json": "465a08de3bc9622d4602be560f894a7d3e746693294de3cf207794425cfcde6b",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\server.jsonl": "e282b292dc46f28dfeb64dd5d43d791b64bf720413ab526a165a81ac77402d48",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\server.jsonl.delivery.jsonl": "660fc23183d81a15b96247b8c0e54dab03de55b67fe9b8b259cd1bfd7c7aa238",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\server.jsonl.initial.jsonl": "8ceaeea0e7ff82f0ba56daf5733d3799ff7dc48cab671ed19986a3ebb8d2c978",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\server.log": "abde372e79252459810b58e039db169f9fc50f9c8e12ca622731cf2875eeb891",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\server_launcher.log": "abde372e79252459810b58e039db169f9fc50f9c8e12ca622731cf2875eeb891",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\source_manifest.json": "b67d31fccc370491d0d608c97e91c8006818d9969bcb2b74b97f7e6479d29c8a",
+    "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00004\\status.json": "d825e215b524f1c13a706d5e129347d25042cfbaffa35cec04bc91c662b798d9"
+  },
+  "original_weight_prefix_preserved": true,
+  "graph_sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d",
+  "later_skills_unimplemented": [
+    "stone_tools",
+    "food_and_shelter",
+    "mining_and_survival",
+    "combat",
+    "nether_and_progression"
+  ]
+}

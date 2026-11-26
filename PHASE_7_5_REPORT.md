@@ -1,5 +1,72 @@
 # FlyCraft Phase 7.5 reliability report
 
+**November 26 — automatic recovery:** Windows sign-in startup and a hidden
+restart supervisor are installed. A real watchdog-crash test restarted it in
+about 16 seconds while preserving the same runner and game actions. A status
+file-sharing failure no longer releases the native power guard. Manual STOP,
+critical battery, resource guards, scored evidence and quality gates remain
+protected. All 180 tests pass. True pre-login startup was denied by Windows
+permissions; no reboot test or pre-login execution is claimed.
+[Installed behavior, tests and limits](docs/phase9_auto_resume.md).
+
+**November 25 — matched natural controls:** all five conditions now reproduce
+the same recorded absolute starting pose and the checker rejects actual pose
+drift. The separate one-seed, 600-tick development pilot scored 0/1 in every
+condition, with zero learning updates. No target became visible; trained
+movement was only 1.23 blocks net versus 11.69 for uniform. Exploration is
+still weak. All 166 tests pass. The training snapshot through world 350 is
+6/12 new successes, with verified milestone videos 339 and 350; these are
+training outcomes. [Complete protocol and gaps](docs/phase9_staged_curriculum.md).
+
+**November 25 — broader terrain interface:** 163 tests pass, and native jump
+acknowledgments demonstrate policy-selected upward and horizontal movement.
+Two matched-seed evaluation probes both collected 0/1 logs; changing the jump
+transfer prior reduced jumps from 25 to one without improving that score.
+The first separately seeded curriculum training episode did confirm an actual
+break and pickup in 13 actions. Its milestone video passed full decode.
+These are teaching-arena results, not vanilla-spawn reliability or a measured
+learning advantage. [Contract and remaining gaps](docs/phase9_staged_curriculum.md).
+
+**November 25, 2026 — control publication reliability:** official training world
+321 stopped without a score when a Windows reader-sharing race blocked atomic
+replacement of its initial control message. The original world/logs and prior
+320 scores were preserved. A one-second bounded access-denied retry now preserves
+complete JSON and still fails on persistent locks; an actual Windows/JDK locking
+test verified both paths. Eight fresh live evaluation episodes passed the
+transaction/evidence gate with this transport fix and no learning updates.
+[Validated fix, execution revision and limits](experiments/phase9/fc9_20261125_operations/performance_revision_0002.md).
+This adds no new natural-terrain reliability claim.
+
+**November 24, 2026:** the selected Phase 8 readout completed its new frozen
+one-log set at **27/30 (90%)**, and all four controlled Phase 8 point targets
+are now met: 27/30 three logs, 27/30 four planks and 19/30 wooden pickaxes.
+All 30 matched control repeats and the selected-readout milestone are verified.
+Phase 8 controlled validation is complete. The earlier fixed-pose obstacle diagnostic and recorded
+jump success remain separate evidence; this candidate uses no jump retry
+or exploration-forward prior. Vanilla exploration/approach remains open.
+[Latest scores and limits](PHASE_8_REPORT.md),
+[complete live score audit](experiments/phase9/phase8_finish_20261124/completion_audit.json)
+
+These new scores use seed identities excluded from development, but a small
+fixture generator repeats relative geometry: 28/30 single-tree trials and
+27/30 longer-goal trials reuse development arrangements. No natural-terrain,
+unseen-layout or neural-benefit claim follows. Original graph/checkpoints
+remain intact, evaluation performs no weight updates, and all live resource
+guards stay enabled. Phase 9 is pending separate authorization and AI-checker
+discussion. Dated sections below retain the historical evidence.
+
+Matched one-log control scores are trained 3/3, frozen transfer 2/3, uniform
+0/3, no-neural 1/3 and shuffled-neural 3/3. The pickaxe controls scored 2/3,
+1/3, 0/3, 0/3 and 2/3 respectively. All 24 relative-to-trained absolute-pose
+and fixture pairs match; the small sample supplies no neural advantage claim.
+One additional trained success from a RAM-stop attempt is retained unpaired.
+The new development milestone collected resources and crafted a pickaxe in
+45 actions; its 44.267-second Minecraft-only RTX 4050 MP4 passed full decoding
+and visual/transaction review. Earlier milestone checksums remain unchanged.
+The original graph/checkpoints and all resource guards are preserved.
+[Control audit](experiments/phase9/phase8_finish_20261124/control_completion_audit.json),
+[new milestone verification](experiments/phase9/phase8_finish_20261124/milestone_verification.json)
+
 November 20, 2026. The fixed-pose obstacle diagnostic verified a
 policy-selected forward retry with a vanilla jump pulse, followed by
 inventory-confirmed collection. The pitch-enabled controlled one-log
@@ -651,3 +718,23 @@ before launching. The existing 768 MiB live reserve, 2,048 MiB disk guard
 and 75-degree GPU cutoff remain in force. All 119 Python tests pass,
 including preflight/live RAM-guard cleanup and the offline fit's independent
 gradient check. Phase 7.5 natural exploration and collection remain open.
+
+## November 24 controlled one-log gate
+
+The new readout's fresh frozen evaluation scored 27/30 inventory-confirmed
+one-log trials, with a descriptive 95% Wilson interval of 74.4%–96.5%.
+Median actions were 9 and median wall time 8.864 seconds. One failure
+broke logs without collecting a drop; two saw logs but never reached the
+strict mining affordance. All terminal results are independently audited.
+The six world seeds yielded ten distinct relative single-tree scenes;
+the interval is not adjusted for shared fixtures/worlds. This controlled
+result does not close the separate vanilla exploration gap. The same
+candidate is now undergoing the longer Phase 8 evaluation.
+[Fresh evaluation evidence](experiments/phase9/phase8_finish_20261124/one_log_results.json)
+
+The seed identities are disjoint from development, but 28/30 trials reuse
+relative block arrangements already present in development. Only one of
+the ten distinct arrangements is new. This limited fixture generator
+provides held-out-seed reliability evidence, not novel-terrain or unseen
+layout generalization.
+[Fixture overlap audit](experiments/phase9/phase8_finish_20261124/layout_overlap_one_log.json)

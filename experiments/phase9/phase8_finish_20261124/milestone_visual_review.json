@@ -1,0 +1,11 @@
+{
+  "completed": true,
+  "method": "Manual inspection of six sampled original video frames plus full-resolution frames at 39.0 and 40.6 seconds",
+  "observed": "Minecraft-only loading/gameplay/menu footage, first-person movement, visible mining particles and removed log at 39.0 seconds, placed crafting table at 40.6 seconds",
+  "limits": "Tutorial overlay is visible. The spectator HUD does not display the actor inventory; pickaxe inventory and recipe success are independently verified by the live server/actor audit. Footage is an unedited fresh development execution, outside all benchmark denominators.",
+  "evidence": [
+    "experiments\\phase9\\phase8_finish_20261124\\milestone_review\\contact_sheet.png",
+    "experiments\\phase9\\phase8_finish_20261124\\milestone_review\\frame_39s.png",
+    "experiments\\phase9\\phase8_finish_20261124\\milestone_review\\frame_40_6s.png"
+  ]
+}

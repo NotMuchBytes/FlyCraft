@@ -1,5 +1,12 @@
 # Phase 8 observation and action contract
 
+The opt-in Phase 9 terrain interface adds HUD health/food and camera-relative
+first-hit terrain flags, plus a policy-selected jump-forward action. It uses
+a separately versioned 74-feature/13-action readout and excludes automatic
+blocked-forward jump retries. Existing Phase 8 interfaces and checkpoints are
+preserved. See [the curriculum contract](phase9_staged_curriculum.md) for the
+transfer prior, bounded exploration reward, ray limits and validation gates.
+
 The policy and planner receive client-observable state through the existing
 local Fabric/Python TCP bridge. The sparse 139,255-neuron graph is unchanged.
 Live action decisions use its existing 18-step full-network observation

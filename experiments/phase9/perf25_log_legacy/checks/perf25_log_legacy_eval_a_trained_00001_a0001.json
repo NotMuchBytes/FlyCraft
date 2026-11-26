@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "run_id": "perf25_log_legacy_eval_a_trained_00001_a0001",
+  "status": "verified",
+  "stop_reason": "suite_complete",
+  "episodes": [
+    {
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 503336097358437245,
+      "success": false,
+      "actions": 22,
+      "game_seconds": 20.0,
+      "elapsed_seconds": 19.963159800041467,
+      "confirmed_breaks": 2,
+      "crafts": {},
+      "failure_mode": "break_without_enough_pickup",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    }
+  ],
+  "intervention_commands_verified": 23,
+  "video": null,
+  "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+  "evidence_sha256": {
+    "bridge.jsonl": "808456400b1b6dd65dce59266c2aa3e0abb7e28cb812d2cfbe612d6e8dff483c",
+    "bridge_launcher.log": "11c9294411b25173ecfab48812266b490979467436274d3cd02105141b725140",
+    "camera.jsonl": "d381e7055097ec1df48f53165d8df33c4bbf71f761724f0ce0b9f98506b9f1f8",
+    "controller.jsonl": "7ec94a7b71b8b5aada65e82623b7a49f8cdf74920f303788e0253175a084b8fe",
+    "headless.jsonl": "2b14a0592e7f061ee3081ac7d6f369dbb8d71a75463088eb49fb877ad5b4e7da",
+    "prepare_launcher.log": "729c2c1eb96c0744b113df2bbde8417e95a938afe62901f6abdc4297973c9efc",
+    "run.json": "bcc4893f35917f2634190a16be6c6b1f6ab42375162967562a5aeb059a1b2488",
+    "server.jsonl": "b9bb158b140468b8c6f2513ab93e79343f8a243731c5d555d9175adf767cd47a",
+    "server.jsonl.delivery.jsonl": "36d830eeff0f896c3e5eed4f3021a85b4ea7b6073c7453775e383c3b6311241a",
+    "server.jsonl.initial.jsonl": "7eca706cb3c86ac7676e1c7df25d8b7406c17f05ee0fea1eacab586ee32e87ae",
+    "server.log": "6abd2feb0089e7af5e0953c524c21a879a0b15d06b5d6f48bf02bf0acd9360e5",
+    "server_launcher.log": "6abd2feb0089e7af5e0953c524c21a879a0b15d06b5d6f48bf02bf0acd9360e5",
+    "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+    "status.json": "92671fa1ccb7b5046fdbacbcb61b7619e36d8a267f4d7e2b8ce74b9d66daf5ab"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "run_id": "fc9_stage25_terrain_00001",
+  "status": "verified",
+  "stop_reason": "suite_complete",
+  "episodes": [
+    {
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 614455235457515494,
+      "success": true,
+      "actions": 13,
+      "game_seconds": 13.2,
+      "elapsed_seconds": 13.240383599884808,
+      "confirmed_breaks": 2,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.03806805202157815,
+      "training_applied": true
+    }
+  ],
+  "intervention_commands_verified": 13,
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 752,
+    "duration_seconds": 25.1,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "753"
+    },
+    "bytes": 7194714,
+    "sha256": "32d4fc1b3356b363c55a13dd3aa73704040a119ad16c1e1514791698af0ef26d"
+  },
+  "implementation_sha256": "41584bb1f2709f5a6ef54e3195ad915b30a69b350216f2f1fb4d73f9b5bb14f0",
+  "evidence_sha256": {
+    "bridge.jsonl": "9077246ced76c35652370e5653472e2fc2c57173c6ef62e79744ba9e1b176956",
+    "bridge_launcher.log": "6a543f1831474b2e9ca8f915b26124bb0318e3e66cff0c970d9dfb5dc24c3f9f",
+    "camera.jsonl": "ee3cd68c36aa9ea860c321e60ece1e2e487194b9300114c46e5f4e251f295d0a",
+    "client.log": "665369cb697a82475636ae359111d24af3cc36e9119735288ac0a407ac383929",
+    "client_launcher.log": "ecaee3e54923c368423d1d8bbc8f06e1b8e6f0c54f329589410a8bb4f51a6ba0",
+    "controller.jsonl": "ac68d2d337adb88e7f4bd3227d678d757c100d4a4bf7e3d210c16c521983a0bd",
+    "headless.jsonl": "0ed2a3c0643af59860cc1818949e9ab8614475b2f6ff61267d5b6e8c8660e7f4",
+    "run.json": "857e4f8a3898e2609e31ad76749e8c5afdc006ace8fc266af1c80ef7f42e0948",
+    "server.jsonl": "04086e9c923c02cbd54a99fa75f35998cb22f16e98096fbbf0d6ba9d1ff23084",
+    "server.jsonl.delivery.jsonl": "660fc23183d81a15b96247b8c0e54dab03de55b67fe9b8b259cd1bfd7c7aa238",
+    "server.jsonl.initial.jsonl": "261fbb13f047df1d4f8523d57e0ff67c569453ca40b4555f6cfbff6294bf3d20",
+    "server.log": "7ef8ed53f83f2f79da15acfc814e79eea6842114046c1c1abbd4d90161ab1a9b",
+    "server_launcher.log": "7ef8ed53f83f2f79da15acfc814e79eea6842114046c1c1abbd4d90161ab1a9b",
+    "source_manifest.json": "b67d31fccc370491d0d608c97e91c8006818d9969bcb2b74b97f7e6479d29c8a",
+    "status.json": "9a50b6f62734d2229ee01105ec4fd4ab07933c96cc8b517b77b7f1a61cf1f2d7"
+  }
+}

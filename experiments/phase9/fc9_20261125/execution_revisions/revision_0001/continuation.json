@@ -1,0 +1,27 @@
+{
+  "number": 2,
+  "created_unix": 1795612478.6053247,
+  "reason": "User requested faster launcher; validated cached exports and continuous unchanged resource guards in eight live evaluation episodes; fix bounded Windows atomic publication race at world 321",
+  "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+  "first_world": 322,
+  "previous_source_sha256": "90a18f3f4e206b93115dfd6458a9fef5aa31255f2b40e6f81955bd3d6108c1b7",
+  "previous_archive": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\fc9_20261125\\execution_revisions\\revision_0001",
+  "changed_files": [
+    "autonomy/experiment.py",
+    "autonomy/official.py",
+    "minecraft_mod/src/main/java/org/flycraft/bridge/AtomicFiles.java",
+    "minecraft_mod/src/main/java/org/flycraft/bridge/Phase8Harness.java",
+    "tools/continue_phase9.py",
+    "tools/launch_cache.py",
+    "tools/prepare_launch_cache.py",
+    "tools/resource_readiness.py",
+    "tools/run_official_phase9.py",
+    "tools/run_phase8_live.py",
+    "tools/run_phase9.py",
+    "tools/supervise_phase9.py"
+  ],
+  "validation": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\fc9_20261125_operations\\performance_validation_0002.json",
+    "sha256": "f616156642d8e52a9d1174dc903cd1377c753590a40ed3357f016bc4039c2e95"
+  }
+}

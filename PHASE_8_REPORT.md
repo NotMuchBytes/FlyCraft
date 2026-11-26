@@ -1,5 +1,212 @@
 # FlyCraft — Phase 8 report
 
+**November 26 — completed retention gate and repair:** the broader candidate's
+30-trial retention sets finished at one-log 20/30, three-log 30/30, planks
+25/30 and pickaxe 29/30. One-log failed the unchanged 24/30 threshold; the
+candidate did not advance. The 270 evaluation episodes and 64 training episodes
+were re-audited without score changes. A separate bounded 32-world repair
+round now uses unused training seeds and fresh evaluation seeds. Its first
+world collected a log in six actions with a verified update. That training
+success establishes no repaired reliability. The original Phase 8 scores
+remain unchanged. [Repair and startup protocol](docs/phase9_auto_resume.md).
+
+**November 25 — retention checks for the broader candidate:** all 166 tests
+pass. The new curriculum has 6/12 training successes through world 350 and
+11 verified updates, with two fully decoded milestones. Its fresh natural
+interface pilot scored 0/1 under each of five matched conditions. These do
+not replace the Phase 8 controlled scores below. The new candidate must pass
+30 fresh retention trials for each of the four wood goals at the original
+80%/70%/70%/50% point targets before advancing. Broader reliability and a
+learning/neural advantage remain unestablished.
+
+**November 25 — broader curriculum transfer:** the validated Phase 8 wood
+scores remain 27/30 one-log, 27/30 three-log, 27/30 planks and 19/30 wooden
+pickaxe. The user-selected Phase 9 revision preserves the original 338-world
+foundation and expands a copied pitch readout for policy-selected terrain
+movement. All 163 tests pass. The first new training world collected one log
+in 13 actions with a verified update and a fully decoded milestone MP4;
+two preceding matched development probes both failed collection. Natural
+exploration, broader reliability and learning benefit remain unverified.
+Stone, food, combat and progression are pending interfaces, not trained skills.
+See [the staged contract](docs/phase9_staged_curriculum.md).
+
+**November 25, 2026:** the live runner gained validated launch caching,
+continuous resource readiness and bounded Windows control-publication recovery.
+All 155 tests pass; the separate eight-episode development pilot updated no
+weights. The original Phase 8 scores and actor interface remain unchanged.
+[Measurements, recordings and versioned continuation](experiments/phase9/fc9_20261125_operations/performance_revision_0002.md).
+
+**November 24, 2026: Phase 8 controlled reliability validation is complete.**
+The frozen mining-supervised readout completed all 120 new scored episodes:
+27/30 one-log, 27/30 three-log, 27/30 four-plank and 19/30 wooden pickaxe,
+each from empty inventory. All four point targets are met, all 30 matched
+control repeats are verified, and the selected-readout milestone MP4 passed
+full decoding, visual review and the independent Minecraft transaction audit.
+
+| Goal | Success | Target | Descriptive 95% Wilson CI | Median actions | Median wall / game seconds |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| One log | 27/30 (90%) | 24/30 | 74.4%–96.5% | 9 | 8.864 / 8.975 |
+| Three logs | 27/30 (90%) | 21/30 | 74.4%–96.5% | 42 | 35.509 / 35.625 |
+| Four planks | 27/30 (90%) | 21/30 | 74.4%–96.5% | 9.5 | 10.128 / 10.200 |
+| Wooden pickaxe | 19/30 (63.3%) | 15/30 | 45.5%–78.1% | 75.5 | 59.261 / 57.300 |
+
+Medians include successes and failures. Wall time is the episode controller
+duration; game time comes from server ticks. Six world seeds contain five
+layout seeds each. The intervals are descriptive and do not account for
+shared-world or repeated-fixture dependence. Passing these point targets
+does not put the confidence-interval lower bounds above the targets.
+[All scores and failure modes](experiments/phase9/phase8_finish_20261124/final_results.json)
+
+One-log and plank failures each comprise two visible-log cases without a
+mining affordance and one confirmed break without pickup. All three
+three-log failures have confirmed breaks with insufficient pickup; one broke
+at least three logs. Pickaxe failures ended after sticks in eight cases,
+after crafting a table without confirmed placement in two, and after planks
+without confirmed sticks in one. Six pickaxe failures broke at least three
+logs, so broken-block counts alone would overstate collection success.
+
+The final score audit reproduces all 120 records exactly from the live logs,
+checks terminal inventory, real block changes, normal crafting/placement
+acknowledgments and action budgets, and confirms zero evaluation weight
+updates. All 18 primary runs completed without technical stops. The minimum
+sampled available RAM was 1,180.34 MiB and maximum GPU temperature 54°C.
+The 768 MiB RAM, 2,048 MiB disk and 75°C GPU guards stayed enabled; CPU
+temperature telemetry remains unavailable. The graph, original checkpoints,
+selected checkpoint and live implementation hashes remain unchanged.
+[Completion audit](experiments/phase9/phase8_finish_20261124/completion_audit.json),
+[artifact preservation](experiments/phase9/phase8_finish_20261124/artifact_integrity_final.json)
+
+This is **held-out-seed reliability in controlled fixtures**, with no natural
+terrain or neural-benefit conclusion. Single-tree goals have ten distinct
+relative arrangements; 28/30 trials reuse development geometry. Longer
+goals have fifteen arrangements; 27/30 trials reuse development geometry.
+The checkpoint was frozen before evaluation. The earlier 120 pitch episodes
+are its training/development data, excluded from these scores. The 66-by-12
+readout is fitted from actual logged policy actions and progress, including
+acknowledged log breaks; the original 139,255-neuron sparse brain is fixed.
+[Fixture overlap](experiments/phase9/phase8_finish_20261124/layout_overlap_final.json),
+[frozen protocol and engineered assistance](experiments/phase9/phase8_finish_20261124/README.md)
+
+### November 24 matched policy controls
+
+The predeclared controls use the first three layouts of the first frozen
+seed block, kept outside the primary 30-trial goal scores. Within each layout,
+all five conditions share the absolute starting pose, full fixture snapshot,
+policy RNG, action/tick budgets, motor settings and operational interface.
+The frozen condition transfers the preserved Phase 7 readout. The others use
+the selected readout; uniform samples equally over legal actions, no-neural
+zeros its three activity inputs while retaining bias/context, and shuffled
+permutes those three inputs. The original brain still computes diagnostic
+features. Every scored decision's actual inputs/probabilities are checked.
+
+| Goal | Condition | Success | Median actions | Median wall seconds |
+| --- | --- | ---: | ---: | ---: |
+| One log | Trained | 3/3 | 16 | 14.734 |
+| One log | Frozen transfer | 2/3 | 7 | 6.254 |
+| One log | Uniform | 0/3 | 20 | 20.000 |
+| One log | No-neural inputs | 1/3 | 26 | 19.990 |
+| One log | Shuffled-neural inputs | 3/3 | 9 | 7.759 |
+| Wooden pickaxe | Trained | 2/3 | 92 | 70.009 |
+| Wooden pickaxe | Frozen transfer | 1/3 | 108 | 75.002 |
+| Wooden pickaxe | Uniform | 0/3 | 110 | 75.011 |
+| Wooden pickaxe | No-neural inputs | 0/3 | 104 | 74.998 |
+| Wooden pickaxe | Shuffled-neural inputs | 2/3 | 77 | 53.239 |
+
+All 24 control-to-trained pose/fixture pairs match exactly. The one-log failures comprise one
+break-without-pickup for frozen transfer, two breaks without pickup and one
+mineable-without-break for uniform, and two breaks without pickup for
+no-neural. Pickaxe failures stopped after sticks for trained and shuffled
+(one each); after planks for frozen (two); after planks twice and sticks once
+for uniform; and after uncollected breaks twice and sticks once for no-neural.
+These three-layout samples in one world are descriptive. Shuffled matches
+trained on both goals, so neural or learned superiority remains unestablished.
+The fixed condition order and full entity/drop RNG are not a verified exact
+replay. Descriptive Wilson intervals and complete per-episode evidence are
+preserved in the control JSON. The three-trial intervals are 43.9%–100% for
+3/3, 20.8%–93.9% for 2/3, 6.1%–79.2% for 1/3 and 0%–56.1% for 0/3.
+The audit verifies 1,716 unique decision commands' neural intervention inputs
+(including seven from the unpaired episode), uniform legal-action
+probabilities and zero evaluation updates in all 31 scored control episodes.
+
+The first control launch hit the RAM guard after a separate Minecraft client
+started. Its one verified trained success is retained as an unpaired episode,
+outside the complete matched groups. The incomplete group was repeated in a
+new, separately identified disposable save; completed groups are never
+repeated. This technical-stop rule does not depend on success or failure.
+[All 30 paired episodes and the retained unpaired result](experiments/phase9/phase8_finish_20261124/control_results.json)
+
+The complete control runs sampled at least 1,051.78 MiB available RAM and a
+maximum GPU temperature of 61°C. The separate RAM-stop attempt reached
+319.90 MiB available and was stopped by the unchanged guard; its completed
+episode and unfinished next episode remain preserved. Final rescoring exactly
+reproduces the control artifact.
+[Control completion and evidence hashes](experiments/phase9/phase8_finish_20261124/control_completion_audit.json)
+
+### November 24 selected-readout milestone and closeout
+
+Milestone 3 is a fresh execution on the first predeclared development layout,
+outside both the primary and control samples. The selected readout crafted a
+wooden pickaxe from empty inventory in **45 actions, 32.242 controller wall
+seconds and 32.2 game seconds**. All three log breaks, three plank crafts,
+stick craft, table craft, table placement and pickaxe craft have actual
+acknowledgments; terminal inventory contains one wooden pickaxe. This is not
+an exact replay, and no policy actions were changed for the video.
+
+The first-person spectator used the actual NVIDIA GeForce RTX 4050 renderer;
+OBS used NVENC H.264 and only the exact Minecraft window. The 1,920×1,080,
+30 fps MP4 contains **1,328 fully decoded frames over 44.267 seconds**, SHA-256
+`ebaf25d007055c6d40c27d8a6705ed3450ab285d98c28d3d6944e4cf9dcc6d6a`.
+It includes Minecraft loading/menu frames and the ordinary tutorial overlay.
+Manual review confirms mining particles/removal and the placed table; the
+spectator HUD does not display the actor inventory, which is verified from
+server/actor evidence instead. Independent capture comparison passed before
+policy actions (RGB error 0.05548 after an earlier 0.19331 comparison retry).
+The recording sampled at least 1,009.37 MiB available RAM and at most 55°C GPU.
+[Playback/goal audit](experiments/phase9/phase8_finish_20261124/milestone_verification.json),
+[visual review](experiments/phase9/phase8_finish_20261124/milestone_visual_review.json),
+[original-frame contact sheet](experiments/phase9/phase8_finish_20261124/milestone_review/contact_sheet.png),
+[recording metadata](recordings/phase9/youtube/p8_mining_20261124_pickaxe_milestone.json)
+
+An earlier OBS startup failed before Minecraft launched, so it produced no
+episode or policy score. Its log is preserved. With OBS confirmed stopped,
+two stale empty session markers were reversibly archived; profiles, logs and
+footage were preserved. The dedicated recorder then started normally. Its
+own leftover marker was archived after recording/cleanup. This follows the
+[OBS 33 session-marker implementation](https://github.com/obsproject/obs-studio/blob/33.0.0/frontend/utility/CrashHandler.cpp),
+without changing FlyCraft or disabling its guards.
+[Startup failure](experiments/phase9/phase8_finish_20261124/milestone_obs_preflight_failure.json),
+[recovery evidence](experiments/phase9/phase8_finish_20261124/obs_sentinel_recovery.json)
+
+All three accepted local milestone exports were fully decoded again:
+
+| Development milestone | Export filename | Seconds | Decoded frames |
+| --- | --- | ---: | ---: |
+| 1: earlier jump recovery | `FlyCraft_Development_Milestone_00001_p75_step_20261117_recorded_e.mp4` | 29.000 | 869 |
+| 2: earlier-readout pickaxe | `FlyCraft_Development_Milestone_00002_p8_pitch_20261117_pickaxe_milestone.mp4` | 55.867 | 1,676 |
+| 3: selected-readout pickaxe | `FlyCraft_Development_Milestone_00003_p8_mining_20261124_pickaxe_milestone.mp4` | 44.267 | 1,328 |
+
+Export directory:
+`C:\Users\anass\Documents\Codex\2026-11-17\continue-developing-the-actual-flycraft-minecraft\outputs`.
+The earlier files retain their original checksums and readouts; they are not
+presented as demonstrations of the selected checkpoint.
+[Earlier playback verification](experiments/phase9/phase8_finish_20261124/prior_milestone_verification.json)
+
+All **119 automated baseline tests passed**. The documented isolated Minecraft
+build/download-assets check also succeeded. Final graph/checkpoint/source
+verification after the live runs matches the preserved artifacts.
+[Post-run artifact audit](experiments/phase9/phase8_finish_20261124/artifact_integrity_closeout.json)
+
+The remaining scientific gaps are natural-terrain exploration/approach/pickup,
+genuinely unseen fixture/terrain generalization, stronger neural/learning
+controls, and the observed pickup/crafting failures. Engineered semantic
+sensing, dependency/legality masks, normal recipe-click primitives, prepared
+trees/support face, two-tick motor duration and mined-column memory remain
+explicit assistance. Meeting the controlled point targets closes this Phase
+8 validation, not those broader claims.
+
+The Phase 9 campaign remains pending separate authorization and discussion
+of an AI checker. The dated sections below preserve prior results and gaps.
+
 November 20, 2026. The pitch-enabled candidate completed 30 live trials
 per goal, scoring **26/30 one-log, 18/30 three-log, 27/30 four-plank and
 12/30 from-empty wooden pickaxe**. The one-log and plank point targets
@@ -803,3 +1010,28 @@ launch hold produced an unscored technical stop, preserved separately.
 The live RAM reserve stays 768 MiB; the configurable pre-launch margin
 defaults to 1,800 MiB on two samples. The scored pilot sampled at least
 770.49 MiB available RAM and at most 52 degrees Celsius GPU temperature.
+
+### Fresh frozen one-log gate
+
+The new mining-supervised readout scored **27/30 (90%)** on the frozen
+November 24 seed catalog, meeting the 24/30 point target. The descriptive
+95% Wilson interval is 74.4%–96.5%. Median episode actions were 9 and median
+wall time 8.864 seconds. All 30 scores have matching acknowledged terminal
+inventory and independent block-change evidence. One failure broke logs
+without pickup; two saw logs but never obtained the mining affordance.
+
+Six generated world seeds contain five requested layouts each, with ten
+distinct relative single-tree fixtures in the recorded snapshots. These
+intervals are not adjusted for shared-world/fixture dependence. The longer
+goals are now released on the same frozen checkpoint and configuration.
+This is controlled-fixture evidence, and supplies no neural-benefit or
+natural-terrain claim. The earlier 120 episodes remain development data
+for this new readout, outside this fresh evaluation.
+[Frozen plan and complete one-log audit](experiments/phase9/phase8_finish_20261124/one_log_results.json)
+
+Seed disjointness does not imply geometric novelty in this small fixture
+generator. Twenty-eight of the 30 new one-log trials reuse nine relative
+block arrangements present in development; two trials use one new
+arrangement. The result tests reliability on held-out seed identities,
+and does not establish generalization to unseen layouts or terrain.
+[Translation-normalized fixture overlap audit](experiments/phase9/phase8_finish_20261124/layout_overlap_one_log.json)

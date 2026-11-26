@@ -38,6 +38,7 @@ public final class Phase8Harness {
     private static boolean unplacedTable;
     private static boolean naturalWorld;
     private static boolean blockedForwardFixture;
+    private static boolean terrainMode, terrainFixture;
     private static double[] naturalStart;
     private static JsonObject terminal;
     private static int terminalWait;
@@ -64,6 +65,8 @@ public final class Phase8Harness {
             unplacedTable = Boolean.parseBoolean(config.getProperty("fixture.unplacedTable", "false"));
             naturalWorld = Boolean.parseBoolean(config.getProperty("fixture.naturalWorld", "false"));
             blockedForwardFixture = Boolean.parseBoolean(config.getProperty("fixture.blockedForward", "false"));
+            terrainMode = Boolean.parseBoolean(config.getProperty("fixture.terrainActions", "false"));
+            terrainFixture = Boolean.parseBoolean(config.getProperty("fixture.terrainStep", "false"));
             String pose = config.getProperty("fixture.naturalStart", "");
             if (!pose.isBlank()) naturalStart = Arrays.stream(pose.split(",")).mapToDouble(Double::parseDouble).toArray();
             trials = new ArrayList<>();
@@ -93,7 +96,7 @@ public final class Phase8Harness {
         try {
             Path temporary = controlFile.resolveSibling(controlFile.getFileName() + ".tmp");
             Files.writeString(temporary, control.toString());
-            Files.move(temporary, controlFile, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+            AtomicFiles.replace(temporary, controlFile);
         } catch (IOException error) { throw new IllegalStateException(error); }
     }
 
@@ -125,7 +128,7 @@ public final class Phase8Harness {
         }
         if (warmup > 0) {
             if (--warmup == 0) {
-                if (naturalWorld || blockedForwardFixture) initialState(player, trials.get(index));
+                if (naturalWorld || blockedForwardFixture || terrainFixture) initialState(player, trials.get(index));
                 active = true; started = server.getTickCount(); instruction(true, false);
             }
             return;
@@ -148,6 +151,8 @@ public final class Phase8Harness {
             default -> false;
         };
         long elapsed = server.getTickCount() - started;
+        boolean died=terrainMode && !player.isAlive();
+        if(died) success=false;
         boolean probeComplete=false;
         if(trial.goal.equals("camera_probe") && cameraProbeResult!=null && Files.exists(cameraProbeResult)) {
             try {
@@ -155,13 +160,16 @@ public final class Phase8Harness {
                 probeComplete=true; success=probe.get("success").getAsBoolean();
             } catch(Exception ignored) { }
         }
-        if (success || probeComplete || elapsed >= maxTicks) {
+        if (success || probeComplete || elapsed >= maxTicks || died) {
             JsonObject result = new JsonObject();
             result.addProperty("episode_id", episodeId());
             result.addProperty("condition", trial.condition); result.addProperty("goal", trial.goal);
             result.addProperty("layout_seed", trial.seed); result.addProperty("success", success);
             result.addProperty("ticks", elapsed); result.addProperty("train", trial.train);
             result.add("inventory", new Gson().toJsonTree(counts));
+            if(terrainMode) {
+                result.addProperty("player_died",died); result.addProperty("health",player.getHealth());
+            }
             try { Files.writeString(resultsFile, result + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND); }
             catch (IOException error) { throw new IllegalStateException(error); }
             FlyCraftMod.LOGGER.info("FLYCRAFT_PHASE8 episode_end {}", result);
@@ -173,6 +181,10 @@ public final class Phase8Harness {
                 terminal.addProperty("server_tick",server.getTickCount());
                 terminal.add("inventory",new Gson().toJsonTree(counts));
                 terminal.add("position",new Gson().toJsonTree(new double[]{player.getX(),player.getZ(),Math.toRadians(player.getYRot())}));
+                if(terrainMode) {
+                    terminal.addProperty("health",player.getHealth());
+                    terminal.addProperty("food",player.getFoodData().getFoodLevel());
+                }
                 instruction(false,false);
             }
         }
@@ -217,6 +229,23 @@ public final class Phase8Harness {
             placeTree(level, 0, 4);
             player.teleportTo(level, originX, groundY, 0.7, Set.of(), 0, 0, true);
             player.setDeltaMovement(0, 0, 0);
+            player.inventoryMenu.sendAllDataToRemote();
+            return;
+        }
+        if(terrainFixture) {
+            originX=.5; originZ=.5; groundY=100;
+            // Seeded, visible teaching arena. Never claimed as vanilla terrain.
+            for(int x=-10;x<=10;x++) for(int z=-10;z<=10;z++) {
+                level.setBlockAndUpdate(new BlockPos(x,groundY-1,z),Blocks.STONE.defaultBlockState());
+                for(int y=groundY;y<=groundY+4;y++) level.setBlockAndUpdate(new BlockPos(x,y,z),
+                    Math.abs(x)==10 || Math.abs(z)==10 ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+            }
+            Random layout=new Random(trial.seed);
+            int radius=1+layout.nextInt(2),stepZ=1+layout.nextInt(2);
+            for(int x=-radius;x<=radius;x++) level.setBlockAndUpdate(new BlockPos(x,groundY,stepZ),Blocks.STONE.defaultBlockState());
+            placeTree(level,layout.nextInt(3)-1,5+layout.nextInt(2));
+            player.teleportTo(level,.5,groundY,.7,Set.of(),0,0,true);
+            player.setDeltaMovement(0,0,0); player.setHealth(20); player.getFoodData().setFoodLevel(20);
             player.inventoryMenu.sendAllDataToRemote();
             return;
         }

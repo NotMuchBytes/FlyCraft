@@ -1,0 +1,170 @@
+{
+  "development_interface_test_only": true,
+  "seed": 202611252601,
+  "policy_seed": 26001,
+  "trial_ticks": 600,
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00012\\trial_0000.npz",
+    "sha256": "70f953dccc40527085db8d6ee28f7b739b5a2479c73bb48f2e944556279762ec"
+  },
+  "frozen_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25\\foundation_terrain_transfer.npz",
+    "sha256": "9d1300c83e369572636822dedaa72299c1c1f63af162f1be2308c776c51fba09"
+  },
+  "matched_pose": [
+    8.5,
+    144.0,
+    6.5,
+    93.66348266601562,
+    0.0
+  ],
+  "learning_updates": 0,
+  "results": [
+    {
+      "actual_pose": [
+        8.5,
+        144.0,
+        6.5,
+        93.66348266601562,
+        0.0
+      ],
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 202611252601,
+      "success": false,
+      "actions": 40,
+      "game_seconds": 30.0,
+      "elapsed_seconds": 29.991325800074264,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    },
+    {
+      "actual_pose": [
+        8.5,
+        144.0,
+        6.5,
+        93.66348266601562,
+        0.0
+      ],
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "frozen",
+      "layout_seed": 202611252601,
+      "success": false,
+      "actions": 40,
+      "game_seconds": 30.0,
+      "elapsed_seconds": 29.98241569986567,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    },
+    {
+      "actual_pose": [
+        8.5,
+        144.0,
+        6.5,
+        93.66348266601562,
+        0.0
+      ],
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "uniform",
+      "layout_seed": 202611252601,
+      "success": false,
+      "actions": 43,
+      "game_seconds": 30.0,
+      "elapsed_seconds": 29.99000500002876,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    },
+    {
+      "actual_pose": [
+        8.5,
+        144.0,
+        6.5,
+        93.66348266601562,
+        0.0
+      ],
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "no_neural",
+      "layout_seed": 202611252601,
+      "success": false,
+      "actions": 40,
+      "game_seconds": 30.0,
+      "elapsed_seconds": 29.984985899878666,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    },
+    {
+      "actual_pose": [
+        8.5,
+        144.0,
+        6.5,
+        93.66348266601562,
+        0.0
+      ],
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "shuffled",
+      "layout_seed": 202611252601,
+      "success": false,
+      "actions": 40,
+      "game_seconds": 30.0,
+      "elapsed_seconds": 29.97889590007253,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    }
+  ],
+  "exact_entity_rng_replay_claimed": false
+}

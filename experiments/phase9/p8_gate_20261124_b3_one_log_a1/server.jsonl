@@ -1,0 +1,5 @@
+{"episode_id":"trial_0000","condition":"trained","goal":"one_log","layout_seed":7615357089454581100,"success":true,"ticks":142,"train":false,"inventory":{"log":1,"planks":0,"sticks":0,"crafting_table":0,"wooden_pickaxe":0}}
+{"episode_id":"trial_0001","condition":"trained","goal":"one_log","layout_seed":7855944687589724147,"success":true,"ticks":138,"train":false,"inventory":{"log":1,"planks":0,"sticks":0,"crafting_table":0,"wooden_pickaxe":0}}
+{"episode_id":"trial_0002","condition":"trained","goal":"one_log","layout_seed":568663271120089942,"success":false,"ticks":400,"train":false,"inventory":{"log":0,"planks":0,"sticks":0,"crafting_table":0,"wooden_pickaxe":0}}
+{"episode_id":"trial_0003","condition":"trained","goal":"one_log","layout_seed":157743029463872904,"success":true,"ticks":295,"train":false,"inventory":{"log":1,"planks":0,"sticks":0,"crafting_table":0,"wooden_pickaxe":0}}
+{"episode_id":"trial_0004","condition":"trained","goal":"one_log","layout_seed":2624273210052655987,"success":true,"ticks":312,"train":false,"inventory":{"log":1,"planks":0,"sticks":0,"crafting_table":0,"wooden_pickaxe":0}}

@@ -1,0 +1,341 @@
+{
+  "training_not_heldout": true,
+  "foundation_worlds": 338,
+  "combined_worlds": 350,
+  "new_successes": 6,
+  "new_scored": 12,
+  "updates": 11,
+  "groups": {
+    "terrain": {
+      "successes": 4,
+      "trials": 9,
+      "wilson95": [
+        0.18877852109766452,
+        0.733348706504507
+      ],
+      "mean_actions": 58.111111111111114,
+      "mean_game_seconds": 40.84444444444445,
+      "mean_worker_wall_seconds": 60.139981255582015
+    },
+    "retention": {
+      "successes": 2,
+      "trials": 3,
+      "wilson95": [
+        0.2076596008020477,
+        0.9385080552796037
+      ],
+      "mean_actions": 43.333333333333336,
+      "mean_game_seconds": 31.266666666666666,
+      "mean_worker_wall_seconds": 55.180967333338536
+    }
+  },
+  "episodes": [
+    {
+      "official_world_number": 339,
+      "retention": false,
+      "worker_wall_seconds": 51.09952710010111,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 614455235457515494,
+      "success": true,
+      "actions": 13,
+      "game_seconds": 13.2,
+      "elapsed_seconds": 13.240383599884808,
+      "confirmed_breaks": 2,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.03806805202157815,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 340,
+      "retention": false,
+      "worker_wall_seconds": 76.50086729996838,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 8984978896200061242,
+      "success": false,
+      "actions": 87,
+      "game_seconds": 60.0,
+      "elapsed_seconds": 60.00137110007927,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.05738500306422847,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 341,
+      "retention": false,
+      "worker_wall_seconds": 76.50296419998631,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 7307888173631268321,
+      "success": false,
+      "actions": 88,
+      "game_seconds": 60.0,
+      "elapsed_seconds": 60.00055360002443,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.06538786013069069,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 342,
+      "retention": true,
+      "worker_wall_seconds": 22.71994199999608,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 1016278173116438857,
+      "success": true,
+      "actions": 8,
+      "game_seconds": 6.3,
+      "elapsed_seconds": 6.244457300053909,
+      "confirmed_breaks": 1,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.05924049043929361,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 343,
+      "retention": false,
+      "worker_wall_seconds": 76.88389699999243,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 3749561972543680075,
+      "success": false,
+      "actions": 91,
+      "game_seconds": 60.0,
+      "elapsed_seconds": 59.98119769990444,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.0,
+      "training_applied": false
+    },
+    {
+      "official_world_number": 344,
+      "retention": false,
+      "worker_wall_seconds": 28.401843399973586,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 2158587150372212031,
+      "success": true,
+      "actions": 14,
+      "game_seconds": 10.8,
+      "elapsed_seconds": 10.749291999964043,
+      "confirmed_breaks": 1,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.053266142399103794,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 345,
+      "retention": false,
+      "worker_wall_seconds": 26.22139360010624,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 7797161134825483007,
+      "success": true,
+      "actions": 9,
+      "game_seconds": 8.3,
+      "elapsed_seconds": 8.244354899972677,
+      "confirmed_breaks": 1,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.07687885144462081,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 346,
+      "retention": true,
+      "worker_wall_seconds": 91.6364229999017,
+      "episode_id": "trial_0000",
+      "goal": "three_logs",
+      "condition": "trained",
+      "layout_seed": 181508001256115113,
+      "success": false,
+      "actions": 107,
+      "game_seconds": 75.0,
+      "elapsed_seconds": 74.98794399993494,
+      "confirmed_breaks": 2,
+      "crafts": {},
+      "failure_mode": "break_without_enough_pickup",
+      "inventory": {
+        "log": 2,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.07128427427135381,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 347,
+      "retention": false,
+      "worker_wall_seconds": 52.03850800008513,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 3235114929364401878,
+      "success": true,
+      "actions": 47,
+      "game_seconds": 35.3,
+      "elapsed_seconds": 35.23809970007278,
+      "confirmed_breaks": 1,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.02287942852048199,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 348,
+      "retention": false,
+      "worker_wall_seconds": 77.19435100001283,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 5652130729060057674,
+      "success": false,
+      "actions": 92,
+      "game_seconds": 60.0,
+      "elapsed_seconds": 59.99506890005432,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.060071142282733116,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 349,
+      "retention": false,
+      "worker_wall_seconds": 76.41647970001213,
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 6481468702005930968,
+      "success": false,
+      "actions": 82,
+      "game_seconds": 60.0,
+      "elapsed_seconds": 59.99507079995237,
+      "confirmed_breaks": 0,
+      "crafts": {},
+      "failure_mode": "no_confirmed_break",
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.10156942488986634,
+      "training_applied": true
+    },
+    {
+      "official_world_number": 350,
+      "retention": true,
+      "worker_wall_seconds": 51.18653700011782,
+      "episode_id": "trial_0000",
+      "goal": "planks",
+      "condition": "trained",
+      "layout_seed": 4215124482964839486,
+      "success": true,
+      "actions": 15,
+      "game_seconds": 12.5,
+      "elapsed_seconds": 12.490139199886471,
+      "confirmed_breaks": 2,
+      "crafts": {
+        "CRAFT_PLANKS": 1
+      },
+      "failure_mode": "success",
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.06417618245853685,
+      "training_applied": true
+    }
+  ],
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00012\\trial_0000.npz",
+    "sha256": "70f953dccc40527085db8d6ee28f7b739b5a2479c73bb48f2e944556279762ec"
+  },
+  "graph_sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d"
+}

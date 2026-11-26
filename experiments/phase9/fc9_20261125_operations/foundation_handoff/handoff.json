@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "created_unix": 1795613678.2031388,
+  "reason": "user selected broader staged curriculum for remaining 10000-world budget",
+  "foundation_world_instances": 338,
+  "scored_episodes": 337,
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00338_a0338\\trial_0000.npz",
+    "sha256": "ab18a30bd132b3556bfbfaa211fe78982de0a715215b30385a1d9a9326e46e78"
+  },
+  "world_budget_total": 10000,
+  "next_world_number": 339,
+  "remaining_world_budget": 9662,
+  "original_final_evaluation_unused": true,
+  "files": {
+    "config.json": "fe1b834579fd6024043ab80b6d78f9e03b392f5c789bbefcf8365eb64e885107",
+    "state.json": "867f3c6a7f5c56f26d5b4d08ccffc25a5d0a555a2889481298869dc08cc7713f",
+    "summary.json": "ded833e2647726002decfb05c9aba67a6fd4046f87ca187f9a6e050909412db6",
+    "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+    "seeds.json": "3ed0b14a053977e0528e8eb014efc7920cb738eac3c8428c6bccc222d4ddb967"
+  }
+}

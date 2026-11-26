@@ -1,0 +1,9 @@
+{
+  "old_pid": 25268,
+  "new_pid": 10984,
+  "restart_seconds": 16.03280569985509,
+  "runner_preserved": true,
+  "final_critical_battery_logic_loaded": true,
+  "pc_rebooted": false,
+  "actions_replayed": false
+}

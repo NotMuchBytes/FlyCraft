@@ -1,5 +1,142 @@
 # FlyCraft Phase 9 development report
 
+**November 26 — automatic resume and retention repair:** execution revision 3
+preserves the failed stage at world 402 and starts a reviewed 32-world repair
+round with a new evaluation seed set. It keeps the original checkpoint chain,
+actor, reward, budgets and gate thresholds. The first repair trial succeeded
+in six actions with a verified update. All 180 tests pass. Windows sign-in
+startup, supervisor crash recovery and duplicate-owner protection are verified;
+pre-login boot registration was denied by Windows permissions. Quality failures
+still park, and later Minecraft skills remain unimplemented. The completed
+stage's 334 episodes were independently re-audited without changed scores.
+[Setup, results and operational limits](docs/phase9_auto_resume.md).
+
+**November 25 — staged revision 2:** through world 350, the new course scored
+6/12 training successes (terrain 4/9; retention 2/3), with 11 independently
+verified updates. Milestones 339 and 350 passed full decode and sampled
+review. A separate five-condition natural interface pilot used identical
+recorded native poses, seed, RNG and budget; every condition scored 0/1 and
+made zero updates. All 166 tests pass. Revision 2 preserves the source and
+ledger at 350, rejects unmatched natural starts and requires all four wood
+retention gates. It changes no actor, reward, readout, training seeds or
+training budgets. Natural exploration and later skills remain unfinished.
+[Results, limits and source lineage](docs/phase9_staged_curriculum.md).
+
+**November 25 — broader curriculum started:** the original campaign is
+preserved and paused at 338 generated worlds and 337 scored episodes. The
+remaining training budget is allocated to validated stages rather than a
+10,000-world wood-only schedule. All 163 tests pass. The first new curriculum
+world (slot 339) collected one log in 13 actions and 264 ticks, with a verified
+readout update and Minecraft-only RTX 4050 milestone footage that passed full
+decode. Two prior matched development probes both failed collection, despite
+verified jump execution. No broader held-out success rate or neural advantage
+has been established. Terrain and natural exploration have explicit training,
+five-condition evaluation and retention gates; stone tools, food/shelter,
+combat and later progression still require implemented, validated interfaces.
+[Protocol, evidence and operational limits](docs/phase9_staged_curriculum.md).
+
+**November 25 — faster execution revision 2:** after 320 scored worlds
+(280 successes), world 321 exposed a Windows atomic-publication sharing race
+and remained unscored. The failure and all prior results were preserved. A
+bounded publication retry, hash-verified launch cache and continuous unchanged
+resource window passed **155 tests** and eight fresh live evaluation episodes
+with no learning updates. Warmed time outside a worker fell from 32.4 to 2.1
+seconds; routine worker overhead fell from 27.7 to 20.1 seconds. The versioned
+campaign resumed at world 322 with the same checkpoint chain and seed catalog.
+[Complete timing pilot, source history and recording evidence](experiments/phase9/fc9_20261125_operations/performance_revision_0002.md).
+The user has also selected a broader staged curriculum for the remaining
+budget; additional skills require their own implemented interfaces and live
+validation before training. These are not yet supported by the four wood goals.
+
+**November 25 — 274-world audited snapshot:** the original frozen campaign is
+still running. A read-only re-audit reproduced all **274 scores (238 successes)**
+and the checkpoint chain with zero discrepancies. Training counts are one-log
+66/69, three-log 59/69, planks 65/68 and pickaxe 48/68; these are not held-out
+evaluation scores. All **149 tests pass**. Nine milestone MP4s through world 250
+passed another full decode, with sampled manual review of the newer recordings.
+The original source/graph/checkpoints, guards and pending final evaluation are
+unchanged. [Counts, action/time statistics, failures and recording paths](experiments/phase9/fc9_20261125_operations/progress_00274.md).
+
+**November 25, 2026 — official launch authorized:** the user explicitly said
+“start the 10000”, requested milestone recordings and authorized a temporary
+shutdown guard. The official executor now supports a frozen balanced four-goal
+schedule over 10,000 distinct generated training-world slots. All **145 tests
+pass**; this includes interrupted-world accounting, worker-plan binding and
+safe disposable-world cleanup. The original graph, actor and prior checkpoints
+are preserved. [Official design, limits and recording schedule](docs/phase9_official_campaign.md).
+The official campaign **has started**. Its first four scheduled milestones scored
+**3/4**: one-log 1/1, three-log 1/1, planks 1/1 and pickaxe 0/1. The pickaxe
+failure reached sticks but missed the fixed tick budget; it remains a scored
+failure. All four training updates and Minecraft-only RTX 4050 MP4s passed the
+independent gate, full decode and sampled manual review. Training continues in
+the background; routine verified world cleanup is working. These small training
+counts are not final evaluation or a reliability estimate.
+[Verified launch audit and video paths](experiments/phase9/fc9_20261125_operations/launch_audit.json),
+[host operations, shutdown condition and fan limitation](experiments/phase9/fc9_20261125_operations/README.md).
+Live counters are in the local campaign ledger. Historical authorization
+and usage-cap statements below are superseded by the explicit instructions.
+The untouched final 100-world evaluation remains separate from training.
+
+**November 24 checker development verified:** the local checked supervisor and
+Codex repair handoffs are implemented. The frozen functional pilot completed eight
+verified successes across all four goals, including two verified development
+readout updates. STOP interrupted mining without a successful acknowledgment;
+its fresh resumed attempt succeeded. Nine disposable worlds include that
+unscored interruption. The preselected pickaxe milestone passed full playback
+and manual review. This small pilot establishes neither reliability nor a
+learning/neural advantage.
+
+All 136 tests pass after hardening malformed-evidence handling and preserving
+valid game outcomes when video verification fails. A fresh smoke trial of the
+hardened version also succeeded, giving **nine successful functional episodes
+across ten generated disposable worlds**, including the unscored interruption.
+The two training episodes produced verified readout changes; all seven new
+evaluation episodes have zero weight updates. The minimum sampled available
+RAM was 1,874.43 MiB and maximum GPU temperature 53°C. The 768 MiB RAM,
+2,048 MiB disk and 75°C GPU guards stayed enabled; CPU temperature is unavailable.
+Original graph/checkpoints and actor
+source remain unchanged; only coordination/validation/recorder lifecycle code
+changed. The 10,000-world campaign remains unauthorized and unstarted.
+[Protocol and verified pilot evidence](experiments/phase9/checker_development_20261124/README.md),
+[release audit](experiments/phase9/checker_development_20261124/release_audit.json),
+[checker operation and limits](docs/phase9_checker.md)
+
+The final source hash is
+`1f66c63d78e288ddc042a9cffeb845bba688ee207d56ef557d767321cc35bb7e`.
+The original graph hash remains
+`37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d`.
+The validated Phase 8 checkpoint remains the default; the two newly saved
+training checkpoints are development artifacts, not a replacement selected
+for reliability. Re-auditing with the hardened checker reproduces all 152
+archived Phase 8 scores and the frozen pilot records exactly.
+
+The preselected recorded pickaxe succeeded in 89 actions, 67.737 wall seconds
+and 67.9 game seconds. Its Minecraft-only first-person RTX 4050 recording is
+82.833 seconds and passed full decode and manual review. The original footage
+is unedited, includes ordinary loading/tutorial UI, and is a fresh development
+execution rather than an exact replay. Its export is
+`C:\Users\anass\Documents\Codex\2026-11-17\continue-developing-the-actual-flycraft-minecraft\outputs\FlyCraft_Development_Milestone_00001_checker24_pick_eval_a_trained_00001_a0001.mp4`.
+[Recording metadata](recordings/phase9/youtube/checker24_pick_eval_a_trained_00001_a0001.json),
+[manual review and functional audit](experiments/phase9/checker_development_20261124/pilot_audit.json)
+
+Fix requests pause execution and preserve evidence hashes plus a local Markdown
+handoff for Codex. During a Codex-managed batch the attention result returns to
+the agent. Standalone execution does not wake an idle chat; no external AI
+service or automatic code patching is configured. Long-run/parallel operation,
+natural-terrain reliability, stronger neural controls and official campaign
+authorization remain separate work. The checker is ready for bounded
+development use, not a completed or authorized 10,000-world experiment.
+[Clearly labeled corrupted-copy handoff example](experiments/phase9/checker_development_20261124/handoff_example/attention/request_0001.md)
+
+**Earlier November 24, 2026:** [Phase 8 controlled validation](PHASE_8_REPORT.md)
+is complete at 27/30 one-log, 27/30 three-log, 27/30 four-plank and 19/30
+wooden pickaxe, with matched controls and verified milestone footage.
+Natural-terrain generalization and neural advantage remain unestablished.
+Work is paused for the user's AI-checker discussion. The 10,000-world Phase 9
+campaign remains pending separate authorization; no new campaign or checker
+implementation was started during this closeout. Historical development
+evidence below is preserved.
+
 November 6: the Phase 7.5 reliability increment passed 104 automated tests and
 recorded successful strict collection/mining-interruption recovery. A real
 bridge process-tree stall exposed a command-rejection acknowledgment defect

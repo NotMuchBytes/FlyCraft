@@ -1,0 +1,43 @@
+{
+  "run_id": "fc9_stage25_terrain_00062",
+  "milestone": 400,
+  "stage": "official_training",
+  "status": "verified",
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 1757,
+    "duration_seconds": 58.6,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "1758"
+    },
+    "bytes": 23261767,
+    "sha256": "dcca38c6d3638b89a5b84c9da565df7bc284de6e421bea300c1be13144c017e0",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-25 18-05-40.mp4",
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\recordings\\phase9\\FlyCraft_Phase9_Milestone_00400_fc9_stage25_terrain_00062.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ],
+    "episode_coverage_complete": true,
+    "visual_content_preflight_verified": true
+  },
+  "error": null,
+  "episode_log": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00062\\server.jsonl",
+  "action_log": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00062\\headless.jsonl",
+  "observation_log": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00062\\bridge.jsonl",
+  "checkpoint": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00061\\trial_0000.npz",
+  "checkpoint_sha256": "fcc38f03de567885a598ecf6f62b7bcd0a2769c69541cbd533768a4d4c976521",
+  "checkpoint_timing": "before_episode_update",
+  "camera_role": "recording_only",
+  "recording_kind": "synchronized_spectator_capture",
+  "redo_of": null,
+  "replay": false,
+  "actions_altered_for_video": false
+}

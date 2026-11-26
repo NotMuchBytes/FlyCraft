@@ -1,0 +1,15 @@
+20:37:31.265: 	Adapter 0: NVIDIA GeForce RTX 4050 Laptop GPU
+20:37:31.268: Loading up D3D11 on adapter NVIDIA GeForce RTX 4050 Laptop GPU (0)
+20:37:32.967: Failed to get C:\Program Files\NVIDIA Corporation\NVIDIA Audio Effects SDK\NVAudioEffects.dll version info size
+20:37:32.967: [NVIDIA Audio Effects:] NVIDIA denoiser disabled, redistributable not found or could not be loaded.
+20:37:32.967: Failed to get C:\Program Files\NVIDIA Corporation\NVIDIA Video Effects\NVVideoEffects.dll version info size
+20:37:32.967: [NVIDIA VIDEO FX]: FX disabled, redistributable not found or could not be loaded.
+20:37:34.407: [obs-nvenc] NVENC version: 13.0 (compiled) / 13.1 (driver), CUDA driver version: 13.40, AV1 supported: true
+20:37:35.158:     obs-nvenc.dll
+20:37:35.160: 	- obs_nvenc_h264_tex (NVIDIA NVENC H.264)
+20:37:35.160: 	- obs_nvenc_hevc_tex (NVIDIA NVENC HEVC)
+20:37:35.160: 	- obs_nvenc_av1_tex (NVIDIA NVENC AV1)
+20:38:17.613: [obs-nvenc: 'simple_video_recording'] settings:
+20:38:17.767: ==== Recording Start ===============================================
+20:39:02.607: Output 'simple_file_output': Total frames output: 1329
+20:39:02.610: ==== Recording Stop ================================================

@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "config_sha256": "c4f408e08b0449831f80f64c4da512ddc20e2ff9590ff1a7c67a882ae75ce695",
+  "current_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00320_a0320\\trial_0000.npz",
+    "sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819"
+  },
+  "active_attempt": null,
+  "attempts": [
+    {
+      "number": 1,
+      "episode_number": 1,
+      "run_id": "perf25_log_legacy_eval_a_trained_00001_a0001",
+      "split": "eval_a",
+      "condition": "trained",
+      "world_seed": 503336097358437245,
+      "layout_seed": 503336097358437245,
+      "policy_seed": 9001,
+      "goal": "one_log",
+      "train": false,
+      "checkpoint": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00320_a0320\\trial_0000.npz",
+        "sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819"
+      },
+      "status": "committed",
+      "started_unix": 1795611746.5549195,
+      "generated_world_instances": 1,
+      "execution_revision": 1,
+      "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+      "video_required": false,
+      "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\perf25_log_legacy_eval_a_trained_00001_a0001",
+      "worker_pid": 17076,
+      "worker_created": 1795611746.5628529,
+      "checker_status": "verified",
+      "checker_report": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_legacy\\checks\\perf25_log_legacy_eval_a_trained_00001_a0001.json",
+      "technical_stop_after_terminal": false,
+      "finished_unix": 1795611795.0997458,
+      "success": false,
+      "ticks": 400,
+      "actions": 22,
+      "total_reward": -0.08380634286854505,
+      "update": {
+        "weight_delta_norm": 0.0,
+        "gradient_norm": 0.0
+      },
+      "training_applied": false,
+      "terminal_unattributed_reward": 0.0,
+      "training_suppressed": "unexecuted_terminal_command",
+      "termination": "episode_boundary",
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_legacy_eval_a_trained_00001_a0001",
+      "video": null,
+      "terminal_inventory_source": "controller_result",
+      "wall_seconds": 47.421612000092864,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00320_a0320\\trial_0000.npz",
+        "sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819"
+      },
+      "coordinator_cycle_seconds": 78.80342209991068
+    },
+    {
+      "number": 2,
+      "episode_number": 2,
+      "run_id": "perf25_log_legacy_eval_a_trained_00002_a0002",
+      "split": "eval_a",
+      "condition": "trained",
+      "world_seed": 7046950020422906603,
+      "layout_seed": 7046950020422906603,
+      "policy_seed": 9002,
+      "goal": "one_log",
+      "train": false,
+      "checkpoint": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00320_a0320\\trial_0000.npz",
+        "sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819"
+      },
+      "status": "committed",
+      "started_unix": 1795611825.3419209,
+      "generated_world_instances": 1,
+      "execution_revision": 1,
+      "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+      "video_required": false,
+      "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\perf25_log_legacy_eval_a_trained_00002_a0002",
+      "worker_pid": 30408,
+      "worker_created": 1795611825.3487759,
+      "checker_status": "verified",
+      "checker_report": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_legacy\\checks\\perf25_log_legacy_eval_a_trained_00002_a0002.json",
+      "technical_stop_after_terminal": false,
+      "finished_unix": 1795611863.7446396,
+      "success": true,
+      "ticks": 167,
+      "actions": 11,
+      "total_reward": 9.659035917517048,
+      "update": {
+        "weight_delta_norm": 0.0,
+        "gradient_norm": 0.0
+      },
+      "training_applied": false,
+      "terminal_unattributed_reward": 0,
+      "training_suppressed": null,
+      "termination": "success",
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_log_legacy_eval_a_trained_00002_a0002",
+      "video": null,
+      "terminal_inventory_source": "controller_result",
+      "wall_seconds": 36.23725099978037,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00320_a0320\\trial_0000.npz",
+        "sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819"
+      },
+      "coordinator_cycle_seconds": 68.636460600188
+    }
+  ],
+  "final_policy": null
+}

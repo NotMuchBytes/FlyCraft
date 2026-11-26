@@ -1,0 +1,9 @@
+{
+  "actual_windows_delete_sharing_lock": true,
+  "held_seconds": 3.2,
+  "guard_pid": 17592,
+  "native_process_survived": true,
+  "heartbeat_recovered": true,
+  "blocks_normal_shutdown": true,
+  "pc_rebooted": false
+}

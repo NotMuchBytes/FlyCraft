@@ -1,0 +1,185 @@
+{
+  "schema": 3,
+  "name": "fc9_20261125",
+  "stage": "official_training",
+  "world_limit": 10000,
+  "goal": "one_log",
+  "curriculum_level": 1,
+  "initial_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+    "sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4"
+  },
+  "frozen_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase7\\curriculum_v3_seed29.npz",
+    "sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6"
+  },
+  "catalog_sha256": "3ed0b14a053977e0528e8eb014efc7920cb738eac3c8428c6bccc222d4ddb967",
+  "created_unix": 1795582063.4255884,
+  "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+  "recording_policy": "milestones",
+  "recording_milestones": [
+    1,
+    2,
+    3,
+    4,
+    10,
+    25,
+    50,
+    100,
+    250,
+    500,
+    1000,
+    2500,
+    5000,
+    7500,
+    10000
+  ],
+  "runtime_profile": {
+    "server_heap_mib": 384,
+    "client_heap_mib": 512,
+    "forward_ticks": 2,
+    "width": 854,
+    "height": 480,
+    "pitch_actions": true,
+    "turn_degrees": 15,
+    "trial_ticks": 400,
+    "three_tree_fixture": false,
+    "remember_mined_columns": false,
+    "launch_cache": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\launch_cache_perf25\\manifest.json",
+      "sha256": "c2913390fe8f3d2efed513a3ae0ba61afcaf609e3a15cb5b51c022d4ae40b049"
+    }
+  },
+  "final_policy": null,
+  "official_experiment_authorized": true,
+  "checker": {
+    "schema": 1,
+    "graph": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\data\\processed\\connectome_raw_csr.npz",
+      "sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d"
+    },
+    "technical_retries": 2,
+    "launch_ram_mib": 1800,
+    "launch_ready_samples": 2,
+    "failure_window": 10,
+    "failure_limit": 9,
+    "reviewer": "Codex",
+    "automatic_code_changes": false,
+    "recording_launch_ram_mib": 3000,
+    "readiness_mode": "continuous"
+  },
+  "authorization": {
+    "statement": "start the 10000",
+    "authorized_date": "2026-11-25"
+  },
+  "goal_schedule": [
+    "one_log",
+    "three_logs",
+    "planks",
+    "wooden_pickaxe"
+  ],
+  "world_budget_definition": "Minecraft-created training world directories; aborted instances consume a unique seed/slot; prelaunch attempts without a world do not",
+  "automatic_final_evaluation": false,
+  "runtime_profiles": {
+    "one_log": {
+      "server_heap_mib": 384,
+      "client_heap_mib": 512,
+      "forward_ticks": 2,
+      "width": 854,
+      "height": 480,
+      "pitch_actions": true,
+      "turn_degrees": 15,
+      "trial_ticks": 400,
+      "three_tree_fixture": false,
+      "remember_mined_columns": false,
+      "launch_cache": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\launch_cache_perf25\\manifest.json",
+        "sha256": "c2913390fe8f3d2efed513a3ae0ba61afcaf609e3a15cb5b51c022d4ae40b049"
+      }
+    },
+    "three_logs": {
+      "server_heap_mib": 384,
+      "client_heap_mib": 512,
+      "forward_ticks": 2,
+      "width": 854,
+      "height": 480,
+      "pitch_actions": true,
+      "turn_degrees": 15,
+      "trial_ticks": 1500,
+      "three_tree_fixture": true,
+      "remember_mined_columns": true,
+      "launch_cache": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\launch_cache_perf25\\manifest.json",
+        "sha256": "c2913390fe8f3d2efed513a3ae0ba61afcaf609e3a15cb5b51c022d4ae40b049"
+      }
+    },
+    "planks": {
+      "server_heap_mib": 384,
+      "client_heap_mib": 512,
+      "forward_ticks": 2,
+      "width": 854,
+      "height": 480,
+      "pitch_actions": true,
+      "turn_degrees": 15,
+      "trial_ticks": 400,
+      "three_tree_fixture": false,
+      "remember_mined_columns": false,
+      "launch_cache": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\launch_cache_perf25\\manifest.json",
+        "sha256": "c2913390fe8f3d2efed513a3ae0ba61afcaf609e3a15cb5b51c022d4ae40b049"
+      }
+    },
+    "wooden_pickaxe": {
+      "server_heap_mib": 384,
+      "client_heap_mib": 512,
+      "forward_ticks": 2,
+      "width": 854,
+      "height": 480,
+      "pitch_actions": true,
+      "turn_degrees": 15,
+      "trial_ticks": 1500,
+      "three_tree_fixture": true,
+      "remember_mined_columns": true,
+      "launch_cache": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\.runtime\\launch_cache_perf25\\manifest.json",
+        "sha256": "c2913390fe8f3d2efed513a3ae0ba61afcaf609e3a15cb5b51c022d4ae40b049"
+      }
+    }
+  },
+  "execution_revisions": [
+    {
+      "number": 1,
+      "implementation_sha256": "90a18f3f4e206b93115dfd6458a9fef5aa31255f2b40e6f81955bd3d6108c1b7",
+      "archive": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\fc9_20261125\\execution_revisions\\revision_0001",
+      "last_world": 321
+    }
+  ],
+  "execution_revision": 2,
+  "current_execution_revision": {
+    "number": 2,
+    "created_unix": 1795612478.6053247,
+    "reason": "User requested faster launcher; validated cached exports and continuous unchanged resource guards in eight live evaluation episodes; fix bounded Windows atomic publication race at world 321",
+    "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+    "first_world": 322,
+    "previous_source_sha256": "90a18f3f4e206b93115dfd6458a9fef5aa31255f2b40e6f81955bd3d6108c1b7",
+    "previous_archive": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\fc9_20261125\\execution_revisions\\revision_0001",
+    "changed_files": [
+      "autonomy/experiment.py",
+      "autonomy/official.py",
+      "minecraft_mod/src/main/java/org/flycraft/bridge/AtomicFiles.java",
+      "minecraft_mod/src/main/java/org/flycraft/bridge/Phase8Harness.java",
+      "tools/continue_phase9.py",
+      "tools/launch_cache.py",
+      "tools/prepare_launch_cache.py",
+      "tools/resource_readiness.py",
+      "tools/run_official_phase9.py",
+      "tools/run_phase8_live.py",
+      "tools/run_phase9.py",
+      "tools/supervise_phase9.py"
+    ],
+    "validation": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\fc9_20261125_operations\\performance_validation_0002.json",
+      "sha256": "f616156642d8e52a9d1174dc903cd1377c753590a40ed3357f016bc4039c2e95"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "config_sha256": "03c79c7a33709bf24732061dac2c0f1ccb5f2236389ebd9cc865e18a3bb5fc5c",
+  "current_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00320_a0320\\trial_0000.npz",
+    "sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819"
+  },
+  "active_attempt": null,
+  "attempts": [
+    {
+      "number": 1,
+      "episode_number": 1,
+      "run_id": "perf25_pick_fast_eval_a_trained_00001_a0001",
+      "split": "eval_a",
+      "condition": "trained",
+      "world_seed": 1444593038726694642,
+      "layout_seed": 1444593038726694642,
+      "policy_seed": 9001,
+      "goal": "wooden_pickaxe",
+      "train": false,
+      "checkpoint": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00320_a0320\\trial_0000.npz",
+        "sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819"
+      },
+      "status": "committed",
+      "started_unix": 1795612262.0346322,
+      "generated_world_instances": 1,
+      "execution_revision": 1,
+      "implementation_sha256": "00c2b393b74b2ae6bdabb67705893a2472932d28eb2d3d8ac876641f38bfd6da",
+      "video_required": true,
+      "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\perf25_pick_fast_eval_a_trained_00001_a0001",
+      "worker_pid": 30460,
+      "worker_created": 1795612264.0565171,
+      "checker_status": "verified",
+      "checker_report": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_pick_fast\\checks\\perf25_pick_fast_eval_a_trained_00001_a0001.json",
+      "technical_stop_after_terminal": false,
+      "finished_unix": 1795612337.0546644,
+      "success": true,
+      "ticks": 484,
+      "actions": 33,
+      "total_reward": 14.242293994416043,
+      "update": {
+        "weight_delta_norm": 0.0,
+        "gradient_norm": 0.0
+      },
+      "training_applied": false,
+      "terminal_unattributed_reward": 0,
+      "training_suppressed": null,
+      "termination": "success",
+      "results": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\perf25_pick_fast_eval_a_trained_00001_a0001",
+      "video": {
+        "playable_verified": true,
+        "full_decode_verified": true,
+        "decoded_frames": 1099,
+        "duration_seconds": 36.633333,
+        "video_stream": {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "avg_frame_rate": "30/1",
+          "nb_frames": "1099"
+        },
+        "bytes": 12053123,
+        "sha256": "8239b13111726ffa9b51fb9e31c5e7f918ffd3558cbc35eba7faa24b62bd67b6",
+        "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-25 16-11-34.mp4",
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\recordings\\phase9\\FlyCraft_Development_Milestone_00001_perf25_pick_fast_eval_a_trained_00001_a0001.mp4",
+        "recovery": "none",
+        "verification_attempts": [
+          "verified_original"
+        ],
+        "episode_coverage_complete": true,
+        "visual_content_preflight_verified": true
+      },
+      "terminal_inventory_source": "controller_result",
+      "wall_seconds": 67.235567699885,
+      "checkpoint_after": {
+        "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00320_a0320\\trial_0000.npz",
+        "sha256": "c8799d73bf2668b458e9296687019955e216ee01830e60c715260728baa6a819"
+      },
+      "coordinator_cycle_seconds": 105.31526820012368
+    }
+  ],
+  "final_policy": null
+}

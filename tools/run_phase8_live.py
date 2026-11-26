@@ -130,6 +130,12 @@ def pending_mining_command(trace):
 def run():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-id", required=True)
+    parser.add_argument("--campaign-manifest", type=Path, help="Frozen authorized official plan; orchestration only")
+    parser.add_argument("--official-world-number", type=int)
+    parser.add_argument("--launch-cache", type=Path)
+    parser.add_argument("--launch-cache-sha256")
+    parser.add_argument("--terrain-actions", action="store_true", help="Versioned terrain readout and policy-selected jump-forward")
+    parser.add_argument("--terrain-step-fixture", action="store_true", help="Seeded step/log teaching arena; not vanilla terrain")
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--build-dir", type=Path, required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
@@ -194,7 +200,14 @@ def run():
     parser.add_argument("--recording-gate", action="store_true", help="Wait for runtime/start.enabled before starting trials")
     parser.add_argument("--obs-control-dir", type=Path, help="Directory shared with OBS; graphical trials require recording")
     args = parser.parse_args()
+    if (args.launch_cache is None) != (args.launch_cache_sha256 is None):
+        parser.error("launch cache requires its frozen SHA256")
     graphical = not args.headless or args.spectator
+    if args.terrain_actions and (not args.headless or not args.pitch_actions or args.jump_on_blocked_forward):
+        parser.error("terrain actions require headless pitch mode without assisted jump retries")
+    if args.terrain_step_fixture and (not args.terrain_actions or args.natural_world or args.blocked_forward_fixture
+                                     or args.goals != "one_log" or args.trials != 1):
+        parser.error("terrain step teaching requires one terrain-enabled one-log trial")
     if any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in args.run_id):
         parser.error("run-id must be a simple identifier")
     goals, conditions = args.goals.split(","), args.conditions.split(",")
@@ -235,7 +248,7 @@ def run():
     if args.three_tree_fixture and any(goal not in {"three_logs", "wooden_pickaxe"} for goal in goals):
         parser.error("three-tree-fixture requires the three_logs or wooden_pickaxe goal")
     if args.natural_world and (not args.headless or goals != ["one_log"] or args.trials != 1 or len(conditions) != 1
-                               or args.train or args.operator_fault != "none"):
+                               or args.train and not args.terrain_actions or args.operator_fault != "none"):
         parser.error("natural-world requires one headless one-log evaluation episode without an operator fault")
     if args.natural_start is not None:
         x, y, z, yaw, pitch = args.natural_start
@@ -271,6 +284,12 @@ def run():
     server_restart = args.operator_fault in {"server_restart", "server_crash"}
     if checkpoint_restart and conditions != ["trained"]:
         parser.error("bridge checkpoint restart requires the trained evaluation condition")
+    official_metadata = {}
+    if args.campaign_manifest is not None:
+        from autonomy.official import validate_worker
+        official_metadata = validate_worker(args, ROOT)
+    elif args.official_world_number is not None:
+        parser.error("official world number requires a bound campaign manifest")
     if listening(25567) or listening(8765):
         parser.error("live test ports already occupied; no existing process will be stopped")
     recorder = EventLogRecording() if not graphical else ObsRecorder(args.obs_control_dir.resolve(), args.run_id)
@@ -302,6 +321,7 @@ def run():
         f"fixture.naturalWorld={str(args.natural_world).lower()}\n"
         f"fixture.naturalStart={','.join(map(str, args.natural_start or []))}\n"
         f"fixture.blockedForward={str(args.blocked_forward_fixture).lower()}\n"
+        f"fixture.terrainActions={str(args.terrain_actions).lower()}\nfixture.terrainStep={str(args.terrain_step_fixture).lower()}\n"
         f"fixture.headless={str(args.headless).lower()}\n", encoding="utf-8")
     capture_title="FlyCraft Recording "+args.run_id
     (client_dir / "flycraft-phase8-client.properties").write_text(f"controlFile={java_path(control)}\ncapture.windowTitle={capture_title}\n", encoding="utf-8")
@@ -322,6 +342,7 @@ def run():
             f"camera.pitchActions={str(args.pitch_actions).lower()}\n"
             f"motor.forwardTicks={args.forward_ticks}\nmotor.verifyMovement={str(args.movement_feedback=='displacement').lower()}\n"
             f"motor.jumpOnBlockedForward={str(args.jump_on_blocked_forward).lower()}\n"
+            f"motor.terrainActions={str(args.terrain_actions).lower()}\n"
             f"sensor.rememberMinedColumns={str(args.remember_mined_columns).lower()}\n",encoding="utf-8")
     if args.spectator:
         (client_dir/"flycraft-spectator.properties").write_text(
@@ -389,20 +410,24 @@ def run():
         direct_commands = {}
         if args.launcher == "direct":
             export_dir = runtime / "launch"
-            preparation = launch(gradle + ["-PflycraftRunDir=" + java_path(runtime / "prepare"),
-                "-PflycraftAutotest", "-PflycraftServer=127.0.0.1:25567", "-PflycraftGraphicsBackend="+args.graphics_backend,
-                "-PflycraftExportLaunchDir="+java_path(export_dir), "runServer"] + (["runClient"] if graphical else []), "prepare", ROOT / "minecraft_mod")
-            preparation_deadline=time.perf_counter()+min(90,args.seconds)
-            while preparation.poll() is None:
-                ownership_check()
-                if time.perf_counter()>=preparation_deadline:
-                    raise RuntimeError("launch_preparation_timeout")
-                time.sleep(.5)
-            if preparation.returncode != 0:
-                raise RuntimeError("launch_preparation_failed")
-            for name in (("server", "client") if graphical else ("server",)):
-                direct_commands[name]=command_from_export(export_dir / ("run"+name.title()+".json"),
-                    export_dir / (name+".args"), expected_java=java)
+            if args.launch_cache is not None:
+                from tools.launch_cache import cached_commands
+                direct_commands = cached_commands(args.launch_cache, args.launch_cache_sha256, ROOT, args, export_dir, java)
+            else:
+                preparation = launch(gradle + ["-PflycraftRunDir=" + java_path(runtime / "prepare"),
+                    "-PflycraftAutotest", "-PflycraftServer=127.0.0.1:25567", "-PflycraftGraphicsBackend="+args.graphics_backend,
+                    "-PflycraftExportLaunchDir="+java_path(export_dir), "runServer"] + (["runClient"] if graphical else []), "prepare", ROOT / "minecraft_mod")
+                preparation_deadline=time.perf_counter()+min(90,args.seconds)
+                while preparation.poll() is None:
+                    ownership_check()
+                    if time.perf_counter()>=preparation_deadline:
+                        raise RuntimeError("launch_preparation_timeout")
+                    time.sleep(.5)
+                if preparation.returncode != 0:
+                    raise RuntimeError("launch_preparation_failed")
+                for name in (("server", "client") if graphical else ("server",)):
+                    direct_commands[name]=command_from_export(export_dir / ("run"+name.title()+".json"),
+                        export_dir / (name+".args"), expected_java=java)
         if shutil.disk_usage(runtime).free / 1024**2 < args.minimum_free_disk_mib:
             raise SupervisorStop("free_disk_guard")
         if psutil.virtual_memory().available / 1024**2 < args.minimum_available_ram_mib:
@@ -414,6 +439,8 @@ def run():
             bridge_command += ["--phase8-frozen-checkpoint", str(args.frozen_checkpoint.resolve())]
         if args.pitch_actions:
             bridge_command += ["--phase8-pitch-actions"]
+        if args.terrain_actions:
+            bridge_command += ["--terrain-actions"]
         if args.explore_forward:
             bridge_command += ["--phase8-explore-forward"]
         if args.train:
@@ -662,6 +689,7 @@ def run():
         summary["recording_confirmed"] = recorder.started
         summary["milestone"] = args.milestone
         summary["experiment_stage"] = "development"
+        summary.update(official_metadata)
         summary["redo_of"] = args.redo_of
         summary["execution_kind"] = "new_execution_not_replay"
         summary["headless"] = args.headless
@@ -676,9 +704,10 @@ def run():
         if server_restart:
             summary["capture_content_proof_before_restart"] = capture_proof_before_restart
         summary["recording_mode"] = "OBS_isolated_spectator" if args.spectator else "OBS_Minecraft_window" if graphical else "structured_event_logs_no_video"
-        summary["generated_world_instances"] = int((server_dir/"world/level.dat").exists())
+        summary["generated_world_instances"] = int((server_dir / "world").is_dir() if official_metadata else (server_dir/"world/level.dat").exists())
         summary["episodes_in_generated_world"] = last_rows
         summary["environment_kind"] = ("vanilla_overworld_spawn" if args.natural_world else
+                                       "controlled_terrain_step_teaching_fixture" if args.terrain_step_fixture else
                                        "controlled_blocked_forward_diagnostic" if args.blocked_forward_fixture else
                                        "controlled_flat_three_tree_fixture" if args.three_tree_fixture
                                        else "controlled_flat_survival_fixture")
@@ -694,6 +723,7 @@ def run():
         summary["camera_mode"] = args.camera_mode
         summary["turn_degrees"] = args.turn_degrees
         summary["pitch_actions"] = args.pitch_actions
+        summary["terrain_actions"] = args.terrain_actions
         summary["forward_ticks"] = args.forward_ticks
         summary["movement_feedback"] = args.movement_feedback
         summary["jump_on_blocked_forward"] = args.jump_on_blocked_forward
@@ -704,6 +734,8 @@ def run():
         summary["interaction_assistance"] = "visible_target_aim_macro" if args.camera_mode=="legacy" else "crosshair_only_no_automatic_aim"
         summary["requested_graphics_backend"] = args.graphics_backend
         summary["launcher"] = args.launcher
+        summary["launch_preparation_mode"] = "verified_cached_export" if args.launch_cache else "gradle_export"
+        summary["launch_cache_sha256"] = args.launch_cache_sha256
         summary["minimum_sampled_available_ram_mib"] = minimum_available_ram
         summary["available_ram_guard_mib"] = args.minimum_available_ram_mib
         summary["peak_sampled_process_tree_rss_mib"] = peak_process_rss
@@ -734,7 +766,8 @@ def run():
                     raise ValueError("No confirmed recording source exists")
                 if Path(recording).stat().st_mtime<started_unix-2:
                     raise ValueError("Recording path predates this run")
-                video_name=f"FlyCraft_Development_Milestone_{args.milestone:05d}_{args.run_id}.mp4"
+                video_prefix = "FlyCraft_Phase9" if official_metadata else "FlyCraft_Development"
+                video_name=f"{video_prefix}_Milestone_{args.milestone:05d}_{args.run_id}.mp4"
                 destination=ROOT/"recordings/phase9"/video_name
                 # Independent server episode time is a conservative coverage
                 # minimum; OBS was gated before any policy action.
@@ -758,7 +791,7 @@ def run():
                 summary["milestone_video_error"]=str(error)
             media_folder=ROOT/"recordings/phase9/youtube"
             media_folder.mkdir(parents=True,exist_ok=True)
-            media={"run_id":args.run_id,"milestone":args.milestone,"stage":"development",
+            media={"run_id":args.run_id,"milestone":args.milestone,"stage":summary["experiment_stage"],
                 "status":summary["milestone_video_status"],"video":summary.get("milestone_video"),
                 "error":summary.get("milestone_video_error"),"episode_log":str(results/"server.jsonl"),
                 "action_log":str(results/"headless.jsonl"),"observation_log":str(results/"bridge.jsonl"),

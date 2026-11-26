@@ -1,0 +1,14 @@
+{
+  "path": "recordings/phase9/FlyCraft_Phase9_Milestone_00400_fc9_stage25_terrain_00062.mp4",
+  "full_decode_verified": true,
+  "sampled_seconds": [
+    0,
+    10,
+    20,
+    30,
+    40,
+    50
+  ],
+  "observed": "Minecraft only: teaching arena, movement, trunk, mining and visible dropped log; no desktop",
+  "actions_altered": false
+}

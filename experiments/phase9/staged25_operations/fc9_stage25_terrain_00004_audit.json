@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "run_id": "fc9_stage25_terrain_00004",
+  "status": "verified",
+  "stop_reason": "suite_complete",
+  "episodes": [
+    {
+      "episode_id": "trial_0000",
+      "goal": "one_log",
+      "condition": "trained",
+      "layout_seed": 1016278173116438857,
+      "success": true,
+      "actions": 8,
+      "game_seconds": 6.3,
+      "elapsed_seconds": 6.244457300053909,
+      "confirmed_breaks": 1,
+      "crafts": {},
+      "failure_mode": "success",
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "weight_delta_norm": 0.05924049043929361,
+      "training_applied": true
+    }
+  ],
+  "intervention_commands_verified": 8,
+  "video": null,
+  "implementation_sha256": "41584bb1f2709f5a6ef54e3195ad915b30a69b350216f2f1fb4d73f9b5bb14f0",
+  "evidence_sha256": {
+    "bridge.jsonl": "0a43ce808214f496fe2d2cd2ea3179f561c8d33745fa1a669eb79c6d54a74f65",
+    "bridge_launcher.log": "983a900a1eb550c45ec53f95cf3eee6fcc19780d2eb27492a9745664c74f9f4c",
+    "camera.jsonl": "fcdce57d09d64ef43b111e3f322d217c60fde0f1d50951fe98c25bb2a8c7d1d0",
+    "controller.jsonl": "756216b1ed0065904cb49c04ed7852f100aa5fd0987865ccab41ef2d1879f62f",
+    "headless.jsonl": "6946c5c3bae5cc0da203b94e1f1ba9d5faf1aa65f6797250cf11ab7a066fa358",
+    "run.json": "465a08de3bc9622d4602be560f894a7d3e746693294de3cf207794425cfcde6b",
+    "server.jsonl": "e282b292dc46f28dfeb64dd5d43d791b64bf720413ab526a165a81ac77402d48",
+    "server.jsonl.delivery.jsonl": "660fc23183d81a15b96247b8c0e54dab03de55b67fe9b8b259cd1bfd7c7aa238",
+    "server.jsonl.initial.jsonl": "8ceaeea0e7ff82f0ba56daf5733d3799ff7dc48cab671ed19986a3ebb8d2c978",
+    "server.log": "abde372e79252459810b58e039db169f9fc50f9c8e12ca622731cf2875eeb891",
+    "server_launcher.log": "abde372e79252459810b58e039db169f9fc50f9c8e12ca622731cf2875eeb891",
+    "source_manifest.json": "b67d31fccc370491d0d608c97e91c8006818d9969bcb2b74b97f7e6479d29c8a",
+    "status.json": "d825e215b524f1c13a706d5e129347d25042cfbaffa35cec04bc91c662b798d9"
+  }
+}

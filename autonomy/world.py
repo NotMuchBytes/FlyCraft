@@ -16,6 +16,7 @@ CRAFT_ACTIONS = {"CRAFT_PLANKS": "planks", "CRAFT_STICKS": "sticks", "CRAFT_TABL
 ACTIONS = NAVIGATION_ACTIONS + ("COLLECT_LOG",) + tuple(CRAFT_ACTIONS)
 PITCH_ACTIONS = ("LOOK_UP", "LOOK_DOWN")
 LIVE_PITCH_ACTIONS = ACTIONS + PITCH_ACTIONS
+TERRAIN_ACTIONS = LIVE_PITCH_ACTIONS + ("JUMP_FORWARD",)
 ITEMS = ("log", "planks", "sticks", "crafting_table", "table_placed", "wooden_pickaxe")
 
 

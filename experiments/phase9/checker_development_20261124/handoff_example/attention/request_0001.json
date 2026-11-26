@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "id": "request_0001",
+  "created_unix": 1795545647.1395905,
+  "reviewer": "Codex",
+  "status": "needs_attention",
+  "code": "evidence_schema",
+  "reason": "TEST ONLY \u2014 deliberately corrupted copy, not a live episode failure: evidence_schema: C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\checker_corrupted_copy_demo: 'NoneType' object is not subscriptable",
+  "attempt": {
+    "run_id": "OFFLINE_COPY_TEST_NOT_A_TRIAL",
+    "results": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\checker_corrupted_copy_demo",
+    "status": "test_example",
+    "not_a_live_trial": true
+  },
+  "automatic_code_changes": false,
+  "campaign": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\checker_development_20261124\\handoff_example",
+  "next_step": "Codex should inspect the preserved evidence, fix the cause, run tests and a fresh small live validation. Changed source requires a new frozen development campaign. Never rescore valid failures or change benchmark rules.",
+  "evidence_sha256": {
+    "bridge.jsonl": "36837e1d600514dea14340723156cf8aef749097c0b28bb56b4bc7c8a7c668a3",
+    "camera.jsonl": "6cbb88cce7a4989359be34a9da1026c6892ba24d636efb43b0ffa12b4410a46c",
+    "controller.jsonl": "5bfc1c19f7ba7ab464639393fd5bbddd155f6362c46baf99d23005695ae22c8d",
+    "COPY_TEST_ONLY.json": "e7a57249220fd1bc1f08139d660cdff1bf062897bf1eac1e2c22d44d3597f268",
+    "headless.jsonl": "1d04b22aba88fcf8353788856e6bf10b7c141a8ef48fee21d81a11a840f8be37",
+    "run.json": "2aa36942beca32cff31e952b5d62919b0b508809a885604d0eba3c46527e9e0c",
+    "server.jsonl": "9346495596330488ba8c7b990c9a1b00dcc932650884ead752578cc3b8a3f6ca",
+    "server.jsonl.delivery.jsonl": "cd710996bb579f1815675eb87552ff3dbd00326bfae307d4f3e0c5f460ac59a6",
+    "server.jsonl.initial.jsonl": "64a482514b547cb792ba2c3eb25fe7720c079397a3563cf005b63e3792541eeb",
+    "source_manifest.json": "93cfbd933dd77fb751a2e001e3d5db4e0694367a604ff51d28f424d769056217",
+    "status.json": "cba12178bdd372724f3fdee745ebcc501d8a125570dde2587422e5d7b3a8a675"
+  }
+}

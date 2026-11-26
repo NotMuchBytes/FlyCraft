@@ -2,6 +2,13 @@
 
 Status: bounded development pilot; the 10,000-world experiment has not started.
 
+November 24: the [checked development supervisor](phase9_checker.md) builds
+on this coordinator with independent raw-evidence verification, the validated
+pitch-enabled four-goal interface, bounded resource recovery and Codex repair
+requests. Older one-log/plank-only and no-pitch limitations below describe the
+original coordinator. Checked campaigns freeze their own new implementation
+hash; historical records remain unchanged. Official execution remains disabled.
+
 `tools/run_phase8_live.py --headless` launches a dedicated Minecraft 26.2
 survival server, an embedded survival player, and the existing Python neural
 controller. The server supplies real physics, mining, crafting and item pickup.

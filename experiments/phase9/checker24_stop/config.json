@@ -1,0 +1,51 @@
+{
+  "schema": 2,
+  "name": "checker24_stop",
+  "stage": "development",
+  "world_limit": 3,
+  "goal": "one_log",
+  "curriculum_level": 1,
+  "initial_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+    "sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4"
+  },
+  "frozen_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase7\\curriculum_v3_seed29.npz",
+    "sha256": "a2b86d257882ebbd0faf7011588a30e91039e255ce3e3eb624985db82cc81ba6"
+  },
+  "catalog_sha256": "bb01b650d975693cab16feeccdef62d60d8ff14a32214a0eb5d8dec528a49ccd",
+  "created_unix": 1795544889.9166915,
+  "implementation_sha256": "d04e089038656a6f21495f5ec712f1b202c513cbd5ea761b68cffa031b2026eb",
+  "recording_policy": "milestones",
+  "recording_milestones": [
+    100
+  ],
+  "runtime_profile": {
+    "server_heap_mib": 384,
+    "client_heap_mib": 512,
+    "forward_ticks": 2,
+    "width": 854,
+    "height": 480,
+    "pitch_actions": true,
+    "turn_degrees": 15,
+    "trial_ticks": 400,
+    "three_tree_fixture": false,
+    "remember_mined_columns": false
+  },
+  "final_policy": null,
+  "official_experiment_authorized": false,
+  "checker": {
+    "schema": 1,
+    "graph": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\data\\processed\\connectome_raw_csr.npz",
+      "sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d"
+    },
+    "technical_retries": 2,
+    "launch_ram_mib": 1800,
+    "launch_ready_samples": 2,
+    "failure_window": 10,
+    "failure_limit": 9,
+    "reviewer": "Codex",
+    "automatic_code_changes": false
+  }
+}

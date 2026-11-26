@@ -1,0 +1,43 @@
+{
+  "evaluation_file": "final_results.json",
+  "development_source": "phase8_pitch_followup_20261117\\final_results.json",
+  "goals": {
+    "one_log": {
+      "scored_trials": 30,
+      "seed_identity_overlap_with_development": 0,
+      "distinct_translation_normalized_fixtures": 10,
+      "distinct_fixtures_already_in_same_goal_development": 9,
+      "trials_with_same_goal_development_fixture": 28,
+      "trials_with_any_development_fixture": 28,
+      "distinct_fixtures_absent_from_all_development": 1
+    },
+    "three_logs": {
+      "scored_trials": 30,
+      "seed_identity_overlap_with_development": 0,
+      "distinct_translation_normalized_fixtures": 15,
+      "distinct_fixtures_already_in_same_goal_development": 12,
+      "trials_with_same_goal_development_fixture": 27,
+      "trials_with_any_development_fixture": 27,
+      "distinct_fixtures_absent_from_all_development": 3
+    },
+    "planks": {
+      "scored_trials": 30,
+      "seed_identity_overlap_with_development": 0,
+      "distinct_translation_normalized_fixtures": 10,
+      "distinct_fixtures_already_in_same_goal_development": 9,
+      "trials_with_same_goal_development_fixture": 28,
+      "trials_with_any_development_fixture": 28,
+      "distinct_fixtures_absent_from_all_development": 1
+    },
+    "wooden_pickaxe": {
+      "scored_trials": 30,
+      "seed_identity_overlap_with_development": 0,
+      "distinct_translation_normalized_fixtures": 15,
+      "distinct_fixtures_already_in_same_goal_development": 12,
+      "trials_with_same_goal_development_fixture": 27,
+      "trials_with_any_development_fixture": 27,
+      "distinct_fixtures_absent_from_all_development": 3
+    }
+  },
+  "interpretation": "Fresh seed identities do not guarantee novel geometry: voxel rounding and bounded tree placement reuse templates. Report this as a held-out seed reliability test, not unseen-terrain or out-of-distribution layout generalization."
+}

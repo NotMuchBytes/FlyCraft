@@ -1,0 +1,117 @@
+{
+  "basis": "operational visible-target flags and own poses only",
+  "conditions": [
+    {
+      "condition": "trained",
+      "visible_target_decisions": 0,
+      "start_xz": [
+        8.5,
+        6.5
+      ],
+      "end_xz": [
+        8.25355023770667,
+        5.300000011920929
+      ],
+      "net_horizontal_displacement": 1.2250458998438425,
+      "observed_horizontal_path": 2.703083174248601,
+      "requested_actions": {
+        "JUMP_FORWARD": 1,
+        "LOOK_DOWN": 1,
+        "TURN_RIGHT": 6,
+        "TURN_LEFT": 30,
+        "FORWARD": 1,
+        "LOOK_UP": 2
+      }
+    },
+    {
+      "condition": "frozen",
+      "visible_target_decisions": 0,
+      "start_xz": [
+        8.5,
+        6.5
+      ],
+      "end_xz": [
+        9.136835165980525,
+        5.513958891399951
+      ],
+      "net_horizontal_displacement": 1.1738126326116347,
+      "observed_horizontal_path": 3.2519911020907686,
+      "requested_actions": {
+        "JUMP_FORWARD": 1,
+        "LOOK_DOWN": 1,
+        "TURN_RIGHT": 8,
+        "TURN_LEFT": 28,
+        "LOOK_UP": 2,
+        "FORWARD": 1
+      }
+    },
+    {
+      "condition": "uniform",
+      "visible_target_decisions": 0,
+      "start_xz": [
+        8.5,
+        6.5
+      ],
+      "end_xz": [
+        7.699999988079071,
+        18.166625608397872
+      ],
+      "net_horizontal_displacement": 11.694022109847344,
+      "observed_horizontal_path": 14.214535315822854,
+      "requested_actions": {
+        "JUMP_FORWARD": 5,
+        "LOOK_UP": 6,
+        "LOOK_DOWN": 7,
+        "TURN_LEFT": 12,
+        "FORWARD": 5,
+        "TURN_RIGHT": 4,
+        "NO_OP": 4
+      }
+    },
+    {
+      "condition": "no_neural",
+      "visible_target_decisions": 0,
+      "start_xz": [
+        8.5,
+        6.5
+      ],
+      "end_xz": [
+        8.25355023770667,
+        5.300000011920929
+      ],
+      "net_horizontal_displacement": 1.2250458998438425,
+      "observed_horizontal_path": 2.703083174248601,
+      "requested_actions": {
+        "JUMP_FORWARD": 1,
+        "LOOK_DOWN": 1,
+        "TURN_RIGHT": 6,
+        "TURN_LEFT": 30,
+        "FORWARD": 1,
+        "LOOK_UP": 2
+      }
+    },
+    {
+      "condition": "shuffled",
+      "visible_target_decisions": 0,
+      "start_xz": [
+        8.5,
+        6.5
+      ],
+      "end_xz": [
+        8.25355023770667,
+        5.300000011920929
+      ],
+      "net_horizontal_displacement": 1.2250458998438425,
+      "observed_horizontal_path": 2.703082460116627,
+      "requested_actions": {
+        "JUMP_FORWARD": 1,
+        "LOOK_DOWN": 1,
+        "TURN_RIGHT": 6,
+        "TURN_LEFT": 30,
+        "FORWARD": 1,
+        "LOOK_UP": 2
+      }
+    }
+  ],
+  "action_count_note": "Requested actions may include an unexecuted final command; acknowledged action counts are in natural_interface_pilot.json."
+}
