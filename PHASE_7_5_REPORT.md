@@ -5,7 +5,10 @@ restart supervisor are installed. A real watchdog-crash test restarted it in
 about 16 seconds while preserving the same runner and game actions. A status
 file-sharing failure no longer releases the native power guard. Manual STOP,
 critical battery, resource guards, scored evidence and quality gates remain
-protected. All 180 tests pass. True pre-login startup was denied by Windows
+protected. Shutdown-generated stops resume only after a new boot; manual stops
+remain paused, including during the user's persistent play mode. All 183 tests
+pass before the final play-mode operational addition, which passed a live stop
+check. True pre-login startup was denied by Windows
 permissions; no reboot test or pre-login execution is claimed.
 [Installed behavior, tests and limits](docs/phase9_auto_resume.md).
 

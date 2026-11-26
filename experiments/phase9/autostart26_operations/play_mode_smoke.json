@@ -1,0 +1,25 @@
+{
+  "host": {
+    "status": "play_mode",
+    "pid": 11412,
+    "process_created": 1795703327.1388164,
+    "updated_unix": 1795703327.367857,
+    "campaign": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25",
+    "resume_requires_user": true
+  },
+  "training_executor": {
+    "status": "paused",
+    "updated_unix": 1795703311.466974,
+    "official_training_worlds": 410,
+    "automatic_shutdown_ready": false
+  },
+  "play_mode": {
+    "mode": "user_playing_minecraft",
+    "requested_unix": 1795703249.7524137,
+    "resume_requires_user": true,
+    "stop_mtime_ns": 1795703311259258700,
+    "created_stop": true,
+    "pause_requested_unix": 1795703311.26896
+  },
+  "heavy_trials_paused": true
+}

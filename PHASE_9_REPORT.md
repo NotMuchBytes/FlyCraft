@@ -4,7 +4,7 @@
 preserves the failed stage at world 402 and starts a reviewed 32-world repair
 round with a new evaluation seed set. It keeps the original checkpoint chain,
 actor, reward, budgets and gate thresholds. The first repair trial succeeded
-in six actions with a verified update. All 180 tests pass. Windows sign-in
+in six actions with a verified update. All 183 tests pass. Windows sign-in
 startup, supervisor crash recovery and duplicate-owner protection are verified;
 pre-login boot registration was denied by Windows permissions. Quality failures
 still park, and later Minecraft skills remain unimplemented. The completed

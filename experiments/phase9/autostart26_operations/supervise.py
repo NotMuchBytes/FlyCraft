@@ -9,6 +9,8 @@ import sys
 import time
 
 import psutil
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from login_epoch import current_logon_start
 
 
 def read(path):
@@ -84,13 +86,18 @@ def decision(folder):
     return "resume"
 
 
-def clear_critical_stop(folder, battery):
-    """Clear only a STOP created by this guard at critical battery, never manual STOP."""
+def clear_guard_stop(folder, battery):
+    """Clear only unchanged guard STOPs with a new boot or recovered battery."""
     folder=Path(folder);stop=folder/"STOP";proof=folder/"STOP.reason.json"
-    if battery is None or not battery.power_plugged or battery.percent<=10 or not stop.exists() or not proof.exists():return False
+    if not stop.exists() or not proof.exists():return False
     try:
         data=read(proof)
-        if data.get("reason")!="critical_battery" or data.get("stop_mtime_ns")!=stop.stat().st_mtime_ns:return False
+        if data.get("stop_mtime_ns")!=stop.stat().st_mtime_ns:return False
+        critical = data.get("reason")=="critical_battery" and battery is not None and battery.power_plugged and battery.percent>10
+        created=data.get("created_unix",float("inf"));logon=current_logon_start()
+        shutdown = data.get("reason")=="system_shutdown" and (created<psutil.boot_time() or logon is not None and created<logon)
+        if battery is not None and not battery.power_plugged and battery.percent<=5:return False
+        if not (critical or shutdown):return False
         archived=folder/f"critical_stop_recovered_{time.time_ns()}.json"
         if not publish(archived,data):return False
         stop.unlink();proof.unlink();return True
@@ -121,26 +128,34 @@ def ensure_companion(command, marker, root, state, name, *, adopt=None):
 
 def run(plan_path, *, once=False):
     plan=read(plan_path);root=Path(plan["root"]);folder=Path(plan["campaign"]);state=Path(plan["state_dir"])
+    guard_state=state/plan.get("guard_directory","power_guard")
+    completion_state=state/plan.get("completion_directory","completion")
     state.mkdir(parents=True,exist_ok=True)
     with Lease(state/"supervisor.lock"):
         while True:
             try:
                 if (state/"DISABLE_AUTOSTART").exists():return 0
-                completion=read(state/"completion/status.json") if (state/"completion/status.json").exists() else {}
+                completion=read(completion_state/"status.json") if (completion_state/"status.json").exists() else {}
                 if completion.get("status") in {"shutdown_countdown","shutdown_requested"}:return 0
                 battery=psutil.sensors_battery()
-                clear_critical_stop(folder,battery)
+                clear_guard_stop(folder,battery)
                 if battery is not None and not battery.power_plugged and battery.percent<=5:
                     status="critical_battery"
-                elif (state/"power_guard/RELEASE").exists():
+                elif (guard_state/"RELEASE").exists():
                     status="power_guard_released"
                 else:
-                    ensure_companion([plan["python"],str(root/"tools/power_guard.py"),"--state-dir",str(state/"power_guard"),
+                    ensure_companion([plan["python"],str(Path(__file__).with_name("guardhost.py")),"--state-dir",str(guard_state),
                         "--stop-file",str(folder/"STOP"),"--stop-file",plan["foundation_stop"]],
-                        "power_guard.py",root,state,"power_guard",adopt=state/"power_guard/status.json")
+                        "guardhost.py",root,state,"power_guard",adopt=guard_state/"status.json")
                     ensure_companion([plan["python"],str(root/"experiments/phase9/staged25_operations/finish_when_staged_verified.py"),
-                        "--campaign",str(folder),"--guard-state",str(state/"power_guard"),"--state-dir",str(state/"completion"),
+                        "--campaign",str(folder),"--guard-state",str(guard_state),"--state-dir",str(completion_state),
                         "--ffmpeg",plan["ffmpeg"],"--shutdown-on-complete"],"finish_when_staged_verified.py",root,state,"completion")
+                    if (state/"PLAY_MODE.json").exists():
+                        publish(state/"status.json",dict(status="play_mode",pid=os.getpid(),process_created=psutil.Process().create_time(),
+                            updated_unix=time.time(),campaign=str(folder),resume_requires_user=True))
+                        if once:return 0
+                        time.sleep(30)
+                        continue
                     config,ledger=read(folder/"config.json"),read(folder/"state.json")
                     if digest(folder/"config.json")!=ledger["config_sha256"] or source_hash(root)!=config["implementation_sha256"]:
                         status="implementation_mismatch"
@@ -158,7 +173,7 @@ def run(plan_path, *, once=False):
                         else:
                             status=decision(folder)
                             if status=="resume":
-                                power=read(state/"power_guard/status.json") if (state/"power_guard/status.json").exists() else {}
+                                power=read(guard_state/"status.json") if (guard_state/"status.json").exists() else {}
                                 battery=psutil.sensors_battery()
                                 if battery is not None and not battery.power_plugged and battery.percent<=5:
                                     status="critical_battery"

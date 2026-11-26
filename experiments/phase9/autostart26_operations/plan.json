@@ -10,5 +10,7 @@
   "video_export_dir": "C:/Users/anass/Documents/Codex/2026-11-17/continue-developing-the-actual-flycraft-minecraft/outputs",
   "ffmpeg": "C:/Users/anass/Documents/FlyCraft/.runtime/ffmpeg/bin/ffmpeg.exe",
   "authorization": "User requested automatic continuation when PC is on, 2026-11-26",
-  "trigger": "sign_in"
+  "trigger": "sign_in",
+  "guard_directory": "power_guard_v2",
+  "completion_directory": "completion_v2"
 }

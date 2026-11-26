@@ -14,9 +14,37 @@ def module(name):
 supervisor=module("supervise")
 recovery=module("recover")
 bootstrap=module("bootstrap")
+guardhost=module("guardhost")
 
 
 class StartupTests(unittest.TestCase):
+    def test_shutdown_stop_clears_only_after_a_new_boot(self):
+        with TemporaryDirectory() as directory:
+            p=Path(directory);stop=p/"STOP";stop.touch()
+            proof=dict(reason="system_shutdown",stop_mtime_ns=stop.stat().st_mtime_ns,created_unix=200.)
+            (p/"STOP.reason.json").write_text(json.dumps(proof))
+            with patch.object(supervisor.psutil,"boot_time",return_value=100.),patch.object(supervisor,"current_logon_start",return_value=50.):
+                self.assertFalse(supervisor.clear_guard_stop(p,None))
+            with patch.object(supervisor.psutil,"boot_time",return_value=201.),patch.object(supervisor,"current_logon_start",return_value=50.):
+                self.assertTrue(supervisor.clear_guard_stop(p,None))
+
+    def test_fast_startup_new_signin_can_resume_without_a_new_kernel_boot(self):
+        with TemporaryDirectory() as directory:
+            p=Path(directory);stop=p/"STOP";stop.touch()
+            (p/"STOP.reason.json").write_text(json.dumps(dict(reason="system_shutdown",stop_mtime_ns=stop.stat().st_mtime_ns,created_unix=200.)))
+            with patch.object(supervisor.psutil,"boot_time",return_value=100.),patch.object(supervisor,"current_logon_start",return_value=199.):
+                self.assertFalse(supervisor.clear_guard_stop(p,None))
+            with patch.object(supervisor.psutil,"boot_time",return_value=100.),patch.object(supervisor,"current_logon_start",return_value=201.):
+                self.assertTrue(supervisor.clear_guard_stop(p,None))
+
+    def test_guard_shutdown_callback_records_its_own_stop_reason(self):
+        with TemporaryDirectory() as directory:
+            stop=Path(directory)/"STOP"
+            with patch.object(guardhost,"WindowsGuard",side_effect=lambda callback:callback):
+                callback=guardhost.factory([stop])(None);callback()
+            proof=json.loads((Path(directory)/"STOP.reason.json").read_text())
+            self.assertEqual(proof["reason"],"system_shutdown")
+            self.assertEqual(proof["stop_mtime_ns"],stop.stat().st_mtime_ns)
     def test_critical_battery_does_not_restart_power_guard_or_worker(self):
         with TemporaryDirectory() as directory:
             p=Path(directory);plan=p/"plan.json"
@@ -67,11 +95,11 @@ class StartupTests(unittest.TestCase):
             p=Path(directory);stop=p/"STOP";stop.touch()
             proof=dict(reason="critical_battery",stop_mtime_ns=stop.stat().st_mtime_ns)
             (p/"STOP.reason.json").write_text(json.dumps(proof))
-            self.assertFalse(supervisor.clear_critical_stop(p,SimpleNamespace(power_plugged=False,percent=90)))
+            self.assertFalse(supervisor.clear_guard_stop(p,SimpleNamespace(power_plugged=False,percent=90)))
             proof['stop_mtime_ns']-=1;(p/"STOP.reason.json").write_text(json.dumps(proof))
-            self.assertFalse(supervisor.clear_critical_stop(p,SimpleNamespace(power_plugged=True,percent=90)))
+            self.assertFalse(supervisor.clear_guard_stop(p,SimpleNamespace(power_plugged=True,percent=90)))
             proof['stop_mtime_ns']=stop.stat().st_mtime_ns;(p/"STOP.reason.json").write_text(json.dumps(proof))
-            self.assertTrue(supervisor.clear_critical_stop(p,SimpleNamespace(power_plugged=True,percent=90)))
+            self.assertTrue(supervisor.clear_guard_stop(p,SimpleNamespace(power_plugged=True,percent=90)))
 
     def test_recovery_never_retries_scored_partial_or_recorded_attempts(self):
         with TemporaryDirectory() as directory:

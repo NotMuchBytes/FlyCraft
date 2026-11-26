@@ -1,0 +1,10 @@
+{
+  "supervisor": 11412,
+  "guard": 26280,
+  "guard_active": true,
+  "play_mode": true,
+  "normal_shutdown_reason_tracking": true,
+  "fast_startup_signin_timestamp_read": true,
+  "pc_reboot_tested": false,
+  "runner_actions_replayed": false
+}

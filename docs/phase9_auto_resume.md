@@ -47,8 +47,15 @@ fixed: bounded atomic-publication retries keep native protection alive even
 if status publication stays locked. At unplugged battery <=5%, the guard
 requests STOP and releases its shutdown block. The watchdog does not restart
 guards or training at critical battery. Only a STOP proven to have been
-created by that critical-battery event can be cleared automatically, after
-external power is connected and charge exceeds 10%. Manual STOP remains intact.
+created by that critical-battery event can be cleared after external power is
+connected and charge exceeds 10%. A STOP created by the shutdown callback is
+separately labeled and clears only after a new OS boot or new Windows sign-in.
+The sign-in timestamp also covers Fast Startup without relying on a new kernel
+boot timestamp. A cancelled shutdown or crashed watchdog in the same sign-in
+cannot clear it. Both checks require
+the STOP's exact recorded modification time, so a later manual STOP stays
+paused. The final guard handover overlapped old and new protection and was
+verified without rebooting the PC. Manual STOP remains intact.
 
 The existing 768 MiB live RAM reserve, 2,048 MiB free-disk reserve and 75°C GPU
 cutoff remain. Launch still requires a 30-second healthy window at 1,800 MiB
@@ -79,13 +86,22 @@ are unchanged. If the new candidate fails, it parks again instead of advancing.
 
 The first repair world, official slot 403, collected a log in six actions with
 a verified readout update. This is a training result, not a reliability score.
-All **180 tests pass**, including restart, duplicate-ownership, critical-battery,
+All **183 tests pass**, including restart, duplicate-ownership, critical-battery,
 manual-stop, scored-evidence and repair-round separation checks.
 
 Source, completed-stage audit, installation proof and restart-test records:
 `experiments/phase9/autostart26_operations/`. The startup registration can be
 recreated explicitly with `install_startup.ps1 -Plan <local-plan.json>`; cloning
 the repository does not install an automatic startup task.
+
+The user subsequently requested personal Minecraft play mode until they ask
+for full performance again. `PLAY_MODE.json` in the resume directory now parks
+heavy trials, including after sign-in. Only lightweight monitoring remains.
+A live check confirmed `play_mode`, an exited/paused training executor and no
+active episode. The final play-mode branch also passed compilation; the full
+183-test suite preceded this small operational addition. The interrupted
+disposable episode and previous committed checkpoint are retained for review
+before the user's later resume request.
 
 Microsoft documents boot-trigger administrator requirements in
 [TaskFolder.RegisterTask](https://learn.microsoft.com/en-us/windows/win32/taskschd/taskfolder-registertask).
