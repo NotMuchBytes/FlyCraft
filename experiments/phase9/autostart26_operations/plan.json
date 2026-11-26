@@ -1,0 +1,14 @@
+{
+  "root": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum",
+  "campaign": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25",
+  "state_dir": "C:\\Users\\anass\\AppData\\Local\\FlyCraft\\Resume",
+  "python": "C:/Users/anass/Documents/FlyCraft/.venv/Scripts/python.exe",
+  "foundation_stop": "C:/Users/anass/Documents/FlyCraft/experiments/phase9/fc9_20261125/STOP",
+  "work_dir": "C:/Users/anass/Documents/Codex/2026-11-17/continue-developing-the-actual-flycraft-minecraft/work",
+  "build_dir": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\.runtime\\terrain-build1",
+  "obs_control_dir": "C:/Users/anass/Documents/Codex/2026-10-27/files-pasted-by-the-user-flycraft/work",
+  "video_export_dir": "C:/Users/anass/Documents/Codex/2026-11-17/continue-developing-the-actual-flycraft-minecraft/outputs",
+  "ffmpeg": "C:/Users/anass/Documents/FlyCraft/.runtime/ffmpeg/bin/ffmpeg.exe",
+  "authorization": "User requested automatic continuation when PC is on, 2026-11-26",
+  "trigger": "sign_in"
+}

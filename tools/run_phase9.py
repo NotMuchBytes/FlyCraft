@@ -126,6 +126,8 @@ def worker_command(campaign, attempt, args, seconds):
         command += ["--video-export-dir",str(args.video_export_dir)]
     if attempt["train"]:
         command.append("--train")
+    if attempt.get("retry_of"):
+        command += ["--redo-of", attempt["retry_of"]]
     if profile.get("launch_cache"):
         command += ["--launch-cache", profile["launch_cache"]["path"],
                     "--launch-cache-sha256", profile["launch_cache"]["sha256"]]

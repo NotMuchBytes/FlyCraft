@@ -5,6 +5,30 @@ from autonomy.experiment import CONDITIONS
 
 
 class StagedTests(unittest.TestCase):
+    def test_reviewed_repair_round_keeps_failed_scores_and_gets_a_new_candidate(self):
+        c=self.campaign()
+        c.state["attempts"]=self.evaluated(20)
+        c.state["curriculum_rounds"]={"terrain":1}
+        c.state["gates"]={"terrain":dict(passed=False)}
+        c.config["repair_rounds"]={"terrain":{"1":dict(training_worlds=4,
+            training_schedule=["retention_one_log","retention_one_log","retention_one_log","primary"],evaluation_catalog="repair_terrain_1")}}
+        self.assertTrue(c.next_cell()["retention"])
+        for i in range(4):
+            c.state["attempts"].append(dict(curriculum_stage="terrain",curriculum_round=1,split="training",train=True,status="committed",generated_world_instances=1))
+        self.assertEqual(c.next_cell()["evaluation_index"],0)
+        self.assertEqual(c.state["stage_checkpoints"]["terrain:round1"],c.state["current_checkpoint"])
+        self.assertFalse(c.state["gates"]["terrain"]["passed"])
+        self.assertEqual(len([a for a in c.state["attempts"] if a["split"]=="eval_a"]),270)
+
+    def test_only_reviewed_unscored_evaluation_interruption_can_retry(self):
+        c=self.campaign()
+        c.state["attempts"]=[dict(curriculum_stage="terrain",split="training",train=True,status="committed",generated_world_instances=1) for _ in range(64)]
+        bad=dict(curriculum_stage="terrain",split="eval_a",evaluation_task="primary",condition="trained",evaluation_index=0,
+            status="interrupted",generated_world_instances=1,train=False)
+        c.state["attempts"].append(bad)
+        with self.assertRaises(ValueError):c.next_cell()
+        bad["unscored_technical_retry"]=True
+        self.assertEqual(c.next_cell()["evaluation_index"],0)
     def campaign(self):
         c = StagedCampaign.__new__(StagedCampaign)
         c.config = dict(foundation=dict(foundation_world_instances=338), supported_stages=list(STAGES))

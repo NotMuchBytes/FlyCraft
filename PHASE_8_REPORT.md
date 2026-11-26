@@ -1,5 +1,15 @@
 # FlyCraft — Phase 8 report
 
+**November 26 — completed retention gate and repair:** the broader candidate's
+30-trial retention sets finished at one-log 20/30, three-log 30/30, planks
+25/30 and pickaxe 29/30. One-log failed the unchanged 24/30 threshold; the
+candidate did not advance. The 270 evaluation episodes and 64 training episodes
+were re-audited without score changes. A separate bounded 32-world repair
+round now uses unused training seeds and fresh evaluation seeds. Its first
+world collected a log in six actions with a verified update. That training
+success establishes no repaired reliability. The original Phase 8 scores
+remain unchanged. [Repair and startup protocol](docs/phase9_auto_resume.md).
+
 **November 25 — retention checks for the broader candidate:** all 166 tests
 pass. The new curriculum has 6/12 training successes through world 350 and
 11 verified updates, with two fully decoded milestones. Its fresh natural

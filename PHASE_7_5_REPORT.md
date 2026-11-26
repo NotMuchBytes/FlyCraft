@@ -1,5 +1,14 @@
 # FlyCraft Phase 7.5 reliability report
 
+**November 26 — automatic recovery:** Windows sign-in startup and a hidden
+restart supervisor are installed. A real watchdog-crash test restarted it in
+about 16 seconds while preserving the same runner and game actions. A status
+file-sharing failure no longer releases the native power guard. Manual STOP,
+critical battery, resource guards, scored evidence and quality gates remain
+protected. All 180 tests pass. True pre-login startup was denied by Windows
+permissions; no reboot test or pre-login execution is claimed.
+[Installed behavior, tests and limits](docs/phase9_auto_resume.md).
+
 **November 25 — matched natural controls:** all five conditions now reproduce
 the same recorded absolute starting pose and the checker rejects actual pose
 drift. The separate one-seed, 600-tick development pilot scored 0/1 in every

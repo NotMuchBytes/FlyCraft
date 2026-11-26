@@ -134,17 +134,30 @@ class StagedCampaign(Campaign):
             self.save()
             return None
         stage = self.config["supported_stages"][index]
-        rows = [a for a in self.state["attempts"] if a["curriculum_stage"] == stage["id"]]
+        round_number = self.state.get("curriculum_rounds", {}).get(stage["id"], 0)
+        repair = self.config.get("repair_rounds", {}).get(stage["id"], {}).get(str(round_number)) if round_number else None
+        if round_number and not repair:
+            raise ValueError("repair round is absent from the reviewed plan")
+        rows = [a for a in self.state["attempts"] if a["curriculum_stage"] == stage["id"] and a.get("curriculum_round", 0) == round_number]
         trained = sum(a.get("generated_world_instances") or 0 for a in rows if a["split"] == "training")
-        if trained < stage["training_worlds"] and self.training_worlds() < 10000:
+        training_limit = repair["training_worlds"] if repair else stage["training_worlds"]
+        if trained < training_limit and self.training_worlds() < 10000:
+            if repair:
+                task = repair["training_schedule"][trained % len(repair["training_schedule"])]
+                retention = task.startswith("retention_")
+                goal = task[len("retention_"):] if retention else "one_log"
+                if goal not in RESOURCE_GOALS or task != "primary" and not retention:
+                    raise ValueError("unsupported repair training task")
+                return dict(split="training", condition="trained", goal=goal, retention=retention)
             retention = trained % 4 == 3
             goal = list(RESOURCE_GOALS)[(trained // 4) % 4] if retention else "one_log"
             return dict(split="training", condition="trained", goal=goal, retention=retention)
         # Lock the candidate before touching any evaluation seed.
-        if stage["id"] not in self.state["stage_checkpoints"]:
-            self.state["stage_checkpoints"][stage["id"]] = dict(self.state["current_checkpoint"])
+        checkpoint_key = stage["id"] if not round_number else f"{stage['id']}:round{round_number}"
+        if checkpoint_key not in self.state["stage_checkpoints"]:
+            self.state["stage_checkpoints"][checkpoint_key] = dict(self.state["current_checkpoint"])
             self.save()
-        if self.state["stage_checkpoints"][stage["id"]] != self.state["current_checkpoint"]:
+        if self.state["stage_checkpoints"][checkpoint_key] != self.state["current_checkpoint"]:
             raise ValueError("candidate changed after held-out evaluation began")
         tasks = [("primary", CONDITIONS)] + [("retention_"+g, ("trained",)) for g in RETENTION_MINIMUMS]
         for task, conditions in tasks:
@@ -152,9 +165,9 @@ class StagedCampaign(Campaign):
                 for condition in conditions:
                     previous = [a for a in rows if a["split"] == "eval_a" and a["evaluation_task"] == task and a["condition"] == condition and a["evaluation_index"] == n]
                     # An incomplete cell is never silently rerun as a fresh score.
-                    if previous and previous[-1]["status"] != "committed":
+                    if previous and previous[-1]["status"] != "committed" and not previous[-1].get("unscored_technical_retry"):
                         raise ValueError("incomplete evaluation cell requires explicit evidence review")
-                    if not previous:
+                    if not previous or previous[-1]["status"] != "committed":
                         retention = task.startswith("retention_")
                         return dict(split="eval_a", condition=condition, goal=task[len("retention_"):] if retention else "one_log",
                                     retention=retention, evaluation_task=task, evaluation_index=n)
@@ -176,15 +189,20 @@ class StagedCampaign(Campaign):
         if cell is None:
             return None
         stage = self.config["supported_stages"][self.state["curriculum_index"]]
+        round_number = self.state.get("curriculum_rounds", {}).get(stage["id"], 0)
+        repair = self.config.get("repair_rounds", {}).get(stage["id"], {}).get(str(round_number)) if round_number else None
         train = cell["split"] == "training"
         own_worlds = self.training_worlds() - 338
         seed_index = own_worlds if train else self.state["curriculum_index"] * 150 + cell["evaluation_index"] + (30*(1+list(RETENTION_MINIMUMS).index(cell["goal"])) if cell["retention"] else 0)
-        seed = self.catalog["training" if train else "eval_a"][seed_index]
+        evaluation_key = repair["evaluation_catalog"] if repair else "eval_a"
+        if repair and not train:
+            seed_index -= self.state["curriculum_index"] * 150
+        seed = self.catalog["training" if train else evaluation_key][seed_index]
         checkpoint = self.config["frozen_checkpoint"] if cell["condition"] == "frozen" else self.state["current_checkpoint"]
         profile = dict(self.config["runtime_profile"])
         profile.update(terrain_step_fixture=stage["terrain_step_fixture"] and not cell["retention"], natural_world=stage["natural_world"] and not cell["retention"])
         if profile["natural_world"] and not train and cell["condition"] != "trained":
-            profile["natural_start"] = reference_start(self.state["attempts"], stage=stage["id"],
+            profile["natural_start"] = reference_start([a for a in self.state["attempts"] if a.get("curriculum_round",0)==round_number], stage=stage["id"],
                 index=cell["evaluation_index"], seed=seed)
         if cell["retention"]:
             long = cell["goal"] in ("three_logs", "wooden_pickaxe")
@@ -193,7 +211,7 @@ class StagedCampaign(Campaign):
         run_id = f"{self.config['name']}_{stage['id']}_{number:05d}"
         official_number = self.training_worlds() + 1 if train else 0
         attempt = dict(cell, number=number, episode_number=official_number if train else number,
-            run_id=run_id, curriculum_stage=stage["id"], profile=profile,
+            run_id=run_id, curriculum_stage=stage["id"], curriculum_round=round_number, profile=profile,
             world_seed=seed, layout_seed=seed, policy_seed=19001 + seed_index,
             train=train, checkpoint=dict(checkpoint), status="running", started_unix=time.time(),
             generated_world_instances=None, execution_revision=self.config.get("execution_revision", 1),
@@ -201,6 +219,15 @@ class StagedCampaign(Campaign):
             implementation_sha256=self.config["implementation_sha256"], official_world_number=official_number,
             video_required=train and official_number in self.config["recording_milestones"],
             runtime=str(Path(runtime_root).resolve() / run_id))
+        if not train:
+            retries = [a for a in self.state["attempts"] if a.get("curriculum_round",0)==round_number
+                       and a["curriculum_stage"]==stage["id"] and a["split"]=="eval_a"
+                       and a.get("evaluation_task")==cell["evaluation_task"] and a["condition"]==cell["condition"]
+                       and a.get("evaluation_index")==cell["evaluation_index"] and a.get("unscored_technical_retry")]
+            if retries:
+                if len(retries) > self.config["checker"]["technical_retries"]:
+                    raise ValueError("technical evaluation retry limit reached")
+                attempt["retry_of"] = retries[-1]["run_id"]
         self.state["attempts"].append(attempt)
         self.state["active_attempt"] = len(self.state["attempts"]) - 1
         self.save()
@@ -214,4 +241,5 @@ class StagedCampaign(Campaign):
             estimated_remaining_seconds=None, estimate_basis="broader skills are not yet implemented or timed",
             progression="64 terrain training worlds, locked 30-seed five-condition evaluation and 30 trials per wood retention goal; then 128 natural exploration worlds; later skills require validated implementation",
             curriculum_status=self.state["status"], curriculum_index=self.state["curriculum_index"], gates=self.state["gates"], pending_skills=self.config["pending_skills"])
+        result["curriculum_rounds"] = self.state.get("curriculum_rounds", {})
         return result

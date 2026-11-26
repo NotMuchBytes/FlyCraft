@@ -1,0 +1,11 @@
+{
+  "task_name": "FlyCraft_AutoResume_20261126",
+  "task_registration": "registered",
+  "task_error": null,
+  "startup_shortcut": "C:\\Users\\anass\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\FlyCraft Auto Resume.lnk",
+  "target": "C:\\Users\\anass\\Documents\\FlyCraft\\.venv\\Scripts\\pythonw.exe",
+  "arguments": "\"C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\autostart26_operations\\bootstrap.py\" --plan \"C:\\Users\\anass\\AppData\\Local\\FlyCraft\\Resume\\plan.json\"",
+  "trigger": "user_sign_in",
+  "pre_login_boot_installed": false,
+  "installed_utc": "2026-11-26T14:06:58.2862356Z"
+}

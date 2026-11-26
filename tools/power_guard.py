@@ -21,11 +21,35 @@ def critical_battery(battery, threshold=5):
     return battery is not None and not battery.power_plugged and battery.percent <= threshold
 
 
-def request_stop(paths):
+def request_stop(paths, *, reason=None):
     for path in paths:
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
+        existed = path.exists()
         path.touch(exist_ok=True)
+        if reason and not existed:
+            sidecar = path.with_name(path.name + ".reason.json")
+            sidecar.write_text(json.dumps(dict(reason=reason, stop_mtime_ns=path.stat().st_mtime_ns,
+                created_unix=time.time())), encoding="utf-8")
+
+
+def publish_status(path, payload, *, replace=os.replace, sleep=time.sleep, clock=time.monotonic):
+    """A dashboard reader must never take down the native shutdown guard."""
+    path = Path(path)
+    temporary = path.with_name(path.name + ".tmp")
+    try:
+        temporary.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        deadline = clock() + 1
+        while True:
+            try:
+                replace(temporary, path)
+                return True
+            except PermissionError:
+                if clock() >= deadline:
+                    return False
+                sleep(.01)
+    except OSError:
+        return False
 
 
 class WindowsGuard:
@@ -139,9 +163,7 @@ def run(folder, stop_files, *, battery=psutil.sensors_battery, guard=WindowsGuar
                    "blocks_idle_sleep": state == "active", "blocks_normal_shutdown": state == "active",
                    "forced_shutdown_can_override": True, "stop_files": [str(p) for p in stop_files],
                    "release_file": str(folder / "RELEASE"), "error": error}
-        temporary = folder / "status.tmp"
-        temporary.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-        os.replace(temporary, status_path)
+        return publish_status(status_path, payload)
 
     try:
         with guard(lambda: request_stop(stop_files)) as native:
@@ -149,7 +171,7 @@ def run(folder, stop_files, *, battery=psutil.sensors_battery, guard=WindowsGuar
                 native.pump()
                 sample = battery()
                 if critical_battery(sample):
-                    request_stop(stop_files)
+                    request_stop(stop_files, reason="critical_battery")
                     break
                 if (folder / "RELEASE").exists():
                     break

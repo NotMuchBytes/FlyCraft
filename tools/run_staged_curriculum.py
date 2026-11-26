@@ -72,7 +72,8 @@ def run(campaign, args):
                     actions=outcome["actions"], update=outcome["update"])), flush=True)
                 # Review a weak skill rather than spending the entire budget on it.
                 recent = [a for a in campaign.state["attempts"] if a["status"] == "committed" and a["train"]
-                          and a["curriculum_stage"] == attempt["curriculum_stage"] and not a["retention"]][-10:]
+                          and a["curriculum_stage"] == attempt["curriculum_stage"]
+                          and a.get("curriculum_round",0) == attempt.get("curriculum_round",0) and not a["retention"]][-10:]
                 if len(recent) == 10 and sum(a["success"] for a in recent) <= 1:
                     raise ValueError("at least nine of ten primary training episodes failed; inspect before more training")
         status = "paused" if (campaign.folder / "STOP").exists() else campaign.state["status"]

@@ -6,3 +6,5 @@ experiments/phase9/staged25_operations/** -text whitespace=cr-at-eol
 recordings/phase9/youtube/fc9_stage25_terrain_00001.json -text whitespace=cr-at-eol
 experiments/phase9/terrain25_natural_interface_*/** -text whitespace=cr-at-eol
 recordings/phase9/youtube/fc9_stage25_terrain_00012.json -text whitespace=cr-at-eol
+experiments/phase9/autostart26_operations/** -text whitespace=cr-at-eol
+recordings/phase9/youtube/fc9_stage25_terrain_00062.json -text whitespace=cr-at-eol

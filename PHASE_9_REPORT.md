@@ -1,5 +1,16 @@
 # FlyCraft Phase 9 development report
 
+**November 26 — automatic resume and retention repair:** execution revision 3
+preserves the failed stage at world 402 and starts a reviewed 32-world repair
+round with a new evaluation seed set. It keeps the original checkpoint chain,
+actor, reward, budgets and gate thresholds. The first repair trial succeeded
+in six actions with a verified update. All 180 tests pass. Windows sign-in
+startup, supervisor crash recovery and duplicate-owner protection are verified;
+pre-login boot registration was denied by Windows permissions. Quality failures
+still park, and later Minecraft skills remain unimplemented. The completed
+stage's 334 episodes were independently re-audited without changed scores.
+[Setup, results and operational limits](docs/phase9_auto_resume.md).
+
 **November 25 — staged revision 2:** through world 350, the new course scored
 6/12 training successes (terrain 4/9; retention 2/3), with 11 independently
 verified updates. Milestones 339 and 350 passed full decode and sampled

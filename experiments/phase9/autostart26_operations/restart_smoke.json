@@ -1,0 +1,13 @@
+{
+  "simulated_supervisor_crash": true,
+  "pc_rebooted": false,
+  "old_supervisor_pid": 20432,
+  "new_supervisor_pid": 25268,
+  "runner_preserved": true,
+  "runner": {
+    "pid": 32536,
+    "process_created": 1795702024.9817247
+  },
+  "automatic_restart_seconds": 16.02578360005282,
+  "minecraft_actions_altered": false
+}
