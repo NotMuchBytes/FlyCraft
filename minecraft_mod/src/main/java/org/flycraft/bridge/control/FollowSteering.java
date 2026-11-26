@@ -7,10 +7,15 @@ public final class FollowSteering {
                         boolean inWater,boolean horizontalCollision,boolean routeAvailable) { }
     public record Output(double yawRate,boolean forward,boolean jump,boolean sprint,boolean arrived) { }
     public static Output choose(Input input) {
+        return choose(input,2.5,3.5);
+    }
+    public static Output choose(Input input,double stopDistance,double resumeDistance) {
+        if(!Double.isFinite(stopDistance+resumeDistance) || stopDistance<1 || resumeDistance<stopDistance)
+            throw new IllegalArgumentException("Invalid follow spacing");
         if(!Double.isFinite(input.x+input.y+input.z+input.yaw+input.waypointX+input.waypointY
                 +input.waypointZ+input.ownerDistance) || input.ownerDistance<0)
             throw new IllegalArgumentException("Follow pose must be finite");
-        boolean arrived=input.ownerDistance<=(input.arrived ? 3.5 : 2.5);
+        boolean arrived=input.ownerDistance<=(input.arrived ? resumeDistance : stopDistance);
         if(arrived || !input.routeAvailable) return new Output(0,false,input.inWater,false,arrived);
         double dx=input.waypointX-input.x,dz=input.waypointZ-input.z;
         double error=CameraMotion.wrap(Math.toDegrees(Math.atan2(-dx,dz))-input.yaw);

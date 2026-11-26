@@ -1,0 +1,9 @@
+test_planner_batches_and_replan_keep_the_requested_inventory_count (test_companion_language.CompanionLanguageTests.test_planner_batches_and_replan_keep_the_requested_inventory_count) ... ok
+test_real_java_language_ownership_receipts_and_persistent_word_learning (test_companion_language.CompanionLanguageTests.test_real_java_language_ownership_receipts_and_persistent_word_learning) ... ok
+test_requested_counts_need_explicit_nontraining_companion_and_cannot_change (test_companion_language.CompanionLanguageTests.test_requested_counts_need_explicit_nontraining_companion_and_cannot_change) ... ok
+test_three_requested_logs_need_three_actual_inventory_gains (test_companion_language.CompanionLanguageTests.test_three_requested_logs_need_three_actual_inventory_gains) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.336s
+
+OK

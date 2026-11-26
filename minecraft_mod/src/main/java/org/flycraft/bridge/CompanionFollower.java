@@ -19,8 +19,14 @@ final class CompanionFollower {
     private Vec3 lastPosition,ownerAnchor;
     private int failedPlans;
     private boolean arrived,blocked;
+    private final double stopDistance,resumeDistance;
 
     CompanionFollower(ServerPlayer actor,ServerPlayer target) {
+        this(actor,target,2.5);
+    }
+    CompanionFollower(ServerPlayer actor,ServerPlayer target,double stopDistance) {
+        if(stopDistance<1 || stopDistance>2.5) throw new IllegalArgumentException("Invalid follow spacing");
+        this.stopDistance=stopDistance;resumeDistance=stopDistance==2.5 ? 3.5 : stopDistance+.4;
         owner=target.getUUID();
         // A player-sized navigation probe. It is never added to the world,
         // never ticks mob AI, and never attacks, drops items or changes blocks.
@@ -43,7 +49,7 @@ final class CompanionFollower {
             failedPlans=0; blocked=false; ownerAnchor=target.position(); replanAt=0;
         }
         if(distance>40) return idle(actor,"owner_too_far",distance);
-        if(distance<=(arrived ? 3.5 : 2.5)) {
+        if(distance<=(arrived ? resumeDistance : stopDistance)) {
             arrived=true; path=null; failedPlans=0; blocked=false;
             lastPosition=actor.position(); progressTick=tick;
             return idle(actor,"near_owner",distance);
@@ -78,7 +84,7 @@ final class CompanionFollower {
         if(path.isDone()) return idle(actor,"path_end",distance);
         Vec3 point=path.getNextEntityPos(actor);
         var movement=FollowSteering.choose(new FollowSteering.Input(actor.getX(),actor.getY(),actor.getZ(),actor.getYRot(),
-                point.x,point.y,point.z,distance,arrived,actor.onGround(),actor.isInWater(),actor.horizontalCollision,true));
+                point.x,point.y,point.z,distance,arrived,actor.onGround(),actor.isInWater(),actor.horizontalCollision,true),stopDistance,resumeDistance);
         return new Step(movement,movement.forward() ? "walking" : "turning_or_unsafe_drop",distance,path.getNodeCount());
     }
 

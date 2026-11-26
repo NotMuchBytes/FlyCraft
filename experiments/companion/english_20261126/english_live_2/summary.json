@@ -1,0 +1,30 @@
+{
+  "environment": "controlled_companion_language_fixture",
+  "request": "FlyCraft, get me one log",
+  "lesson": "",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+  "server_port": 25577,
+  "bridge_port": 8875,
+  "success": false,
+  "stop_reason": "fixture_complete",
+  "synthetic_chat_via_fabric_event": true,
+  "ownership_protected": true,
+  "confirmed_breaks": 1,
+  "owner_inventory": {
+    "log": 1
+  },
+  "actor_inventory": {
+    "wooden_pickaxe": 0,
+    "sticks": 0,
+    "planks": 0,
+    "table_placed": 0,
+    "crafting_table": 0,
+    "log": 0
+  },
+  "received": 0,
+  "requested_count": 1,
+  "phase": "FAILED",
+  "reason": "request_time_limit",
+  "ticks": 2403,
+  "elapsed_seconds": 141.7442669000011
+}

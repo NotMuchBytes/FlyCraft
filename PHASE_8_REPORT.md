@@ -1035,3 +1035,23 @@ block arrangements present in development; two trials use one new
 arrangement. The result tests reliability on held-out seed identities,
 and does not establish generalization to unseen layouts or terrain.
 [Translation-normalized fixture overlap audit](experiments/phase9/phase8_finish_20261124/layout_overlap_one_log.json)
+
+### November 26: English companion goals and verified delivery
+
+The existing pitch-enabled checkpoint now accepts explicit companion quantities
+through a bounded English interface, without learning or checkpoint writes.
+Taught item names persist per requester; task status includes actual health,
+food, inventory and delivery state. Native diagnostics verified one-log delivery,
+a taught-name request, two-log delivery after vocabulary reload in a new process,
+crafting/delivering four planks, and crafting/delivering a wooden pickaxe.
+The plank case used 24 acknowledged resource
+actions and 28.872 seconds from request to confirmed recipient pickup.
+The pickaxe case used 37 actions and 38.886 seconds, starting with empty inventory.
+
+A separate three-log request failed after 120 actions: three actual breaks,
+two NPC inventory gains and no delivered items. No success is inferred from
+mining alone. Engineered return navigation/handoff, synthetic chat and the
+controlled fixture are disclosed separately from learned collection/crafting.
+Both Minecraft builds compile and 187 automated tests pass. These functional
+development cases do not change frozen Phase 8 or Phase 9 evaluation scores.
+[Setup, verified native results, videos and remaining limits](docs/companion_english_validation.md)

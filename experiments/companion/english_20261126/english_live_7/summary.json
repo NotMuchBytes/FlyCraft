@@ -1,0 +1,36 @@
+{
+  "environment": "controlled_companion_language_fixture",
+  "request": "FlyCraft, could you bring me a wooden pickaxe?",
+  "lesson": "",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+  "server_port": 25577,
+  "bridge_port": 8875,
+  "success": true,
+  "stop_reason": "fixture_complete",
+  "checkpoint_sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4",
+  "synthetic_chat_via_fabric_event": true,
+  "ownership_protected": true,
+  "confirmed_breaks": 3,
+  "owner_inventory": {
+    "log": 0,
+    "planks": 0,
+    "sticks": 0,
+    "crafting_table": 0,
+    "wooden_pickaxe": 1
+  },
+  "actor_inventory": {
+    "crafting_table": 0,
+    "table_placed": 0,
+    "planks": 3,
+    "sticks": 2,
+    "wooden_pickaxe": 0,
+    "log": 0
+  },
+  "received": 1,
+  "requested_count": 1,
+  "phase": "DELIVERED",
+  "reason": "",
+  "ticks": 778,
+  "checkpoint_unchanged": true,
+  "elapsed_seconds": 63.39367919997312
+}

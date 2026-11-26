@@ -66,6 +66,8 @@ public final class HeadlessAgent implements AutoCloseable {
     private long modeRevision,followCommand;
     private boolean deathReported;
     private String followStatus="paused";
+    private String resourceStatus="idle";
+    private int confirmedBreaks;
     private BlockHitResult miningHit;
     private final CameraDriver.View view=new CameraDriver.View() {
         public double yaw() { return player.getYRot(); }
@@ -179,6 +181,7 @@ public final class HeadlessAgent implements AutoCloseable {
         if(!episode.equals(next)) {
             cancel("episode_interrupted",tick); episode=next; ack=null; readyAt=tick+15;
             blockedForward=false;
+            resourceStatus="running";
             replyLossSince=-1;
             minedColumns.clear();
             camera.reset(view,episode);
@@ -234,7 +237,8 @@ public final class HeadlessAgent implements AutoCloseable {
                         rejectUnexecuted(response,"stale_response",server.getTickCount()); return;
                     }
                     if(response.has("terminal_acknowledged") && response.get("terminal_acknowledged").getAsBoolean()) terminalHandled=episode;
-                    if(!response.get("autonomy_status").getAsString().equals("running")) { stopped=episode; cancel("controller_done",server.getTickCount()); return; }
+                    resourceStatus=response.get("autonomy_status").getAsString();
+                    if(!resourceStatus.equals("running")) { stopped=episode; cancel("controller_done",server.getTickCount()); return; }
                     if(response.get("observe_only").getAsBoolean()) return;
                     try { control=JsonParser.parseString(Files.readString(controlFile)).getAsJsonObject(); }
                     catch(IOException error) { throw new IllegalStateException("Lifecycle changed before action execution",error); }
@@ -265,6 +269,58 @@ public final class HeadlessAgent implements AutoCloseable {
     public boolean ready() { return player!=null; }
     public boolean following() { return follower!=null; }
     public String companionStatus() { return followStatus; }
+    public String resourceStatus() { return resourceStatus; }
+    public void expectResource() { resourceStatus="running"; }
+    public boolean pitchEnabled() { return pitchActions; }
+    public boolean terrainEnabled() { return terrainActions; }
+    int testBreaks() { if(!CompanionSession.testHarness())throw new IllegalStateException("Test harness disabled");return confirmedBreaks; }
+    ServerPlayer testPlayer() { if(!CompanionSession.testHarness())throw new IllegalStateException("Test harness disabled");return player; }
+    public Map<String,Integer> heldItems() { return player==null ? Map.of() : Map.copyOf(inventory()); }
+    public Map<String,Object> awareness() {
+        if(player==null) return Map.of("alive",false);
+        return Map.of("alive",player.isAlive(),"health",player.getHealth(),"food",player.getFoodData().getFoodLevel(),
+            "inventory",heldItems(),"position_xyz",List.of(player.getX(),player.getY(),player.getZ()),
+            "mode",follower!=null ? followStatus : resourceStatus);
+    }
+    public void returnTo(MinecraftServer server,ServerPlayer owner) {
+        if(!Boolean.parseBoolean(properties.getProperty("companion.enabled","false")) || !alive()) throw new IllegalStateException("Living companion required");
+        stopCompanion(server.getTickCount());camera.reset(view,"companion_delivery");followCommand=0;
+        follower=new CompanionFollower(player,owner,1.1);followStatus="returning_to_requester";
+    }
+    public boolean canHandoff(ServerPlayer owner) {
+        return alive() && owner.isAlive() && owner.level()==player.level() && player.distanceTo(owner)<=1.15
+            && player.hasLineOfSight(owner);
+    }
+    public record Parcel(UUID entity,int count) { }
+    public List<Parcel> handoff(ServerPlayer owner,String item,int count) {
+        if(!Boolean.parseBoolean(properties.getProperty("companion.enabled","false")) || !canHandoff(owner)
+            || count<1 || count>16 || inventory().getOrDefault(item,0)<count) return List.of();
+        var parcels=new ArrayList<Parcel>();int remaining=count;
+        for(int slot=0;slot<player.getInventory().getContainerSize() && remaining>0;slot++) {
+            ItemStack stack=player.getInventory().getItem(slot);
+            if(!kind(stack).equals(item)) continue;
+            int amount=Math.min(remaining,stack.getCount());
+            ItemStack removed=player.getInventory().removeItem(slot,amount);
+            ItemEntity dropped=player.drop(removed,false,true);
+            if(dropped==null) { player.getInventory().placeItemBackInInventory(removed);break; }
+            // Engineered handoff: put down the existing stack at our feet,
+            // rather than throwing it past a stationary requester during the
+            // vanilla pickup delay. Subsequent gravity/pickup stay vanilla.
+            dropped.setDeltaMovement(Vec3.ZERO);
+            dropped.setTarget(owner.getUUID());parcels.add(new Parcel(dropped.getUUID(),amount));remaining-=amount;
+            event("companion_handoff_drop",Map.of("entity",dropped.getUUID().toString(),"owner",owner.getUUID().toString(),"item",item,"count",amount,
+                "assistance","engineered_zero_impulse_handoff_of_existing_inventory","inventory",inventory()));
+        }
+        player.inventoryMenu.sendAllDataToRemote();return parcels;
+    }
+    public static int itemCount(net.minecraft.world.entity.player.Player who,String item) {
+        int count=0;
+        for(int slot=0;slot<who.getInventory().getContainerSize();slot++) {
+            ItemStack stack=who.getInventory().getItem(slot);if(kind(stack).equals(item))count+=stack.getCount();
+        }
+        return count;
+    }
+    public static String itemKind(ItemStack stack) { return kind(stack); }
     public void stopCompanion(long tick) {
         modeRevision++; replyLossSince=-1; follower=null;
         if(player!=null) { cancel("companion_paused",tick); player.setJumping(false); player.setSprinting(false); }
@@ -372,7 +428,7 @@ public final class HeadlessAgent implements AutoCloseable {
         Vec3 eye=player.getEyePosition();
         Target target=null, levelLog=null;
         String goal=control.get("goal").getAsString();
-        boolean preferLevelLogs=goal.equals("three_logs") || goal.equals("wooden_pickaxe");
+        boolean preferLevelLogs=goal.equals("three_logs") || goal.equals("wooden_pickaxe") || control.has("companion_request") && goal.equals("one_log");
         for(double dy:new double[]{-40,-20,0,20,40}) for(double dp:new double[]{-30,0,30}) {
             BlockHitResult hit=lookRay(eye,dy,dp,12);
             if(rememberMinedColumns && dp!=0 && minedColumns.contains(column(hit.getBlockPos()))) continue;
@@ -649,6 +705,7 @@ public final class HeadlessAgent implements AutoCloseable {
             motion=MovementFeedback.measure(movementStart.x,movementStart.z,player.getX(),player.getZ());
             if(verifyMovement && status.equals("success") && !motion.moved()) { status="failed"; error="movement_blocked"; }
         }
+        if(changed && action.equals("COLLECT_LOG"))confirmedBreaks++;
         ack=JSON.toJsonTree(Map.of("command_id",commandId,"action",action,"status",status,"error",error,
             "block_changed",changed,"inventory_revision",inventoryRevision,"ticks",tick-actionStarted)).getAsJsonObject();
         if(motion!=null) {

@@ -741,3 +741,15 @@ the ten distinct arrangements is new. This limited fixture generator
 provides held-out-seed reliability evidence, not novel-terrain or unseen
 layout generalization.
 [Fixture overlap audit](experiments/phase9/phase8_finish_20261124/layout_overlap_one_log.json)
+
+### November 26: separate English companion diagnostic
+
+The opt-in companion can now turn a bounded English request into the existing
+inventory goal, remember explicitly taught item names per player, report its
+operational state and return existing inventory to the requester. Controlled
+native tests verified one-log and two-log delivery with actual recipient pickup;
+return navigation and zero-impulse item handoff are engineered assistance.
+The separate three-log request broke three blocks but collected only two logs
+and failed at 120 actions. These small functional tests do not alter the
+Phase 7.5 reliability scores or close the natural-exploration/pickup gap.
+[English interface validation and complete failure record](docs/companion_english_validation.md)

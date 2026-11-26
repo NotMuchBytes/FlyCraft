@@ -1,0 +1,33 @@
+{
+  "environment": "controlled_companion_language_fixture",
+  "request": "FlyCraft, get me three timber",
+  "lesson": "",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+  "server_port": 25577,
+  "bridge_port": 8875,
+  "success": false,
+  "stop_reason": "fixture_complete",
+  "checkpoint_sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4",
+  "reloaded_vocabulary_sha256": "ed7e9dbe2e7889683b2016692a2398df97a5efd949e346f4920a8a1016d82a02",
+  "synthetic_chat_via_fabric_event": true,
+  "ownership_protected": true,
+  "confirmed_breaks": 3,
+  "owner_inventory": {
+    "log": 0
+  },
+  "actor_inventory": {
+    "planks": 0,
+    "sticks": 0,
+    "wooden_pickaxe": 0,
+    "log": 2,
+    "crafting_table": 0,
+    "table_placed": 0
+  },
+  "received": 0,
+  "requested_count": 3,
+  "phase": "FAILED",
+  "reason": "collection_max_steps",
+  "ticks": 1813,
+  "checkpoint_unchanged": true,
+  "elapsed_seconds": 115.58996520005167
+}

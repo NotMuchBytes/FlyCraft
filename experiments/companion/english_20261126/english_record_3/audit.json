@@ -1,0 +1,163 @@
+{
+  "run_id": "english_record_3",
+  "native_success": true,
+  "supervisor_success": false,
+  "supervisor_stop_reason": "spectator_disconnected_before_completion",
+  "phase": "DELIVERED",
+  "reason": "",
+  "request": "FlyCraft, could you please bring me one timber?",
+  "lesson": "FlyCraft, teach timber means logs",
+  "requested_count": 1,
+  "received": 1,
+  "owner_inventory": {
+    "log": 1
+  },
+  "actor_inventory": {
+    "wooden_pickaxe": 0,
+    "sticks": 0,
+    "planks": 0,
+    "table_placed": 0,
+    "crafting_table": 0,
+    "log": 0
+  },
+  "confirmed_breaks": 1,
+  "resource_action_count": 12,
+  "resource_actions": {
+    "COLLECT_LOG": 1,
+    "LOOK_DOWN": 2,
+    "FORWARD": 4,
+    "TURN_RIGHT": 2,
+    "TURN_LEFT": 2,
+    "LOOK_UP": 1
+  },
+  "elapsed_seconds": 75.09665449988097,
+  "request_ticks": 363,
+  "request_to_delivery_seconds": 18.153,
+  "actual_pickup_receipts": [
+    {
+      "event": "pickup_confirmed",
+      "wall_time_unix_ms": 1795711253817,
+      "data": {
+        "inventory_before": 0,
+        "recipient": "33f32b97-2460-390a-a14e-d302f3ca7e28",
+        "inventory_after": 1,
+        "units": 1,
+        "entity": "4f844731-73bc-44d6-8ba3-cb41f7e40196"
+      },
+      "order_id": "eb40056f-c69f-4fba-a7bc-cc6798697766",
+      "owner": "33f32b97-2460-390a-a14e-d302f3ca7e28",
+      "item": "log",
+      "requested_count": 1,
+      "phase": "DELIVERED"
+    }
+  ],
+  "checkpoint_unchanged": true,
+  "video": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 941,
+    "duration_seconds": 31.4,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "942"
+    },
+    "bytes": 10482797,
+    "sha256": "2d091a3bac3e42e52df8b2bd2a323f4dc13b448ffa0cfa9ecf5c92a2d87fba0c",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-26 19-40-26.mp4",
+    "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_English_Teaching_Delivery_Fresh3_20261126.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ]
+  },
+  "capture_proof": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.012193627450980392,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\capture-game.png",
+    "game_frame_sha256": "f994860b2d267f1972867868e56ee05188a08a62e915a2d9c018a5bf8d5e8db8",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\capture-obs.png",
+    "obs_frame_sha256": "d70350e70de86f9858c7ec2abea0e1e10acf193be4b7fb9f85cc0e2833cd4769",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "files": [
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\summary.json",
+      "relative_path": "summary.json",
+      "bytes": 2725,
+      "sha256": "9d02fe2866790e7b4c034eed5e30e96d985a9086db17eb459398b8d089a77287"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\fixture.json",
+      "relative_path": "fixture.json",
+      "bytes": 367,
+      "sha256": "c2dc34e3d17cf3aa3fc8f6618e94ac57634b692ed204e4e1dbf4a0515df53298"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\orders.jsonl",
+      "relative_path": "orders.jsonl",
+      "bytes": 1768,
+      "sha256": "bb72d850a1769eb52c78eb650938b611b906714bc1c65529da75c0a2f819c29d"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\learned_item_names.properties",
+      "relative_path": "learned_item_names.properties",
+      "bytes": 141,
+      "sha256": "ed7e9dbe2e7889683b2016692a2398df97a5efd949e346f4920a8a1016d82a02"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\source_manifest.json",
+      "relative_path": "source_manifest.json",
+      "bytes": 14158,
+      "sha256": "2d299d750a1b8e265d8bd401388f05725da333fea67cde81a8ebacf311047ec5"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\server.log",
+      "relative_path": "server.log",
+      "bytes": 8059,
+      "sha256": "d23354197d2fa6481fa8aabb0c4d03a171ad92081afc65e2c61aae8d9a6655d7"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\client.log",
+      "relative_path": "client.log",
+      "bytes": 10755,
+      "sha256": "ec86adf3b50ab7f15ca4ac704f65b2f9ac216ca63dcf569950d2e6a6d364d1a2"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\capture-game.png",
+      "relative_path": "capture-game.png",
+      "bytes": 340783,
+      "sha256": "f994860b2d267f1972867868e56ee05188a08a62e915a2d9c018a5bf8d5e8db8"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\capture-obs.png",
+      "relative_path": "capture-obs.png",
+      "bytes": 783519,
+      "sha256": "d70350e70de86f9858c7ec2abea0e1e10acf193be4b7fb9f85cc0e2833cd4769"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\headless.1795711209966.jsonl",
+      "relative_path": "headless.1795711209966.jsonl",
+      "bytes": 18524,
+      "sha256": "ca250a295c2d61a8db23d595b8232bc5bea84a8907d270502bb28c1016261bc8"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\session_1795711209946\\bridge.jsonl",
+      "relative_path": "session_1795711209946/bridge.jsonl",
+      "bytes": 30413,
+      "sha256": "27d92d0d4955045db774613de6be71437d60d36538abd7ea5280f1844c76cc4b"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\session_1795711209946\\controller.jsonl",
+      "relative_path": "session_1795711209946/controller.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "supervisor_audit": "Native fixture and UUID/inventory pickup receipts passed. The old runner incorrectly classified the normal post-result server disconnect as pre-completion. Original summary retained unchanged; runner fixed for later attempts."
+}

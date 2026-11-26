@@ -164,6 +164,15 @@ The new [checked development supervisor](https://github.com/NotMuchBytes/FlyCraf
 
 The companion has separate version/build instructions. Its engineered follow mode and interactive demonstrations remain separate from autonomous scores. The connectome supplies structural connectivity and annotations; the project documents its additional neural dynamics and control assumptions.
 
+The companion also accepts English requests such as `FlyCraft, get me 3 logs`
+or `/flycraft say bring me a wooden pickaxe`. Teach a name with
+`FlyCraft, teach timber means logs`, then request `FlyCraft, get me 2 timber`.
+It tracks the requester, task, health and inventory, returns using companion
+navigation and confirms delivery through actual Minecraft pickup. This is a
+bounded, teachable command interface for the existing wood skills. See
+[English setup and limits](docs/companion_play.md#english-requests-and-taught-names)
+and [live validation](docs/companion_english_validation.md).
+
 ## Troubleshooting
 
 | Problem | What to check |

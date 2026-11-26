@@ -120,6 +120,7 @@ class LiveResourceController:
         self.episode_id = None
         self.episode_transport_id = None
         self.condition = "trained"
+        self.companion_count = None
         self.pending_id = None
         self.pending_transport_id = None
         self.command_id = 0
@@ -134,6 +135,7 @@ class LiveResourceController:
         _, metadata = LinearSoftmaxPolicy.load(checkpoint)
         state = metadata["extra"].get("extension", {}).get("phase8")
         if state and self.agent.session and not self.agent.session["done"]:
+            self.companion_count = self.agent.session.get("target_count")
             self.episode_id, self.pending_id = state["episode_id"], state["pending_id"]
             self.pending_transport_id = state.get("pending_transport_id")
             self.episode_transport_id = state.get("episode_transport_id", self.pending_transport_id)
@@ -195,6 +197,10 @@ class LiveResourceController:
                     return self._reply("NO_OP", 0, started, observe_only=True)
                 control = latest
             terminal = control.get("terminal")
+            count = control.get("requested_count")
+            if count is not None and (control.get("companion_request") is not True or control.get("train") is not False
+                                      or type(count) is not int or not 1 <= count <= 16 or control["goal"]=="camera_probe"):
+                raise ValueError("item counts require an explicit non-training companion request, from 1 to 16")
             episode = str(control["episode_id"])
             if not episode or any(char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for char in episode):
                 raise ValueError("invalid episode identity")
@@ -214,6 +220,8 @@ class LiveResourceController:
             if tick <= self.last_tick and episode == self.episode_id:
                 raise ValueError("stale or duplicate observation")
             new_episode = episode != self.episode_id
+            if not new_episode and count != self.companion_count:
+                raise ValueError("cannot change an in-flight requested count")
             if new_episode:
                 self._abort("minecraft_episode_interrupted")
                 self._record()
@@ -229,6 +237,7 @@ class LiveResourceController:
                 self.pending_id, self.inventory_waits, self.ack_waits = None, 0, 0
                 self.started = started
                 self.needs_start = True
+                self.companion_count = count
             ack = request.get("ack")
             if self.pending_id is not None and (not ack or int(ack["command_id"]) < self.pending_id):
                 ack = self._reconcile_lost_reply(request.get("reply_loss"), tick, world_id, transport_id) or ack
@@ -310,7 +319,7 @@ class LiveResourceController:
                 return self._reply("NO_OP", 0, started, observe_only=True)
             actions = self.agent.policy.actions
             allowed_actions = [action for action in telemetry["allowed_actions"] if action in actions]
-            if control["goal"] == "three_logs":
+            if control["goal"] == "three_logs" or control.get("companion_request") and control["goal"] == "one_log":
                 # This objective needs logs in inventory. Recipes can consume them.
                 allowed_actions = [action for action in allowed_actions if action not in CRAFT_ACTIONS]
             observation = {"world_id": world_id, "position": position,
@@ -331,7 +340,7 @@ class LiveResourceController:
                 observation["interrupted"] = False
             if self.needs_start or self.agent.session is None:
                 self.agent.start(OBJECTIVES[control["goal"]], observation,
-                                 train=bool(control.get("train", False)) and self.condition == "trained")
+                                 train=bool(control.get("train", False)) and self.condition == "trained", target_count=count)
                 self.needs_start = False
             elif not terminal and self.pending_id is not None and ack.get("status") == "not_executed":
                 if ack.get("action") != actions[self.agent.pending[1]]:

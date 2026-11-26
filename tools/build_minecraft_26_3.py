@@ -33,6 +33,14 @@ def main():
             "new ServerboundAcceptTeleportationPacket(position.id(), player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot())")
     replace(headless, "player.swing(net.minecraft.world.InteractionHand.MAIN_HAND);",
             "player.swing(net.minecraft.world.InteractionHand.MAIN_HAND, net.minecraft.world.item.component.SwingAnimation.DEFAULT, true);")
+    replace(headless, "player.drop(removed,false,true)",
+            "player.drop(removed,false,net.minecraft.util.Prediction.SERVER_ONLY)")
+    for stack in ("removed", "remaining"):
+        replace(headless, f"placeItemBackInInventory({stack})",
+                f"placeItemBackInInventory({stack},net.minecraft.util.Prediction.SERVER_ONLY)")
+    replace(target / "src/main/java/org/flycraft/bridge/EnglishOrderHarness.java",
+            "new ServerboundAcceptTeleportationPacket(pos.id())",
+            "new ServerboundAcceptTeleportationPacket(pos.id(), getX(), getY(), getZ(), getYRot(), getXRot())")
     replace(target / "src/client/java/org/flycraft/bridge/client/Phase8Client.java",
             "client.player.swing(InteractionHand.MAIN_HAND);",
             "client.player.swing(InteractionHand.MAIN_HAND, net.minecraft.world.item.component.SwingAnimation.DEFAULT, true);")

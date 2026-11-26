@@ -44,6 +44,7 @@ camera.mode=bounded
 camera.turnDegrees=15
 motor.forwardTicks=2
 motor.verifyMovement=true
+camera.pitchActions=true
 ```
 
 The companion only spawns in singleplayer when the world's display name exactly
@@ -64,6 +65,49 @@ after loading if needed.
 - `/flycraft stop` cancels the NPC's movement, mining and turning, making it stay.
 - `/flycraft respawn` explicitly recovers a dead NPC. Follow also requests this
   recovery if the NPC is dead; a living NPC is not teleported by this command.
+
+## English requests and taught names
+
+With the English-orders build installed, address the NPC in Minecraft chat:
+
+```text
+FlyCraft, get me 3 logs
+FlyCraft, could you please bring me a wooden pickaxe?
+FlyCraft, make me 4 planks
+FlyCraft, follow me
+FlyCraft, what do you have?
+FlyCraft, stop
+```
+
+`/flycraft say get me 3 logs` provides the same interface without the name prefix.
+It currently accepts quantities from 1 to 16 for generic logs/wood, planks,
+sticks, crafting tables/workbenches and wooden pickaxes. Specific wood species
+and other items are rejected explicitly. Larger quantities can exceed the
+existing policy's action/time budget; accepting a request does not guarantee
+completion. Use a pitch-enabled checkpoint with `camera.pitchActions=true`.
+
+Teach an additional name with `FlyCraft, teach timber means logs`, then say
+`FlyCraft, get me 2 timber`. Names are saved per requesting player's UUID in
+`learned_item_names.properties` beside `control.json`, including across restarts.
+This is explicit vocabulary learning through a bounded grammar; it does not
+train a general English model or change the sparse brain.
+
+The NPC remembers who requested the task and reports collecting, returning,
+delivery, failure, health, food and its own inventory. Another player's stop
+or replacement request cannot take over an active task. The requester can
+cancel or ask for status. Collection/crafting actions remain policy-selected.
+Returning uses the separately engineered companion navigation described below.
+Handoff removes existing NPC inventory and drops ordinary Minecraft items for
+the requester, with the initial throw velocity set to zero so they fall at
+the NPC's feet rather than flying past the requester during the pickup delay.
+This is engineered delivery assistance; gravity and pickup remain vanilla.
+Success requires a native pickup event and the requester's
+matching inventory increase; dropping an item alone is not delivery.
+
+`orders.jsonl` records accepted requests, taught words, task transitions and
+pickup receipts. Each brain session retains separate native/controller logs.
+Unsupported requests, death, an unavailable requester and timeouts are reported
+as failures. This operational task awareness is not a claim of consciousness.
 
 Following uses the owner's server position and the server collision map via
 vanilla navigation with an unspawned player-sized probe. These are privileged

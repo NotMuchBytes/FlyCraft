@@ -1,0 +1,54 @@
+{
+  "environment": "controlled_companion_language_fixture",
+  "request": "FlyCraft, could you please bring me one timber?",
+  "lesson": "FlyCraft, teach timber means logs",
+  "checkpoint": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase8\\finish_20261123\\progress_readout_mining.npz",
+  "server_port": 25577,
+  "bridge_port": 8875,
+  "success": false,
+  "stop_reason": "spectator_disconnected_before_completion",
+  "checkpoint_sha256": "0dc48b845f66029cd5c5855e1835713a8c0dd6577b1c4901ffa388e0f34f38a4",
+  "capture_profile": {
+    "collection": "FlyCraft Background",
+    "window_capture": "Minecraft only",
+    "desktop_capture": false,
+    "audio_capture": false
+  },
+  "capture_proof": {
+    "matched": true,
+    "mean_absolute_rgb_error": 0.012193627450980392,
+    "threshold": 0.1,
+    "game_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\capture-game.png",
+    "game_frame_sha256": "f994860b2d267f1972867868e56ee05188a08a62e915a2d9c018a5bf8d5e8db8",
+    "obs_frame": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_record_3\\capture-obs.png",
+    "obs_frame_sha256": "d70350e70de86f9858c7ec2abea0e1e10acf193be4b7fb9f85cc0e2833cd4769",
+    "method": "32x18 area-downsampled RGB comparison of independently captured real frames"
+  },
+  "graphics_device": "[19:40:25] [Render thread/INFO] (Minecraft) Using graphics device: NVIDIA GeForce RTX 4050 Laptop GPU/PCIe/SSE2 (NVIDIA Corporation)",
+  "video_verification": {
+    "playable_verified": true,
+    "full_decode_verified": true,
+    "decoded_frames": 941,
+    "duration_seconds": 31.4,
+    "video_stream": {
+      "index": 0,
+      "codec_name": "h264",
+      "codec_type": "video",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "30/1",
+      "nb_frames": "942"
+    },
+    "bytes": 10482797,
+    "sha256": "2d091a3bac3e42e52df8b2bd2a323f4dc13b448ffa0cfa9ecf5c92a2d87fba0c",
+    "source": "C:\\Users\\anass\\Documents\\Codex\\2026-10-27\\files-pasted-by-the-user-flycraft\\outputs\\2026-11-26 19-40-26.mp4",
+    "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_English_Teaching_Delivery_Fresh3_20261126.mp4",
+    "recovery": "none",
+    "verification_attempts": [
+      "verified_original"
+    ]
+  },
+  "video_path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_English_Teaching_Delivery_Fresh3_20261126.mp4",
+  "checkpoint_unchanged": true,
+  "elapsed_seconds": 75.09665449988097
+}

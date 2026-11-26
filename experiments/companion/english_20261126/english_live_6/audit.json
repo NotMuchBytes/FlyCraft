@@ -1,0 +1,111 @@
+{
+  "run_id": "english_live_6",
+  "native_success": true,
+  "supervisor_success": true,
+  "supervisor_stop_reason": "fixture_complete",
+  "phase": "DELIVERED",
+  "reason": "",
+  "request": "FlyCraft, please make me four planks",
+  "lesson": "",
+  "requested_count": 4,
+  "received": 4,
+  "owner_inventory": {
+    "log": 0,
+    "planks": 4,
+    "sticks": 0,
+    "crafting_table": 0,
+    "wooden_pickaxe": 0
+  },
+  "actor_inventory": {
+    "wooden_pickaxe": 0,
+    "sticks": 0,
+    "planks": 0,
+    "table_placed": 0,
+    "crafting_table": 0,
+    "log": 0
+  },
+  "confirmed_breaks": 2,
+  "resource_action_count": 24,
+  "resource_actions": {
+    "COLLECT_LOG": 2,
+    "LOOK_UP": 6,
+    "TURN_LEFT": 8,
+    "FORWARD": 3,
+    "TURN_RIGHT": 4,
+    "CRAFT_PLANKS": 1
+  },
+  "elapsed_seconds": 53.656824900070205,
+  "request_ticks": 578,
+  "request_to_delivery_seconds": 28.872,
+  "actual_pickup_receipts": [
+    {
+      "event": "pickup_confirmed",
+      "wall_time_unix_ms": 1795711594400,
+      "data": {
+        "inventory_before": 0,
+        "recipient": "33f32b97-2460-390a-a14e-d302f3ca7e28",
+        "inventory_after": 4,
+        "units": 4,
+        "entity": "619f144b-e058-4e6c-8cf9-2b37001573f5"
+      },
+      "order_id": "16c2ad81-6003-4bfe-8a0e-83c75d249a99",
+      "owner": "33f32b97-2460-390a-a14e-d302f3ca7e28",
+      "item": "planks",
+      "requested_count": 4,
+      "phase": "DELIVERED"
+    }
+  ],
+  "checkpoint_unchanged": true,
+  "video": null,
+  "capture_proof": null,
+  "files": [
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_6\\summary.json",
+      "relative_path": "summary.json",
+      "bytes": 1024,
+      "sha256": "1764641eb33de9956fcf43246fa8eab01d65ed721610964bcdeee53d5b926928"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_6\\fixture.json",
+      "relative_path": "fixture.json",
+      "bytes": 427,
+      "sha256": "cc9d98e2c425912e019e8bd8eaa7852a436177fa4f750382b1ee83c7a609c7ed"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_6\\orders.jsonl",
+      "relative_path": "orders.jsonl",
+      "bytes": 1631,
+      "sha256": "cea5d67a99cf8ae28ff548e205edf831f861bdd362613e96f27eecbfe7d7efba"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_6\\source_manifest.json",
+      "relative_path": "source_manifest.json",
+      "bytes": 14158,
+      "sha256": "727257f22b0728c94c6b4d19f4f83a52b6f6858b203288287b56bf8fb2f4ac7a"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_6\\server.log",
+      "relative_path": "server.log",
+      "bytes": 7723,
+      "sha256": "e950b5f51ef8305e04f4bca349edd518c95f908d5c2da9877c281c6bec9b3ba8"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_6\\headless.1795711565278.jsonl",
+      "relative_path": "headless.1795711565278.jsonl",
+      "bytes": 22576,
+      "sha256": "846c145aeac9f04fb00385f18a375f49994ccf86f86b24afd72ea2d694bb4ead"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_6\\session_1795711565255\\bridge.jsonl",
+      "relative_path": "session_1795711565255/bridge.jsonl",
+      "bytes": 55623,
+      "sha256": "2e7b7e33c9fb3a8fa20f61e8a360d52c462c26b74dfe2c529a80d3a638d97463"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_6\\session_1795711565255\\controller.jsonl",
+      "relative_path": "session_1795711565255/controller.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

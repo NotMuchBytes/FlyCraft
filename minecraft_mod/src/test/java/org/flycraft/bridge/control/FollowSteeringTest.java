@@ -12,6 +12,9 @@ public final class FollowSteeringTest {
         check(!choose(2,false,0,0,0,0,10,false,true).forward(),"respect owner spacing");
         check(choose(3.4,true,0,0,0,0,10,false,true).arrived(),"arrival hysteresis prevents start/stop jitter");
         check(!choose(3.6,true,0,0,0,0,10,false,true).arrived(),"resume after owner moves away");
+        var deliveryInput=new FollowSteering.Input(0,0,0,0,0,0,2,1.75,false,true,false,false,true);
+        check(FollowSteering.choose(deliveryInput,1.1,1.5).forward(),"delivery closes the last gap before dropping items");
+        check(!FollowSteering.choose(deliveryInput).forward(),"ordinary following keeps its original spacing");
         check(!choose(10,false,5,1,0,0,10,false,true).forward(),"do not walk off a large drop");
         check(choose(10,false,0,1,0,0,1,false,true).jump(),"jump up a path step");
         check(choose(10,false,0,0,0,0,1,true,false).jump(),"surface even while waiting for a water route");

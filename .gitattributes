@@ -7,4 +7,7 @@ recordings/phase9/youtube/fc9_stage25_terrain_00001.json -text whitespace=cr-at-
 experiments/phase9/terrain25_natural_interface_*/** -text whitespace=cr-at-eol
 recordings/phase9/youtube/fc9_stage25_terrain_00012.json -text whitespace=cr-at-eol
 experiments/phase9/autostart26_operations/** -text whitespace=cr-at-eol
+experiments/companion/english_20261126/** -text whitespace=cr-at-eol
+# Captured Gradle output includes a literal space at the end of its daemon message.
+experiments/companion/english_20261126/*.txt -text whitespace=cr-at-eol,-blank-at-eol
 recordings/phase9/youtube/fc9_stage25_terrain_00062.json -text whitespace=cr-at-eol

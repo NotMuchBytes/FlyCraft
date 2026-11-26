@@ -18,7 +18,9 @@ RECIPES = {
 
 
 class SubgoalPlanner:
-    def plan(self, objective: str, observation: dict) -> GoalManager:
+    def plan(self, objective: str, observation: dict, *, target_count: int | None = None) -> GoalManager:
+        if target_count is not None and (type(target_count) is not int or not 1 <= target_count <= 16 or objective == "navigate_object"):
+            raise ValueError("requested item count must be an integer from 1 to 16")
         if objective not in GOALS + ("craft_sticks", "craft_table"):
             raise ValueError(f"unsupported goal: {objective}")
         nodes = []
@@ -40,6 +42,8 @@ class SubgoalPlanner:
                         "collect_multiple": ("log", 3), "craft_simple": ("planks", 4),
                         "wooden_pickaxe": ("wooden_pickaxe", 1), "craft_sticks": ("sticks", 4),
                         "craft_table": ("crafting_table", 1)}[objective]
+        if target_count is not None:
+            amount = target_count
         available = defaultdict(int, observation["inventory"])
         production = defaultdict(int, observation["produced"])
 

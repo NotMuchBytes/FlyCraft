@@ -1,0 +1,116 @@
+{
+  "run_id": "english_live_7",
+  "native_success": true,
+  "supervisor_success": true,
+  "supervisor_stop_reason": "fixture_complete",
+  "phase": "DELIVERED",
+  "reason": "",
+  "request": "FlyCraft, could you bring me a wooden pickaxe?",
+  "lesson": "",
+  "requested_count": 1,
+  "received": 1,
+  "owner_inventory": {
+    "log": 0,
+    "planks": 0,
+    "sticks": 0,
+    "crafting_table": 0,
+    "wooden_pickaxe": 1
+  },
+  "actor_inventory": {
+    "crafting_table": 0,
+    "table_placed": 0,
+    "planks": 3,
+    "sticks": 2,
+    "wooden_pickaxe": 0,
+    "log": 0
+  },
+  "confirmed_breaks": 3,
+  "resource_action_count": 37,
+  "resource_actions": {
+    "COLLECT_LOG": 3,
+    "TURN_RIGHT": 3,
+    "LOOK_DOWN": 8,
+    "FORWARD": 6,
+    "LOOK_UP": 5,
+    "CRAFT_PLANKS": 3,
+    "TURN_LEFT": 5,
+    "CRAFT_STICKS": 1,
+    "CRAFT_TABLE": 1,
+    "PLACE_TABLE": 1,
+    "CRAFT_PICKAXE": 1
+  },
+  "elapsed_seconds": 63.39367919997312,
+  "request_ticks": 778,
+  "request_to_delivery_seconds": 38.886,
+  "actual_pickup_receipts": [
+    {
+      "event": "pickup_confirmed",
+      "wall_time_unix_ms": 1795711686414,
+      "data": {
+        "units": 1,
+        "inventory_after": 1,
+        "recipient": "33f32b97-2460-390a-a14e-d302f3ca7e28",
+        "inventory_before": 0,
+        "entity": "91b3bc46-e91a-4400-aef9-06067f28173b"
+      },
+      "order_id": "1c320787-e458-413f-a0fa-e7bf4c54786f",
+      "owner": "33f32b97-2460-390a-a14e-d302f3ca7e28",
+      "item": "wooden_pickaxe",
+      "requested_count": 1,
+      "phase": "DELIVERED"
+    }
+  ],
+  "checkpoint_unchanged": true,
+  "video": null,
+  "capture_proof": null,
+  "files": [
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_7\\summary.json",
+      "relative_path": "summary.json",
+      "bytes": 1033,
+      "sha256": "8736cee1d645e10f575935ed8c436eb3ff53de13f594a7ce5155c7fadf7925dc"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_7\\fixture.json",
+      "relative_path": "fixture.json",
+      "bytes": 427,
+      "sha256": "215783e0fe9a206dbc2fc9743ec48e09b9f03efa1d5157d794a9e136674eb18b"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_7\\orders.jsonl",
+      "relative_path": "orders.jsonl",
+      "bytes": 1697,
+      "sha256": "69273e4f9c31ed1e35fe6c07082ac390a859130bb797ae6aaf172026efe42958"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_7\\source_manifest.json",
+      "relative_path": "source_manifest.json",
+      "bytes": 14158,
+      "sha256": "727257f22b0728c94c6b4d19f4f83a52b6f6858b203288287b56bf8fb2f4ac7a"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_7\\server.log",
+      "relative_path": "server.log",
+      "bytes": 7733,
+      "sha256": "cf1d16bbbfb0730b0cae525ee63961e58b2d8a9097af2c8a2d365eca742368d4"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_7\\headless.1795711647058.jsonl",
+      "relative_path": "headless.1795711647058.jsonl",
+      "bytes": 44159,
+      "sha256": "93c9a34411c60967c6ef1b94491057ce2bfc23987310d133330f567801ed1852"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_7\\session_1795711647037\\bridge.jsonl",
+      "relative_path": "session_1795711647037/bridge.jsonl",
+      "bytes": 91445,
+      "sha256": "6a123f2629f48904fa90a8417c2afc76b1a2b148bf2ec146de505447f03814f7"
+    },
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_7\\session_1795711647037\\controller.jsonl",
+      "relative_path": "session_1795711647037/controller.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

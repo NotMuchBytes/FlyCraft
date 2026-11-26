@@ -1,0 +1,32 @@
+{
+  "run_id": "english_live_3",
+  "native_success": false,
+  "supervisor_success": false,
+  "supervisor_stop_reason": "port_in_use_25577",
+  "phase": null,
+  "reason": null,
+  "request": "FlyCraft, get me one log",
+  "lesson": "",
+  "requested_count": null,
+  "received": null,
+  "owner_inventory": null,
+  "actor_inventory": null,
+  "confirmed_breaks": null,
+  "resource_action_count": 0,
+  "resource_actions": {},
+  "elapsed_seconds": 0.0010444000363349915,
+  "request_ticks": null,
+  "request_to_delivery_seconds": null,
+  "actual_pickup_receipts": [],
+  "checkpoint_unchanged": null,
+  "video": null,
+  "capture_proof": null,
+  "files": [
+    {
+      "source": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\english_live_3\\summary.json",
+      "relative_path": "summary.json",
+      "bytes": 400,
+      "sha256": "1f33e52fde7dfbfcfec8bfdaedb68fd242bbd7e43db8ff16f7816178cf9ff6b7"
+    }
+  ]
+}

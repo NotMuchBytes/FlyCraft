@@ -1,0 +1,14 @@
+{
+  "26.2": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_English_26.2_20261126.jar",
+    "sha256": "e603512c8155e24fb1271dd1de557ce7668c2068a45be53250e685adbb2221eb",
+    "bytes": 209436
+  },
+  "26.3": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\outputs\\FlyCraft_English_26.3_20261126.jar",
+    "sha256": "ec01859de022b95c1470fe6268a183497d72aae15607e6067be3546d285089d8",
+    "bytes": 208645
+  },
+  "latest_live_source_matches": true,
+  "implementation_sha256": "af2ebeb4f33c766f0d66ba2db4f225e614a4048baccf89e4ddab1cb3397df679"
+}

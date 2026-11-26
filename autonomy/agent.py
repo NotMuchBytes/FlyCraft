@@ -86,11 +86,13 @@ class AutonomousAgent:
         self.policy.weights[PITCH_FEATURE_COUNT + 2, -1] = -math.log(4)
         self.trajectory = []
 
-    def start(self, objective: str, observation: dict, *, train: bool = False, world_seed: int = 0) -> None:
+    def start(self, objective: str, observation: dict, *, train: bool = False, world_seed: int = 0,
+              target_count: int | None = None) -> None:
         if self.session is not None and not self.session["done"]:
             raise RuntimeError("finish the active goal before starting another")
+        manager = self.planner.plan(objective, observation, target_count=target_count)
         self.memory.begin(observation)
-        self.manager = self.planner.plan(objective, observation)
+        self.manager = manager
         self.manager.update(observation)
         self.recovery = Recovery(self.config.stagnation_limit, self.config.repeat_limit, self.config.max_recoveries)
         self.trajectory, self.pending = [], None
@@ -100,6 +102,8 @@ class AutonomousAgent:
                         "subgoals": len(self.manager.goals) - 1,
                         "subgoals_complete": sum(g.status == "complete" for g in self.manager.goals.values() if g.id != "root"),
                         "elapsed_seconds": 0.0, "update": {"weight_delta_norm": 0.0, "gradient_norm": 0.0}}
+        if target_count is not None:
+            self.session["target_count"] = target_count
         if self.policy.actions == TERRAIN_ACTIONS:
             self.session["exploration_cells"] = [f"{math.floor(observation['position'][0]/2)},{math.floor(observation['position'][1]/2)}"]
         if self.manager.success:
@@ -224,7 +228,7 @@ class AutonomousAgent:
             self._finish(success, "success" if success else reason)
 
     def _replan(self, observation: dict) -> None:
-        self.manager = self.planner.plan(self.session["goal"], observation)
+        self.manager = self.planner.plan(self.session["goal"], observation, target_count=self.session.get("target_count"))
         self.manager.update(observation)
         self.session["subgoals"] += len(self.manager.goals) - 1
         self.session["subgoals_complete"] += sum(g.status == "complete" for g in self.manager.goals.values() if g.id != "root")
