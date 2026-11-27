@@ -1,0 +1,84 @@
+{
+  "created_unix": 1795792124.354856,
+  "authorization": "User: carry on, after stage_gate_failed status, 2026-11-27",
+  "repair": {
+    "training_worlds": 96,
+    "training_schedule": [
+      "primary",
+      "primary",
+      "retention_one_log",
+      "primary",
+      "primary",
+      "retention_three_logs",
+      "primary",
+      "primary",
+      "retention_planks",
+      "primary",
+      "primary",
+      "retention_wooden_pickaxe"
+    ],
+    "evaluation_catalog": "repair_terrain_2",
+    "authorization": "User: carry on, after stage_gate_failed status, 2026-11-27",
+    "authorized_date": "2026-11-27",
+    "rationale": "Practice the seen-but-unmined terrain failures while rehearsing all retained skills; previous one-log-heavy repair restored retention but did not pass terrain.",
+    "predeclared_training_mix": {
+      "primary": 64,
+      "retention_one_log": 8,
+      "retention_three_logs": 8,
+      "retention_planks": 8,
+      "retention_wooden_pickaxe": 8
+    },
+    "evaluation_episodes": 270,
+    "automatic_gate_bypass": false
+  },
+  "previous_gate": {
+    "complete": true,
+    "primary_successes": {
+      "trained": 19,
+      "frozen": 12,
+      "uniform": 0,
+      "no_neural": 0,
+      "shuffled": 13
+    },
+    "retention_successes": {
+      "one_log": 26,
+      "three_logs": 27,
+      "planks": 21,
+      "wooden_pickaxe": 25
+    },
+    "trials_per_condition": 30,
+    "minimum_successes": 24,
+    "retention_minimums": {
+      "one_log": 24,
+      "three_logs": 21,
+      "planks": 21,
+      "wooden_pickaxe": 15
+    },
+    "passed": false
+  },
+  "preserved_files": {
+    "config.json": "77369890361935761e6684e13922e99186df618d6135662441c2738f56acae17",
+    "state.json": "595b510c8e496ab287ae6d98b0aaddda6f99e50f428f88dd7385982bdff4ee91",
+    "summary.json": "11562c43573df07bc7639aa121fee102a5ce6e99b36d4bffa95e3ff012e54802",
+    "source_manifest.json": "c7b932a428f4beda88ff41f3b606642a0880bcbd5eb81edded1ee33fdf64ada2",
+    "seeds.json": "93bd4383d20294ff0b1fee228aaedff00838c77d5869c3dac95509ee7e775bb6",
+    "executor.json": "8cbc99ccfe2c5ff2f035c48d5b81b333c7e4bd77fca6282b0e0e85e0a1679688"
+  },
+  "archive": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\recovery27_operations\\before_round2_at434",
+  "graph": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\data\\processed\\connectome_raw_csr.npz",
+    "sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d"
+  },
+  "checkpoint_before": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00366\\trial_0000.npz",
+    "sha256": "795281b35f1e0ee0e04fe818e41b0ca9cd82e9212fee9ac9d084305dfd916828"
+  },
+  "implementation_sha256": "bb23a1bb328bdf7dee4676f7318a95a69efeedecf0cad5020872f1bb9389868b",
+  "actor_reward_interface_changed": false,
+  "thresholds_changed": false,
+  "training_catalog_unchanged": true,
+  "fresh_evaluation_seeds_disjoint": true,
+  "final_evaluation_untouched": true,
+  "worlds_before": 434,
+  "maximum_worlds_after_round": 530
+}

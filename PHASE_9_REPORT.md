@@ -673,3 +673,23 @@ terrain, with the same assistance disclosures and inventory-based scoring.
 See `docs/phase9_architecture.md`, `docs/phase9_training.md`,
 `docs/phase9_recording.md` and `docs/phase9_evaluation.md` for the current
 implementation boundaries.
+
+## November 27: verified failed gate and bounded continuation
+
+The completed terrain retention-repair evaluation scored 19/30 trained,
+12/30 frozen transfer, 0/30 uniform, 0/30 no-neural and 13/30 shuffled-neural.
+Wood retention scored 26/30 one log, 27/30 three logs, 21/30 planks and 25/30
+wooden pickaxe. All wood thresholds passed; terrain missed its unchanged
+24/30 threshold, so progression stopped. There were 434 authorized training
+worlds including the 338-world foundation, and 540 separate stage evaluation
+episodes. The previous 25/30 primary score used a different seed catalog;
+the frozen-control score also fell, so the raw difference is not a direct
+measure of forgetting.
+
+On the user's "carry on" instruction, the failed gate and all evidence were
+archived. A predeclared 96-world joint terrain/wood rehearsal round was
+installed, followed by a locked candidate and 270 fresh evaluation episodes.
+The original graph, actor, reward, policy interface, training-seed order,
+thresholds, original final evaluation and live resource guards are preserved.
+The campaign implementation's 183-test baseline passes.
+[Failure diagnosis, archived gate and frozen continuation protocol](experiments/phase9/recovery27_operations/README.md)
