@@ -1,0 +1,127 @@
+{
+  "run_id": "fc9_stage25_terrain_00637",
+  "official_world_number": 435,
+  "independent_checker_verified": true,
+  "success": true,
+  "native_block_breaks": 1,
+  "terminal_inventory": {
+    "log": 1,
+    "planks": 0,
+    "sticks": 0,
+    "crafting_table": 0,
+    "wooden_pickaxe": 0
+  },
+  "actions": 72,
+  "wall_seconds": 93.99439330003224,
+  "checkpoint_before": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00366\\trial_0000.npz",
+    "sha256": "795281b35f1e0ee0e04fe818e41b0ca9cd82e9212fee9ac9d084305dfd916828"
+  },
+  "checkpoint_after": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00637\\trial_0000.npz",
+    "sha256": "1aeb0b7665896c9b9dbe2f5ffe611977d10a1b1bfb7ca91bc7d4e10c35757739"
+  },
+  "measured_weight_delta_norm": 0.011433638415420014,
+  "reported_update": {
+    "gradient_norm": 0.22867276830839994,
+    "baseline": 7.847487783732229,
+    "weight_delta_norm": 0.011433638415420014,
+    "return_variance": 1.107009950112351
+  },
+  "graph": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\data\\processed\\connectome_raw_csr.npz",
+    "sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d"
+  },
+  "graph_unchanged": true,
+  "implementation_sha256": "bb23a1bb328bdf7dee4676f7318a95a69efeedecf0cad5020872f1bb9389868b",
+  "episode": {
+    "split": "training",
+    "condition": "trained",
+    "goal": "one_log",
+    "retention": false,
+    "number": 637,
+    "episode_number": 435,
+    "run_id": "fc9_stage25_terrain_00637",
+    "curriculum_stage": "terrain",
+    "curriculum_round": 2,
+    "profile": {
+      "server_heap_mib": 384,
+      "client_heap_mib": 512,
+      "width": 854,
+      "height": 480,
+      "pitch_actions": true,
+      "terrain_actions": true,
+      "turn_degrees": 15,
+      "forward_ticks": 8,
+      "trial_ticks": 1200,
+      "three_tree_fixture": false,
+      "remember_mined_columns": false,
+      "terrain_step_fixture": true,
+      "natural_world": false,
+      "launch_cache": {
+        "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\.runtime\\terrain_cache_v5\\manifest.json",
+        "sha256": "cbfd059a79402003139aa01e4dd427b7e6fd185cacc9a7439e8a77b62870125b"
+      }
+    },
+    "world_seed": 9059242167374902686,
+    "layout_seed": 9059242167374902686,
+    "policy_seed": 19097,
+    "train": true,
+    "checkpoint": {
+      "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00366\\trial_0000.npz",
+      "sha256": "795281b35f1e0ee0e04fe818e41b0ca9cd82e9212fee9ac9d084305dfd916828"
+    },
+    "status": "committed",
+    "started_unix": 1795792156.5321429,
+    "generated_world_instances": 1,
+    "execution_revision": 4,
+    "experiment_stage": "official_training",
+    "implementation_sha256": "bb23a1bb328bdf7dee4676f7318a95a69efeedecf0cad5020872f1bb9389868b",
+    "official_world_number": 435,
+    "video_required": false,
+    "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\fc9_stage25_terrain_00637",
+    "worker_pid": 27672,
+    "worker_created": 1795792156.6299255,
+    "checker_status": "verified",
+    "checker_report": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25\\checks\\fc9_stage25_terrain_00637.json",
+    "technical_stop_after_terminal": false,
+    "finished_unix": 1795792252.5298965,
+    "success": true,
+    "ticks": 1128,
+    "actions": 72,
+    "total_reward": 10.868797493416011,
+    "update": {
+      "gradient_norm": 0.22867276830839994,
+      "baseline": 7.847487783732229,
+      "weight_delta_norm": 0.011433638415420014,
+      "return_variance": 1.107009950112351
+    },
+    "training_applied": true,
+    "terminal_unattributed_reward": 0,
+    "training_suppressed": null,
+    "termination": "success",
+    "results": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_00637",
+    "video": null,
+    "terminal_inventory_source": "controller_result",
+    "wall_seconds": 93.99439330003224,
+    "checkpoint_after": {
+      "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00637\\trial_0000.npz",
+      "sha256": "1aeb0b7665896c9b9dbe2f5ffe611977d10a1b1bfb7ca91bc7d4e10c35757739"
+    },
+    "coordinator_cycle_seconds": 96.00505759986117,
+    "world_cleanup": {
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\fc9_stage25_terrain_00637\\server\\world",
+      "completed_unix": 1795792252.75817,
+      "basis": "independently verified routine episode; logs/checkpoint retained"
+    }
+  },
+  "evidence_files": {
+    "checker.json": "c6c1cfe899a514bd959bb1071f344632061c5fe18f8fc211cc5924c9c8fd8349",
+    "controller.jsonl": "2b3077c32fc2409307977a6b421a42891c220ff7ee3de6be74feb10aa1199626",
+    "headless.jsonl": "63e9fe6db3189332625b67a5516b7a0991cd3da0e5ff67e6ccdbbf109f79eb90",
+    "run.json": "b7db72caf9d07aad268b22a787aaade68036e894513d02e7e54d3c34f9925ac8",
+    "server.jsonl": "22cbc5193986e76d30f9803eefdc36ae5d2c68e338ded75ae64bbe2fb438ccb1",
+    "server.jsonl.initial.jsonl": "d0a372e11c28022415455ebac911615781c7dc30dfcc0852d5f3a050a98f9393",
+    "status.json": "4e19d708fd3076cccfbcedd74f5d187268033917f5bfa59f0fa5061d41c01fec"
+  }
+}
