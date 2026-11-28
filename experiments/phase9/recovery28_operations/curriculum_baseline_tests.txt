@@ -1,0 +1,8 @@
+...............................{"status": "needs_attention", "fix_request": "C:\\Users\\anass\\AppData\\Local\\Temp\\tmp08uaxux0\\campaign\\fix_request.json"}
+.campaign or Minecraft worker already has a live owner
+...........{"status": "needs_attention", "fix_request": "C:\\Users\\anass\\AppData\\Local\\Temp\\tmpcbbtm8l2\\campaign\\attention\\request_0001.json", "reason": "missing acknowledgement"}
+............................................................................................................................................
+----------------------------------------------------------------------
+Ran 183 tests in 28.832s
+
+OK

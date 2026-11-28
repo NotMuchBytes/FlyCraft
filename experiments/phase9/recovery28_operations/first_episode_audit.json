@@ -1,0 +1,103 @@
+{
+  "episode": {
+    "split": "training",
+    "condition": "trained",
+    "goal": "one_log",
+    "retention": false,
+    "number": 1003,
+    "episode_number": 531,
+    "run_id": "fc9_stage25_terrain_01003",
+    "curriculum_stage": "terrain",
+    "curriculum_round": 3,
+    "profile": {
+      "server_heap_mib": 384,
+      "client_heap_mib": 512,
+      "width": 854,
+      "height": 480,
+      "pitch_actions": true,
+      "terrain_actions": true,
+      "turn_degrees": 15,
+      "forward_ticks": 8,
+      "trial_ticks": 1200,
+      "three_tree_fixture": false,
+      "remember_mined_columns": false,
+      "terrain_step_fixture": true,
+      "natural_world": false,
+      "launch_cache": {
+        "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\.runtime\\terrain_cache_v5\\manifest.json",
+        "sha256": "cbfd059a79402003139aa01e4dd427b7e6fd185cacc9a7439e8a77b62870125b"
+      }
+    },
+    "world_seed": 6476719777492418991,
+    "layout_seed": 6476719777492418991,
+    "policy_seed": 19193,
+    "train": true,
+    "checkpoint": {
+      "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00732\\trial_0000.npz",
+      "sha256": "2210e5921c29bb5ec05f828a86cf45c95d8c033e4d3ca74f96f530d860f332f2"
+    },
+    "status": "committed",
+    "started_unix": 1795837407.652,
+    "generated_world_instances": 1,
+    "execution_revision": 5,
+    "experiment_stage": "official_training",
+    "implementation_sha256": "bb23a1bb328bdf7dee4676f7318a95a69efeedecf0cad5020872f1bb9389868b",
+    "official_world_number": 531,
+    "video_required": false,
+    "runtime": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\fc9_stage25_terrain_01003",
+    "worker_pid": 30664,
+    "worker_created": 1795837407.7991185,
+    "checker_status": "verified",
+    "checker_report": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25\\checks\\fc9_stage25_terrain_01003.json",
+    "technical_stop_after_terminal": false,
+    "finished_unix": 1795837450.7786999,
+    "success": true,
+    "ticks": 197,
+    "actions": 10,
+    "total_reward": 9.594926367859633,
+    "update": {
+      "gradient_norm": 0.7468280055249598,
+      "baseline": 7.9015661410126175,
+      "weight_delta_norm": 0.03734140027624806,
+      "return_variance": 0.3676455660936623
+    },
+    "training_applied": true,
+    "terminal_unattributed_reward": 0,
+    "training_suppressed": null,
+    "termination": "success",
+    "results": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25_terrain_01003",
+    "video": null,
+    "terminal_inventory_source": "controller_result",
+    "wall_seconds": 40.68958880007267,
+    "checkpoint_after": {
+      "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_01003\\trial_0000.npz",
+      "sha256": "81a68830de21f911dca4f87d9477084daf6f18dc1fae5b8487dc5967a741def5"
+    },
+    "coordinator_cycle_seconds": 43.121086300117895,
+    "world_cleanup": {
+      "path": "C:\\Users\\anass\\Documents\\Codex\\2026-11-17\\continue-developing-the-actual-flycraft-minecraft\\work\\fc9_stage25_terrain_01003\\server\\world",
+      "completed_unix": 1795837451.0948632,
+      "basis": "independently verified routine episode; logs/checkpoint retained"
+    }
+  },
+  "independently_reverified": true,
+  "native_inventory": {
+    "log": 1,
+    "planks": 0,
+    "sticks": 0,
+    "crafting_table": 0,
+    "wooden_pickaxe": 0
+  },
+  "confirmed_breaks": 1,
+  "measured_weight_delta_norm": 0.03734140027624806,
+  "graph_unchanged": true,
+  "evidence_files": {
+    "checker.json": "ba573720664132061a14f2c4e7b9db19672beba24e171bde0954dc396f6c0a0a",
+    "controller.jsonl": "e54ab171afe798b7a2de3004d35a6564820005050c956b074c063bd90b319820",
+    "headless.jsonl": "0628ef4153f9059d5e105247654f06f2844dfe97d50fc00b8822e117dd498907",
+    "run.json": "77704f0a9565cad23a6c94c07d04ec80c7fd62eaffd2508a8300532372895279",
+    "server.jsonl": "b19bd5b411a4be0b148db004a9d81f79db38d06c18b39d89303065d323ba064b",
+    "server.jsonl.initial.jsonl": "3f71467db38d490cae8355f986943f0248f980a0a8d3c1d9ba5f8416fb34aa2e",
+    "status.json": "7a7dde39531303e631c60cc8084b4f9e44750b0a8233fdb16c6b87c1880a04e1"
+  }
+}

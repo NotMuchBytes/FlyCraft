@@ -1,0 +1,230 @@
+{
+  "schema": 4,
+  "curriculum_schema": "staged-terrain-v1",
+  "name": "fc9_stage25",
+  "stage": "official_training",
+  "official_experiment_authorized": true,
+  "authorization": "User: start the 10000; Use a staged broader curriculum (recommended). Preserve the 338-world foundation and allocate the remaining training slots to validated broader stages.",
+  "world_limit": 10000,
+  "foundation": {
+    "schema": 1,
+    "created_unix": 1795613678.2031388,
+    "reason": "user selected broader staged curriculum for remaining 10000-world budget",
+    "foundation_world_instances": 338,
+    "scored_episodes": 337,
+    "checkpoint": {
+      "path": "C:\\Users\\anass\\Documents\\FlyCraft\\checkpoints\\phase9\\fc9_20261125_training_trained_00338_a0338\\trial_0000.npz",
+      "sha256": "ab18a30bd132b3556bfbfaa211fe78982de0a715215b30385a1d9a9326e46e78"
+    },
+    "world_budget_total": 10000,
+    "next_world_number": 339,
+    "remaining_world_budget": 9662,
+    "original_final_evaluation_unused": true,
+    "files": {
+      "config.json": "fe1b834579fd6024043ab80b6d78f9e03b392f5c789bbefcf8365eb64e885107",
+      "state.json": "867f3c6a7f5c56f26d5b4d08ccffc25a5d0a555a2889481298869dc08cc7713f",
+      "summary.json": "ded833e2647726002decfb05c9aba67a6fd4046f87ca187f9a6e050909412db6",
+      "source_manifest.json": "b01fb7ed9994fb55e7ee168265807286d6e9645f49cee6a9588865bef2c7039c",
+      "seeds.json": "3ed0b14a053977e0528e8eb014efc7920cb738eac3c8428c6bccc222d4ddb967"
+    }
+  },
+  "foundation_handoff": {
+    "path": "C:\\Users\\anass\\Documents\\FlyCraft\\experiments\\phase9\\fc9_20261125_operations\\foundation_handoff\\handoff.json",
+    "sha256": "352d9dbb8fc904e4ad1f3538229d71b99adde294210bc7b7993703c035b63de8"
+  },
+  "initial_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25\\foundation_terrain_transfer.npz",
+    "sha256": "9d1300c83e369572636822dedaa72299c1c1f63af162f1be2308c776c51fba09"
+  },
+  "frozen_checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\fc9_stage25\\foundation_terrain_transfer.npz",
+    "sha256": "9d1300c83e369572636822dedaa72299c1c1f63af162f1be2308c776c51fba09"
+  },
+  "automatic_final_evaluation": false,
+  "catalog_sha256": "a8cae9cf5c5d7afc4d32a16f95f7425536c6882b8f657fc3cddcf2a704c4bd44",
+  "implementation_sha256": "bb23a1bb328bdf7dee4676f7318a95a69efeedecf0cad5020872f1bb9389868b",
+  "runtime_profile": {
+    "server_heap_mib": 384,
+    "client_heap_mib": 512,
+    "width": 854,
+    "height": 480,
+    "pitch_actions": true,
+    "terrain_actions": true,
+    "turn_degrees": 15,
+    "forward_ticks": 8,
+    "trial_ticks": 1200,
+    "three_tree_fixture": false,
+    "remember_mined_columns": false,
+    "terrain_step_fixture": true,
+    "natural_world": false,
+    "launch_cache": {
+      "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\.runtime\\terrain_cache_v5\\manifest.json",
+      "sha256": "cbfd059a79402003139aa01e4dd427b7e6fd185cacc9a7439e8a77b62870125b"
+    }
+  },
+  "goal": "one_log",
+  "goal_schedule": [
+    "one_log",
+    "three_logs",
+    "planks",
+    "wooden_pickaxe"
+  ],
+  "supported_stages": [
+    {
+      "id": "terrain",
+      "training_worlds": 64,
+      "terrain_step_fixture": true,
+      "natural_world": false
+    },
+    {
+      "id": "exploration",
+      "training_worlds": 128,
+      "terrain_step_fixture": false,
+      "natural_world": true
+    }
+  ],
+  "pending_skills": [
+    "stone_tools",
+    "food_and_shelter",
+    "mining_and_survival",
+    "combat",
+    "nether_and_progression"
+  ],
+  "recording_policy": "milestones",
+  "recording_milestones": [
+    339,
+    350,
+    400,
+    500,
+    1000,
+    2500,
+    5000,
+    7500,
+    10000
+  ],
+  "world_budget_definition": "338 preserved foundation instances plus new training worlds, including aborted instances; evaluation separate",
+  "checker": {
+    "schema": 1,
+    "graph": {
+      "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\data\\processed\\connectome_raw_csr.npz",
+      "sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d"
+    },
+    "launch_ram_mib": 1800,
+    "recording_launch_ram_mib": 3000,
+    "readiness_mode": "continuous",
+    "failure_window": 10,
+    "failure_limit": 9,
+    "technical_retries": 2,
+    "automatic_code_changes": false
+  },
+  "created_unix": 1795615059.9278421,
+  "execution_revisions": [
+    {
+      "execution_revision": 1,
+      "implementation_sha256": "41584bb1f2709f5a6ef54e3195ad915b30a69b350216f2f1fb4d73f9b5bb14f0",
+      "config_sha256": "f314baba9dd3a823db6742e3faa598687eb3a7a3189f60215e86cecf07f5d141",
+      "archive": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\staged25_operations\\revision_0001_at350",
+      "retired_after_world": 350,
+      "successor_reason": "Match natural control poses to native trained reference; gate all four retained wood goals at their original thresholds",
+      "actor_or_reward_changed": false,
+      "training_seeds_changed": false
+    },
+    {
+      "execution_revision": 2,
+      "implementation_sha256": "b07fb2b9e102e0ff58048378fbc2f24024f6b6163cb6b7368cf575db5627ed2e",
+      "config_sha256": "1c5ed8651591fbf5d17e1e7bed71a1ace05076c5b8492db6923f6b356fd2f424",
+      "archive": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\autostart26_operations\\before_repair_402",
+      "retired_after_world": 402,
+      "reason": "user requested resume and automatic restart; preserve failed gate and train bounded retention repair"
+    },
+    {
+      "execution_revision": 3,
+      "implementation_sha256": "bb23a1bb328bdf7dee4676f7318a95a69efeedecf0cad5020872f1bb9389868b",
+      "config_sha256": "77369890361935761e6684e13922e99186df618d6135662441c2738f56acae17",
+      "archive": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\recovery27_operations\\before_round2_at434",
+      "retired_after_world": 434,
+      "reason": "User requested continuation after completed round-1 failed gate; bounded joint rehearsal with fresh evaluation, unchanged actor/reward/thresholds"
+    },
+    {
+      "execution_revision": 4,
+      "implementation_sha256": "bb23a1bb328bdf7dee4676f7318a95a69efeedecf0cad5020872f1bb9389868b",
+      "config_sha256": "8797cfa1475afe29d4273ea0081e8e90772729a341752a8747cf53f897463b55",
+      "archive": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\recovery28_operations\\before_round3_at530",
+      "retired_after_world": 530,
+      "reason": "Completed failed round 2 preserved; user authorized reviewed retention-focused recovery; unchanged actor/reward/interface/budgets/thresholds"
+    }
+  ],
+  "execution_revision": 5,
+  "repair_rounds": {
+    "terrain": {
+      "1": {
+        "training_worlds": 32,
+        "training_schedule": [
+          "retention_one_log",
+          "retention_one_log",
+          "retention_one_log",
+          "primary"
+        ],
+        "evaluation_catalog": "repair_terrain_1",
+        "authorization": "User: run and make a fail safe that as soon as the pc is on it carries on",
+        "authorized_date": "2026-11-26"
+      },
+      "2": {
+        "training_worlds": 96,
+        "training_schedule": [
+          "primary",
+          "primary",
+          "retention_one_log",
+          "primary",
+          "primary",
+          "retention_three_logs",
+          "primary",
+          "primary",
+          "retention_planks",
+          "primary",
+          "primary",
+          "retention_wooden_pickaxe"
+        ],
+        "evaluation_catalog": "repair_terrain_2",
+        "authorization": "User: carry on, after stage_gate_failed status, 2026-11-27",
+        "authorized_date": "2026-11-27",
+        "rationale": "Practice the seen-but-unmined terrain failures while rehearsing all retained skills; previous one-log-heavy repair restored retention but did not pass terrain.",
+        "predeclared_training_mix": {
+          "primary": 64,
+          "retention_one_log": 8,
+          "retention_three_logs": 8,
+          "retention_planks": 8,
+          "retention_wooden_pickaxe": 8
+        },
+        "evaluation_episodes": 270,
+        "automatic_gate_bypass": false
+      },
+      "3": {
+        "training_worlds": 128,
+        "training_schedule": [
+          "primary",
+          "retention_one_log",
+          "retention_planks",
+          "primary",
+          "retention_one_log",
+          "retention_planks",
+          "retention_three_logs",
+          "retention_wooden_pickaxe"
+        ],
+        "evaluation_catalog": "repair_terrain_3",
+        "authorization": "User: carry on then; do not stop for routine decisions; PC left on for extended periods, 2026-11-28",
+        "authorized_date": "2026-11-28",
+        "rationale": "Round 2 passes terrain but flat one-log/planks regress before resource acquisition. Increase short-flat rehearsal while retaining terrain and long-goal practice.",
+        "predeclared_training_mix": {
+          "primary": 32,
+          "retention_one_log": 32,
+          "retention_planks": 32,
+          "retention_three_logs": 16,
+          "retention_wooden_pickaxe": 16
+        },
+        "evaluation_episodes": 270,
+        "automatic_gate_bypass": false
+      }
+    }
+  }
+}

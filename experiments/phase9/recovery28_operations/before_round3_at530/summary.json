@@ -1,0 +1,103 @@
+{
+  "stage": "official_training",
+  "official_training_worlds": 530,
+  "world_limit": 10000,
+  "remaining_world_slots": 9470,
+  "goal_counts": {
+    "one_log": {
+      "world_instances": 156,
+      "scored": 154,
+      "successes": 123
+    },
+    "three_logs": {
+      "world_instances": 12,
+      "scored": 12,
+      "successes": 10
+    },
+    "planks": {
+      "world_instances": 12,
+      "scored": 12,
+      "successes": 11
+    },
+    "wooden_pickaxe": {
+      "world_instances": 12,
+      "scored": 12,
+      "successes": 12
+    }
+  },
+  "generated_world_instances": 1002,
+  "unverified_world_counts": 0,
+  "distinct_generated_seeds": 642,
+  "committed_episodes": 1000,
+  "training_episodes": 190,
+  "verified_game_episodes": 1000,
+  "uncommitted_scored_episodes": 0,
+  "uncommitted_reported_updates": 0,
+  "training_updates": 174,
+  "evaluation_episodes": 810,
+  "recording_policy": "milestones",
+  "recorded_episodes": 4,
+  "event_only_episodes": 996,
+  "recent_training_success_rate": 0.95,
+  "mean_training_reward": 9.620998629642719,
+  "measured_training_worlds_per_hour": 47.36717077226289,
+  "mean_actions_per_success": 26.36842105263158,
+  "estimated_remaining_seconds": null,
+  "estimate_basis": "broader skills are not yet implemented or timed",
+  "execution_revision": 4,
+  "curriculum_level": 1,
+  "goal": "one_log, three_logs, planks, wooden_pickaxe",
+  "progression": "64 terrain training worlds, locked 30-seed five-condition evaluation and 30 trials per wood retention goal; then 128 natural exploration worlds; later skills require validated implementation",
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00732\\trial_0000.npz",
+    "sha256": "2210e5921c29bb5ec05f828a86cf45c95d8c033e4d3ca74f96f530d860f332f2"
+  },
+  "active_attempt": null,
+  "recent_errors": [
+    "technical_stop: available_ram_guard",
+    "technical_stop: wall_budget"
+  ],
+  "updated_unix": 1795826273.9735315,
+  "curriculum_schema": "staged-terrain-v1",
+  "foundation_worlds": 338,
+  "new_training_worlds": 192,
+  "curriculum_status": "stage_gate_failed",
+  "curriculum_index": 0,
+  "gates": {
+    "terrain": {
+      "complete": true,
+      "primary_successes": {
+        "trained": 28,
+        "frozen": 14,
+        "uniform": 2,
+        "no_neural": 0,
+        "shuffled": 14
+      },
+      "retention_successes": {
+        "one_log": 20,
+        "three_logs": 30,
+        "planks": 18,
+        "wooden_pickaxe": 27
+      },
+      "trials_per_condition": 30,
+      "minimum_successes": 24,
+      "retention_minimums": {
+        "one_log": 24,
+        "three_logs": 21,
+        "planks": 21,
+        "wooden_pickaxe": 15
+      },
+      "passed": false
+    }
+  },
+  "pending_skills": [
+    "stone_tools",
+    "food_and_shelter",
+    "mining_and_survival",
+    "combat",
+    "nether_and_progression"
+  ],
+  "curriculum_rounds": {
+    "terrain": 2
+  }
+}

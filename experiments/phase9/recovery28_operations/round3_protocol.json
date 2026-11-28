@@ -1,0 +1,79 @@
+{
+  "created_unix": 1795837359.6571374,
+  "repair": {
+    "training_worlds": 128,
+    "training_schedule": [
+      "primary",
+      "retention_one_log",
+      "retention_planks",
+      "primary",
+      "retention_one_log",
+      "retention_planks",
+      "retention_three_logs",
+      "retention_wooden_pickaxe"
+    ],
+    "evaluation_catalog": "repair_terrain_3",
+    "authorization": "User: carry on then; do not stop for routine decisions; PC left on for extended periods, 2026-11-28",
+    "authorized_date": "2026-11-28",
+    "rationale": "Round 2 passes terrain but flat one-log/planks regress before resource acquisition. Increase short-flat rehearsal while retaining terrain and long-goal practice.",
+    "predeclared_training_mix": {
+      "primary": 32,
+      "retention_one_log": 32,
+      "retention_planks": 32,
+      "retention_three_logs": 16,
+      "retention_wooden_pickaxe": 16
+    },
+    "evaluation_episodes": 270,
+    "automatic_gate_bypass": false
+  },
+  "previous_gate": {
+    "complete": true,
+    "primary_successes": {
+      "trained": 28,
+      "frozen": 14,
+      "uniform": 2,
+      "no_neural": 0,
+      "shuffled": 14
+    },
+    "retention_successes": {
+      "one_log": 20,
+      "three_logs": 30,
+      "planks": 18,
+      "wooden_pickaxe": 27
+    },
+    "trials_per_condition": 30,
+    "minimum_successes": 24,
+    "retention_minimums": {
+      "one_log": 24,
+      "three_logs": 21,
+      "planks": 21,
+      "wooden_pickaxe": 15
+    },
+    "passed": false
+  },
+  "preserved_files": {
+    "config.json": "8797cfa1475afe29d4273ea0081e8e90772729a341752a8747cf53f897463b55",
+    "state.json": "e8571a96493be0abf2a660588da9db6c1c06819b96ab337b7e1f958ebd6463f4",
+    "summary.json": "690d19c7509777789cde2ddfb8f0ff928045a6032e26f3493ee8e6b220effe4c",
+    "source_manifest.json": "c7b932a428f4beda88ff41f3b606642a0880bcbd5eb81edded1ee33fdf64ada2",
+    "seeds.json": "3f955512a264c074d9e4252c4bdf84ac97d377db5978951c4b926bf4f4440395",
+    "executor.json": "71bae320225cdc8f5565f1beb52f8dd2cd9e00985619d826625ec6295ed9fb11"
+  },
+  "archive": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\experiments\\phase9\\recovery28_operations\\before_round3_at530",
+  "checkpoint_before": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00732\\trial_0000.npz",
+    "sha256": "2210e5921c29bb5ec05f828a86cf45c95d8c033e4d3ca74f96f530d860f332f2"
+  },
+  "graph": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\data\\processed\\connectome_raw_csr.npz",
+    "sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d"
+  },
+  "implementation_sha256": "bb23a1bb328bdf7dee4676f7318a95a69efeedecf0cad5020872f1bb9389868b",
+  "actor_reward_interface_changed": false,
+  "thresholds_changed": false,
+  "training_catalog_unchanged": true,
+  "fresh_evaluation_seeds_disjoint": true,
+  "final_evaluation_untouched": true,
+  "worlds_before": 530,
+  "maximum_worlds_after_round": 658
+}

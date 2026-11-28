@@ -1,0 +1,3819 @@
+{
+  "finished_unix": 1795837265.8767374,
+  "verified_episodes": 270,
+  "gate": {
+    "complete": true,
+    "primary_successes": {
+      "trained": 28,
+      "frozen": 14,
+      "uniform": 2,
+      "no_neural": 0,
+      "shuffled": 14
+    },
+    "retention_successes": {
+      "one_log": 20,
+      "three_logs": 30,
+      "planks": 18,
+      "wooden_pickaxe": 27
+    },
+    "trials_per_condition": 30,
+    "minimum_successes": 24,
+    "retention_minimums": {
+      "one_log": 24,
+      "three_logs": 21,
+      "planks": 21,
+      "wooden_pickaxe": 15
+    },
+    "passed": false
+  },
+  "checkpoint": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\checkpoints\\phase9\\fc9_stage25_terrain_00732\\trial_0000.npz",
+    "sha256": "2210e5921c29bb5ec05f828a86cf45c95d8c033e4d3ca74f96f530d860f332f2"
+  },
+  "graph": {
+    "path": "C:\\Users\\anass\\Documents\\Codex\\FlyCraft-curriculum\\data\\processed\\connectome_raw_csr.npz",
+    "sha256": "37054b0640ae353dcb7f68e8032da6ed2014e4698a24fd48ee95a58a9397c32d"
+  },
+  "reports": [
+    {
+      "run_id": "fc9_stage25_terrain_00733",
+      "success": true,
+      "actions": 10,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00734",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00735",
+      "success": false,
+      "actions": 86,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00736",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00737",
+      "success": true,
+      "actions": 37,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00738",
+      "success": true,
+      "actions": 9,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00739",
+      "success": false,
+      "actions": 88,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00740",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00741",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00742",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00743",
+      "success": true,
+      "actions": 10,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00744",
+      "success": true,
+      "actions": 13,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00745",
+      "success": false,
+      "actions": 87,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00746",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00747",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00748",
+      "success": true,
+      "actions": 5,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00749",
+      "success": false,
+      "actions": 87,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00750",
+      "success": false,
+      "actions": 87,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00751",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00752",
+      "success": false,
+      "actions": 86,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00753",
+      "success": true,
+      "actions": 16,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00754",
+      "success": true,
+      "actions": 11,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00755",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00756",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00757",
+      "success": false,
+      "actions": 82,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00758",
+      "success": false,
+      "actions": 83,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00759",
+      "success": true,
+      "actions": 15,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00760",
+      "success": false,
+      "actions": 86,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00761",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00762",
+      "success": true,
+      "actions": 43,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00763",
+      "success": true,
+      "actions": 21,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00764",
+      "success": true,
+      "actions": 19,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00765",
+      "success": false,
+      "actions": 87,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00766",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00767",
+      "success": false,
+      "actions": 83,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00768",
+      "success": true,
+      "actions": 78,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00769",
+      "success": false,
+      "actions": 87,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00770",
+      "success": false,
+      "actions": 88,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00771",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00772",
+      "success": true,
+      "actions": 37,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00773",
+      "success": true,
+      "actions": 9,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00774",
+      "success": false,
+      "actions": 88,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00775",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00776",
+      "success": false,
+      "actions": 78,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00777",
+      "success": true,
+      "actions": 10,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00778",
+      "success": true,
+      "actions": 24,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00779",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00780",
+      "success": false,
+      "actions": 87,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00781",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00782",
+      "success": true,
+      "actions": 27,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00783",
+      "success": true,
+      "actions": 37,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00784",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00785",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00786",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00787",
+      "success": true,
+      "actions": 36,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00788",
+      "success": true,
+      "actions": 43,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00789",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00790",
+      "success": false,
+      "actions": 89,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00791",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00792",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00793",
+      "success": true,
+      "actions": 12,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00794",
+      "success": true,
+      "actions": 11,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00795",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00796",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00797",
+      "success": true,
+      "actions": 11,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00798",
+      "success": true,
+      "actions": 9,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00799",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00800",
+      "success": false,
+      "actions": 88,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00801",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00802",
+      "success": true,
+      "actions": 6,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00803",
+      "success": true,
+      "actions": 34,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00804",
+      "success": false,
+      "actions": 82,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00805",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00806",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00807",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00808",
+      "success": true,
+      "actions": 16,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 2,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00809",
+      "success": false,
+      "actions": 87,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00810",
+      "success": false,
+      "actions": 86,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00811",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00812",
+      "success": false,
+      "actions": 82,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00813",
+      "success": true,
+      "actions": 17,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00814",
+      "success": true,
+      "actions": 21,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00815",
+      "success": false,
+      "actions": 89,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00816",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00817",
+      "success": true,
+      "actions": 16,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00818",
+      "success": true,
+      "actions": 9,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00819",
+      "success": true,
+      "actions": 12,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00820",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00821",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00822",
+      "success": true,
+      "actions": 54,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00823",
+      "success": true,
+      "actions": 35,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00824",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00825",
+      "success": false,
+      "actions": 88,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00826",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00827",
+      "success": true,
+      "actions": 36,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00828",
+      "success": true,
+      "actions": 11,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00829",
+      "success": false,
+      "actions": 88,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00830",
+      "success": false,
+      "actions": 88,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00831",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00832",
+      "success": true,
+      "actions": 34,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00833",
+      "success": true,
+      "actions": 48,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00834",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00835",
+      "success": false,
+      "actions": 89,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00836",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00837",
+      "success": true,
+      "actions": 43,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00838",
+      "success": true,
+      "actions": 23,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00839",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00840",
+      "success": false,
+      "actions": 88,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00841",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00842",
+      "success": false,
+      "actions": 82,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00843",
+      "success": true,
+      "actions": 33,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00844",
+      "success": true,
+      "actions": 15,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00845",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00846",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00847",
+      "success": false,
+      "actions": 82,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00848",
+      "success": false,
+      "actions": 83,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00849",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00850",
+      "success": false,
+      "actions": 89,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00851",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00852",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00853",
+      "success": true,
+      "actions": 11,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00854",
+      "success": true,
+      "actions": 24,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00855",
+      "success": false,
+      "actions": 87,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00856",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00857",
+      "success": false,
+      "actions": 86,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00858",
+      "success": true,
+      "actions": 8,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00859",
+      "success": true,
+      "actions": 14,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00860",
+      "success": false,
+      "actions": 88,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00861",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00862",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00863",
+      "success": true,
+      "actions": 53,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00864",
+      "success": true,
+      "actions": 11,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00865",
+      "success": false,
+      "actions": 85,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00866",
+      "success": false,
+      "actions": 81,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00867",
+      "success": false,
+      "actions": 84,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00868",
+      "success": true,
+      "actions": 51,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00869",
+      "success": true,
+      "actions": 20,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00870",
+      "success": false,
+      "actions": 86,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00871",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00872",
+      "success": false,
+      "actions": 86,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00873",
+      "success": true,
+      "actions": 48,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00874",
+      "success": true,
+      "actions": 14,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00875",
+      "success": true,
+      "actions": 22,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00876",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00877",
+      "success": true,
+      "actions": 29,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00878",
+      "success": true,
+      "actions": 41,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00879",
+      "success": true,
+      "actions": 10,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00880",
+      "success": true,
+      "actions": 18,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00881",
+      "success": false,
+      "actions": 80,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00882",
+      "success": false,
+      "actions": 82,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00883",
+      "success": true,
+      "actions": 12,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00884",
+      "success": false,
+      "actions": 33,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00885",
+      "success": true,
+      "actions": 19,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00886",
+      "success": true,
+      "actions": 5,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00887",
+      "success": true,
+      "actions": 9,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00888",
+      "success": true,
+      "actions": 5,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00889",
+      "success": true,
+      "actions": 2,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00890",
+      "success": true,
+      "actions": 3,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00891",
+      "success": false,
+      "actions": 29,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00892",
+      "success": false,
+      "actions": 26,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00893",
+      "success": true,
+      "actions": 9,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00894",
+      "success": false,
+      "actions": 31,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00895",
+      "success": false,
+      "actions": 31,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00896",
+      "success": true,
+      "actions": 7,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00897",
+      "success": true,
+      "actions": 6,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00898",
+      "success": true,
+      "actions": 3,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00899",
+      "success": true,
+      "actions": 4,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00900",
+      "success": false,
+      "actions": 32,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00901",
+      "success": false,
+      "actions": 25,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00902",
+      "success": false,
+      "actions": 28,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00903",
+      "success": true,
+      "actions": 11,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00904",
+      "success": false,
+      "actions": 23,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00905",
+      "success": true,
+      "actions": 9,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00906",
+      "success": true,
+      "actions": 15,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00907",
+      "success": true,
+      "actions": 8,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00908",
+      "success": true,
+      "actions": 6,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00909",
+      "success": false,
+      "actions": 23,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00910",
+      "success": true,
+      "actions": 3,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00911",
+      "success": true,
+      "actions": 5,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00912",
+      "success": true,
+      "actions": 6,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00913",
+      "success": true,
+      "actions": 17,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00914",
+      "success": true,
+      "actions": 30,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00915",
+      "success": true,
+      "actions": 19,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00916",
+      "success": true,
+      "actions": 35,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00917",
+      "success": true,
+      "actions": 57,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00918",
+      "success": true,
+      "actions": 17,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00919",
+      "success": true,
+      "actions": 43,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00920",
+      "success": true,
+      "actions": 35,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00921",
+      "success": true,
+      "actions": 49,
+      "confirmed_breaks": 5,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00922",
+      "success": true,
+      "actions": 30,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00923",
+      "success": true,
+      "actions": 26,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00924",
+      "success": true,
+      "actions": 43,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00925",
+      "success": true,
+      "actions": 24,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00926",
+      "success": true,
+      "actions": 17,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00927",
+      "success": true,
+      "actions": 18,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00928",
+      "success": true,
+      "actions": 30,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00929",
+      "success": true,
+      "actions": 24,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00930",
+      "success": true,
+      "actions": 39,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00931",
+      "success": true,
+      "actions": 64,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00932",
+      "success": true,
+      "actions": 22,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00933",
+      "success": true,
+      "actions": 15,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00934",
+      "success": true,
+      "actions": 27,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00935",
+      "success": true,
+      "actions": 18,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00936",
+      "success": true,
+      "actions": 21,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00937",
+      "success": true,
+      "actions": 36,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00938",
+      "success": true,
+      "actions": 20,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00939",
+      "success": true,
+      "actions": 34,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00940",
+      "success": true,
+      "actions": 35,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00941",
+      "success": true,
+      "actions": 67,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00942",
+      "success": true,
+      "actions": 34,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00943",
+      "success": true,
+      "actions": 7,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00944",
+      "success": true,
+      "actions": 6,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00945",
+      "success": true,
+      "actions": 11,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00946",
+      "success": false,
+      "actions": 32,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00947",
+      "success": false,
+      "actions": 33,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00948",
+      "success": true,
+      "actions": 8,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00949",
+      "success": false,
+      "actions": 25,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00950",
+      "success": true,
+      "actions": 4,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00951",
+      "success": true,
+      "actions": 6,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00952",
+      "success": false,
+      "actions": 31,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00953",
+      "success": false,
+      "actions": 33,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00954",
+      "success": false,
+      "actions": 27,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00955",
+      "success": false,
+      "actions": 22,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00956",
+      "success": false,
+      "actions": 32,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00957",
+      "success": true,
+      "actions": 25,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00958",
+      "success": false,
+      "actions": 32,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00959",
+      "success": true,
+      "actions": 8,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00960",
+      "success": true,
+      "actions": 8,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00961",
+      "success": false,
+      "actions": 22,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00962",
+      "success": true,
+      "actions": 8,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00963",
+      "success": true,
+      "actions": 7,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00964",
+      "success": true,
+      "actions": 4,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00965",
+      "success": true,
+      "actions": 9,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00966",
+      "success": true,
+      "actions": 15,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00967",
+      "success": true,
+      "actions": 7,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00968",
+      "success": true,
+      "actions": 9,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00969",
+      "success": true,
+      "actions": 6,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00970",
+      "success": false,
+      "actions": 29,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00971",
+      "success": true,
+      "actions": 8,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00972",
+      "success": false,
+      "actions": 31,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00973",
+      "success": false,
+      "actions": 93,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00974",
+      "success": true,
+      "actions": 25,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00975",
+      "success": true,
+      "actions": 57,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00976",
+      "success": true,
+      "actions": 74,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00977",
+      "success": true,
+      "actions": 58,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 1,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00978",
+      "success": true,
+      "actions": 65,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00979",
+      "success": true,
+      "actions": 24,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00980",
+      "success": true,
+      "actions": 56,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 1,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00981",
+      "success": false,
+      "actions": 97,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00982",
+      "success": true,
+      "actions": 48,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00983",
+      "success": true,
+      "actions": 40,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00984",
+      "success": true,
+      "actions": 32,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 1,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00985",
+      "success": true,
+      "actions": 30,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 1,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00986",
+      "success": true,
+      "actions": 33,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00987",
+      "success": true,
+      "actions": 37,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00988",
+      "success": true,
+      "actions": 54,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00989",
+      "success": true,
+      "actions": 64,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00990",
+      "success": true,
+      "actions": 63,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00991",
+      "success": true,
+      "actions": 48,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00992",
+      "success": true,
+      "actions": 25,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00993",
+      "success": true,
+      "actions": 84,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 1,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00994",
+      "success": true,
+      "actions": 50,
+      "confirmed_breaks": 5,
+      "inventory": {
+        "log": 1,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00995",
+      "success": false,
+      "actions": 103,
+      "confirmed_breaks": 2,
+      "inventory": {
+        "log": 0,
+        "planks": 6,
+        "sticks": 4,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00996",
+      "success": true,
+      "actions": 23,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00997",
+      "success": true,
+      "actions": 40,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 1,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00998",
+      "success": true,
+      "actions": 86,
+      "confirmed_breaks": 6,
+      "inventory": {
+        "log": 1,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_00999",
+      "success": true,
+      "actions": 21,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_01000",
+      "success": true,
+      "actions": 23,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_01001",
+      "success": true,
+      "actions": 28,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    },
+    {
+      "run_id": "fc9_stage25_terrain_01002",
+      "success": true,
+      "actions": 67,
+      "confirmed_breaks": 4,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "original_evidence_hashes_unchanged": true
+    }
+  ]
+}

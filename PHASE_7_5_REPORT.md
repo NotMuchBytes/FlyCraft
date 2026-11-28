@@ -1,5 +1,16 @@
 # FlyCraft Phase 7.5 reliability report
 
+**November 28 — reliability audit:** all 270 episodes in the latest completed
+terrain/wood gate reverified against native action, inventory and unchanged
+evidence hashes. No evaluation update occurred. Terrain collection scored
+28/30, but flat one-log (20/30) and plank (18/30) retention missed their gates.
+The failed short goals show turning/approach and broken-log pickup failures;
+the plank recipe is not implicated by these traces. A fixed retention-focused
+recovery is running; its first world collected a log in ten actions with a
+verified break, pickup and readout update. Resource, startup, checkpoint and recording guards remain
+unchanged; no new vanilla-spawn exploration success is claimed.
+[Diagnosis, scores and preserved protocol](experiments/phase9/recovery28_operations/README.md).
+
 **November 26 — automatic recovery:** Windows sign-in startup and a hidden
 restart supervisor are installed. A real watchdog-crash test restarted it in
 about 16 seconds while preserving the same runner and game actions. A status

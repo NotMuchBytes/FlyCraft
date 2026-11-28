@@ -1,5 +1,17 @@
 # FlyCraft — Phase 8 report
 
+**November 28 — transfer retention gap:** the completed second Phase 9 terrain
+recovery scored 28/30 on its terrain teaching arenas but retained only 20/30
+flat one-log and 18/30 plank success; three logs scored 30/30 and pickaxe 27/30.
+The joint gate fails without changing the historical Phase 8 validation scores
+or its original checkpoint. Every failed plank run ended before obtaining a
+log. All 270 new evaluation episodes were independently rechecked, with zero
+updates and unchanged evidence hashes. A fixed retention-focused recovery is
+released with unchanged actor, reward, interface and thresholds. Its first
+terrain training world collected a log in ten actions with native inventory
+and readout-update verification; this is not a new Phase 8 evaluation score.
+[Verified results and bounded continuation](experiments/phase9/recovery28_operations/README.md).
+
 **November 26 — completed retention gate and repair:** the broader candidate's
 30-trial retention sets finished at one-log 20/30, three-log 30/30, planks
 25/30 and pickaxe 29/30. One-log failed the unchanged 24/30 threshold; the
