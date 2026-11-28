@@ -1,0 +1,434 @@
+{
+  "scope": "Retrospective match audit; official scores preserved, no rescoring or reruns.",
+  "matched_pose_inventory_seed_policy_rng_profile_groups": 30,
+  "matched_resource_and_step_blocks_groups": 30,
+  "full_fixture_match_groups": 28,
+  "exact_subset_descriptive_scores": {
+    "trained": 26,
+    "frozen": 13,
+    "uniform": 2,
+    "no_neural": 0,
+    "shuffled": 13
+  },
+  "exact_subset_denominator": 28,
+  "groups": [
+    {
+      "evaluation_index": 0,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 1,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 2,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 3,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 4,
+      "full_fixture_match": false,
+      "differences": {
+        "frozen": [
+          {
+            "position": [
+              6,
+              103,
+              4
+            ],
+            "trained": null,
+            "control": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]"
+          }
+        ],
+        "uniform": [
+          {
+            "position": [
+              6,
+              103,
+              4
+            ],
+            "trained": null,
+            "control": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]"
+          }
+        ],
+        "no_neural": [
+          {
+            "position": [
+              6,
+              103,
+              4
+            ],
+            "trained": null,
+            "control": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]"
+          }
+        ],
+        "shuffled": [
+          {
+            "position": [
+              6,
+              103,
+              4
+            ],
+            "trained": null,
+            "control": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]"
+          }
+        ]
+      },
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 5,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": false,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 6,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 7,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 8,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 9,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 10,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 11,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 12,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 13,
+      "full_fixture_match": false,
+      "differences": {
+        "uniform": [
+          {
+            "position": [
+              1,
+              103,
+              4
+            ],
+            "trained": "Block{minecraft:oak_leaves}[distance=3,persistent=false,waterlogged=false]",
+            "control": null
+          }
+        ]
+      },
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 14,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 15,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 16,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 17,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 18,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 19,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 20,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 21,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 22,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 23,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": false,
+        "frozen": false,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 24,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 25,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 26,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 27,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": false,
+        "no_neural": false,
+        "shuffled": false
+      }
+    },
+    {
+      "evaluation_index": 28,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": true,
+        "no_neural": false,
+        "shuffled": true
+      }
+    },
+    {
+      "evaluation_index": 29,
+      "full_fixture_match": true,
+      "differences": {},
+      "successes": {
+        "trained": true,
+        "frozen": true,
+        "uniform": true,
+        "no_neural": false,
+        "shuffled": false
+      }
+    }
+  ],
+  "limitation": "Two groups differ by one nonpersistent leaf; cause not isolated. No exact full-world or entity RNG replay is claimed."
+}

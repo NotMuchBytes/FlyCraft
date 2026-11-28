@@ -103,3 +103,18 @@ Its scheduled Minecraft-only RTX 4050 capture metadata is preserved under
 `recordings/phase9/youtube/fc9_stage25_terrain_00702.json`. No recording was
 invented for this unrecorded routine restart, and no action sequence was
 altered to create footage.
+
+## Retrospective control matching limitation
+
+The separate `round2_match_audit.json` compares actual native starts for all
+30 primary five-condition groups. All groups match absolute XYZ/yaw/pitch,
+empty inventory, world/layout seed, policy RNG, runtime profile, log blocks
+and step blocks. Twenty-eight groups also match the entire recorded fixture.
+Groups 4 and 13 differ by one nonpersistent oak leaf. The cause is not isolated;
+full-world/entity RNG replay is not established. Do not describe every group
+as an exact geometry match. The descriptive exact-fixture subset scores are
+26/28 trained, 13/28 frozen, 2/28 uniform, 0/28 no-neural and 13/28 shuffled.
+This retrospective subset is a limitation analysis, not a replacement score,
+new gate or reason to rerun unfavorable cells. All official 30-trial scores
+and the failed joint gate remain unchanged. Exact foliage matching remains
+an experimental-control gap for a future reviewed interface revision.
