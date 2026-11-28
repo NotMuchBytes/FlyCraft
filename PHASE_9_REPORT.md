@@ -1,5 +1,25 @@
 # FlyCraft Phase 9 development report
 
+**November 28 — completed second recovery:** all 96 planned training slots
+and 270 fresh evaluation episodes completed at training world 530. Terrain
+scored **28/30 trained, 14/30 frozen, 2/30 uniform, 0/30 no-neural and 14/30
+shuffled**. Wood retention scored **20/30 one log, 30/30 three logs, 18/30
+planks and 27/30 wooden pickaxes**. The joint gate fails one-log and plank
+retention despite passing terrain. All earlier scores remain preserved;
+thresholds are unchanged. Native traces locate the short-goal failures before
+inventory acquisition, not in the plank recipe. Both baseline suites pass:
+183 tests in the frozen curriculum checkout and 187 in the English-enabled
+development checkout. A reviewed 128-slot retention-focused recovery and a
+new 270-episode evaluation are released under the user's renewed continuation
+authorization. No actor, reward, interface, task budget or original graph
+change is involved. This remains controlled teaching-arena evidence, not
+natural exploration or completion of the 10,000-world campaign.
+The existing supervisor resumed world 531: success in ten actions, with one
+native block break, one log in terminal inventory and a separately verified
+readout delta norm of `0.03734140027624806`. This first training result does
+not establish the recovery's eventual gate score.
+[Scores, diagnosis, raw-evidence audit and fixed recovery protocol](experiments/phase9/recovery28_operations/README.md).
+
 **November 26 — automatic resume and retention repair:** execution revision 3
 preserves the failed stage at world 402 and starts a reviewed 32-world repair
 round with a new evaluation seed set. It keeps the original checkpoint chain,
