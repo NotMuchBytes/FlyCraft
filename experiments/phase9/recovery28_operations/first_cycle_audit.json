@@ -1,0 +1,176 @@
+{
+  "scope": "Training outcomes only; not held-out reliability scores.",
+  "trials": 8,
+  "successes": 7,
+  "verified_updates": 8,
+  "episodes": [
+    {
+      "world": 531,
+      "run_id": "fc9_stage25_terrain_01003",
+      "goal": "one_log",
+      "retention": false,
+      "success": true,
+      "actions": 10,
+      "worker_seconds": 40.68958880007267,
+      "ticks": 197,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "training_applied": true,
+      "weight_delta_norm": 0.03734140027624806,
+      "checker_report_sha256": "ba573720664132061a14f2c4e7b9db19672beba24e171bde0954dc396f6c0a0a"
+    },
+    {
+      "world": 532,
+      "run_id": "fc9_stage25_terrain_01004",
+      "goal": "one_log",
+      "retention": true,
+      "success": false,
+      "actions": 31,
+      "worker_seconds": 46.00501780002378,
+      "ticks": 400,
+      "confirmed_breaks": 0,
+      "inventory": {
+        "log": 0,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "training_applied": true,
+      "weight_delta_norm": 0.13349343217962156,
+      "checker_report_sha256": "d407385797e30e4d617f3c65d30d6251c320430cb7f4c002793cede01119e17a"
+    },
+    {
+      "world": 533,
+      "run_id": "fc9_stage25_terrain_01005",
+      "goal": "planks",
+      "retention": true,
+      "success": true,
+      "actions": 6,
+      "worker_seconds": 32.945888799848035,
+      "ticks": 133,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "training_applied": true,
+      "weight_delta_norm": 0.07042990707024173,
+      "checker_report_sha256": "baf00eb135496d30c2579041fd58eb71b15c3c026f3092b0bf6229fb195e89f8"
+    },
+    {
+      "world": 534,
+      "run_id": "fc9_stage25_terrain_01006",
+      "goal": "one_log",
+      "retention": false,
+      "success": true,
+      "actions": 57,
+      "worker_seconds": 70.12565040006302,
+      "ticks": 905,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "training_applied": true,
+      "weight_delta_norm": 0.0077257864566719035,
+      "checker_report_sha256": "00d375093c4cd15293b7f1c802769fcb012f9e5793c1d136ad93eb330941fede"
+    },
+    {
+      "world": 535,
+      "run_id": "fc9_stage25_terrain_01007",
+      "goal": "one_log",
+      "retention": true,
+      "success": true,
+      "actions": 5,
+      "worker_seconds": 33.753760899882764,
+      "ticks": 126,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 1,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "training_applied": true,
+      "weight_delta_norm": 0.03532605011912327,
+      "checker_report_sha256": "30da23f58bd94fd98d6b34dd26758f4df321f176a2831950ab5669891e68b851"
+    },
+    {
+      "world": 536,
+      "run_id": "fc9_stage25_terrain_01008",
+      "goal": "planks",
+      "retention": true,
+      "success": true,
+      "actions": 6,
+      "worker_seconds": 32.073461200110614,
+      "ticks": 133,
+      "confirmed_breaks": 1,
+      "inventory": {
+        "log": 0,
+        "planks": 4,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "training_applied": true,
+      "weight_delta_norm": 0.1141885618364685,
+      "checker_report_sha256": "b4d63eabb3c9dacc89716e4eb726bc46168aadcee510dd269d9895952974fa71"
+    },
+    {
+      "world": 537,
+      "run_id": "fc9_stage25_terrain_01009",
+      "goal": "three_logs",
+      "retention": true,
+      "success": true,
+      "actions": 22,
+      "worker_seconds": 48.034620499936864,
+      "ticks": 470,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 3,
+        "planks": 0,
+        "sticks": 0,
+        "crafting_table": 0,
+        "wooden_pickaxe": 0
+      },
+      "training_applied": true,
+      "weight_delta_norm": 0.012950771081793228,
+      "checker_report_sha256": "4a3d80364b79bd5e36e1d936f2453615ef318edfdefa3b87c20fd25661761e63"
+    },
+    {
+      "world": 538,
+      "run_id": "fc9_stage25_terrain_01010",
+      "goal": "wooden_pickaxe",
+      "retention": true,
+      "success": true,
+      "actions": 47,
+      "worker_seconds": 60.21694989991374,
+      "ticks": 773,
+      "confirmed_breaks": 3,
+      "inventory": {
+        "log": 0,
+        "planks": 3,
+        "sticks": 2,
+        "crafting_table": 0,
+        "wooden_pickaxe": 1
+      },
+      "training_applied": true,
+      "weight_delta_norm": 0.02280062357276512,
+      "checker_report_sha256": "0cb2c207289fa8396c01055a7070d04998ed4512edf8d9814172051e4adc30a8"
+    }
+  ]
+}
