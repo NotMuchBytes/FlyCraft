@@ -18,6 +18,11 @@ The existing supervisor resumed world 531: success in ten actions, with one
 native block break, one log in terminal inventory and a separately verified
 readout delta norm of `0.03734140027624806`. This first training result does
 not establish the recovery's eventual gate score.
+The retrospective match audit confirms identical pose, inventory, seeds,
+policy RNG, profiles and resource/step blocks in all 30 control groups.
+Two groups differ by one recorded leaf; only 28/30 match the entire fixture.
+All official scores are preserved. Full geometry/entity RNG replay is not
+claimed, and the trained-control contrast remains limited to these arenas.
 [Scores, diagnosis, raw-evidence audit and fixed recovery protocol](experiments/phase9/recovery28_operations/README.md).
 
 **November 26 — automatic resume and retention repair:** execution revision 3
