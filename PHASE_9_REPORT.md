@@ -23,6 +23,11 @@ policy RNG, profiles and resource/step blocks in all 30 control groups.
 Two groups differ by one recorded leaf; only 28/30 match the entire fixture.
 All official scores are preserved. Full geometry/entity RNG replay is not
 claimed, and the trained-control contrast remains limited to these arenas.
+The first complete eight-slot recovery cycle, worlds 531–538, scored 7/8
+training successes. Both terrain and plank cases, the three-log case and the
+pickaxe case succeeded; one of two short-flat one-log cases failed. All eight
+weight updates and native outcomes reverified. These are training outcomes;
+the new joint evaluation is still pending and the fixed batch continues.
 [Scores, diagnosis, raw-evidence audit and fixed recovery protocol](experiments/phase9/recovery28_operations/README.md).
 
 **November 26 — automatic resume and retention repair:** execution revision 3

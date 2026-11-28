@@ -118,3 +118,16 @@ This retrospective subset is a limitation analysis, not a replacement score,
 new gate or reason to rerun unfavorable cells. All official 30-trial scores
 and the failed joint gate remain unchanged. Exact foliage matching remains
 an experimental-control gap for a future reviewed interface revision.
+
+## First fixed practice cycle
+
+Worlds 531–538 completed in the declared order with **7/8 training successes**:
+terrain 2/2, short-flat one-log 1/2, planks 2/2, three logs 1/1 and pickaxe 1/1.
+All eight native outcomes, original checker evidence hashes, checkpoint chain
+and reported weight changes independently reverified. The one-log failure is
+retained as a failure; its ordinary learning update was also verified. No
+actions or episodes were replayed. `first_cycle_audit.json` records inventories,
+breaks, actions and time for every slot. These eight training outcomes do not
+estimate held-out success or pass the pending joint gate. The remaining fixed
+training schedule and fresh 270-episode evaluation continue under the existing
+supervisor, resource guards and unchanged thresholds.
